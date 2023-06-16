@@ -120,74 +120,64 @@ if (isset($_POST['submit'])) {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card-body table-responsive">
-                        <table id="example" class="table table-striped table-bordered" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Nama Barang</th>
-                                    <th scope="col">Type Barang</th>
-                                    <th scope="col">Jumlah Barang</th>
-                                    <th scope="col">Tanggal Beli</th>
-                                    <th scope="col">Harga Beli</th>
-                                    <th scope="col">Keadaan Barang</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $no = 1;
-                                $link = "getInventaris";
-                                $output = getRegistran($link);
-                                ?>
-                                <?php foreach ($output->data as $array_item) :  ?>
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
                                     <tr>
-                                        <td class="text-center"><?= $no++ ?></td>
-                                        <td><?php echo $array_item->nama ?></td>
-                                        <td><?php echo $array_item->tipe ?></td>
-                                        <td><?php echo $array_item->jumlah ?></td>
-                                        <td><?php echo $array_item->tanggal ?></td>
-                                        <td><?php echo $array_item->harga ?></td>
-                                        <td><img style="width: 200px;" src="foto_inventaris/<?php echo $array_item->gambar ?>" alt=""></td>
-                                        <td>
-                                            <?php
-                                            if (isset($_POST['delete'])) {
-                                                $id_karyawan = $_POST['id_karyawan'];
-                                                $link = "getDeleteKaryawanId&id_karyawan=" . urlencode($id_karyawan);
-                                                $delete = getRegistran($link);
-                                                if (!$delete) {
-                                                    echo "<script>alert('Data berhasil dihapus');window.location='karyawan.php'</script>";
-                                                } else {
-                                                    echo "<script>alert('Data gagal dihapus');window.location='karyawan.php'</script>";
-                                                }
-                                            }
-                                            ?>
-                                            <?php
-                                            if (isset($_POST['delete'])) {
-                                                $id_inventaris = $_POST['id_inventaris'];
-                                                $link = "getDeleteInventaris&id_inventaris=" . urlencode($id_inventaris);
-                                                $delete = getRegistran($link);
-                                                if (!$delete) {
-                                                    echo "<script>alert('Data berhasil dihapus');window.location='inventaris.php'</script>";
-                                                } else {
-                                                    echo "<script>alert('Data gagal dihapus');window.location='inventaris.php'</script>";
-                                                }
-                                            }
-                                            ?>
-                                            <form method="post">
-                                                <a href="inventaris_edit.php?id=<?php echo $array_item->id_inventaris ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <input type="hidden" name="id_inventaris" value="<?php echo $array_item->id_inventaris; ?>">
-                                                <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Nama Barang</th>
+                                        <th scope="col">Type Barang</th>
+                                        <th scope="col">Jumlah Barang</th>
+                                        <th scope="col">Tanggal Beli</th>
+                                        <th scope="col">Harga Beli</th>
+                                        <th scope="col">Keadaan Barang</th>
+                                        <th scope="col">Action</th>
                                     </tr>
-                                <?php endforeach ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $link = "getInventaris";
+                                    $output = getRegistran($link);
+                                    ?>
+                                    <?php foreach ($output->data as $array_item) :  ?>
+                                        <tr>
+                                            <td class="text-center"><?= $no++ ?></td>
+                                            <td><?php echo $array_item->nama ?></td>
+                                            <td><?php echo $array_item->tipe ?></td>
+                                            <td><?php echo $array_item->jumlah ?></td>
+                                            <td><?php echo $array_item->tanggal ?></td>
+                                            <td><?php echo $array_item->harga ?></td>
+                                            <td><img style="width: 200px;" src="foto_inventaris/<?php echo $array_item->gambar ?>" alt=""></td>
+                                            <td>
+                                                <?php
+                                                if (isset($_POST['delete'])) {
+                                                    $id_inventaris = $_POST['id_inventaris'];
+                                                    $link = "getDeleteInventaris&id_inventaris=" . urlencode($id_inventaris);
+                                                    $delete = getRegistran($link);
+                                                    if (!$delete) {
+                                                        echo "<script>alert('Data berhasil dihapus');window.location='inventaris.php'</script>";
+                                                    } else {
+                                                        echo "<script>alert('Data gagal dihapus');window.location='inventaris.php'</script>";
+                                                    }
+                                                }
+                                                ?>
+                                                <form method="post">
+                                                    <a href="inventaris_edit.php?id=<?php echo $array_item->id_inventaris ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <input type="hidden" name="id_inventaris" value="<?php echo $array_item->id_inventaris; ?>">
+                                                    <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

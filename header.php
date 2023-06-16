@@ -8,10 +8,14 @@ $level = $_SESSION["user"];
 
 require_once 'controller/utility.php';
 
-$link = "getStafId&id_user=" . urlencode($user);
+$link = "getStafId&id_user=" . urlencode($user) . "&level=" . urlencode($level);
 $data = getRegistran($link);
 $nama = $data->data[0]->nama_user;
-var_dump($nama);
+$level_user = $data->data[0]->level_user;
+var_dump($level_user);
+if ($level_user > 0) {
+  echo ("<script>location.href = 'logout.php';</script>");
+}
 ?>
 
 <!DOCTYPE html>
@@ -205,7 +209,7 @@ var_dump($nama);
               </a>
             </li>
             <li class="nav-item">
-              <a href="inventaris.php" class="nav-link" style="color: #FFCF09;">
+              <a href="service.php" class="nav-link" style="color: #FFCF09;">
                 <i class="fa fa-wrench mx-1">
                   <p class="mx-1"> Service Infrastruktur
                   </p>

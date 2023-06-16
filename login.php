@@ -10,31 +10,34 @@ if (isset($_POST['login'])) {
   // $password2 = sha1($password);
   $link = "getUser&username=" . urlencode($username) . "&password=" . urlencode($password);
   $data = getRegistran($link);
-  if ($data){
-    if($data->status == '0') {
+  if ($data) {
+    if ($data->status == '0') {
       $error = "Pengguna tidak terdaftar";
     } else {
       $user = $data->data[0]->username;
       $id_user = $data->data[0]->id_user;
       $pass = $data->data[0]->password;
       $level = $data->data[0]->level_user;
-      if ($username = $user && $password = $pass) {
+      if ($username = $user && $password = $pass && $level = 0) {
         $_SESSION["login"] = $id_user;
         $_SESSION["user"] = $level;
         echo "<script>alert('Login Berhasil')</script>";
         echo ("<script>location.href = 'index.php';</script>");
-      } else {
-        echo "<script>alert('Username atau Password salah')</script>";
-        // echo "<script>location = 'login.php'</script>";
+      } elseif ($username = $user && $password = $pass && $level = 1) {
+        $_SESSION["login"] = $id_user;
+        $_SESSION["user"] = $level;
+        echo "<script>alert('Login Berhasil')</script>";
+        echo ("<script>location.href = 'kordinator.php';</script>");
       }
     }
-  }else{
+  } else {
     echo "<script>alert('Username atau Password salah')</script>";
   }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,6 +52,7 @@ if (isset($_POST['login'])) {
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
+
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
@@ -97,4 +101,5 @@ if (isset($_POST['login'])) {
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
 </body>
+
 </html>
