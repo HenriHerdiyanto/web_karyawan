@@ -35,6 +35,201 @@ function getUser()
     echo json_encode($response);
 }
 
+function getStafId()
+{
+    global $connect;
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+
+    $query = "SELECT * FROM user WHERE id_user = $id_user";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function setInventaris()
+{
+    global $connect;
+    if (!empty($_GET['nama']))
+        $nama = $_GET['nama'];
+    if (!empty($_GET['tipe']))
+        $tipe = $_GET['tipe'];
+    if (!empty($_GET['jumlah']))
+        $jumlah = $_GET['jumlah'];
+    if (!empty($_GET['tanggal']))
+        $tanggal = $_GET['tanggal'];
+    if (!empty($_GET['harga']))
+        $harga = $_GET['harga'];
+    if (!empty($_GET['gambar']))
+        $gambar = $_GET['gambar'];
+
+
+    $query = "INSERT INTO inventaris SET nama = '$nama', tipe = '$tipe', jumlah = '$jumlah', tanggal = '$tanggal', harga = '$harga', gambar = '$gambar'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function setInventarisUpdateNoGambar()
+{
+    global $connect;
+    if (!empty($_GET['id_inventaris']))
+        $id_inventaris = $_GET['id_inventaris'];
+    if (!empty($_GET['nama']))
+        $nama = $_GET['nama'];
+    if (!empty($_GET['tipe']))
+        $tipe = $_GET['tipe'];
+    if (!empty($_GET['jumlah']))
+        $jumlah = $_GET['jumlah'];
+    if (!empty($_GET['tanggal']))
+        $tanggal = $_GET['tanggal'];
+    if (!empty($_GET['harga']))
+        $harga = $_GET['harga'];
+
+
+    $query = "UPDATE inventaris SET nama = '$nama', tipe = '$tipe', jumlah = '$jumlah', tanggal = '$tanggal', harga = '$harga' WHERE id_inventaris = $id_inventaris";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function setInventarisUpdateGambar()
+{
+    global $connect;
+    if (!empty($_GET['id_inventaris']))
+        $id_inventaris = $_GET['id_inventaris'];
+    if (!empty($_GET['nama']))
+        $nama = $_GET['nama'];
+    if (!empty($_GET['tipe']))
+        $tipe = $_GET['tipe'];
+    if (!empty($_GET['jumlah']))
+        $jumlah = $_GET['jumlah'];
+    if (!empty($_GET['tanggal']))
+        $tanggal = $_GET['tanggal'];
+    if (!empty($_GET['harga']))
+        $harga = $_GET['harga'];
+    if (!empty($_GET['gambar']))
+        $gambar = $_GET['gambar'];
+
+
+    $query = "UPDATE inventaris SET nama = '$nama', tipe = '$tipe', jumlah = '$jumlah', tanggal = '$tanggal', harga = '$harga', gambar = '$gambar' WHERE id_inventaris = $id_inventaris";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getInventaris()
+{
+
+    global $connect;
+    $query = "SELECT * FROM inventaris";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getInventarisid()
+{
+
+    global $connect;
+    if (!empty($_GET['id_inventaris']))
+        $id_inventaris = $_GET['id_inventaris'];
+
+    $query = "SELECT * FROM inventaris WHERE id_inventaris = $id_inventaris";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function setDivisi()
 {
     global $connect;
@@ -302,6 +497,33 @@ function getDeleteKaryawanId()
     $id_karyawan = $_GET["id_karyawan"];
 
     $query = "DELETE FROM karyawan WHERE id_karyawan = $id_karyawan";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getDeleteInventaris()
+{
+    global $connect;
+    $id_inventaris = $_GET["id_inventaris"];
+
+    $query = "DELETE FROM inventaris WHERE id_inventaris = $id_inventaris";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;

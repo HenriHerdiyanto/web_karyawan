@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once 'header.php';
 
 $id_krywn = $_GET['id'];
@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
     } else {
       $getExtensi = explode(".", $nama_file);
       $extensi_file = strtolower(end($getExtensi));
-      $nama_file = "Update-" . $nama_lengkap. "-" . $no_ktp . ".". $extensi_file;
+      $nama_file = "Update-" . $nama_lengkap . "-" . $no_ktp . "." . $extensi_file;
       if (!in_array($extensi_file, $extensi_izin) == true) {
         $error .= " File hanya diperbolehkan dalam bentuk (jpg, jpeg, png, gif)";
         $allow_ktp = false;
@@ -60,22 +60,20 @@ if (isset($_POST['submit'])) {
       }
     }
   }
-  
+
   if (empty($sumber_file)) {
 
     if (empty($password)) {
-      $link = "setUpdateKaryawanNoFtPw&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap). '&jenis_kelamin=' . urlencode($jenis_kelamin). '&tempat_lahir=' . urlencode($tempat_lahir). '&tanggal_lahir=' . urlencode($tanggal_lahir). '&alamat_ktp=' . urlencode($alamat_ktp). '&alamat_domisili=' . urlencode($alamat_domisili). '&no_hp=' . urlencode($no_hp). '&no_ktp=' . urlencode($no_ktp). '&no_npwp=' . urlencode($no_npwp). '&agama=' . urlencode($agama). '&gol_darah=' . urlencode($gol_darah). '&status_pernikahan=' . urlencode($status_pernikahan). '&status_karyawan=' . urlencode($status_karyawan). '&email=' . urlencode($email). '&level_user=' . urlencode($level_user);
-    }else{
-      $link = "setUpdateKaryawanNoFoto&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap). '&jenis_kelamin=' . urlencode($jenis_kelamin). '&tempat_lahir=' . urlencode($tempat_lahir). '&tanggal_lahir=' . urlencode($tanggal_lahir). '&alamat_ktp=' . urlencode($alamat_ktp). '&alamat_domisili=' . urlencode($alamat_domisili). '&no_hp=' . urlencode($no_hp). '&no_ktp=' . urlencode($no_ktp). '&no_npwp=' . urlencode($no_npwp). '&agama=' . urlencode($agama). '&gol_darah=' . urlencode($gol_darah). '&status_pernikahan=' . urlencode($status_pernikahan). '&status_karyawan=' . urlencode($status_karyawan). '&email=' . urlencode($email). '&password=' . urlencode($password). '&level_user=' . urlencode($level_user);
+      $link = "setUpdateKaryawanNoFtPw&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&level_user=' . urlencode($level_user);
+    } else {
+      $link = "setUpdateKaryawanNoFoto&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user);
     }
-  }else {
+  } else {
 
     if (empty($password)) {
-      $link = "setUpdateKaryawanNoPassword&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap). '&jenis_kelamin=' . urlencode($jenis_kelamin). '&tempat_lahir=' . urlencode($tempat_lahir). '&tanggal_lahir=' . urlencode($tanggal_lahir). '&alamat_ktp=' . urlencode($alamat_ktp). '&alamat_domisili=' . urlencode($alamat_domisili). '&no_hp=' . urlencode($no_hp). '&no_ktp=' . urlencode($no_ktp). '&no_npwp=' . urlencode($no_npwp). '&agama=' . urlencode($agama). '&gol_darah=' . urlencode($gol_darah). '&status_pernikahan=' . urlencode($status_pernikahan). '&status_karyawan=' . urlencode($status_karyawan). '&email=' . urlencode($email). '&level_user=' . urlencode($level_user). '&foto_karyawan=' . urlencode($nama_file);
-      
-    }else{
-      $link = "setUpdateKaryawan&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap). '&jenis_kelamin=' . urlencode($jenis_kelamin). '&tempat_lahir=' . urlencode($tempat_lahir). '&tanggal_lahir=' . urlencode($tanggal_lahir). '&alamat_ktp=' . urlencode($alamat_ktp). '&alamat_domisili=' . urlencode($alamat_domisili). '&no_hp=' . urlencode($no_hp). '&no_ktp=' . urlencode($no_ktp). '&no_npwp=' . urlencode($no_npwp). '&agama=' . urlencode($agama). '&gol_darah=' . urlencode($gol_darah). '&status_pernikahan=' . urlencode($status_pernikahan). '&status_karyawan=' . urlencode($status_karyawan). '&email=' . urlencode($email). '&password=' . urlencode($password). '&level_user=' . urlencode($level_user). '&foto_karyawan=' . urlencode($nama_file);
-
+      $link = "setUpdateKaryawanNoPassword&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file);
+    } else {
+      $link = "setUpdateKaryawan&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file);
     }
   }
 
@@ -112,10 +110,10 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                   <label for="">Divisi</label>
                   <select class="form-control" name="id_divisi">
-                    <?php foreach ($data_divisi->data as $key => $value): ?>
+                    <?php foreach ($data_divisi->data as $key => $value) : ?>
                       <option value="<?php echo $value->id_divisi; ?>" <?php if ($value->id_divisi == $data_karyawan->data[0]->id_divisi) {
-                        echo 'selected';
-                      } ?> ><?php echo $value->nama_divisi; ?></option>
+                                                                          echo 'selected';
+                                                                        } ?>><?php echo $value->nama_divisi; ?></option>
                     <?php endforeach ?>
                   </select>
                 </div>
@@ -126,8 +124,12 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                   <label for="">Jenis Kelamin</label>
                   <select class="form-control" name="jenis_kelamin">
-                    <option value="0" <?php if($data_karyawan->data[0]->jenis_kelamin == "0"){echo "selected";} ?>>Laki-laki</option>
-                    <option value="1" <?php if($data_karyawan->data[0]->jenis_kelamin == "1"){echo "selected";} ?>>Perempuan</option>
+                    <option value="0" <?php if ($data_karyawan->data[0]->jenis_kelamin == "0") {
+                                        echo "selected";
+                                      } ?>>Laki-laki</option>
+                    <option value="1" <?php if ($data_karyawan->data[0]->jenis_kelamin == "1") {
+                                        echo "selected";
+                                      } ?>>Perempuan</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -168,44 +170,80 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                   <label>Agama</label>
                   <select class="form-control" name="agama">
-                    <option value="Islam" <?php if($data_karyawan->data[0]->agama == "Islam"){echo "selected";} ?>>Islam</option>
-                    <option value="Protestan" <?php if($data_karyawan->data[0]->agama == "Protestan"){echo "selected";} ?>>Protestan</option>
-                    <option value="Katolik" <?php if($data_karyawan->data[0]->agama == "Katolik"){echo "selected";} ?>>Katolik</option>
-                    <option value="Hindu" <?php if($data_karyawan->data[0]->agama == "Hindu"){echo "selected";} ?>>Hindu</option>
-                    <option value="Buddha" <?php if($data_karyawan->data[0]->agama == "Buddha"){echo "selected";} ?>>Buddha</option>
-                    <option value="Khonghucu" <?php if($data_karyawan->data[0]->agama == "Khonghucu"){echo "selected";} ?>>Khonghucu</option>
+                    <option value="Islam" <?php if ($data_karyawan->data[0]->agama == "Islam") {
+                                            echo "selected";
+                                          } ?>>Islam</option>
+                    <option value="Protestan" <?php if ($data_karyawan->data[0]->agama == "Protestan") {
+                                                echo "selected";
+                                              } ?>>Protestan</option>
+                    <option value="Katolik" <?php if ($data_karyawan->data[0]->agama == "Katolik") {
+                                              echo "selected";
+                                            } ?>>Katolik</option>
+                    <option value="Hindu" <?php if ($data_karyawan->data[0]->agama == "Hindu") {
+                                            echo "selected";
+                                          } ?>>Hindu</option>
+                    <option value="Buddha" <?php if ($data_karyawan->data[0]->agama == "Buddha") {
+                                              echo "selected";
+                                            } ?>>Buddha</option>
+                    <option value="Khonghucu" <?php if ($data_karyawan->data[0]->agama == "Khonghucu") {
+                                                echo "selected";
+                                              } ?>>Khonghucu</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Golongan Drah</label>
                   <select class="form-control" name="gol_darah">
-                    <option value="A" <?php if($data_karyawan->data[0]->gol_darah == "A"){echo "selected";} ?>>A</option>
-                    <option value="B" <?php if($data_karyawan->data[0]->gol_darah == "B"){echo "selected";} ?>>B</option>
-                    <option value="O" <?php if($data_karyawan->data[0]->gol_darah == "O"){echo "selected";} ?>>O</option>
-                    <option value="AB" <?php if($data_karyawan->data[0]->gol_darah == "AB"){echo "selected";} ?>>AB</option>
+                    <option value="A" <?php if ($data_karyawan->data[0]->gol_darah == "A") {
+                                        echo "selected";
+                                      } ?>>A</option>
+                    <option value="B" <?php if ($data_karyawan->data[0]->gol_darah == "B") {
+                                        echo "selected";
+                                      } ?>>B</option>
+                    <option value="O" <?php if ($data_karyawan->data[0]->gol_darah == "O") {
+                                        echo "selected";
+                                      } ?>>O</option>
+                    <option value="AB" <?php if ($data_karyawan->data[0]->gol_darah == "AB") {
+                                          echo "selected";
+                                        } ?>>AB</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Status Pernikahan</label>
                   <select class="form-control" name="status_pernikahan">
-                    <option value="Kawin" <?php if($data_karyawan->data[0]->status_pernikahan == "Kawin"){echo "selected";} ?>>Kawin</option>
-                    <option value="Belum Kawin" <?php if($data_karyawan->data[0]->status_pernikahan == "Belum Kawin"){echo "selected";} ?>>Belum Kawin</option>
-                    <option value="Cerai Hidup" <?php if($data_karyawan->data[0]->status_pernikahan == "Cerai Hidup"){echo "selected";} ?>>Cerai Hidup</option>
-                    <option value="Cerai Mati" <?php if($data_karyawan->data[0]->status_pernikahan == "Cerai Mati"){echo "selected";} ?>>Cerai Mati</option>
+                    <option value="Kawin" <?php if ($data_karyawan->data[0]->status_pernikahan == "Kawin") {
+                                            echo "selected";
+                                          } ?>>Kawin</option>
+                    <option value="Belum Kawin" <?php if ($data_karyawan->data[0]->status_pernikahan == "Belum Kawin") {
+                                                  echo "selected";
+                                                } ?>>Belum Kawin</option>
+                    <option value="Cerai Hidup" <?php if ($data_karyawan->data[0]->status_pernikahan == "Cerai Hidup") {
+                                                  echo "selected";
+                                                } ?>>Cerai Hidup</option>
+                    <option value="Cerai Mati" <?php if ($data_karyawan->data[0]->status_pernikahan == "Cerai Mati") {
+                                                  echo "selected";
+                                                } ?>>Cerai Mati</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Status Karyawan</label>
                   <select class="form-control" name="status_karyawan">
-                    <option value="0" <?php if($data_karyawan->data[0]->status_karyawan == "Aktif"){echo "selected";} ?>>Aktif</option>
-                    <option value="1" <?php if($data_karyawan->data[0]->status_karyawan == "Nonaktif"){echo "selected";} ?>>Nonaktif</option>
+                    <option value="0" <?php if ($data_karyawan->data[0]->status_karyawan == "Aktif") {
+                                        echo "selected";
+                                      } ?>>Aktif</option>
+                    <option value="1" <?php if ($data_karyawan->data[0]->status_karyawan == "Nonaktif") {
+                                        echo "selected";
+                                      } ?>>Nonaktif</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Level User</label>
                   <select class="form-control" name="level_user">
-                    <option value="0" <?php if($data_karyawan->data[0]->level_user == "0"){echo "selected";} ?>>Manager</option>
-                    <option value="1" <?php if($data_karyawan->data[0]->level_user == "1"){echo "selected";} ?>>Staf</option>
+                    <option value="0" <?php if ($data_karyawan->data[0]->level_user == "0") {
+                                        echo "selected";
+                                      } ?>>Manager</option>
+                    <option value="1" <?php if ($data_karyawan->data[0]->level_user == "1") {
+                                        echo "selected";
+                                      } ?>>Staf</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -291,26 +329,26 @@ if (isset($_POST['submit'])) {
   }
 </script>
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('#example').DataTable();
   });
 </script>
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('#example2').DataTable();
   });
 </script>
 <script>
-
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 </script>
 <script>
-  $(function () {
+  $(function() {
     bsCustomFileInput.init();
   });
 </script>
 </body>
+
 </html>
