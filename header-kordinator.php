@@ -189,7 +189,23 @@ if ($level_user < 1) {
                             <a href="karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Karyawan
+                                    Anggota
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="evaluasi-karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Evaluasi Anggota
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="perjalanan-dinas-kor.php" class="nav-link" style="color: #FFCF09;">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Perjalanan Dinas
                                 </p>
                             </a>
                         </li>

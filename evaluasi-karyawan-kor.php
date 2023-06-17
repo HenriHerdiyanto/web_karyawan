@@ -81,7 +81,7 @@ include "header-kordinator.php"
                         </div>
                         <!-- /.card-header -->
                         <?php
-                        $link = "getKaryawanKor&id_user=" . urlencode($id_user);
+                        $link = "getEvaluasi";
                         $output = getRegistran($link);
                         ?>
 
@@ -93,30 +93,30 @@ include "header-kordinator.php"
                                     <thead>
                                         <tr>
                                             <th>No. </th>
-                                            <th>Divisi</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Email</th>
-                                            <th>Level</th>
-                                            <th>Action</th>
+                                            <th>Lama Percobaan</th>
+                                            <th>Nama Lengkap</th>
+                                            <th>jabatan</th>
+                                            <th>Tanggal Kerja</th>
+                                            <th>Status</th>
+                                            <th>Faktor Penilaian</th>
+                                            <th>Catatan Atasan</th>
+                                            <th>Catatan Hrd</th>
+                                            <!-- <th>Action</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($output->data as $key => $array_item) : ?>
                                             <tr>
                                                 <td><?php echo $key + 1 ?></td>
-                                                <td><?php echo $array_item->nama_divisi; ?></td>
+                                                <td><?php echo $array_item->lama_percobaan; ?></td>
                                                 <td><?php echo $array_item->nama_lengkap; ?></td>
-                                                <td><?php echo $array_item->jenis_kelamin; ?></td>
-                                                <td><?php echo $array_item->email; ?></td>
-                                                <td>
-                                                    <?php if ($array_item->level_user == 0) {
-                                                        echo 'Manager';
-                                                    } else {
-                                                        echo 'Staf';
-                                                    } ?>
-                                                </td>
-                                                <td>
+                                                <td><?php echo $array_item->level_user; ?></td>
+                                                <td><?php echo $array_item->tanggal_kerja; ?></td>
+                                                <td><?php echo $array_item->status; ?></td>
+                                                <td><?php echo $array_item->faktor_penilaian; ?></td>
+                                                <td><?php echo $array_item->catatan_atasan; ?></td>
+                                                <td><?php echo $array_item->catatan_hrd; ?></td>
+                                                <!-- <td>
                                                     <?php
                                                     if (isset($_POST['delete'])) {
                                                         $id_karyawan = $_POST['id_karyawan'];
@@ -141,7 +141,7 @@ include "header-kordinator.php"
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
                                                     </form>
-                                                </td>
+                                                </td> -->
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>
