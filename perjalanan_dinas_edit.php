@@ -31,17 +31,18 @@ if (isset($_POST['submit'])) {
     $keterangan = $_POST['keterangan'];
     $diminta_oleh = $_POST['diminta_oleh'];
     $diketahui_oleh = $_POST['diketahui_oleh'];
+    $disetujui_oleh = $_POST['disetujui_oleh'];
     $status = $_POST['status'];
 
-    $link = "setUpdateDinasAdmin&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan)  . '&diminta_oleh=' . urlencode($diminta_oleh)  . '&diketahui_oleh=' . urlencode($diketahui_oleh)  . '&status=' . urlencode($status)  . '&type=insert';
+    $link = "setUpdateDinasAdmin&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan)  . '&diminta_oleh=' . urlencode($diminta_oleh)  . '&diketahui_oleh=' . urlencode($diketahui_oleh)  . '&disetujui_oleh=' . urlencode($disetujui_oleh)  . '&status=' . urlencode($status)  . '&type=insert';
     $data = getRegistran($link);
     var_dump($data);
     if ($data) {
         echo "<script>alert('Data berhasil diUPDATE')</script>";
-        echo ("<script>location.href = 'perjalanan-dinas.php';</script>");
+        echo ("<script>location.href = 'perjalanan_dinas.php';</script>");
     } else {
         echo "<script>alert('Data gagal diUPDATE')</script>";
-        echo ("<script>location.href = 'perjalanan-dinas-edit.php';</script>");
+        echo ("<script>location.href = 'perjalanan_dinas-edit.php';</script>");
     }
 }
 
@@ -103,21 +104,21 @@ if (isset($_POST['submit'])) {
                                     <input type="number" class="form-control" name="jumlah_personel" value="<?php echo $data_dinas->data[0]->jumlah_personel; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label>Nama Personel</label>
-                                    <textarea class="form-control" name="nama_personel" id="" cols="30" rows="5"><?php echo $data_dinas->data[0]->nama_personel; ?></textarea>
-                                </div>
-                                <div class="form-group">
                                     <label>Kota Tujuan</label>
                                     <input type="text" class="form-control" name="kota_tujuan" value="<?php echo $data_dinas->data[0]->kota_tujuan ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tanggal Berangkat</label>
+                                    <input type="date" class="form-control" name="tanggal_berangkat" value="<?php echo $data_dinas->data[0]->tanggal_berangkat ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Personel</label>
+                                    <textarea class="form-control" name="nama_personel" id="" cols="30" rows="5"><?php echo $data_dinas->data[0]->nama_personel; ?></textarea>
                                 </div>
 
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Tanggal Berangkat</label>
-                                    <input type="date" class="form-control" name="tanggal_berangkat" value="<?php echo $data_dinas->data[0]->tanggal_berangkat ?>">
-                                </div>
                                 <div class="form-group">
                                     <label>Waktu Berangkat</label>
                                     <input type="text" class="form-control" name="waktu_berangkat" value="<?php echo $data_dinas->data[0]->waktu_berangkat ?>">
@@ -170,6 +171,10 @@ if (isset($_POST['submit'])) {
                                 <div class="form-group">
                                     <label>Diketahui Oleh</label>
                                     <input type="text" class="form-control" name="diketahui_oleh" value="<?php echo $data_dinas->data[0]->diketahui_oleh ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Disetujui Oleh</label>
+                                    <input type="text" class="form-control" name="disetujui_oleh" value="<?php echo $data_dinas->data[0]->disetujui_oleh ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Status</label>

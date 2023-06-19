@@ -737,6 +737,109 @@ function setUpdateDinas()
     echo json_encode($response);
 }
 
+function setUpdatePinjam()
+{
+    global $connect;
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+    if (!empty($_GET['nama']))
+        $nama = $_GET['nama'];
+    if (!empty($_GET['mulai_kerja']))
+        $mulai_kerja = $_GET['mulai_kerja'];
+    if (!empty($_GET['pinjaman_terakhir']))
+        $pinjaman_terakhir = $_GET['pinjaman_terakhir'];
+    if (!empty($_GET['pelunasan_terakhir']))
+        $pelunasan_terakhir = $_GET['pelunasan_terakhir'];
+    if (!empty($_GET['nik']))
+        $nik = $_GET['nik'];
+    if (!empty($_GET['jabatan']))
+        $jabatan = $_GET['jabatan'];
+    if (!empty($_GET['gaji_terakhir']))
+        $gaji_terakhir = $_GET['gaji_terakhir'];
+    if (!empty($_GET['nilai_loan']))
+        $nilai_loan = $_GET['nilai_loan'];
+    if (!empty($_GET['keperluan']))
+        $keperluan = $_GET['keperluan'];
+    if (!empty($_GET['pelunasan']))
+        $pelunasan = $_GET['pelunasan'];
+    if (!empty($_GET['pemohon']))
+        $pemohon = $_GET['pemohon'];
+    if (!empty($_GET['status']))
+        $status = $_GET['status'];
+
+
+    $query = "UPDATE pinjam_karyawan SET id_user = '$id_user', nama = '$nama', mulai_kerja = '$mulai_kerja', pinjaman_terakhir = '$pinjaman_terakhir', pelunasan_terakhir = '$pelunasan_terakhir', nik = '$nik', jabatan = '$jabatan', gaji_terakhir = '$gaji_terakhir', nilai_loan = '$nilai_loan', keperluan = '$keperluan',pelunasan = '$pelunasan',pemohon = '$pemohon' , status = '$status'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
+function setUpdatePinjamAdmin()
+{
+    global $connect;
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+    if (!empty($_GET['nama']))
+        $nama = $_GET['nama'];
+    if (!empty($_GET['mulai_kerja']))
+        $mulai_kerja = $_GET['mulai_kerja'];
+    if (!empty($_GET['pinjaman_terakhir']))
+        $pinjaman_terakhir = $_GET['pinjaman_terakhir'];
+    if (!empty($_GET['pelunasan_terakhir']))
+        $pelunasan_terakhir = $_GET['pelunasan_terakhir'];
+    if (!empty($_GET['nik']))
+        $nik = $_GET['nik'];
+    if (!empty($_GET['jabatan']))
+        $jabatan = $_GET['jabatan'];
+    if (!empty($_GET['gaji_terakhir']))
+        $gaji_terakhir = $_GET['gaji_terakhir'];
+    if (!empty($_GET['nilai_loan']))
+        $nilai_loan = $_GET['nilai_loan'];
+    if (!empty($_GET['keperluan']))
+        $keperluan = $_GET['keperluan'];
+    if (!empty($_GET['pelunasan']))
+        $pelunasan = $_GET['pelunasan'];
+    if (!empty($_GET['pemohon']))
+        $pemohon = $_GET['pemohon'];
+    if (!empty($_GET['disetujui_oleh']))
+        $disetujui_oleh = $_GET['disetujui_oleh'];
+    if (!empty($_GET['status']))
+        $status = $_GET['status'];
+
+
+    $query = "UPDATE pinjam_karyawan SET id_user = '$id_user', nama = '$nama', mulai_kerja = '$mulai_kerja', pinjaman_terakhir = '$pinjaman_terakhir', pelunasan_terakhir = '$pelunasan_terakhir', nik = '$nik', jabatan = '$jabatan', gaji_terakhir = '$gaji_terakhir', nilai_loan = '$nilai_loan', keperluan = '$keperluan',pelunasan = '$pelunasan',pemohon = '$pemohon' ,disetujui_oleh = '$disetujui_oleh' , status = '$status'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 
 function setUpdateDinasAdmin()
 {
@@ -781,11 +884,13 @@ function setUpdateDinasAdmin()
         $diminta_oleh = $_GET['diminta_oleh'];
     if (!empty($_GET['diketahui_oleh']))
         $diketahui_oleh = $_GET['diketahui_oleh'];
+    if (!empty($_GET['disetujui_oleh']))
+        $disetujui_oleh = $_GET['disetujui_oleh'];
     if (!empty($_GET['status']))
         $status = $_GET['status'];
 
 
-    $query = "UPDATE perjalanan_dinas SET id_user = '$id_user', id_divisi = '$id_divisi', nama_pengajuan = '$nama_pengajuan', jabatan = '$jabatan', project = '$project', tujuan = '$tujuan', jumlah_personel = '$jumlah_personel', nama_personel = '$nama_personel', kota_tujuan = '$kota_tujuan', tanggal_berangkat = '$tanggal_berangkat',waktu_berangkat = '$waktu_berangkat',kota_pulang = '$kota_pulang' ,tanggal_pulang = '$tanggal_pulang', transportasi = '$transportasi', hotel = '$hotel', bagasi = '$bagasi', cash_advance = '$cash_advance', keterangan = '$keterangan', diminta_oleh = '$diminta_oleh', diketahui_oleh = '$diketahui_oleh', status = '$status'";
+    $query = "UPDATE perjalanan_dinas SET id_user = '$id_user', id_divisi = '$id_divisi', nama_pengajuan = '$nama_pengajuan', jabatan = '$jabatan', project = '$project', tujuan = '$tujuan', jumlah_personel = '$jumlah_personel', nama_personel = '$nama_personel', kota_tujuan = '$kota_tujuan', tanggal_berangkat = '$tanggal_berangkat',waktu_berangkat = '$waktu_berangkat',kota_pulang = '$kota_pulang' ,tanggal_pulang = '$tanggal_pulang', transportasi = '$transportasi', hotel = '$hotel', bagasi = '$bagasi', cash_advance = '$cash_advance', keterangan = '$keterangan', diminta_oleh = '$diminta_oleh', diketahui_oleh = '$diketahui_oleh',disetujui_oleh = '$disetujui_oleh', status = '$status'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -854,6 +959,58 @@ function setPerjalanan()
 
 
     $query = "INSERT INTO perjalanan_dinas SET id_user = '$id_user', id_divisi = '$id_divisi', nama_pengajuan = '$nama_pengajuan', jabatan = '$jabatan', project = '$project', tujuan = '$tujuan', jumlah_personel = '$jumlah_personel', nama_personel = '$nama_personel', kota_tujuan = '$kota_tujuan', tanggal_berangkat = '$tanggal_berangkat',waktu_berangkat = '$waktu_berangkat',kota_pulang = '$kota_pulang' ,tanggal_pulang = '$tanggal_pulang', transportasi = '$transportasi', hotel = '$hotel', bagasi = '$bagasi', cash_advance = '$cash_advance', keterangan = '$keterangan', diminta_oleh = '$diminta_oleh', diketahui_oleh = '$diketahui_oleh', disetujui_oleh = '$disetujui_oleh', status = '$status'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function setPinjaman()
+{
+    global $connect;
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+    if (!empty($_GET['nama']))
+        $nama = $_GET['nama'];
+    if (!empty($_GET['mulai_kerja']))
+        $mulai_kerja = $_GET['mulai_kerja'];
+    if (!empty($_GET['pinjaman_terakhir']))
+        $pinjaman_terakhir = $_GET['pinjaman_terakhir'];
+    if (!empty($_GET['pelunasan_terakhir']))
+        $pelunasan_terakhir = $_GET['pelunasan_terakhir'];
+    if (!empty($_GET['nik']))
+        $nik = $_GET['nik'];
+    if (!empty($_GET['jabatan']))
+        $jabatan = $_GET['jabatan'];
+    if (!empty($_GET['gaji_terakhir']))
+        $gaji_terakhir = $_GET['gaji_terakhir'];
+    if (!empty($_GET['nilai_loan']))
+        $nilai_loan = $_GET['nilai_loan'];
+    if (!empty($_GET['keperluan']))
+        $keperluan = $_GET['keperluan'];
+    if (!empty($_GET['pelunasan']))
+        $pelunasan = $_GET['pelunasan'];
+    if (!empty($_GET['pemohon']))
+        $pemohon = $_GET['pemohon'];
+    if (!empty($_GET['disetujui_oleh']))
+        $disetujui_oleh = $_GET['disetujui_oleh'];
+    if (!empty($_GET['status']))
+        $status = $_GET['status'];
+
+
+    $query = "INSERT INTO pinjam_karyawan SET id_user = '$id_user', nama = '$nama', mulai_kerja = '$mulai_kerja', pinjaman_terakhir = '$pinjaman_terakhir', pelunasan_terakhir = '$pelunasan_terakhir', nik = '$nik', jabatan = '$jabatan', gaji_terakhir = '$gaji_terakhir', nilai_loan = '$nilai_loan', keperluan = '$keperluan',pelunasan = '$pelunasan',pemohon = '$pemohon' , disetujui_oleh = '$disetujui_oleh', status = '$status'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -959,11 +1116,102 @@ function getDinas()
     echo json_encode($response);
 }
 
+
+function gePinjamKaryawan()
+{
+
+    global $connect;
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+    $query = "SELECT * FROM pinjam_karyawan 
+    LEFT JOIN user ON pinjam_karyawan.id_user = user.id_user 
+    WHERE user.id_user = $id_user;
+    ";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
+function getPinjamKaryawanEdit()
+{
+
+    global $connect;
+    if (!empty($_GET['id_pinjam']))
+        $id_pinjam = $_GET['id_pinjam'];
+    $query = "SELECT * FROM pinjam_karyawan WHERE id_pinjam = $id_pinjam;
+    ";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function getDinasAll()
 {
 
     global $connect;
     $query = "SELECT * FROM perjalanan_dinas LEFT JOIN divisi ON perjalanan_dinas.id_divisi = divisi.id_divisi";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getPinjsmKaryawanAll()
+{
+
+    global $connect;
+    $query = "SELECT * FROM pinjam_karyawan";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -1052,6 +1300,33 @@ function getDeleteKaryawanId()
     $id_karyawan = $_GET["id_karyawan"];
 
     $query = "DELETE FROM karyawan WHERE id_karyawan = $id_karyawan";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getDeleteEvaluasiId()
+{
+    global $connect;
+    $id_evaluasi = $_GET["id_evaluasi"];
+
+    $query = "DELETE FROM evaluasi WHERE id_evaluasi = $id_evaluasi";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;

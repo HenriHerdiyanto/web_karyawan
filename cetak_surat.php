@@ -248,7 +248,7 @@ $data_dinas = getRegistran($link);
         <div class="surat-info mb-5">
             <div class="row">
                 <div class="col">
-                    <label>Diketahui oleh:</label>
+                    <label>Diketahui oleh:</label><br>
                     <span><?php echo $data_dinas->data[0]->diketahui_oleh; ?></span>
                 </div>
                 <div class="col">
@@ -257,7 +257,7 @@ $data_dinas = getRegistran($link);
                     <span style="margin-left: 80px;">Tanggal: <?php echo date('d/m/Y'); ?></span>
                 </div>
             </div>
-        </div><br>
+        </div><br><br>
         <div class="footer">
             <p>Tanggal: <?php echo date('d/m/Y'); ?></p>
             <p>Surat Permohonan Perjalanan Dinas</p>

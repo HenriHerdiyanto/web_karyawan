@@ -11,7 +11,7 @@ include "header-kordinator.php"
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Staf Karyawan</h1>
+                    <h1>PERMOHONAN PEMINJAMAN KARYAWAN</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -25,11 +25,11 @@ include "header-kordinator.php"
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data Staf Karyawan</h3>
+                            <h3 class="card-title">Data Peminjaman Karyawan</h3>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
-                                <!-- <a href="karyawan-kor-tambah.php" class="btn btn-success " type="button">
-                                    <i class="fas fa-plus"></i> Add Karyawan
-                                </a> -->
+                                <a href="peminjaman-karyawan-kor-tambah.php" class="btn btn-success " type="button">
+                                    <i class="fas fa-plus"></i> Add Permohonan
+                                </a>
                             </div>
                             <!-- Modal Tambah-->
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -81,7 +81,7 @@ include "header-kordinator.php"
                         </div>
                         <!-- /.card-header -->
                         <?php
-                        $link = "getEvaluasi";
+                        $link = "gePinjamKaryawan&id_user=" . urlencode($id_user);
                         $output = getRegistran($link);
                         ?>
 
@@ -93,14 +93,12 @@ include "header-kordinator.php"
                                     <thead>
                                         <tr>
                                             <th>No. </th>
-                                            <th>Lama Percobaan</th>
-                                            <th>Nama Lengkap</th>
-                                            <th>jabatan</th>
-                                            <th>Tanggal Kerja</th>
+                                            <th>Nama Karyawan</th>
+                                            <th>NIK</th>
+                                            <th>Jabatan</th>
+                                            <th>Keperluan</th>
+                                            <th>Pemohon</th>
                                             <th>Status</th>
-                                            <th>Faktor Penilaian</th>
-                                            <th>Catatan Atasan</th>
-                                            <th>Catatan Hrd</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -108,35 +106,51 @@ include "header-kordinator.php"
                                         <?php foreach ($output->data as $key => $array_item) : ?>
                                             <tr>
                                                 <td><?php echo $key + 1 ?></td>
-                                                <td><?php echo $array_item->lama_percobaan; ?></td>
-                                                <td><?php echo $array_item->nama_lengkap; ?></td>
-                                                <td><?php echo $array_item->level_user; ?></td>
-                                                <td><?php echo $array_item->tanggal_kerja; ?></td>
-                                                <td><?php echo $array_item->status; ?></td>
-                                                <td><?php echo $array_item->faktor_penilaian; ?></td>
-                                                <td><?php echo $array_item->catatan_atasan; ?></td>
-                                                <td><?php echo $array_item->catatan_hrd; ?></td>
+                                                <td><?php echo $array_item->nama; ?></td>
+                                                <td><?php echo $array_item->nik; ?></td>
+                                                <td><?php echo $array_item->jabatan; ?></td>
+                                                <td><?php echo $array_item->keperluan; ?></td>
+                                                <td><?php echo $array_item->pemohon; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $status = $array_item->status;
+                                                    if ($status == "diproses") {
+                                                        echo '<a class="btn bg-warning text-white">' . $status . '</a>';
+                                                    } elseif ($status == "diterima") {
+                                                        echo '<a class="btn bg-success text-white">' . $status . '</a>';
+                                                    } else {
+                                                        echo '<a class="btn bg-danger text-white">' . $status . '</a>';
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td>
                                                     <?php
                                                     if (isset($_POST['delete'])) {
-                                                        $id_evaluasi = $_POST['id_evaluasi'];
-                                                        $link = "getDeleteEvaluasiId&id_evaluasi=" . urlencode($id_evaluasi);
+                                                        $id_pinjam = $_POST['id_pinjam'];
+                                                        $link = "getDeleteDinasId&id_pinjam=" . urlencode($id_pinjam);
                                                         $delete = getRegistran($link);
                                                         if (!$delete) {
-                                                            echo "<script>alert('Data berhasil dihapus');window.location='evaluasi-karyawan-kor.php'</script>";
+                                                            echo "<script>alert('Data berhasil dihapus');window.location='karyawan.php'</script>";
                                                         } else {
-                                                            echo "<script>alert('Data gagal dihapus');window.location='evaluasi-karyawan-kor.php''</script>";
+                                                            echo "<script>alert('Data gagal dihapus');window.location='karyawan.php'</script>";
                                                         }
                                                     }
                                                     ?>
+
                                                     <form method="post">
-                                                        <!-- <a href="karyawan-kor-evaluasi.php?id=<?php echo $array_item->id_evaluasi ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Evaluasi Karyawan">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_evaluasi ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                        <?php
+                                                        $status = $array_item->status;
+                                                        if ($status == "diterima") { ?>
+                                                            <a href="cetak_surat.php?id=<?php echo $array_item->id_pinjam ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="cetak surat">
+                                                                <i class="fas fa-print"></i>
+                                                            </a>
+                                                        <?php } else { ?>
+                                                        <?php }
+                                                        ?>
+                                                        <a href="peminjaman-karyawan-kor-edit.php?id=<?php echo $array_item->id_pinjam ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
                                                             <i class="fas fa-edit"></i>
-                                                        </a> -->
-                                                        <input type="hidden" name="id_evaluasi" value="<?php echo $array_item->id_evaluasi; ?>">
+                                                        </a>
+                                                        <input type="hidden" name="id_pinjam" value="<?php echo $array_item->id_pinjam; ?>">
                                                         <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>

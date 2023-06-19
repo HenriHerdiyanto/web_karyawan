@@ -189,7 +189,7 @@ if ($level_user > 0) {
               <a href="karyawan.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Karyawan
+                  Kordinator
                 </p>
               </a>
             </li>
@@ -210,7 +210,7 @@ if ($level_user > 0) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="s.php" class="nav-link" style="color: #FFCF09;">
+              <a href="peminjaman_karyawan.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-tasks"></i>
                 <p>
                   Peminjaman Karyawan
