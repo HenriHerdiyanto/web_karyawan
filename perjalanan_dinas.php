@@ -1,5 +1,5 @@
 <?php
-include "header-kordinator.php"
+include "header.php"
 
 ?>
 
@@ -81,7 +81,7 @@ include "header-kordinator.php"
                         </div>
                         <!-- /.card-header -->
                         <?php
-                        $link = "getDinas&id_user=" . urlencode($id_user);
+                        $link = "getDinasAll";
                         $output = getRegistran($link);
                         ?>
 
@@ -136,18 +136,8 @@ include "header-kordinator.php"
                                                         }
                                                     }
                                                     ?>
-
                                                     <form method="post">
-                                                        <?php
-                                                        $status = $array_item->status;
-                                                        if ($status == "diterima") { ?>
-                                                            <a href="cetak_surat.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="cetak surat">
-                                                                <i class="fas fa-print"></i>
-                                                            </a>
-                                                        <?php } else { ?>
-                                                        <?php }
-                                                        ?>
-                                                        <a href="perjalanan-dinas-kor-edit.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                        <a href="perjalanan_dinas_edit.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                         <input type="hidden" name="id_dinas" value="<?php echo $array_item->id_dinas; ?>">

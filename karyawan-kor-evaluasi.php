@@ -88,12 +88,15 @@ if (isset($_POST['submit'])) {
                                 <div class="form-group">
                                     <label>Level User</label>
                                     <select class="form-control" name="level_user">
-                                        <option value="manager" <?php if ($data_karyawan->data[0]->level_user == "manager") {
-                                                                    echo "selected";
-                                                                } ?>>Manager</option>
+                                        <!-- <option value="manager" <?php if ($data_karyawan->data[0]->level_user == "manager") {
+                                                                            echo "selected";
+                                                                        } ?>>Manager</option>
                                         <option value="staff" <?php if ($data_karyawan->data[0]->level_user == "staff") {
                                                                     echo "selected";
-                                                                } ?>>Staf</option>
+                                                                } ?>>Staf</option> -->
+                                        <option value="<?php echo $data_karyawan->data[0]->level_user; ?>"><?php echo $data_karyawan->data[0]->level_user; ?></option>
+                                        <option value="manager">Manager</option>
+                                        <option value="staf">Staff</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

@@ -209,6 +209,14 @@ if ($level_user < 1) {
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="peminjaman-karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Peminjaman Karyawan
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

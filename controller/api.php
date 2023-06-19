@@ -35,6 +35,32 @@ function getUser()
     echo json_encode($response);
 }
 
+function getKordinator()
+{
+    global $connect;
+
+    $query = "SELECT * FROM user WHERE level_user = 1";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 
 function getEvaluasi()
 {
@@ -711,6 +737,73 @@ function setUpdateDinas()
     echo json_encode($response);
 }
 
+
+function setUpdateDinasAdmin()
+{
+    global $connect;
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+    if (!empty($_GET['nama_pengajuan']))
+        $nama_pengajuan = $_GET['nama_pengajuan'];
+    if (!empty($_GET['jabatan']))
+        $jabatan = $_GET['jabatan'];
+    if (!empty($_GET['project']))
+        $project = $_GET['project'];
+    if (!empty($_GET['tujuan']))
+        $tujuan = $_GET['tujuan'];
+    if (!empty($_GET['jumlah_personel']))
+        $jumlah_personel = $_GET['jumlah_personel'];
+    if (!empty($_GET['nama_personel']))
+        $nama_personel = $_GET['nama_personel'];
+    if (!empty($_GET['kota_tujuan']))
+        $kota_tujuan = $_GET['kota_tujuan'];
+    if (!empty($_GET['tanggal_berangkat']))
+        $tanggal_berangkat = $_GET['tanggal_berangkat'];
+    if (!empty($_GET['waktu_berangkat']))
+        $waktu_berangkat = $_GET['waktu_berangkat'];
+    if (!empty($_GET['kota_pulang']))
+        $kota_pulang = $_GET['kota_pulang'];
+    if (!empty($_GET['tanggal_pulang']))
+        $tanggal_pulang = $_GET['tanggal_pulang'];
+    if (!empty($_GET['transportasi']))
+        $transportasi = $_GET['transportasi'];
+    if (!empty($_GET['hotel']))
+        $hotel = $_GET['hotel'];
+    if (!empty($_GET['bagasi']))
+        $bagasi = $_GET['bagasi'];
+    if (!empty($_GET['cash_advance']))
+        $cash_advance = $_GET['cash_advance'];
+    if (!empty($_GET['keterangan']))
+        $keterangan = $_GET['keterangan'];
+    if (!empty($_GET['diminta_oleh']))
+        $diminta_oleh = $_GET['diminta_oleh'];
+    if (!empty($_GET['diketahui_oleh']))
+        $diketahui_oleh = $_GET['diketahui_oleh'];
+    if (!empty($_GET['status']))
+        $status = $_GET['status'];
+
+
+    $query = "UPDATE perjalanan_dinas SET id_user = '$id_user', id_divisi = '$id_divisi', nama_pengajuan = '$nama_pengajuan', jabatan = '$jabatan', project = '$project', tujuan = '$tujuan', jumlah_personel = '$jumlah_personel', nama_personel = '$nama_personel', kota_tujuan = '$kota_tujuan', tanggal_berangkat = '$tanggal_berangkat',waktu_berangkat = '$waktu_berangkat',kota_pulang = '$kota_pulang' ,tanggal_pulang = '$tanggal_pulang', transportasi = '$transportasi', hotel = '$hotel', bagasi = '$bagasi', cash_advance = '$cash_advance', keterangan = '$keterangan', diminta_oleh = '$diminta_oleh', diketahui_oleh = '$diketahui_oleh', status = '$status'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function setPerjalanan()
 {
     global $connect;
@@ -808,6 +901,35 @@ function getKaryawanKor()
     echo json_encode($response);
 }
 
+function getKaryawan()
+{
+
+    global $connect;
+    $query = "SELECT * FROM karyawan 
+    LEFT JOIN user ON user.id_user = karyawan.id_user 
+    WHERE karyawan.id_user = 2";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function getDinas()
 {
 
@@ -837,6 +959,32 @@ function getDinas()
     echo json_encode($response);
 }
 
+function getDinasAll()
+{
+
+    global $connect;
+    $query = "SELECT * FROM perjalanan_dinas LEFT JOIN divisi ON perjalanan_dinas.id_divisi = divisi.id_divisi";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 
 function getDinasId()
 {

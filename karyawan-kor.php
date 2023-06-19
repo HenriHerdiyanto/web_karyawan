@@ -109,13 +109,7 @@ include "header-kordinator.php"
                                                 <td><?php echo $array_item->nama_lengkap; ?></td>
                                                 <td><?php echo $array_item->jenis_kelamin; ?></td>
                                                 <td><?php echo $array_item->email; ?></td>
-                                                <td>
-                                                    <?php if ($array_item->level_user == 0) {
-                                                        echo 'Manager';
-                                                    } else {
-                                                        echo 'Staf';
-                                                    } ?>
-                                                </td>
+                                                <td><?php echo $array_item->level_user; ?></td>
                                                 <td>
                                                     <?php
                                                     if (isset($_POST['delete'])) {

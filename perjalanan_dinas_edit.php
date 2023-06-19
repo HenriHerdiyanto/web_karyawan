@@ -1,5 +1,5 @@
 <?php
-require_once 'header-kordinator.php';
+require_once 'header.php';
 
 $id_dinas = $_GET['id'];
 
@@ -29,17 +29,19 @@ if (isset($_POST['submit'])) {
     $bagasi = $_POST['bagasi'];
     $cash_advance = $_POST['cash_advance'];
     $keterangan = $_POST['keterangan'];
+    $diminta_oleh = $_POST['diminta_oleh'];
+    $diketahui_oleh = $_POST['diketahui_oleh'];
     $status = $_POST['status'];
 
-    $link = "setUpdateDinas&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan)  . '&status=' . urlencode($status)  . '&type=insert';
+    $link = "setUpdateDinasAdmin&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan)  . '&diminta_oleh=' . urlencode($diminta_oleh)  . '&diketahui_oleh=' . urlencode($diketahui_oleh)  . '&status=' . urlencode($status)  . '&type=insert';
     $data = getRegistran($link);
     var_dump($data);
     if ($data) {
         echo "<script>alert('Data berhasil diUPDATE')</script>";
-        echo ("<script>location.href = 'perjalanan-dinas-kor.php';</script>");
+        echo ("<script>location.href = 'perjalanan-dinas.php';</script>");
     } else {
         echo "<script>alert('Data gagal diUPDATE')</script>";
-        echo ("<script>location.href = 'perjalanan-dinas-kor-edit.php';</script>");
+        echo ("<script>location.href = 'perjalanan-dinas-edit.php';</script>");
     }
 }
 
@@ -71,7 +73,7 @@ if (isset($_POST['submit'])) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Divisi</label>
-                                    <input type="hidden" name="id_user" value="<?= $id_user ?>">
+                                    <input type="text" name="id_user" value="<?php echo $data_dinas->data[0]->id_user; ?>">
                                     <select class="form-control" name="id_divisi">
                                         <?php foreach ($data_divisi->data as $key => $value) : ?>
                                             <option value="<?php echo $value->id_divisi; ?>" <?php if ($value->id_divisi == $data_dinas->data[0]->id_divisi) {
@@ -158,6 +160,24 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="status" value="diproses">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Diminta Oleh</label>
+                                    <input type="text" class="form-control" name="diminta_oleh" value="<?php echo $data_dinas->data[0]->diminta_oleh ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Diketahui Oleh</label>
+                                    <input type="text" class="form-control" name="diketahui_oleh" value="<?php echo $data_dinas->data[0]->diketahui_oleh ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Status</label>
+                                    <select class="form-control" name="status">
+                                        <option selected><?php echo $data_dinas->data[0]->status ?></option>
+                                        <option value="diterima">diterima</option>
+                                        <option value="ditolak">ditolak</option>
+                                    </select>
                                 </div>
                             </div>
                             <!-- /.col -->

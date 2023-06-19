@@ -79,6 +79,7 @@ if (isset($_POST['submit'])) {
 
   $data = getRegistran($link);
   echo '<script>alert("data berhasil diupdate")</script>';
+  echo ("<script>location.href = 'karyawan.php';</script>");
 }
 
 ?>
@@ -122,15 +123,13 @@ if (isset($_POST['submit'])) {
                   <input type="text" class="form-control" name="nama_lengkap" value="<?php echo $data_karyawan->data[0]->nama_lengkap; ?>">
                 </div>
                 <div class="form-group">
-                  <label for="">Jenis Kelamin</label>
-                  <select class="form-control" name="jenis_kelamin">
-                    <option value="0" <?php if ($data_karyawan->data[0]->jenis_kelamin == "0") {
-                                        echo "selected";
-                                      } ?>>Laki-laki</option>
-                    <option value="1" <?php if ($data_karyawan->data[0]->jenis_kelamin == "1") {
-                                        echo "selected";
-                                      } ?>>Perempuan</option>
+                  <label for="jenis_kelamin">Jenis Kelamin</label>
+                  <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+                    <option value="<?php echo $data_karyawan->data[0]->jenis_kelamin; ?>"><?php echo $data_karyawan->data[0]->jenis_kelamin; ?></option>
+                    <option value="laki-laki">LAKI - LAKI</option>
+                    <option value="perempuan">PEREMPUAN</option>
                   </select>
+
                 </div>
                 <div class="form-group">
                   <label>Tempat Lahir</label>
@@ -227,23 +226,17 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                   <label>Status Karyawan</label>
                   <select class="form-control" name="status_karyawan">
-                    <option value="0" <?php if ($data_karyawan->data[0]->status_karyawan == "Aktif") {
-                                        echo "selected";
-                                      } ?>>Aktif</option>
-                    <option value="1" <?php if ($data_karyawan->data[0]->status_karyawan == "Nonaktif") {
-                                        echo "selected";
-                                      } ?>>Nonaktif</option>
+                    <option value="<?= $data_karyawan->data[0]->status_karyawan ?>"><?= $data_karyawan->data[0]->status_karyawan ?></option>
+                    <option value="aktif">Aktif</option>
+                    <option value="nonaktif">Nonaktif</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Level User</label>
                   <select class="form-control" name="level_user">
-                    <option value="0" <?php if ($data_karyawan->data[0]->level_user == "0") {
-                                        echo "selected";
-                                      } ?>>Manager</option>
-                    <option value="1" <?php if ($data_karyawan->data[0]->level_user == "1") {
-                                        echo "selected";
-                                      } ?>>Staf</option>
+                    <option value="<?= $data_karyawan->data[0]->level_user ?>"><?= $data_karyawan->data[0]->level_user ?></option>
+                    <option value="manager">Manager</option>
+                    <option value="staff">staff</option>
                   </select>
                 </div>
                 <div class="form-group">

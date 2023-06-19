@@ -1,11 +1,12 @@
-<?php 
+<?php
 require_once 'header.php';
-
+$id_input = $_GET['id'];
 $link = "getDivisi";
 $data_divisi = getRegistran($link);
 
 // input Karyawan
 if (isset($_POST['submit'])) {
+  $id_user = $_POST['id_user'];
   $id_divisi = $_POST['id_divisi'];
   $nama_lengkap = $_POST['nama_lengkap'];
   $jenis_kelamin = $_POST['jenis_kelamin'];
@@ -40,7 +41,7 @@ if (isset($_POST['submit'])) {
     } else {
       $getExtensi = explode(".", $nama_file);
       $extensi_file = strtolower(end($getExtensi));
-      $nama_file = $nama_lengkap. "-" . $no_ktp . ".". $extensi_file;
+      $nama_file = $nama_lengkap . "-" . $no_ktp . "." . $extensi_file;
       if (!in_array($extensi_file, $extensi_izin) == true) {
         $error .= " File hanya diperbolehkan dalam bentuk (jpg, jpeg, png, gif)";
         $allow_ktp = false;
@@ -55,12 +56,13 @@ if (isset($_POST['submit'])) {
       }
     }
   }
-  
 
-  $link = "setKaryawan&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap). '&jenis_kelamin=' . urlencode($jenis_kelamin). '&tempat_lahir=' . urlencode($tempat_lahir). '&tanggal_lahir=' . urlencode($tanggal_lahir). '&alamat_ktp=' . urlencode($alamat_ktp). '&alamat_domisili=' . urlencode($alamat_domisili). '&no_hp=' . urlencode($no_hp). '&no_ktp=' . urlencode($no_ktp). '&no_npwp=' . urlencode($no_npwp). '&agama=' . urlencode($agama). '&gol_darah=' . urlencode($gol_darah). '&status_pernikahan=' . urlencode($status_pernikahan). '&status_karyawan=' . urlencode($status_karyawan). '&email=' . urlencode($email). '&password=' . urlencode($email). '&level_user=' . urlencode($level_user). '&foto_karyawan=' . urlencode($nama_file) . '&type=insert';
+
+  $link = "setKaryawan&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&type=insert';
   $data = getRegistran($link);
-  echo '<script>alert("data berhasil ditambah")</script>';
-  
+  var_dump($data);
+  // echo '<script>alert("data berhasil ditambah")</script>';
+  // echo ("<script>location.href = 'karyawan.php';</script>");
 }
 
 ?>
@@ -91,6 +93,7 @@ if (isset($_POST['submit'])) {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="">Divisi</label>
+                  <input type="text" name="id_user" value="<?= $id_input ?>">
                   <select class="form-control" name="id_divisi">
                     <option selected>--Pilih Divisi--</option>
                     <?php foreach ($data_divisi->data as $key => $value) { ?>
@@ -106,8 +109,8 @@ if (isset($_POST['submit'])) {
                   <label for="">Jenis Kelamin</label>
                   <select class="form-control" name="jenis_kelamin">
                     <option selected>--Pilih Gender--</option>
-                    <option value="0">Laki-laki</option>
-                    <option value="1">Perempuan</option>
+                    <option value="laki-laki">Laki-laki</option>
+                    <option value="perempuan">Perempuan</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -149,48 +152,48 @@ if (isset($_POST['submit'])) {
                   <label>Agama</label>
                   <select class="form-control" name="agama">
                     <option selected>--Pilih Agama--</option>
-                    <option>Islam</option>
-                    <option>Protestan</option>
-                    <option>Katolik</option>
-                    <option>Hindu</option>
-                    <option>Buddha</option>
-                    <option>Khonghucu</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Protestan">Protestan</option>
+                    <option value="Katolik">Katolik</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Buddha">Buddha</option>
+                    <option value="Khonghucu">Khonghucu</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Golongan Drah</label>
                   <select class="form-control" name="gol_darah">
                     <option selected>--Pilih Golongan Darah--</option>
-                    <option>A</option>
-                    <option>B</option>
-                    <option>O</option>
-                    <option>AB</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="O">O</option>
+                    <option value="AB">AB</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Status Pernikahan</label>
                   <select class="form-control" name="status_pernikahan">
                     <option selected>--Pilih Status Pernikahan--</option>
-                    <option>Kawin</option>
-                    <option>Belum Kawin</option>
-                    <option>Cerai Hidup</option>
-                    <option>Cerai Mati</option>
+                    <option value="Kawin">Kawin</option>
+                    <option value="Belum Kawin">Belum Kawin</option>
+                    <option value="Cerai Hidup">Cerai Hidup</option>
+                    <option value="Cerai Mati">Cerai Mati</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Status Karyawan</label>
                   <select class="form-control" name="status_karyawan">
                     <option selected>--Pilih Status Karyawan--</option>
-                    <option value="0">aktif</option>
-                    <option value="1">nonaktif</option>
+                    <option value="aktif">aktif</option>
+                    <option value="nonaktif">nonaktif</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Level User</label>
                   <select class="form-control" name="level_user">
                     <option selected>--Pilih Level User--</option>
-                    <option value="0">Manager</option>
-                    <option value="1">Staff</option>
+                    <option value="manager">Manager</option>
+                    <option value="staff">Staff</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -274,26 +277,26 @@ if (isset($_POST['submit'])) {
   }
 </script>
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('#example').DataTable();
   });
 </script>
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('#example2').DataTable();
   });
 </script>
 <script>
-
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 </script>
 <script>
-  $(function () {
+  $(function() {
     bsCustomFileInput.init();
   });
 </script>
 </body>
+
 </html>

@@ -1,16 +1,15 @@
-<?php 
+<?php
 require_once 'header.php';
 
 // input Divisi
 if (isset($_POST['submit'])) {
   $kode_divisi = $_POST['kode_divisi'];
   $nama_divisi = $_POST['nama_divisi'];
-  
+
 
   $link = "setDivisi&kode_divisi=" . urlencode($kode_divisi) . '&nama_divisi=' . urlencode($nama_divisi) . '&type=insert';
   $data = getRegistran($link);
   echo '<script>alert("data berhasil ditambah")</script>';
-  
 }
 
 ?>
@@ -63,7 +62,7 @@ if (isset($_POST['submit'])) {
   </section>
 
   <!-- Main content -->
-  <?php 
+  <?php
   $link = "getDivisi";
   $data = getRegistran($link);
   ?>
@@ -71,7 +70,7 @@ if (isset($_POST['submit'])) {
     <div class="container-fluid">
 
       <div class="row">
-        <?php foreach ($data->data as $key => $value) { 
+        <?php foreach ($data->data as $key => $value) {
           $link = "getDivisibyIdDiv&id_divisi=" . urlencode($value->id_divisi);
           $data = getRegistran($link);
 
@@ -86,9 +85,8 @@ if (isset($_POST['submit'])) {
             $data = getRegistran($link);
             echo '<script>alert("data berhasil diupdate")</script>';
             echo "<script>location = 'divisi.php'</script>";
-
           }
-          ?>
+        ?>
 
           <!-- Modal Edit Divisi -->
           <div class="modal fade" id="divedit<?php echo $value->id_divisi; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -116,25 +114,25 @@ if (isset($_POST['submit'])) {
                 </div>
               </div>
             </div>
-          </div>          
+          </div>
 
           <div class="col-md-4">
             <!-- Widget: user widget style 1 -->
             <div class="card card-widget widget-user">
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-info">
+                <h5 class="widget-user-desc">DIVISI</h5>
                 <h3 class="widget-user-username"><?php echo $value->nama_divisi; ?></h3>
-                <h5 class="widget-user-desc">Founder & CEO</h5>
               </div>
               <div class="widget-user-image">
-                <img class="img-circle elevation-2" src="dist/img/user1-128x128.jpg" alt="User Avatar">
+                <img class="img-circle elevation-2" src="assets/img/logomt.png" alt="User Avatar">
               </div>
               <div class="card-footer">
                 <div class="row">
                   <div class="col-sm-4 border-right">
                     <div class="description-block">
-                      <h5 class="description-header">3,200</h5>
-                      <span class="description-text">SALES</span>
+                      <h5 class="description-header">KODE</h5>
+                      <span class="description-text"><?php echo $value->kode_divisi; ?></span>
                     </div>
                     <!-- /.description-block -->
                   </div>
@@ -144,16 +142,16 @@ if (isset($_POST['submit'])) {
                       <a class="btn btn-primary" type="button" data-toggle="modal" data-target="#divedit<?php echo $value->id_divisi; ?>" data-bs-toggle="tooltip" title="Ubah">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a class="btn btn-success" type="button" data-toggle="modal" data-target="#divedit<?php echo $value->id_divisi; ?>" data-bs-toggle="tooltip" title="Ubah">
+                      <!-- <a class="btn btn-success" type="button" data-toggle="modal" data-target="#divedit<?php echo $value->id_divisi; ?>" data-bs-toggle="tooltip" title="Ubah">
                         <i class="fas fa-plus"></i>
-                      </a>
+                      </a> -->
                     </div>
                     <!-- /.description-block -->
                   </div>
                   <!-- /.col -->
                   <div class="col-sm-4">
                     <div class="description-block">
-                      <?php 
+                      <?php
                       // Delete Divisi
                       if (isset($_POST['delete'])) {
                         $id_divisi3 = $_POST['id_divisi3'];
@@ -161,7 +159,6 @@ if (isset($_POST['submit'])) {
                         $data = getRegistran($link);
                         echo '<script>alert("data berhasil dihapus")</script>';
                         echo "<script>location = 'divisi.php'</script>";
-
                       }
 
                       ?>
@@ -224,21 +221,21 @@ if (isset($_POST['submit'])) {
 <!-- <script src="dist/js/demo.js"></script> -->
 <!-- Page specific script -->
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('#example').DataTable();
   });
 </script>
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('#example2').DataTable();
   });
 </script>
 <script>
-
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 </script>
 </body>
+
 </html>

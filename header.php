@@ -12,6 +12,7 @@ $link = "getStafId&id_user=" . urlencode($user) . "&level=" . urlencode($level);
 $data = getRegistran($link);
 $nama = $data->data[0]->nama_user;
 $level_user = $data->data[0]->level_user;
+$id_user = $data->data[0]->id_user;
 var_dump($level_user);
 if ($level_user > 0) {
   echo ("<script>location.href = 'logout.php';</script>");
@@ -197,6 +198,22 @@ if ($level_user > 0) {
                 <i class="nav-icon fas fa-tasks"></i>
                 <p>
                   Divisi
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="perjalanan_dinas.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-tasks"></i>
+                <p>
+                  Perjalanan Dinas
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="s.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-tasks"></i>
+                <p>
+                  Peminjaman Karyawan
                 </p>
               </a>
             </li>

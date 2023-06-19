@@ -239,7 +239,7 @@ if (isset($_POST['submit'])) {
                                 <div class="form-group">
                                     <label>Level User</label>
                                     <select class="form-control" name="level_user">
-                                        <option value="<?= $data_karyawan->data[0]->status_karyawan ?>"><?= $data_karyawan->data[0]->status_karyawan ?></option>
+                                        <option value="<?= $data_karyawan->data[0]->level_user ?>"><?= $data_karyawan->data[0]->level_user ?></option>
                                         <option value="staff">staff</option>
                                         <option value="manager">manager</option>
                                     </select>

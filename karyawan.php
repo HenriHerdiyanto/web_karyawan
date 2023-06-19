@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once 'header.php';
 
 
@@ -12,7 +12,7 @@ require_once 'header.php';
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Staf Karyawan</h1>
+          <h1>Data Kordinator</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -25,14 +25,14 @@ require_once 'header.php';
         <div class="col-12">
 
           <div class="card">
-            <div class="card-header">
+            <!-- <div class="card-header">
               <h3 class="card-title">Data Staf Karyawan</h3>
               <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
                 <a href="karyawan_tambah.php" class="btn btn-success " type="button">
                   <i class="fas fa-plus"></i> Add Karyawan
                 </a>
               </div>
-              <!-- Modal Tambah-->
+
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -79,83 +79,34 @@ require_once 'header.php';
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- /.card-header -->
-            <?php   
-            $link = "getKaryawan";
-            $output = getRegistran($link);
+            </div> -->
+            <?php
+            $link = "getKordinator";
+            $data = getRegistran($link);
             ?>
-
-            <div class="card-body table-responsive">
-              <?php if ($output == NULL) { ?>
-                <h1 class="text-center">Data Kosong</h1>
-              <?php  } else { ?>
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
-                  <thead>
-                    <tr>
-                      <th>No. </th>
-                      <th>Divisi</th>
-                      <th>Nama</th>
-                      <th>Jenis Kelamin</th>
-                      <th>Email</th>
-                      <th>Level</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($output->data as $key => $array_item) : ?>
-                      <tr>
-                        <td><?php echo $key+1 ?></td>
-                        <td><?php echo $array_item->nama_divisi; ?></td>
-                        <td><?php echo $array_item->nama_lengkap; ?></td>
-                        <td>
-                          <?php if ( $array_item->jenis_kelamin == 0) {
-                            echo 'Laki-laki';
-                          } else {
-                            echo 'Perempuan';
-                          } ?>
-                        </td>
-                        <td><?php echo $array_item->email; ?></td>
-                        <td>
-                          <?php if ($array_item->level_user == 0) {
-                            echo 'Manager';
-                          } else {
-                            echo 'Staf';
-                          } ?>
-                        </td>
-                        <td>
-                          <?php
-                          if (isset($_POST['delete'])) {
-                            $id_karyawan = $_POST['id_karyawan'];
-                            $link = "getDeleteKaryawanId&id_karyawan=" . urlencode($id_karyawan);
-                            $delete = getRegistran($link);
-                            if (!$delete) {
-                              echo "<script>alert('Data berhasil dihapus');window.location='karyawan.php'</script>";
-                            } else {
-                              echo "<script>alert('Data gagal dihapus');window.location='karyawan.php'</script>";
-                            }
-                          }
-                          ?>
-                          <form method="post">
-                            <a href="karyawan_detail.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Detail">
-                              <i class="fas fa-eye"></i>
-                            </a>
-                            <a href="karyawan_edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
-                              <i class="fas fa-edit"></i>
-                            </a>
-                            <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan; ?>">
-                            <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
-                              <i class="fas fa-trash-alt"></i>
-                            </button>
-                          </form>
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                <?php } ?>
-              </table>
+            <div class="row d-flex justify-content-center">
+              <div class="col-lg-3">
+                <div class="card text-center m-3">
+                  <h5 class="card-header">KO'ORDINATOR</h5>
+                  <div class="card-body">
+                    <center>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
+                        <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                      </svg>
+                    </center>
+                    <br>
+                    <h4><?php echo $data->data[0]->nama_user ?></h4>
+                  </div>
+                  <div class="card-footer">
+                    <a href="anggota.php?id=<?php echo $data->data[0]->id_user ?>" class="btn btn-primary">Anggota</a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <!-- /.card-body -->
+
+
+
           </div>
 
 
@@ -202,21 +153,21 @@ require_once 'header.php';
 <!-- <script src="dist/js/demo.js"></script> -->
 <!-- Page specific script -->
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('#example').DataTable();
   });
 </script>
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('#example2').DataTable();
   });
 </script>
 <script>
-
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
   })
 </script>
 </body>
+
 </html>
