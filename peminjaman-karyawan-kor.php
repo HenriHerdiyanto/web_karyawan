@@ -127,7 +127,7 @@ include "header-kordinator.php"
                                                     <?php
                                                     if (isset($_POST['delete'])) {
                                                         $id_pinjam = $_POST['id_pinjam'];
-                                                        $link = "getDeleteDinasId&id_pinjam=" . urlencode($id_pinjam);
+                                                        $link = "getDeletePinjamKaryawan&id_pinjam=" . urlencode($id_pinjam);
                                                         $delete = getRegistran($link);
                                                         if (!$delete) {
                                                             echo "<script>alert('Data berhasil dihapus');window.location='karyawan.php'</script>";

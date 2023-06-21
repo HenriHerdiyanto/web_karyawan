@@ -74,8 +74,8 @@ if (isset($_POST['submit'])) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Divisi</label>
-                                    <input type="text" name="id_user" value="<?php echo $data_dinas->data[0]->id_user; ?>">
-                                    <select class="form-control" name="id_divisi">
+                                    <input type="hidden" name="id_user" value="<?php echo $data_dinas->data[0]->id_user; ?>">
+                                    <select class="form-control" name="id_divisi" readonly>
                                         <?php foreach ($data_divisi->data as $key => $value) : ?>
                                             <option value="<?php echo $value->id_divisi; ?>" <?php if ($value->id_divisi == $data_dinas->data[0]->id_divisi) {
                                                                                                     echo 'selected';
@@ -85,11 +85,11 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <label>Nama yang mengajukan</label>
-                                    <input type="text" class="form-control" name="nama_pengajuan" value="<?php echo $data_dinas->data[0]->nama_pengajuan; ?>">
+                                    <input type="text" class="form-control" name="nama_pengajuan" value="<?php echo $data_dinas->data[0]->nama_pengajuan; ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Jabatan</label>
-                                    <input type="text" class="form-control" name="jabatan" value="<?php echo $data_dinas->data[0]->jabatan; ?>">
+                                    <input type="text" class="form-control" name="jabatan" value="<?php echo $data_dinas->data[0]->jabatan; ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Project yang dilakukan</label>
@@ -166,7 +166,7 @@ if (isset($_POST['submit'])) {
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Diminta Oleh</label>
-                                    <input type="text" class="form-control" name="diminta_oleh" value="<?php echo $data_dinas->data[0]->diminta_oleh ?>">
+                                    <input type="text" class="form-control" name="diminta_oleh" value="<?php echo $data_dinas->data[0]->nama_pengajuan; ?>">
                                 </div>
                                 <div class="form-group">
                                     <label>Diketahui Oleh</label>

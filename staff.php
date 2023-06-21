@@ -1,11 +1,6 @@
 <?php
-include "header-kordinator.php";
+include "header.php"
 
-
-$link = "getKaryawanKor&id_user=" . urlencode($id_user);
-$datas = getRegistran($link);
-$nama_divisi = $datas->data[0]->nama_divisi;
-var_dump($nama_divisi);
 ?>
 
 
@@ -16,7 +11,7 @@ var_dump($nama_divisi);
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">DIVISI <?= $nama_divisi ?></h1>
+                    <h1>PERMOHONAN PERJALANAN DINAS</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -30,10 +25,10 @@ var_dump($nama_divisi);
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data Staf Karyawan</h3>
+                            <h3 class="card-title">Data Perjalanan Dinas</h3>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
-                                <a href="karyawan-kor-tambah.php" class="btn btn-success " type="button">
-                                    <i class="fas fa-plus"></i> Add Karyawan
+                                <a href="perjalanan-dinas-kor-tambah.php" class="btn btn-success " type="button">
+                                    <i class="fas fa-plus"></i> Add Permohonan
                                 </a>
                             </div>
                             <!-- Modal Tambah-->
@@ -86,7 +81,7 @@ var_dump($nama_divisi);
                         </div>
                         <!-- /.card-header -->
                         <?php
-                        $link = "getKaryawanKor&id_user=" . urlencode($id_user);
+                        $link = "getKaryawanStaf";
                         $output = getRegistran($link);
                         ?>
 
@@ -98,11 +93,11 @@ var_dump($nama_divisi);
                                     <thead>
                                         <tr>
                                             <th>No. </th>
+                                            <th>Nama Lengkap</th>
+                                            <th>Jabatan</th>
+                                            <th>status karyawan</th>
                                             <th>Divisi</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
                                             <th>Email</th>
-                                            <th>Level</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -110,32 +105,41 @@ var_dump($nama_divisi);
                                         <?php foreach ($output->data as $key => $array_item) : ?>
                                             <tr>
                                                 <td><?php echo $key + 1 ?></td>
-                                                <td><?php echo $array_item->nama_divisi; ?></td>
                                                 <td><?php echo $array_item->nama_lengkap; ?></td>
-                                                <td><?php echo $array_item->jenis_kelamin; ?></td>
-                                                <td><?php echo $array_item->email; ?></td>
                                                 <td><?php echo $array_item->level_user; ?></td>
+                                                <td><?php echo $array_item->status_karyawan; ?></td>
+                                                <td><?php echo $array_item->id_divisi; ?></td>
+                                                <td><?php echo $array_item->email; ?></td>
+                                                <!-- <td>
+                                                    <?php
+                                                    $status = $array_item->status;
+                                                    if ($status == "diproses") {
+                                                        echo '<a class="btn bg-warning text-white">' . $status . '</a>';
+                                                    } elseif ($status == "diterima") {
+                                                        echo '<a class="btn bg-success text-white">' . $status . '</a>';
+                                                    } else {
+                                                        echo '<a class="btn bg-danger text-white">' . $status . '</a>';
+                                                    }
+                                                    ?>
+                                                </td> -->
                                                 <td>
                                                     <?php
                                                     if (isset($_POST['delete'])) {
-                                                        $id_karyawan = $_POST['id_karyawan'];
-                                                        $link = "getDeleteKaryawanId&id_karyawan=" . urlencode($id_karyawan);
+                                                        $id_dinas = $_POST['id_dinas'];
+                                                        $link = "getDeleteDinasId&id_dinas=" . urlencode($id_dinas);
                                                         $delete = getRegistran($link);
                                                         if (!$delete) {
-                                                            echo "<script>alert('Data berhasil dihapus');window.location='karyawan-kor.php'</script>";
+                                                            echo "<script>alert('Data berhasil dihapus');window.location='karyawan.php'</script>";
                                                         } else {
-                                                            echo "<script>alert('Data gagal dihapus');window.location='karyawan-kor.php'</script>";
+                                                            echo "<script>alert('Data gagal dihapus');window.location='karyawan.php'</script>";
                                                         }
                                                     }
                                                     ?>
                                                     <form method="post">
-                                                        <a href="karyawan-kor-evaluasi.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Evaluasi Karyawan">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                        <a href="perjalanan_dinas_edit.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan; ?>">
+                                                        <input type="hidden" name="id_dinas" value="<?php echo $array_item->id_dinas; ?>">
                                                         <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>

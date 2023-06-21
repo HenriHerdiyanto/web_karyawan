@@ -1,8 +1,6 @@
 <?php
 require_once 'header.php';
 
-$id = $_GET['id'];
-$link = "getKordinator&id_user=" . urlencode($id);
 ?>
 
 
@@ -83,8 +81,10 @@ $link = "getKordinator&id_user=" . urlencode($id);
                         </div>
                         <!-- /.card-header -->
                         <?php
-                        $link = "getKaryawan";
+                        $id = $_GET['id'];
+                        $link = "getKaryawan&id_user=" . urlencode($id);
                         $output = getRegistran($link);
+                        var_dump($output);
                         ?>
 
                         <div class="card-body table-responsive">

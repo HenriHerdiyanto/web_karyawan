@@ -8,6 +8,8 @@ $data_divisi = getRegistran($link);
 
 $link = "getKaryawanById&id_karyawan=" . urlencode($id_krywn);
 $data_karyawan = getRegistran($link);
+$status_karyawan = $data_karyawan->data[0]->status_karyawan;
+var_dump($status_karyawan);
 
 // input Karyawan
 if (isset($_POST['submit'])) {

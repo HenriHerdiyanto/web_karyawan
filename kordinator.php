@@ -1,5 +1,11 @@
 <?php
 require_once 'header-kordinator.php';
+
+
+$link = "getKaryawanKor&id_user=" . urlencode($id_user);
+$datas = getRegistran($link);
+$nama_divisi = $datas->data[0]->nama_divisi;
+var_dump($nama_divisi);
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -9,7 +15,7 @@ require_once 'header-kordinator.php';
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard</h1>
+                    <h1 class="m-0">DIVISI <?= $nama_divisi ?></h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->

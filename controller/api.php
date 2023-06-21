@@ -35,10 +35,66 @@ function getUser()
     echo json_encode($response);
 }
 
-function getKordinator()
+function getUserStaff()
+{
+    global $connect;
+    if (!empty($_GET['username']))
+        $username = $_GET['username'];
+    if (!empty($_GET['password']))
+        $password = $_GET['password'];
+
+    $query = "SELECT * FROM karyawan WHERE username = '$username'AND password = '$password'";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
+function getId_user()
 {
     global $connect;
 
+    $query = "SELECT id_user FROM user ORDER BY id_user DESC LIMIT 1;";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getKordinator()
+{
+    global $connect;
     $query = "SELECT * FROM user WHERE level_user = 1";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
@@ -62,11 +118,40 @@ function getKordinator()
 }
 
 
+
 function getEvaluasi()
 {
     global $connect;
 
     $query = "SELECT * FROM evaluasi";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
+
+function getKaryawanStaf()
+{
+    global $connect;
+
+    $query = "SELECT * FROM karyawan";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;
@@ -138,6 +223,66 @@ function setInventaris()
 
 
     $query = "INSERT INTO inventaris SET nama = '$nama', tipe = '$tipe', jumlah = '$jumlah', tanggal = '$tanggal', harga = '$harga', gambar = '$gambar'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
+function setUserByAdmin()
+{
+    global $connect;
+    if (!empty($_GET['nama_user']))
+        $nama_user = $_GET['nama_user'];
+    if (!empty($_GET['username']))
+        $username = $_GET['username'];
+    if (!empty($_GET['password']))
+        $password = $_GET['password'];
+    if (!empty($_GET['level_user']))
+        $level_user = $_GET['level_user'];
+
+
+    $query = "INSERT INTO user SET nama_user = '$nama_user', username = '$username', password = '$password', level_user = '$level_user'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function setUpdateIdKaryawan()
+{
+    global $connect;
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+
+    $query = "UPDATE karyawan SET id_user = '$id_user' WHERE id_divisi = '$id_divisi'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -381,6 +526,33 @@ function getInventaris()
     echo json_encode($response);
 }
 
+function getUserALL()
+{
+
+    global $connect;
+    $query = "SELECT * from user";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function getService()
 {
 
@@ -471,6 +643,8 @@ function getServiceid()
 function setDivisi()
 {
     global $connect;
+    // if (!empty($_GET['id_user']))
+    //     $id_user = $_GET['id_user'];
     if (!empty($_GET['kode_divisi']))
         $kode_divisi = $_GET['kode_divisi'];
     if (!empty($_GET['nama_divisi']))
@@ -530,7 +704,60 @@ function getDivisibyIdDiv()
     if (!empty($_GET['id_divisi']))
         $id_divisi = $_GET['id_divisi'];
 
-    $query = "SELECT * FROM divisi WHERE id_divisi = '$id_divisi'";
+    $query = "SELECT * FROM divisi LEFT JOIN user ON divisi.id_user = user.id_user WHERE id_divisi = $id_divisi";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getDivisiSemua()
+{
+
+    global $connect;
+    $query = "SELECT id_user, nama_user FROM user";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getDivisiUser()
+{
+
+    global $connect;
+    $query = "SELECT * FROM divisi LEFT JOIN user ON divisi.id_user = user.id_user";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -559,13 +786,15 @@ function setUpdateDivisiId()
     global $connect;
     if (!empty($_GET['id_divisi']))
         $id_divisi = $_GET['id_divisi'];
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
     if (!empty($_GET['kode_divisi']))
         $kode_divisi = $_GET['kode_divisi'];
     if (!empty($_GET['nama_divisi']))
         $nama_divisi = $_GET['nama_divisi'];
 
 
-    $query = "UPDATE divisi SET kode_divisi = '$kode_divisi', nama_divisi = '$nama_divisi' WHERE id_divisi = '$id_divisi'";
+    $query = "UPDATE divisi SET id_user = '$id_user', kode_divisi = '$kode_divisi', nama_divisi = '$nama_divisi' WHERE id_divisi = '$id_divisi'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -648,6 +877,8 @@ function setKaryawan()
         $status_karyawan = $_GET['status_karyawan'];
     if (!empty($_GET['email']))
         $email = $_GET['email'];
+    if (!empty($_GET['username']))
+        $username = $_GET['username'];
     if (!empty($_GET['password']))
         $password = $_GET['password'];
     if (!empty($_GET['level_user']))
@@ -656,7 +887,72 @@ function setKaryawan()
         $foto_karyawan = $_GET['foto_karyawan'];
 
 
-    $query = "INSERT INTO karyawan SET id_user = '$id_user',id_divisi = '$id_divisi', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', password = '$password', level_user = '$level_user', foto_karyawan = '$foto_karyawan'";
+    $query = "INSERT INTO karyawan SET id_user = '$id_user',id_divisi = '$id_divisi', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email',username = '$email', password = '$password', level_user = '$level_user', foto_karyawan = '$foto_karyawan'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
+function setKaryawanByAdmin()
+{
+    global $connect;
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['jenis_kelamin']))
+        $jenis_kelamin = $_GET['jenis_kelamin'];
+    if (!empty($_GET['tempat_lahir']))
+        $tempat_lahir = $_GET['tempat_lahir'];
+    if (!empty($_GET['tanggal_lahir']))
+        $tanggal_lahir = $_GET['tanggal_lahir'];
+    if (!empty($_GET['alamat_ktp']))
+        $alamat_ktp = $_GET['alamat_ktp'];
+    if (!empty($_GET['alamat_domisili']))
+        $alamat_domisili = $_GET['alamat_domisili'];
+    if (!empty($_GET['no_hp']))
+        $no_hp = $_GET['no_hp'];
+    if (!empty($_GET['no_ktp']))
+        $no_ktp = $_GET['no_ktp'];
+    if (!empty($_GET['no_npwp']))
+        $no_npwp = $_GET['no_npwp'];
+    if (!empty($_GET['agama']))
+        $agama = $_GET['agama'];
+    if (!empty($_GET['gol_darah']))
+        $gol_darah = $_GET['gol_darah'];
+    if (!empty($_GET['status_pernikahan']))
+        $status_pernikahan = $_GET['status_pernikahan'];
+    if (!empty($_GET['status_karyawan']))
+        $status_karyawan = $_GET['status_karyawan'];
+    if (!empty($_GET['email']))
+        $email = $_GET['email'];
+    // if (!empty($_GET['username']))
+    //     $username = $_GET['username'];
+    if (!empty($_GET['password']))
+        $password = $_GET['password'];
+    if (!empty($_GET['level_user']))
+        $level_user = $_GET['level_user'];
+    if (!empty($_GET['foto_karyawan']))
+        $foto_karyawan = $_GET['foto_karyawan'];
+
+
+    $query = "INSERT INTO karyawan SET id_user = '$id_user',id_divisi = '$id_divisi', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', username = '$email', password = '$password', level_user = '$level_user', foto_karyawan = '$foto_karyawan'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -1035,7 +1331,7 @@ function getKaryawanKor()
     global $connect;
     if (!empty($_GET['id_user']))
         $id_user = $_GET['id_user'];
-    $query = "SELECT * FROM karyawan LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi WHERE id_user = $id_user";
+    $query = "SELECT * FROM karyawan LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi WHERE karyawan.id_user = $id_user;";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -1062,9 +1358,9 @@ function getKaryawan()
 {
 
     global $connect;
-    $query = "SELECT * FROM karyawan 
-    LEFT JOIN user ON user.id_user = karyawan.id_user 
-    WHERE karyawan.id_user = 2";
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+    $query = "SELECT * FROM karyawan LEFT JOIN user ON user.id_user = karyawan.id_user WHERE karyawan.id_user = $id_user";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -1093,7 +1389,10 @@ function getDinas()
     global $connect;
     if (!empty($_GET['id_user']))
         $id_user = $_GET['id_user'];
-    $query = "SELECT * FROM perjalanan_dinas LEFT JOIN divisi ON perjalanan_dinas.id_divisi = divisi.id_divisi WHERE id_user = $id_user";
+    $query = "SELECT *
+    FROM perjalanan_dinas
+    LEFT JOIN divisi ON perjalanan_dinas.id_divisi = divisi.id_divisi
+    WHERE perjalanan_dinas.id_user = $id_user";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -1354,6 +1653,33 @@ function getDeleteDinasId()
     $id_dinas = $_GET["id_dinas"];
 
     $query = "DELETE FROM perjalanan_dinas WHERE id_dinas = $id_dinas";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getDeletePinjamKaryawan()
+{
+    global $connect;
+    $id_pinjam = $_GET["id_pinjam"];
+
+    $query = "DELETE FROM pinjam_karyawan WHERE id_pinjam = $id_pinjam";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;

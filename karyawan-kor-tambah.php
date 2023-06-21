@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     $status_pernikahan = $_POST['status_pernikahan'];
     $status_karyawan = $_POST['status_karyawan'];
     $email = $_POST['email'];
-    // $password = $_POST['password'];
+    $password = $_POST['password'];
     $level_user = $_POST['level_user'];
 
     $extensi_izin = array("jpg", "jpeg", "png", "pdf", "gif");
@@ -58,11 +58,16 @@ if (isset($_POST['submit'])) {
     }
 
 
-    $link = "setKaryawan&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&type=insert';
+    $link = "setKaryawan&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . "&username=" . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&type=insert';
     $data = getRegistran($link);
     echo "<script>alert('Karyawan Berhasil diTAMBAH')</script>";
     echo ("<script>location.href = 'karyawan-kor.php';</script>");
 }
+
+$link = "getKaryawanKor&id_user=" . urlencode($id_user);
+$datas = getRegistran($link);
+$nama_divisi = $datas->data[0]->nama_divisi;
+// var_dump($nama_divisi);
 
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -72,7 +77,7 @@ if (isset($_POST['submit'])) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Tambah Karyawan</h1>
+                    <h1>Tambah Karyawan <?= $nama_divisi ?></h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -91,7 +96,7 @@ if (isset($_POST['submit'])) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="hidden" name="id_user" value="<?php echo $id_user ?>">
+                                    <input type="text" name="id_user" value="<?php echo $id_user ?>">
                                     <label for="">Divisi</label>
                                     <select class="form-control" name="id_divisi">
                                         <option selected>--Pilih Divisi--</option>
@@ -183,8 +188,8 @@ if (isset($_POST['submit'])) {
                                     <label>Status Karyawan</label>
                                     <select class="form-control" name="status_karyawan">
                                         <option selected>--Pilih Status Karyawan--</option>
-                                        <option value="0">aktif</option>
-                                        <option value="1">nonaktif</option>
+                                        <option value="aktif">aktif</option>
+                                        <option value="nonaktif">nonaktif</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -199,10 +204,10 @@ if (isset($_POST['submit'])) {
                                     <label>Email</label>
                                     <input type="email" class="form-control" name="email">
                                 </div>
-                                <!-- <div class="form-group">
-                  <label>Password</label>
-                  <input type="text" class="form-control" name="password">
-                </div> -->
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="text" class="form-control" name="password">
+                                </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">Foto</label>
                                     <div class="input-group">

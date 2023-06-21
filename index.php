@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once 'header.php';
 ?>
 
@@ -11,6 +11,13 @@ require_once 'header.php';
         <div class="col-sm-6">
           <h1 class="m-0">Dashboard</h1>
         </div><!-- /.col -->
+        <div class="col-sm-6 text-right">
+          <form action="karyawan_tambah.php" method="post">
+            <button class="btn btn-lg btn-success" type="submit">
+              <i class="fas fa-plus"></i> Add Karyawan
+            </button>
+          </form>
+        </div>
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </div>
@@ -19,14 +26,11 @@ require_once 'header.php';
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-      <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-lg-3 col-6">
-          <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
               <h3>1</h3>
-
               <p>Semua Project</p>
             </div>
             <div class="icon">
@@ -98,7 +102,7 @@ require_once 'header.php';
               <div class="tab-content p-0">
                 <!-- Morris chart - Sales -->
                 <div class="card-body table-responsive" id="revenue-chart" style="position: relative;">
-                  <?php 
+                  <?php
                   $link = "getToDoListAll";
                   $output4 = getRegistran($link);
                   if ($output4 == NULL) { ?>
@@ -122,28 +126,28 @@ require_once 'header.php';
                         </tr>
                       </thead>
                       <tbody>
-                        <?php foreach ($output4->data as $key=>$array_item) : 
+                        <?php foreach ($output4->data as $key => $array_item) :
                           $mulai = $array_item->tanggal_mulai;
                           $awal = date_create($mulai);
                           $akhir = date_create();
                           $diff = date_diff($awal, $akhir);
                         ?>
-                        <tr class="<?php if ($array_item->status_job == 'Open') {
-                          echo 'table-success';
-                          }elseif ($array_item->status_job == 'Running') {
-                            echo 'table-warning';
-                            }else{
-                              echo 'table-danger';
-                            }?>">
-                            <td><?php echo $key+1 ?></td>
+                          <tr class="<?php if ($array_item->status_job == 'Open') {
+                                        echo 'table-success';
+                                      } elseif ($array_item->status_job == 'Running') {
+                                        echo 'table-warning';
+                                      } else {
+                                        echo 'table-danger';
+                                      } ?>">
+                            <td><?php echo $key + 1 ?></td>
                             <td><?php echo $array_item->nama_project; ?></td>
                             <td><?php echo $array_item->subjek; ?></td>
                             <td><?php echo $array_item->tanggal_mulai; ?></td>
                             <td><?php echo $diff->days; ?> Hari</td>
                             <td>
-                              <?php echo $array_item->status_job; 
+                              <?php echo $array_item->status_job;
                               if ($array_item->status_job == 'Close') {
-                                echo '<br> ' . date('d-m-Y',strtotime($array_item->update_time));
+                                echo '<br> ' . date('d-m-Y', strtotime($array_item->update_time));
                               }
                               ?>
 
@@ -247,7 +251,7 @@ require_once 'header.php';
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     $('#example').DataTable();
   });
 </script>
@@ -259,4 +263,5 @@ require_once 'header.php';
   })
 </script>
 </body>
+
 </html>

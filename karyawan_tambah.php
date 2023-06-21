@@ -1,12 +1,14 @@
 <?php
 require_once 'header.php';
-$id_input = $_GET['id'];
+// $id_input = $_GET['id'];
 $link = "getDivisi";
 $data_divisi = getRegistran($link);
 
+
+
 // input Karyawan
 if (isset($_POST['submit'])) {
-  $id_user = $_POST['id_user'];
+
   $id_divisi = $_POST['id_divisi'];
   $nama_lengkap = $_POST['nama_lengkap'];
   $jenis_kelamin = $_POST['jenis_kelamin'];
@@ -22,7 +24,7 @@ if (isset($_POST['submit'])) {
   $status_pernikahan = $_POST['status_pernikahan'];
   $status_karyawan = $_POST['status_karyawan'];
   $email = $_POST['email'];
-  // $password = $_POST['password'];
+  $password = $_POST['password'];
   $level_user = $_POST['level_user'];
 
   $extensi_izin = array("jpg", "jpeg", "png", "pdf", "gif");
@@ -58,9 +60,18 @@ if (isset($_POST['submit'])) {
   }
 
 
-  $link = "setKaryawan&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&type=insert';
-  $data = getRegistran($link);
-  var_dump($data);
+  if ($level_user == 'staff') {
+    $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&type=insert';
+    $data = getRegistran($link);
+  } elseif ($level_user == 'manager') {
+    $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&type=insert';
+    $data = getRegistran($link);
+    var_dump($data);
+
+    $link2 = "setUserByAdmin&nama_user=" . urlencode($nama_lengkap) . "&username=" . urlencode($email) . "&password=" . urlencode($password) . "&level_user=1";
+    $data2 = getRegistran($link2);
+    var_dump($data2);
+  }
   // echo '<script>alert("data berhasil ditambah")</script>';
   // echo ("<script>location.href = 'karyawan.php';</script>");
 }
@@ -93,7 +104,8 @@ if (isset($_POST['submit'])) {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="">Divisi</label>
-                  <input type="text" name="id_user" value="<?= $id_input ?>">
+                  <!-- <input type="text" name="id_user" value="<?php echo $id_userJ + 1 ?>"> -->
+
                   <select class="form-control" name="id_divisi">
                     <option selected>--Pilih Divisi--</option>
                     <?php foreach ($data_divisi->data as $key => $value) { ?>
@@ -200,10 +212,10 @@ if (isset($_POST['submit'])) {
                   <label>Email</label>
                   <input type="email" class="form-control" name="email">
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <label>Password</label>
                   <input type="text" class="form-control" name="password">
-                </div> -->
+                </div>
                 <div class="form-group">
                   <label for="exampleInputFile">Foto</label>
                   <div class="input-group">

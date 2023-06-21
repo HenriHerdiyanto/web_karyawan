@@ -1,6 +1,18 @@
 <?php
 require_once 'header.php';
 
+$link = "getDivisi";
+$data_divisi = getRegistran($link);
+
+$link = "getUserALL";
+$data_user = getRegistran($link);
+
+$link = "getKordinator";
+$data = getRegistran($link);
+
+$link = "getDivisiUser";
+$data2 = getRegistran($link);
+// var_dump($data2);
 
 ?>
 
@@ -12,7 +24,6 @@ require_once 'header.php';
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Data Kordinator</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -22,103 +33,93 @@ require_once 'header.php';
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12">
-
+        <div class="col-lg-12">
           <div class="card">
-            <!-- <div class="card-header">
-              <h3 class="card-title">Data Staf Karyawan</h3>
-              <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
-                <a href="karyawan_tambah.php" class="btn btn-success " type="button">
-                  <i class="fas fa-plus"></i> Add Karyawan
-                </a>
+            <section class="content-header">
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <h1>Semua Kordinator</h1>
+                  </div>
+                  <div class="col-sm-6 text-right">
+                    <button class="btn btn-lg btn-success" type="button" data-toggle="modal" data-target="#AddDivisi">
+                      <i class="fas fa-plus"></i> Add Kordinator
+                    </button>
+                  </div>
+                </div>
               </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <?php foreach ($data2->data as $key => $array_item) :
+          $nama_user = $array_item->nama_user;
+          // var_dump($data2);
 
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Input Staf</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form method="post">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Nama Lengkap</label>
-                          <input type="text" class="form-control" name="nama_lengkap">
-                        </div>
-                        <div class="form-group">
-                          <label for="">Jenis Kelamin</label>
-                          <select class="form-control" name="jenis_kelamin">
-                            <option selected>--Pilih Gender--</option>
-                            <option value="0">Laki-laki</option>
-                            <option value="1">Perempuan</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Email</label>
-                          <input type="email" class="form-control" name="email">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Password</label>
-                          <input type="text" class="form-control" name="password">
-                        </div>
-                        <div class="form-group">
-                          <label for="">Jabatan</label>
-                          <select class="form-control" name="level">
-                            <option selected>--Pilih Posisi--</option>
-                            <option value="0">Admin</option>
-                            <option value="1">Supervisor</option>
-                            <option value="2">Staf</option>
-                          </select>
-                        </div>
-                        <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
-                      </form>
-                    </div>
-                  </div>
+        ?>
+          <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="card ">
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3><?php echo $array_item->nama_divisi ?></h3>
+                  <?php
+                  if ($nama_user == null) { ?>
+                    <h4>Belum ada Kordinator</h4>
+                  <?php } else { ?>
+                    <h4><?php echo $array_item->nama_user ?></h4>
+                  <?php }
+                  ?>
                 </div>
-              </div>
-            </div> -->
-            <?php
-            $link = "getKordinator";
-            $data = getRegistran($link);
-            ?>
-            <div class="row d-flex justify-content-center">
-              <div class="col-lg-3">
-                <div class="card text-center m-3">
-                  <h5 class="card-header">KO'ORDINATOR</h5>
-                  <div class="card-body">
-                    <center>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 16">
-                        <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z" />
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                      </svg>
-                    </center>
-                    <br>
-                    <h4><?php echo $data->data[0]->nama_user ?></h4>
-                  </div>
-                  <div class="card-footer">
-                    <a href="anggota.php?id=<?php echo $data->data[0]->id_user ?>" class="btn btn-primary">Anggota</a>
-                  </div>
+                <div class="icon">
+                  <i class="ion ion-ios-albums"></i>
                 </div>
+                <a href="anggota.php?id=<?php echo $array_item->id_user ?>" class="small-box-footer">Anggota<i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-
-
-
           </div>
-
-
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
+        <?php endforeach ?>
       </div>
-      <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
   </section>
-  <!-- /.content -->
+
+  <!-- Modal Add Divisi -->
+  <div class="modal fade" id="AddDivisi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Kordinator</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="post">
+            <div class="form-group">
+              <label for="">Nama User</label>
+              <input type="text" name="nama_user" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="">Username</label>
+              <input type="text" name="username" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="">Password</label>
+              <input type="text" name="password" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="">Level User</label>
+              <select name="level_user" class="form-control">
+                <option value="1"></option>
+              </select>
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 <!-- /.content-wrapper -->
 

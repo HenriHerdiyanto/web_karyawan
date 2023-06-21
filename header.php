@@ -194,6 +194,14 @@ if ($level_user > 0) {
               </a>
             </li>
             <li class="nav-item">
+              <a href="staff.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                  Semua Staff
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="divisi.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-tasks"></i>
                 <p>

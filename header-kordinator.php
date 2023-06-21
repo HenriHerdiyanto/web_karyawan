@@ -189,7 +189,7 @@ if ($level_user < 1) {
                             <a href="karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Anggota
+                                    Anggota Anda
                                 </p>
                             </a>
                         </li>

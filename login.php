@@ -56,7 +56,7 @@ if (isset($_POST['login'])) {
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="index2.html"><b>L<img src="assets/img/logomt.png" class="" style="width: 40px;">GIN</b></a>
+      <a href="login_user.php"><b>L<img src="assets/img/logomt.png" class="" style="width: 40px;">GIN</b></a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -83,7 +83,8 @@ if (isset($_POST['login'])) {
           <div class="row">
             <!-- /.col -->
             <div class="col-12">
-              <button type="submit" class="btn btn-primary btn-block w-100" name="login">Sign In</button>
+              <button type="submit" class="btn btn-primary btn-block w-100" name="login">Sign In as Manager</button>
+              <a class="btn btn-primary btn-block w-100" href="login_user.php">Sign In as Staff</a>
             </div>
             <!-- /.col -->
           </div>

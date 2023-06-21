@@ -130,9 +130,9 @@ include "header-kordinator.php"
                                                         $link = "getDeleteDinasId&id_dinas=" . urlencode($id_dinas);
                                                         $delete = getRegistran($link);
                                                         if (!$delete) {
-                                                            echo "<script>alert('Data berhasil dihapus');window.location='karyawan.php'</script>";
+                                                            echo "<script>alert('Data berhasil dihapus');window.location='perjalanan-dinas-kor.php'</script>";
                                                         } else {
-                                                            echo "<script>alert('Data gagal dihapus');window.location='karyawan.php'</script>";
+                                                            echo "<script>alert('Data gagal dihapus');window.location='perjalanan-dinas-kor.php'</script>";
                                                         }
                                                     }
                                                     ?>
