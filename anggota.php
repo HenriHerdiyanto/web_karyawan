@@ -22,7 +22,6 @@ require_once 'header.php';
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Data Staf Karyawan</h3>
@@ -96,7 +95,7 @@ require_once 'header.php';
                                         <tr>
                                             <th>No. </th>
                                             <th>Nama Koordinator</th>
-                                            <th>Nama</th>
+                                            <th>Nama Karyawan</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Email</th>
                                             <th class="text-center">FOTO</th>

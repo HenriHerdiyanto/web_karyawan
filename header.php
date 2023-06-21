@@ -176,7 +176,7 @@ if ($level_user > 0) {
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-           with font-awesome or any other icon font library -->
+        with font-awesome or any other icon font library -->
             <li class="nav-item">
               <a href="index.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -195,15 +195,15 @@ if ($level_user > 0) {
             </li>
             <li class="nav-item">
               <a href="staff.php" class="nav-link" style="color: #FFCF09;">
-                <i class="nav-icon fas fa-users"></i>
+                <i class="nav-icon fas fa-user-friends"></i>
                 <p>
-                  Semua Staff
+                  Semua Karyawan
                 </p>
               </a>
             </li>
             <li class="nav-item">
               <a href="divisi.php" class="nav-link" style="color: #FFCF09;">
-                <i class="nav-icon fas fa-tasks"></i>
+                <i class="nav-icon fas fa-building"></i>
                 <p>
                   Divisi
                 </p>
@@ -211,7 +211,7 @@ if ($level_user > 0) {
             </li>
             <li class="nav-item">
               <a href="perjalanan_dinas.php" class="nav-link" style="color: #FFCF09;">
-                <i class="nav-icon fas fa-tasks"></i>
+                <i class="nav-icon fas fa-plane"></i>
                 <p>
                   Perjalanan Dinas
                 </p>
@@ -219,7 +219,7 @@ if ($level_user > 0) {
             </li>
             <li class="nav-item">
               <a href="peminjaman_karyawan.php" class="nav-link" style="color: #FFCF09;">
-                <i class="nav-icon fas fa-tasks"></i>
+                <i class="nav-icon fas fa-clipboard"></i>
                 <p>
                   Peminjaman Karyawan
                 </p>
@@ -227,22 +227,19 @@ if ($level_user > 0) {
             </li>
             <li class="nav-item">
               <a href="inventaris.php" class="nav-link" style="color: #FFCF09;">
-                <i class="fa fa-suitcase mx-1">
-                  <p class="mx-1"> List Inventaris
-                  </p>
-                </i>
+                <i class="fa fa-suitcase mx-1"></i>
+                <p class="mx-1">List Inventaris</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="service.php" class="nav-link" style="color: #FFCF09;">
-                <i class="fa fa-wrench mx-1">
-                  <p class="mx-1"> Service Infrastruktur
-                  </p>
-                </i>
+                <i class="fa fa-tools mx-1"></i>
+                <p class="mx-1">Service Infrastruktur</p>
               </a>
             </li>
           </ul>
         </nav>
+
         <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->

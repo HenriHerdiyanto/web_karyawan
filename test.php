@@ -31,6 +31,7 @@
       <p class="card-text">Alamat: Jl. Contoh Alamat No. 123</p>
       <p class="card-text">Telepon: 1234567890</p>
     </div>
+    <a href="logout.php">Logout</a>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

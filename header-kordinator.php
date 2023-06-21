@@ -176,7 +176,7 @@ if ($level_user < 1) {
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-           with font-awesome or any other icon font library -->
+        with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a href="kordinator.php" class="nav-link" style="color: #FFCF09;">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -195,7 +195,7 @@ if ($level_user < 1) {
                         </li>
                         <li class="nav-item">
                             <a href="evaluasi-karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="nav-icon fas fa-chart-bar"></i>
                                 <p>
                                     Evaluasi Anggota
                                 </p>
@@ -203,7 +203,7 @@ if ($level_user < 1) {
                         </li>
                         <li class="nav-item">
                             <a href="perjalanan-dinas-kor.php" class="nav-link" style="color: #FFCF09;">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="nav-icon fas fa-plane"></i>
                                 <p>
                                     Perjalanan Dinas
                                 </p>
@@ -211,7 +211,7 @@ if ($level_user < 1) {
                         </li>
                         <li class="nav-item">
                             <a href="peminjaman-karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
-                                <i class="nav-icon fas fa-users"></i>
+                                <i class="nav-icon fas fa-clipboard"></i>
                                 <p>
                                     Peminjaman Karyawan
                                 </p>
@@ -219,6 +219,7 @@ if ($level_user < 1) {
                         </li>
                     </ul>
                 </nav>
+
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->

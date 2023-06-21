@@ -11,7 +11,7 @@ include "header.php"
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>PERMOHONAN PERJALANAN DINAS</h1>
+                    <h1>SEMUA DATA KARYAWAN</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -25,7 +25,7 @@ include "header.php"
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data Perjalanan Dinas</h3>
+                            <h3 class="card-title">Data Karyawan</h3>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
                                 <a href="perjalanan-dinas-kor-tambah.php" class="btn btn-success " type="button">
                                     <i class="fas fa-plus"></i> Add Permohonan
