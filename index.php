@@ -18,7 +18,7 @@ require_once 'header.php';
         <div class="col-sm-6 text-right">
           <form action="karyawan_tambah.php" method="post">
             <button class="btn btn-lg btn-success" type="submit">
-              <i class="fas fa-plus"></i> Add Karyawan
+              <i class="fas fa-plus"></i> Add KORDINATOR
             </button>
           </form>
         </div>

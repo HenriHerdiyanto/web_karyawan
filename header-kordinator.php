@@ -217,6 +217,14 @@ if ($level_user < 1) {
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="lembur-karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
+                                <i class="nav-icon fas fa-clipboard"></i>
+                                <p>
+                                    Lembur Karyawan
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 

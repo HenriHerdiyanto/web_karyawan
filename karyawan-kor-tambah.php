@@ -96,7 +96,7 @@ $nama_divisi = $datas->data[0]->nama_divisi;
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="id_user" value="<?php echo $id_user ?>">
+                                    <input type="hidden" name="id_user" value="<?php echo $id_user ?>">
                                     <label for="">Divisi</label>
                                     <select class="form-control" name="id_divisi">
                                         <option selected>--Pilih Divisi--</option>
@@ -107,11 +107,11 @@ $nama_divisi = $datas->data[0]->nama_divisi;
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Lengkap</label>
-                                    <input type="text" class="form-control" name="nama_lengkap">
+                                    <input type="text" class="form-control" name="nama_lengkap" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Jenis Kelamin</label>
-                                    <select class="form-control" name="jenis_kelamin">
+                                    <select class="form-control" name="jenis_kelamin" required>
                                         <option selected>--Pilih Gender--</option>
                                         <option value="laki-laki">Laki-laki</option>
                                         <option value="perempuan">Perempuan</option>
@@ -119,15 +119,15 @@ $nama_divisi = $datas->data[0]->nama_divisi;
                                 </div>
                                 <div class="form-group">
                                     <label>Tempat Lahir</label>
-                                    <input type="text" class="form-control" name="tempat_lahir">
+                                    <input type="text" class="form-control" name="tempat_lahir" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal Lahir</label>
-                                    <input type="date" class="form-control" name="tanggal_lahir">
+                                    <input type="date" class="form-control" name="tanggal_lahir" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Alamat Lengkap (Sesuai KTP)</label>
-                                    <textarea type="text" name="alamat_ktp" class="form-control" rows="2" id="alamat_ktp"></textarea>
+                                    <textarea type="text" name="alamat_ktp" class="form-control" rows="2" id="alamat_ktp" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="alamatDomisili">Alamat Domisili</label>
@@ -139,22 +139,22 @@ $nama_divisi = $datas->data[0]->nama_divisi;
                                 </div>
                                 <div class="form-group">
                                     <label>Nomor Telepon</label>
-                                    <input type="text" class="form-control" name="no_hp">
+                                    <input type="text" class="form-control" name="no_hp" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nomor KTP</label>
-                                    <input type="text" class="form-control" name="no_ktp">
+                                    <input type="text" class="form-control" name="no_ktp" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Nomor NPWP</label>
-                                    <input type="text" class="form-control" name="no_npwp">
+                                    <input type="text" class="form-control" name="no_npwp" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Agama</label>
-                                    <select class="form-control" name="agama">
+                                    <select class="form-control" name="agama" required>
                                         <option selected>--Pilih Agama--</option>
                                         <option>Islam</option>
                                         <option>Protestan</option>
@@ -166,7 +166,7 @@ $nama_divisi = $datas->data[0]->nama_divisi;
                                 </div>
                                 <div class="form-group">
                                     <label>Golongan Drah</label>
-                                    <select class="form-control" name="gol_darah">
+                                    <select class="form-control" name="gol_darah" required>
                                         <option selected>--Pilih Golongan Darah--</option>
                                         <option>A</option>
                                         <option>B</option>
@@ -176,7 +176,7 @@ $nama_divisi = $datas->data[0]->nama_divisi;
                                 </div>
                                 <div class="form-group">
                                     <label>Status Pernikahan</label>
-                                    <select class="form-control" name="status_pernikahan">
+                                    <select class="form-control" name="status_pernikahan" required>
                                         <option selected>--Pilih Status Pernikahan--</option>
                                         <option>Kawin</option>
                                         <option>Belum Kawin</option>
@@ -186,7 +186,7 @@ $nama_divisi = $datas->data[0]->nama_divisi;
                                 </div>
                                 <div class="form-group">
                                     <label>Status Karyawan</label>
-                                    <select class="form-control" name="status_karyawan">
+                                    <select class="form-control" name="status_karyawan" required>
                                         <option selected>--Pilih Status Karyawan--</option>
                                         <option value="aktif">aktif</option>
                                         <option value="nonaktif">nonaktif</option>
@@ -194,19 +194,19 @@ $nama_divisi = $datas->data[0]->nama_divisi;
                                 </div>
                                 <div class="form-group">
                                     <label>Level User</label>
-                                    <select class="form-control" name="level_user">
+                                    <select class="form-control" name="level_user" required>
                                         <option selected>--Pilih Level User--</option>
-                                        <option value="0">Manager</option>
+                                        <!-- <option value="0">Manager</option> -->
                                         <option value="1">Staff</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="form-control" name="email">
+                                    <input type="email" class="form-control" name="email" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="text" class="form-control" name="password">
+                                    <input type="text" class="form-control" name="password" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputFile">Foto</label>

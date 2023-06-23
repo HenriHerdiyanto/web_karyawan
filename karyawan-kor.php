@@ -8,7 +8,31 @@ $nama_divisi = $datas->data[0]->nama_divisi;
 var_dump($nama_divisi);
 ?>
 
+<?php
+if (isset($_POST['save'])) {
+    $id_karyawan = $_POST['id_karyawan'];
+    $nama_divisi = $_POST['nama_divisi'];
+    $nama_lengkap = $_POST['nama_lengkap'];
+    $level_user = $_POST['level_user'];
+    $project = $_POST['project'];
+    $tanggal = $_POST['tanggal'];
+    $mulai_lembur = $_POST['mulai_lembur'];
+    $akhir_lembur = $_POST['akhir_lembur'];
+    $total_lembur = $_POST['total_lembur'];
+    $keterangan = $_POST['keterangan'];
+    $mengetahui = $_POST['mengetahui'];
 
+    $link = "setLembur2&id_karyawan=" . urlencode($id_karyawan) . "&nama_divisi=" . urlencode($nama_divisi) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&level_user=" . urlencode($level_user) . "&project=" . urlencode($project) . "&tanggal=" . urlencode($tanggal) . "&mulai_lembur=" . urlencode($mulai_lembur) . "&akhir_lembur=" . urlencode($akhir_lembur) . "&total_lembur=" . urlencode($total_lembur) . "&keterangan=" . urlencode($keterangan) . "&mengetahui=" . urlencode($mengetahui);
+    $data = getRegistran($link);
+    var_dump($data);
+    //     echo "<script>
+    //     alert('Data Berhasil terkirim')
+    // </script>";
+    //     echo "<script>
+    //     location.href = 'lembur-karyawan-kor.php';
+    // </script>";
+}
+?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -33,55 +57,8 @@ var_dump($nama_divisi);
                             <h3 class="card-title">Data Staf Karyawan</h3>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
                                 <a href="karyawan-kor-tambah.php" class="btn btn-success " type="button">
-                                    <i class="fas fa-plus"></i> Add Karyawan
+                                    <i class="fas fa-plus"></i> Add Staff Kamu
                                 </a>
-                            </div>
-                            <!-- Modal Tambah-->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Input Staf</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Nama Lengkap</label>
-                                                    <input type="text" class="form-control" name="nama_lengkap">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="">Jenis Kelamin</label>
-                                                    <select class="form-control" name="jenis_kelamin">
-                                                        <option selected>--Pilih Gender--</option>
-                                                        <option value="0">Laki-laki</option>
-                                                        <option value="1">Perempuan</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">Email</label>
-                                                    <input type="email" class="form-control" name="email">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">Password</label>
-                                                    <input type="text" class="form-control" name="password">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="">Jabatan</label>
-                                                    <select class="form-control" name="level">
-                                                        <option selected>--Pilih Posisi--</option>
-                                                        <option value="0">Admin</option>
-                                                        <option value="1">Supervisor</option>
-                                                        <option value="2">Staf</option>
-                                                    </select>
-                                                </div>
-                                                <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -103,7 +80,7 @@ var_dump($nama_divisi);
                                             <th>Jenis Kelamin</th>
                                             <th>Email</th>
                                             <th>Level</th>
-                                            <th>Action</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -114,8 +91,10 @@ var_dump($nama_divisi);
                                                 <td><?php echo $array_item->nama_lengkap; ?></td>
                                                 <td><?php echo $array_item->jenis_kelamin; ?></td>
                                                 <td><?php echo $array_item->email; ?></td>
-                                                <td><?php echo $array_item->level_user; ?></td>
                                                 <td>
+                                                    <h4><b><?php echo $array_item->level_user; ?></b></h4>
+                                                </td>
+                                                <td align="center">
                                                     <?php
                                                     if (isset($_POST['delete'])) {
                                                         $id_karyawan = $_POST['id_karyawan'];
@@ -128,15 +107,89 @@ var_dump($nama_divisi);
                                                         }
                                                     }
                                                     ?>
+
+
+                                                    <!-- Modal -->
+                                                    <!-- Modal Edit Divisi -->
+                                                    <div class="modal fade" id="divedit<?php echo $array_item->id_karyawan ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Form Lembur</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form method="post">
+                                                                        <div class="form-group">
+                                                                            <label for="id_karyawan">ID Karyawan</label>
+                                                                            <input type="text" class="form-control" name="id_karyawan" id="id_karyawan" value="<?php echo $array_item->id_karyawan ?>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="nama_divisi">Nama Divisi</label>
+                                                                            <input type="text" class="form-control" name="nama_divisi" id="nama_divisi" value="<?php echo $array_item->nama_divisi ?>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="nama_lengkap">Nama Karyawan</label>
+                                                                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?php echo $array_item->nama_lengkap; ?>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="level_user">Jabatan</label>
+                                                                            <input type="text" class="form-control" id="level_user" name="level_user" value="<?php echo $array_item->level_user; ?>">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="project">Project yang dilakukan</label>
+                                                                            <input type="text" class="form-control" id="project" name="project">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="tanggal">Tanggal Lembur</label>
+                                                                            <input type="date" class="form-control" id="tanggal" name="tanggal">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="mulai_lembur">Jam Mulai Lembur</label>
+                                                                            <input type="text" class="form-control" id="mulai_lembur" name="mulai_lembur">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="akhir_lembur">Sampai Jam</label>
+                                                                            <input type="text" class="form-control" id="akhir_lembur" name="akhir_lembur">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="total_lembur">Total Jam Lembur</label>
+                                                                            <input type="text" class="form-control" id="total_lembur" name="total_lembur">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="keterangan">Keterangan</label>
+                                                                            <input type="text" class="form-control" id="keterangan" name="keterangan">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="mengetahui">Mengetahui</label>
+                                                                            <input type="text" class="form-control" id="mengetahui" name="mengetahui">
+                                                                        </div>
+                                                                        <button type="submit" name="save" class="btn btn-primary w-100">Simpan</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
                                                     <form method="post">
+                                                        <!-- <a href="lembur-karyawan-kor.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-info" data-bs-toggle="tooltip" title="Lembur Karyawan">
+                                                            <i class="fas fa-file"></i>
+                                                        </a> -->
+                                                        <!-- Button trigger modal -->
+                                                        <a class="btn-sm btn btn-info" type="button" data-toggle="modal" data-target="#divedit<?php echo $array_item->id_karyawan ?>" data-bs-toggle="tooltip" title="Lembur Karyawan">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
                                                         <a href="karyawan-kor-evaluasi.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Evaluasi Karyawan">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
-                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah data">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                         <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan; ?>">
-                                                        <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
+                                                        <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus data" name="delete">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
                                                     </form>
@@ -160,6 +213,7 @@ var_dump($nama_divisi);
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
 </div>
 <!-- /.content-wrapper -->
 
@@ -170,7 +224,7 @@ var_dump($nama_divisi);
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

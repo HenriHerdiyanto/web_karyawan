@@ -15,11 +15,13 @@ if (isset($_POST['submit'])) {
 }
 $link = "getUserALL";
 $data_user = getRegistran($link);
-// var_dump($data_user);
+var_dump($data_user);
 
 
 $link = "getDivisiSemua";
 $output = getRegistran($link);
+// var_dump($output);
+
 ?>
 
 
@@ -51,7 +53,7 @@ $output = getRegistran($link);
                 <div class="modal-body">
                   <form method="post">
                     <div class="form-group">
-                      <label for=""><?php echo $nama_kor ?></label>
+                      <label for="">kode Divisi</label>
                       <input class="form-control" type="text" name="kode_divisi">
                       <!-- </div>
                     <div class="form-group">
@@ -83,7 +85,6 @@ $output = getRegistran($link);
   $link = "getDivisi";
   $data = getRegistran($link);
 
-
   ?>
   <section class="content">
     <div class="container-fluid">
@@ -110,7 +111,7 @@ $output = getRegistran($link);
             $link = "getDivisibyIdDiv&id_divisi=" . urlencode($value->id_divisi);
             $data = getRegistran($link);
             $nama_kordinator = $data->data[0]->nama_user;
-            // var_dump($data);
+            var_dump($data);
 
             // input Divisi
             if (isset($_POST['save'])) {
@@ -204,6 +205,12 @@ $output = getRegistran($link);
                           $id_divisi3 = $_POST['id_divisi3'];
                           $link = "getDeleteDivisiId&id_divisi=" . urlencode($id_divisi3);
                           $data = getRegistran($link);
+
+
+                          $id_user = $_POST['id_user'];
+                          $link2 = "getDeleteUserId&id_user=" . urlencode($id_user);
+                          $data2 = getRegistran($link2);
+
                           echo '<script>alert("data berhasil dihapus")</script>';
                           echo "<script>location = 'divisi.php'</script>";
                         }
@@ -211,6 +218,7 @@ $output = getRegistran($link);
                         ?>
                         <form method="post">
                           <input type="hidden" name="id_divisi3" value="<?php echo $value->id_divisi; ?>">
+                          <input type="hidden" name="id_user" value="<?php echo $value->id_user; ?>">
                           <button class="btn btn-danger" type="submit" name="delete" data-bs-toggle="tooltip" title="Hapus">
                             <i class="fas fa-trash"></i>
                           </button>

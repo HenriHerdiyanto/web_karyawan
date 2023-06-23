@@ -240,11 +240,12 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <label>Level User</label>
-                                    <select class="form-control" name="level_user">
+                                    <input type="text" class="form-control" name="level_user" value="<?= $data_karyawan->data[0]->level_user ?>" readonly>
+                                    <!-- <select class="form-control" name="level_user">
                                         <option value="<?= $data_karyawan->data[0]->level_user ?>"><?= $data_karyawan->data[0]->level_user ?></option>
                                         <option value="staff">staff</option>
                                         <option value="manager">manager</option>
-                                    </select>
+                                    </select> -->
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>

@@ -3,6 +3,7 @@ require_once 'header.php';
 // $id_input = $_GET['id'];
 $link = "getDivisi";
 $data_divisi = getRegistran($link);
+// var_dump($data_divisi);
 
 
 
@@ -72,8 +73,8 @@ if (isset($_POST['submit'])) {
     $data2 = getRegistran($link2);
     var_dump($data2);
   }
-  echo '<script>alert("data berhasil ditambah")</script>';
-  echo ("<script>location.href = 'karyawan.php';</script>");
+  echo '<script>alert("KORDINATOR berhasil ditambah")</script>';
+  echo ("<script>location.href = 'divisi.php';</script>");
 }
 
 ?>
@@ -84,162 +85,176 @@ if (isset($_POST['submit'])) {
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Tambah Karyawan</h1>
+          <h1>Tambah KORDINATOR</h1>
         </div>
       </div>
     </div><!-- /.container-fluid -->
   </section>
-
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="card card-primary">
-        <div class="card-header">
-          <h3 class="card-title">Input Karyawan</h3>
+  <?php
+  if ($data_divisi == null) { ?>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h1 class="card-title">SILAHKAN TAMBAH DIVISI TERLEBIH DAHULU</h1>
+          </div>
         </div>
-        <!-- /.card-header -->
-        <form method="post" enctype="multipart/form-data">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="">Divisi</label>
-                  <!-- <input type="text" name="id_user" value="<?php echo $id_userJ + 1 ?>"> -->
+      </div>
+    </section>
+  <?php } else { ?>
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Input Karyawan</h3>
+          </div>
+          <!-- /.card-header -->
+          <form method="post" enctype="multipart/form-data">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="">Divisi</label>
+                    <!-- <input type="text" name="id_user" value="<?php echo $id_userJ + 1 ?>"> -->
 
-                  <select class="form-control" name="id_divisi">
-                    <option selected>--Pilih Divisi--</option>
-                    <?php foreach ($data_divisi->data as $key => $value) { ?>
-                      <option value="<?php echo $value->id_divisi ?>"><?php echo $value->nama_divisi ?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Nama Lengkap</label>
-                  <input type="text" class="form-control" name="nama_lengkap">
-                </div>
-                <div class="form-group">
-                  <label for="">Jenis Kelamin</label>
-                  <select class="form-control" name="jenis_kelamin">
-                    <option selected>--Pilih Gender--</option>
-                    <option value="laki-laki">Laki-laki</option>
-                    <option value="perempuan">Perempuan</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Tempat Lahir</label>
-                  <input type="text" class="form-control" name="tempat_lahir">
-                </div>
-                <div class="form-group">
-                  <label>Tanggal Lahir</label>
-                  <input type="date" class="form-control" name="tanggal_lahir">
-                </div>
-                <div class="form-group">
-                  <label>Alamat Lengkap (Sesuai KTP)</label>
-                  <textarea type="text" name="alamat_ktp" class="form-control" rows="2" id="alamat_ktp"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="alamatDomisili">Alamat Domisili</label>
-                  <div class="form-check pt-2 pb-2">
-                    <input type="checkbox" class="form-check-input" id="sama_dengan_ktp" name="sama_dengan_ktp" onchange="handleCheckboxChange(this)">
-                    <label class="form-check-label" for="cekAlamat">Alamat Domisili sama dengan Alamat KTP</label>
+                    <select class="form-control" name="id_divisi">
+                      <option selected>--Pilih Divisi--</option>
+                      <?php foreach ($data_divisi->data as $key => $value) { ?>
+                        <option value="<?php echo $value->id_divisi ?>"><?php echo $value->nama_divisi ?></option>
+                      <?php } ?>
+                    </select>
                   </div>
-                  <textarea type="text" rows="2" name="alamat_domisili" class="form-control" id="alamat_domisili"></textarea>
+                  <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" class="form-control" name="nama_lengkap">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Jenis Kelamin</label>
+                    <select class="form-control" name="jenis_kelamin">
+                      <option selected>--Pilih Gender--</option>
+                      <option value="laki-laki">Laki-laki</option>
+                      <option value="perempuan">Perempuan</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Tempat Lahir</label>
+                    <input type="text" class="form-control" name="tempat_lahir">
+                  </div>
+                  <div class="form-group">
+                    <label>Tanggal Lahir</label>
+                    <input type="date" class="form-control" name="tanggal_lahir">
+                  </div>
+                  <div class="form-group">
+                    <label>Alamat Lengkap (Sesuai KTP)</label>
+                    <textarea type="text" name="alamat_ktp" class="form-control" rows="2" id="alamat_ktp"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="alamatDomisili">Alamat Domisili</label>
+                    <div class="form-check pt-2 pb-2">
+                      <input type="checkbox" class="form-check-input" id="sama_dengan_ktp" name="sama_dengan_ktp" onchange="handleCheckboxChange(this)">
+                      <label class="form-check-label" for="cekAlamat">Alamat Domisili sama dengan Alamat KTP</label>
+                    </div>
+                    <textarea type="text" rows="2" name="alamat_domisili" class="form-control" id="alamat_domisili"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label>Nomor Telepon</label>
+                    <input type="text" class="form-control" name="no_hp">
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Nomor Telepon</label>
-                  <input type="text" class="form-control" name="no_hp">
-                </div>
-              </div>
 
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Nomor KTP</label>
-                  <input type="text" class="form-control" name="no_ktp">
-                </div>
-                <div class="form-group">
-                  <label>Nomor NPWP</label>
-                  <input type="text" class="form-control" name="no_npwp">
-                </div>
-                <div class="form-group">
-                  <label>Agama</label>
-                  <select class="form-control" name="agama">
-                    <option selected>--Pilih Agama--</option>
-                    <option value="Islam">Islam</option>
-                    <option value="Protestan">Protestan</option>
-                    <option value="Katolik">Katolik</option>
-                    <option value="Hindu">Hindu</option>
-                    <option value="Buddha">Buddha</option>
-                    <option value="Khonghucu">Khonghucu</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Golongan Drah</label>
-                  <select class="form-control" name="gol_darah">
-                    <option selected>--Pilih Golongan Darah--</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="O">O</option>
-                    <option value="AB">AB</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Status Pernikahan</label>
-                  <select class="form-control" name="status_pernikahan">
-                    <option selected>--Pilih Status Pernikahan--</option>
-                    <option value="Kawin">Kawin</option>
-                    <option value="Belum Kawin">Belum Kawin</option>
-                    <option value="Cerai Hidup">Cerai Hidup</option>
-                    <option value="Cerai Mati">Cerai Mati</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Status Karyawan</label>
-                  <select class="form-control" name="status_karyawan">
-                    <option selected>--Pilih Status Karyawan--</option>
-                    <option value="aktif">aktif</option>
-                    <option value="nonaktif">nonaktif</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Level User</label>
-                  <select class="form-control" name="level_user">
-                    <option selected>--Pilih Level User--</option>
-                    <option value="manager">Manager</option>
-                    <option value="staff">Staff</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Email</label>
-                  <input type="email" class="form-control" name="email">
-                </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  <input type="text" class="form-control" name="password">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputFile">Foto</label>
-                  <div class="input-group">
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="exampleInputFile" name="foto_karyawan">
-                      <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Nomor KTP</label>
+                    <input type="text" class="form-control" name="no_ktp">
+                  </div>
+                  <div class="form-group">
+                    <label>Nomor NPWP</label>
+                    <input type="text" class="form-control" name="no_npwp">
+                  </div>
+                  <div class="form-group">
+                    <label>Agama</label>
+                    <select class="form-control" name="agama">
+                      <option selected>--Pilih Agama--</option>
+                      <option value="Islam">Islam</option>
+                      <option value="Protestan">Protestan</option>
+                      <option value="Katolik">Katolik</option>
+                      <option value="Hindu">Hindu</option>
+                      <option value="Buddha">Buddha</option>
+                      <option value="Khonghucu">Khonghucu</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Golongan Drah</label>
+                    <select class="form-control" name="gol_darah">
+                      <option selected>--Pilih Golongan Darah--</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="O">O</option>
+                      <option value="AB">AB</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Status Pernikahan</label>
+                    <select class="form-control" name="status_pernikahan">
+                      <option selected>--Pilih Status Pernikahan--</option>
+                      <option value="Kawin">Kawin</option>
+                      <option value="Belum Kawin">Belum Kawin</option>
+                      <option value="Cerai Hidup">Cerai Hidup</option>
+                      <option value="Cerai Mati">Cerai Mati</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Status Karyawan</label>
+                    <select class="form-control" name="status_karyawan">
+                      <option selected>--Pilih Status Karyawan--</option>
+                      <option value="aktif">aktif</option>
+                      <option value="nonaktif">nonaktif</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Level User</label>
+                    <input class="form-control" type="text" name="level_user" value="manager" readonly>
+                    <!-- <select class="form-control" name="level_user">
+                      <option selected>--Pilih Level User--</option>
+                      <option value="manager">Manager</option>
+                      <option value="staff">Staff</option>
+                    </select> -->
+                  </div>
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email">
+                  </div>
+                  <div class="form-group">
+                    <label>Password</label>
+                    <input type="text" class="form-control" name="password">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">Foto</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="foto_karyawan">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <!-- /.col -->
               </div>
-              <!-- /.col -->
+              <!-- /.row -->
+              <!-- /.card-body -->
             </div>
-            <!-- /.row -->
-            <!-- /.card-body -->
-          </div>
-          <div class="card-footer">
-            <button type="submit" class="btn btn-lg btn-primary float-sm-right" name="submit">Submit</button>
-          </div>
-        </form>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-lg btn-primary float-sm-right" name="submit">Submit</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-    <!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  <?php }
+  ?>
 </div>
 <!-- /.content-wrapper -->
 

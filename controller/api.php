@@ -330,6 +330,54 @@ function setUserByAdmin()
     echo json_encode($response);
 }
 
+
+function setLembur2()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_divisi']))
+        $nama_divisi = $_GET['nama_divisi'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['level_user']))
+        $level_user = $_GET['level_user'];
+    if (!empty($_GET['project']))
+        $project = $_GET['project'];
+    if (!empty($_GET['tanggal']))
+        $tanggal = $_GET['tanggal'];
+    if (!empty($_GET['mulai_lembur']))
+        $mulai_lembur = $_GET['mulai_lembur'];
+    if (!empty($_GET['akhir_lembur']))
+        $akhir_lembur = $_GET['akhir_lembur'];
+    if (!empty($_GET['total_lembur']))
+        $total_lembur = $_GET['total_lembur'];
+    if (!empty($_GET['keterangan']))
+        $keterangan = $_GET['keterangan'];
+    if (!empty($_GET['mengetahui']))
+        $mengetahui = $_GET['mengetahui'];
+
+
+    $query = "INSERT INTO lembur SET id_karyawan = '$id_karyawan', nama_divisi = '$nama_divisi', nama_lengkap = '$nama_lengkap', level_user = '$level_user', project = '$project', tanggal = '$tanggal', mulai_lembur = '$mulai_lembur', akhir_lembur = '$akhir_lembur', total_lembur = '$total_lembur', keterangan = '$keterangan', mengetahui = '$mengetahui'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
 function setUpdateIdKaryawan()
 {
     global $connect;
@@ -617,6 +665,34 @@ function getInventaris()
 
     global $connect;
     $query = "SELECT * FROM inventaris";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getLemburByNama()
+{
+
+    global $connect;
+    if (!empty($_GET['nama_divisi']))
+        $nama_divisi = $_GET['nama_divisi'];
+    $query = "SELECT * FROM lembur WHERE nama_divisi = '$nama_divisi'";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -932,6 +1008,33 @@ function getDeleteDivisiId()
     $id_divisi = $_GET["id_divisi"];
 
     $query = "DELETE FROM divisi WHERE id_divisi = $id_divisi";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getDeleteUserId()
+{
+    global $connect;
+    $id_user = $_GET["id_user"];
+
+    $query = "DELETE FROM user WHERE id_user = $id_user";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;
@@ -1712,6 +1815,32 @@ function getDeleteKaryawanId()
     $id_karyawan = $_GET["id_karyawan"];
 
     $query = "DELETE FROM karyawan WHERE id_karyawan = $id_karyawan";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getDeleteLembur()
+{
+    global $connect;
+    $id_lembur = $_GET["id_lembur"];
+
+    $query = "DELETE FROM lembur WHERE id_lembur = $id_lembur";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;

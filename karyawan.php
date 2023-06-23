@@ -42,9 +42,9 @@ $data2 = getRegistran($link);
                     <h1>Semua Kordinator</h1>
                   </div>
                   <div class="col-sm-6 text-right">
-                    <button class="btn btn-lg btn-success" type="button" data-toggle="modal" data-target="#AddDivisi">
+                    <!-- <button class="btn btn-lg btn-success" type="button" data-toggle="modal" data-target="#AddDivisi">
                       <i class="fas fa-plus"></i> Add Kordinator
-                    </button>
+                    </button> -->
                   </div>
                 </div>
               </div>

@@ -176,12 +176,20 @@ if ($level_user > 0 || $level_user == 'staff') {
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
-        with font-awesome or any other icon font library -->
+            with font-awesome or any other icon font library -->
             <li class="nav-item">
               <a href="index.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="divisi.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-building"></i>
+                <p>
+                  Semua Divisi
                 </p>
               </a>
             </li>
@@ -206,14 +214,6 @@ if ($level_user > 0 || $level_user == 'staff') {
                 <i class="nav-icon fas fa-user-friends"></i>
                 <p>
                   Evaluasi Karyawan
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="divisi.php" class="nav-link" style="color: #FFCF09;">
-                <i class="nav-icon fas fa-building"></i>
-                <p>
-                  Semua Divisi
                 </p>
               </a>
             </li>

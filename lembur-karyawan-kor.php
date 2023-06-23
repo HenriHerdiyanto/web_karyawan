@@ -1,0 +1,218 @@
+<?php
+include "header-kordinator.php";
+
+
+$link = "getKaryawanKor&id_user=" . urlencode($id_user);
+$datas = getRegistran($link);
+$nama_divisi = $datas->data[0]->nama_divisi;
+var_dump($nama_divisi);
+
+$link = "getLemburByNama&nama_divisi=" . urlencode($nama_divisi);
+$data_lembur = getRegistran($link);
+// var_dump($data_lembur);
+
+?>
+
+<?php
+if (isset($_POST['save'])) {
+    $id_karyawan = $_POST['id_karyawan'];
+    $nama_divisi = $_POST['nama_divisi'];
+    $nama_lengkap = $_POST['nama_lengkap'];
+    $level_user = $_POST['level_user'];
+    $project = $_POST['project'];
+    $tanggal = $_POST['tanggal'];
+    $mulai_lembur = $_POST['mulai_lembur'];
+    $akhir_lembur = $_POST['akhir_lembur'];
+    $total_lembur = $_POST['total_lembur'];
+    $keterangan = $_POST['keterangan'];
+    $mengetahui = $_POST['mengetahui'];
+
+    $link = "setLembur2&id_karyawan=" . urlencode($id_karyawan) . "&nama_divisi=" . urlencode($nama_divisi) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&level_user=" . urlencode($level_user) . "&project=" . urlencode($project) . "&tanggal=" . urlencode($tanggal) . "&mulai_lembur=" . urlencode($mulai_lembur) . "&akhir_lembur=" . urlencode($akhir_lembur) . "&total_lembur=" . urlencode($total_lembur) . "&keterangan=" . urlencode($keterangan) . "&mengetahui=" . urlencode($mengetahui);
+    $data = getRegistran($link);
+    var_dump($data);
+    //     echo "<script>
+    //     alert('Data Berhasil terkirim')
+    // </script>";
+    //     echo "<script>
+    //     location.href = 'lembur-karyawan-kor.php';
+    // </script>";
+}
+?>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">DIVISI <?= $nama_divisi ?></h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Data Lembur Staf Karyawan</h3>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
+                                <a href="karyawan-kor-tambah.php" class="btn btn-success " type="button">
+                                    <i class="fas fa-plus"></i> Add Staff Kamu
+                                </a>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <?php
+                        $link = "getKaryawanKor&id_user=" . urlencode($id_user);
+                        $output = getRegistran($link);
+                        ?>
+
+                        <div class="card-body">
+                            <?php if ($output == NULL) { ?>
+                                <h1 class="text-center">Data Kosong</h1>
+                            <?php  } else { ?>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No. </th>
+                                                <th>Divisi</th>
+                                                <th>Nama Lengkap</th>
+                                                <th>Jabatan</th>
+                                                <th>Project dilakukan</th>
+                                                <th>Tanggal Lembur</th>
+                                                <th>Mulai Lembur</th>
+                                                <th>Akhir Lembur</th>
+                                                <th>Total Jam Lembur</th>
+                                                <th>Keterangan</th>
+                                                <th>Mengetahui</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($data_lembur->data as $key => $array_item) : ?>
+                                                <tr>
+                                                    <td><?php echo $key + 1 ?></td>
+                                                    <td><?php echo $array_item->nama_divisi; ?></td>
+                                                    <td><?php echo $array_item->nama_lengkap; ?></td>
+                                                    <td><?php echo $array_item->level_user; ?></td>
+                                                    <td><?php echo $array_item->project; ?></td>
+                                                    <td><?php echo $array_item->tanggal; ?></td>
+                                                    <td><?php echo $array_item->mulai_lembur; ?></td>
+                                                    <td><?php echo $array_item->akhir_lembur; ?></td>
+                                                    <td><?php echo $array_item->total_lembur; ?></td>
+                                                    <td><?php echo $array_item->keterangan; ?></td>
+                                                    <td><?php echo $array_item->mengetahui; ?></td>
+                                                    <td align="center">
+                                                        <?php
+                                                        if (isset($_POST['delete'])) {
+                                                            $id_lembur = $_POST['id_lembur'];
+                                                            $link = "getDeleteLembur&id_lembur=" . urlencode($id_lembur);
+                                                            $delete = getRegistran($link);
+                                                            if (!$delete) {
+                                                                echo "<script>alert('Data berhasil dihapus');window.location='lembur-karyawan-kor.php'</script>";
+                                                            } else {
+                                                                echo "<script>alert('Data gagal dihapus');window.location='lembur-karyawan-kor.php'</script>";
+                                                            }
+                                                        }
+                                                        ?>
+
+
+                                                        <form method="post">
+                                                            <!-- <a href="lembur-karyawan-kor.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-info" data-bs-toggle="tooltip" title="Lembur Karyawan">
+                                                            <i class="fas fa-file"></i>
+                                                        </a> -->
+                                                            <!-- Button trigger modal -->
+                                                            <!-- <a class="btn-sm btn btn-info" type="button" data-toggle="modal" data-target="#divedit<?php echo $array_item->id_karyawan ?>" data-bs-toggle="tooltip" title="Lembur Karyawan">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="karyawan-kor-evaluasi.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Evaluasi Karyawan">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah data">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a> -->
+                                                            <input type="hidden" name="id_lembur" value="<?php echo $array_item->id_lembur; ?>">
+                                                            <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus data" name="delete">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php } ?>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
+
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="plugins/jszip/jszip.min.js"></script>
+<script src="plugins/pdfmake/pdfmake.min.js"></script>
+<script src="plugins/pdfmake/vfs_fonts.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<!-- <script src="dist/js/demo.js"></script> -->
+<!-- Page specific script -->
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#example2').DataTable();
+    });
+</script>
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+</body>
+
+</html>
