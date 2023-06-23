@@ -1,5 +1,9 @@
 <?php
+include "controller/koneksi.php";
 require_once 'header.php';
+
+
+
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -30,28 +34,38 @@ require_once 'header.php';
         <div class="col-lg-3 col-6">
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>1</h3>
-              <p>Semua Project</p>
+              <?php
+              $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM perjalanan_dinas WHERE status = 'diproses'");
+              $row = mysqli_fetch_assoc($query);
+              $jumlah_data = $row['jumlah_data'];
+              ?>
+              <h3><?php echo $jumlah_data; ?> Notifikasi</h3>
+              <p>Perjalanan Dinas</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-albums"></i>
             </div>
-            <a href="project.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="perjalanan_dinas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
+
         <!-- ./col -->
         <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>1</h3>
-
-              <p>Project Open</p>
+              <?php
+              $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM pinjam_karyawan WHERE status = 'diproses'");
+              $row = mysqli_fetch_assoc($query);
+              $jumlah_data = $row['jumlah_data'];
+              ?>
+              <h3><?php echo $jumlah_data; ?> Notifikasi</h3>
+              <p>Peminjaman Karyawan</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-copy"></i>
             </div>
-            <a href="project.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="peminjaman_karyawan.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -59,14 +73,18 @@ require_once 'header.php';
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>1</h3>
-
-              <p>Project Close</p>
+              <?php
+              $query = mysqli_query($connect, "SELECT nama_lengkap, COUNT(*) as jumlah_data FROM karyawan");
+              $row = mysqli_fetch_assoc($query);
+              $jumlah_data = $row['jumlah_data'];
+              ?>
+              <h3><?php echo $jumlah_data; ?> Karyawan</h3>
+              <p>Jumlah Karyawan</p>
             </div>
             <div class="icon">
               <i class="ion ion-locked"></i>
             </div>
-            <a href="project.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="staff.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -74,14 +92,18 @@ require_once 'header.php';
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>1</h3>
-
-              <p>Semua Member</p>
+              <?php
+              $query = mysqli_query($connect, "SELECT nama_divisi, COUNT(*) as jumlah_data FROM divisi");
+              $row = mysqli_fetch_assoc($query);
+              $jumlah_data = $row['jumlah_data'];
+              ?>
+              <h3><?php echo $jumlah_data; ?> DIVISI</h3>
+              <p>Jumlah Divisi</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-stalker"></i>
             </div>
-            <a href="project.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="divisi.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

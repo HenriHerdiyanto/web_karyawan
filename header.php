@@ -14,7 +14,7 @@ $nama = $data->data[0]->nama_user;
 $level_user = $data->data[0]->level_user;
 $id_user = $data->data[0]->id_user;
 var_dump($level_user);
-if ($level_user > 0) {
+if ($level_user > 0 || $level_user == 'staff') {
   echo ("<script>location.href = 'logout.php';</script>");
 }
 ?>
@@ -202,10 +202,18 @@ if ($level_user > 0) {
               </a>
             </li>
             <li class="nav-item">
+              <a href="evaluasi.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-user-friends"></i>
+                <p>
+                  Evaluasi Karyawan
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="divisi.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-building"></i>
                 <p>
-                  Divisi
+                  Semua Divisi
                 </p>
               </a>
             </li>

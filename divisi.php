@@ -17,6 +17,9 @@ $link = "getUserALL";
 $data_user = getRegistran($link);
 // var_dump($data_user);
 
+
+$link = "getDivisiSemua";
+$output = getRegistran($link);
 ?>
 
 
@@ -48,7 +51,7 @@ $data_user = getRegistran($link);
                 <div class="modal-body">
                   <form method="post">
                     <div class="form-group">
-                      <label for="">Kode Divisi</label>
+                      <label for=""><?php echo $nama_kor ?></label>
                       <input class="form-control" type="text" name="kode_divisi">
                       <!-- </div>
                     <div class="form-group">
@@ -86,126 +89,141 @@ $data_user = getRegistran($link);
     <div class="container-fluid">
 
       <div class="row">
-        <?php foreach ($data->data as $key => $value) {
-          $link = "getDivisibyIdDiv&id_divisi=" . urlencode($value->id_divisi);
-          $data = getRegistran($link);
-          $nama_kordinator = $data->data[0]->nama_user;
-          // var_dump($data);
-
-          // input Divisi
-          if (isset($_POST['save'])) {
-            $id_divisi2 = $_POST['id_divisi2'];
-            $id_user = $_POST['id_user'];
-            $kode_divisi2 = $_POST['kode_divisi2'];
-            $nama_divisi2 = $_POST['nama_divisi2'];
-
-
-            $link = "setUpdateDivisiId&id_divisi=" . urlencode($id_divisi2) . "&id_user=" . urlencode($id_user) . '&kode_divisi=' . urlencode($kode_divisi2) . '&nama_divisi=' . urlencode($nama_divisi2);
+        <?php
+        if ($data == null) { ?>
+          <div class="col-lg-12">
+            <div class="card">
+              <section class="content-header">
+                <div class="container-fluid">
+                  <div class="row mb-2">
+                    <div class="col-sm-12">
+                      <h1 class="text-center">Belum ada data</h1>
+                      <center><img src="assets/img/logo-header.png" class="img-fluid" alt=""></center>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        <?php } else { ?>
+          <?php foreach ($data->data as $key => $value) {
+            $link = "getDivisibyIdDiv&id_divisi=" . urlencode($value->id_divisi);
             $data = getRegistran($link);
-            $link2 = "setUpdateIdKaryawan&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi2);
-            $data2 = getRegistran($link2);
+            $nama_kordinator = $data->data[0]->nama_user;
             // var_dump($data);
 
-            // echo '<script>alert("data berhasil diupdate")</script>';
-            // echo "<script>location = 'divisi.php'</script>";
-          }
-        ?>
+            // input Divisi
+            if (isset($_POST['save'])) {
+              $id_divisi2 = $_POST['id_divisi2'];
+              $id_user = $_POST['id_user'];
+              $kode_divisi2 = $_POST['kode_divisi2'];
+              $nama_divisi2 = $_POST['nama_divisi2'];
 
-          <!-- Modal Edit Divisi -->
-          <div class="modal fade" id="divedit<?php echo $value->id_divisi; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Edit Divisi</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+
+              $link = "setUpdateDivisiId&id_divisi=" . urlencode($id_divisi2) . "&id_user=" . urlencode($id_user) . '&kode_divisi=' . urlencode($kode_divisi2) . '&nama_divisi=' . urlencode($nama_divisi2);
+              $data = getRegistran($link);
+              $link2 = "setUpdateIdKaryawan&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi2);
+              $data2 = getRegistran($link2);
+              // var_dump($data);
+
+              echo '<script>alert("data berhasil diupdate")</script>';
+              echo "<script>location = 'divisi.php'</script>";
+            }
+          ?>
+
+            <!-- Modal Edit Divisi -->
+            <div class="modal fade" id="divedit<?php echo $value->id_divisi; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Divisi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="post">
+                      <input class="form-control" type="hidden" name="id_divisi2" value="<?php echo $value->id_divisi ?>">
+                      <div class="form-group">
+                        <label for="">Nama Kordinator</label>
+                        <select class="form-control" name="id_user">
+                          <option selected><?= $nama_kordinator ?></option>
+
+                          <?php foreach ($output->data as $key => $value1) { ?>
+                            <option value="<?php echo $value1->id_user ?>"><?php echo $value1->nama_user ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="">Kode Divisi</label>
+                        <input class="form-control" type="text" name="kode_divisi2" value="<?php echo $value->kode_divisi ?>">
+                      </div>
+                      <div class="form-group">
+                        <label for="">Nama Divisi</label>
+                        <input class="form-control" type="text" name="nama_divisi2" value="<?php echo $value->nama_divisi ?>">
+                      </div>
+                      <button type="submit" name="save" class="btn btn-primary w-100">Simpan</button>
+                    </form>
+                  </div>
                 </div>
-                <div class="modal-body">
-                  <form method="post">
-                    <input class="form-control" type="text" name="id_divisi2" value="<?php echo $value->id_divisi ?>">
-                    <div class="form-group">
-                      <label for="">Nama Kordinator</label>
-                      <select class="form-control" name="id_user">
-                        <option selected><?= $nama_kordinator ?></option>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card card-widget widget-user">
+                <div class="widget-user-header bg-info">
+                  <h5 class="widget-user-desc">DIVISI</h5>
+                  <h3 class="widget-user-username"><?php echo $value->nama_divisi; ?></h3>
+                </div>
+                <div class="widget-user-image">
+                  <img class="img-circle elevation-2" src="assets/img/logomt.png" alt="User Avatar">
+                </div>
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-sm-4 border-right">
+                      <div class="description-block">
+                        <h5 class="description-header"><?= $nama_kordinator ?></h5>
+                        <span class="description-text"><?php echo $value->kode_divisi; ?></span>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 border-right">
+                      <div class="description-block">
+                        <a class="btn btn-primary" type="button" data-toggle="modal" data-target="#divedit<?php echo $value->id_divisi; ?>" data-bs-toggle="tooltip" title="Ubah">
+                          <i class="fas fa-edit"></i>
+                        </a>
+                        <!-- <a class="btn btn-success" type="button" data-toggle="modal" data-target="#divedit<?php echo $value->id_divisi; ?>" data-bs-toggle="tooltip" title="Ubah">
+                          <i class="fas fa-plus"></i>
+                        </a> -->
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="description-block">
                         <?php
-                        $link = "getDivisiSemua";
-                        $output = getRegistran($link);
-                        var_dump($output);
+                        // Delete Divisi
+                        if (isset($_POST['delete'])) {
+                          $id_divisi3 = $_POST['id_divisi3'];
+                          $link = "getDeleteDivisiId&id_divisi=" . urlencode($id_divisi3);
+                          $data = getRegistran($link);
+                          echo '<script>alert("data berhasil dihapus")</script>';
+                          echo "<script>location = 'divisi.php'</script>";
+                        }
+
                         ?>
-                        <?php foreach ($output->data as $key => $value1) { ?>
-                          <option value="<?php echo $value1->id_user ?>"><?php echo $value1->nama_user ?></option>
-                        <?php } ?>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="">Kode Divisi</label>
-                      <input class="form-control" type="text" name="kode_divisi2" value="<?php echo $value->kode_divisi ?>">
-                    </div>
-                    <div class="form-group">
-                      <label for="">Nama Divisi</label>
-                      <input class="form-control" type="text" name="nama_divisi2" value="<?php echo $value->nama_divisi ?>">
-                    </div>
-                    <button type="submit" name="save" class="btn btn-primary w-100">Simpan</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="card card-widget widget-user">
-              <div class="widget-user-header bg-info">
-                <h5 class="widget-user-desc">DIVISI</h5>
-                <h3 class="widget-user-username"><?php echo $value->nama_divisi; ?></h3>
-              </div>
-              <div class="widget-user-image">
-                <img class="img-circle elevation-2" src="assets/img/logomt.png" alt="User Avatar">
-              </div>
-              <div class="card-footer">
-                <div class="row">
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <h5 class="description-header">KODE</h5>
-                      <span class="description-text"><?php echo $value->kode_divisi; ?></span>
-                    </div>
-                  </div>
-                  <div class="col-sm-4 border-right">
-                    <div class="description-block">
-                      <a class="btn btn-primary" type="button" data-toggle="modal" data-target="#divedit<?php echo $value->id_divisi; ?>" data-bs-toggle="tooltip" title="Ubah">
-                        <i class="fas fa-edit"></i>
-                      </a>
-                      <!-- <a class="btn btn-success" type="button" data-toggle="modal" data-target="#divedit<?php echo $value->id_divisi; ?>" data-bs-toggle="tooltip" title="Ubah">
-                        <i class="fas fa-plus"></i>
-                      </a> -->
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="description-block">
-                      <?php
-                      // Delete Divisi
-                      if (isset($_POST['delete'])) {
-                        $id_divisi3 = $_POST['id_divisi3'];
-                        $link = "getDeleteDivisiId&id_divisi=" . urlencode($id_divisi3);
-                        $data = getRegistran($link);
-                        echo '<script>alert("data berhasil dihapus")</script>';
-                        echo "<script>location = 'divisi.php'</script>";
-                      }
-
-                      ?>
-                      <form method="post">
-                        <input type="hidden" name="id_divisi3" value="<?php echo $value->id_divisi; ?>">
-                        <button class="btn btn-danger" type="submit" name="delete" data-bs-toggle="tooltip" title="Hapus">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </form>
+                        <form method="post">
+                          <input type="hidden" name="id_divisi3" value="<?php echo $value->id_divisi; ?>">
+                          <button class="btn btn-danger" type="submit" name="delete" data-bs-toggle="tooltip" title="Hapus">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </form>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        <?php } ?>
+          <?php } ?>
+        <?php }
+        ?>
       </div>
     </div>
   </section>

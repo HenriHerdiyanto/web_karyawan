@@ -72,8 +72,8 @@ if (isset($_POST['submit'])) {
     $data2 = getRegistran($link2);
     var_dump($data2);
   }
-  // echo '<script>alert("data berhasil ditambah")</script>';
-  // echo ("<script>location.href = 'karyawan.php';</script>");
+  echo '<script>alert("data berhasil ditambah")</script>';
+  echo ("<script>location.href = 'karyawan.php';</script>");
 }
 
 ?>

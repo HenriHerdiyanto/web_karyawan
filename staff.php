@@ -87,7 +87,20 @@ include "header.php"
 
                         <div class="card-body table-responsive">
                             <?php if ($output == NULL) { ?>
-                                <h1 class="text-center">Data Kosong</h1>
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <section class="content-header">
+                                            <div class="container-fluid">
+                                                <div class="row mb-2">
+                                                    <div class="col-sm-12">
+                                                        <h1 class="text-center">Belum ada data</h1>
+                                                        <center><img src="assets/img/logo-header.png" class="img-fluid" alt=""></center>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
                             <?php  } else { ?>
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>

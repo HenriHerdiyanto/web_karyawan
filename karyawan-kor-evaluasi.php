@@ -12,6 +12,7 @@ $data_karyawan = getRegistran($link);
 // input Karyawan
 if (isset($_POST['submit'])) {
     $id_karyawan = $_POST['id_karyawan'];
+    $id_divisi = $_POST['id_divisi'];
     $lama_percobaan = $_POST['lama_percobaan'];
     $nama_lengkap = $_POST['nama_lengkap'];
     $level_user = $_POST['level_user'];
@@ -19,11 +20,12 @@ if (isset($_POST['submit'])) {
     $status = $_POST['status'];
     $faktor_penilaian = $_POST['faktor_penilaian'];
     $catatan_atasan = $_POST['catatan_atasan'];
-    $catatan_hrd = $_POST['catatan_hrd'];
-    $dievaluasi_oleh = $_POST['dievaluasi_oleh'];
-    $disetujui_oleh = $_POST['disetujui_oleh'];
+    $status_evaluasi = $_POST['status_evaluasi'];
+    // $catatan_hrd = $_POST['catatan_hrd'];
+    // $dievaluasi_oleh = $_POST['dievaluasi_oleh'];
+    // $disetujui_oleh = $_POST['disetujui_oleh'];
 
-    $link = "setEvaluasi&id_karyawan=" . urlencode($id_karyawan) . "&lama_percobaan=" . urlencode($lama_percobaan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&level_user=" . urlencode($level_user) . "&tanggal_kerja=" . urlencode($tanggal_kerja) . "&status=" . urlencode($status) . "&faktor_penilaian=" . urlencode($faktor_penilaian) . "&catatan_atasan=" . urlencode($catatan_atasan) . "&catatan_hrd=" . urlencode($catatan_hrd) . "&dievaluasi_oleh=" . urlencode($dievaluasi_oleh) . "&disetujui_oleh=" . urlencode($disetujui_oleh);
+    $link = "setEvaluasi&id_divisi=" . urlencode($id_divisi) . "&id_karyawan=" . urlencode($id_karyawan) . "&lama_percobaan=" . urlencode($lama_percobaan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&level_user=" . urlencode($level_user) . "&tanggal_kerja=" . urlencode($tanggal_kerja) . "&status=" . urlencode($status) . "&faktor_penilaian=" . urlencode($faktor_penilaian) . "&catatan_atasan=" . urlencode($catatan_atasan) . "&status_evaluasi=" . urlencode($status_evaluasi);
     $data = getRegistran($link);
     var_dump($data);
     echo "<script>alert('Evaluasi Berhasil di Tambah')</script>";
@@ -115,13 +117,13 @@ if (isset($_POST['submit'])) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Faktor Penilaian Karyawan</label>
-                                    <textarea name="faktor_penilaian" class="form-control" id="" cols="20" rows="5" required></textarea>
+                                    <textarea name="faktor_penilaian" class="form-control" cols="20" rows="5" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Catatan Atasan</label>
-                                    <textarea name="catatan_atasan" class="form-control" id="" cols="20" rows="5" required></textarea>
+                                    <label>Catatan Anda Sebagai Kordinator</label>
+                                    <textarea name="catatan_atasan" class="form-control" cols="20" rows="5" required></textarea>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>Catatan HRD</label>
                                     <textarea name="catatan_hrd" class="form-control" id="" cols="20" rows="5" required></textarea>
                                 </div>
@@ -132,6 +134,9 @@ if (isset($_POST['submit'])) {
                                 <div class="form-group">
                                     <label>DiSetujui Oleh</label>
                                     <input type="text" class="form-control" name="disetujui_oleh" required>
+                                </div> -->
+                                <div class="form-group">
+                                    <input type="hidden" value="diproses" class="form-control" name="status_evaluasi" required>
                                 </div>
                             </div>
                             <!-- /.col -->

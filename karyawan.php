@@ -53,32 +53,50 @@ $data2 = getRegistran($link);
         </div>
       </div>
       <div class="row">
-        <?php foreach ($data2->data as $key => $array_item) :
-          $nama_user = $array_item->nama_user;
-          // var_dump($data2);
-
-        ?>
-          <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="card ">
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h3><?php echo $array_item->nama_divisi ?></h3>
-                  <?php
-                  if ($nama_user == null) { ?>
-                    <h4>Belum ada Kordinator</h4>
-                  <?php } else { ?>
-                    <h4><?php echo $array_item->nama_user ?></h4>
-                  <?php }
-                  ?>
+        <?php
+        if ($data2 == null) { ?>
+          <div class="col-lg-12">
+            <div class="card">
+              <section class="content-header">
+                <div class="container-fluid">
+                  <div class="row mb-2">
+                    <div class="col-sm-12">
+                      <h1 class="text-center">Belum ada data</h1>
+                      <center><img src="assets/img/logo-header.png" class="img-fluid" alt=""></center>
+                    </div>
+                  </div>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-ios-albums"></i>
-                </div>
-                <a href="anggota.php?id=<?php echo $array_item->id_user ?>" class="small-box-footer">Anggota<i class="fas fa-arrow-circle-right"></i></a>
-              </div>
+              </section>
             </div>
           </div>
-        <?php endforeach ?>
+        <?php } else { ?>
+          <?php foreach ($data2->data as $key => $array_item) :
+            $nama_user = $array_item->nama_user;
+            // var_dump($data2);
+          ?>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+              <div class="card ">
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3><?php echo $array_item->nama_divisi ?></h3>
+                    <?php
+                    if ($nama_user == null) { ?>
+                      <h4>Belum ada Kordinator</h4>
+                    <?php } else { ?>
+                      <h4><?php echo $array_item->nama_user ?></h4>
+                    <?php }
+                    ?>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-ios-albums"></i>
+                  </div>
+                  <a href="anggota.php?id=<?php echo $array_item->id_user ?>" class="small-box-footer">Anggota<i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            </div>
+          <?php endforeach ?>
+        <?php }
+        ?>
       </div>
     </div>
   </section>

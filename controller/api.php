@@ -117,8 +117,6 @@ function getKordinator()
     echo json_encode($response);
 }
 
-
-
 function getEvaluasi()
 {
     global $connect;
@@ -145,13 +143,71 @@ function getEvaluasi()
     echo json_encode($response);
 }
 
+function getEvaluasiEdit()
+{
+    global $connect;
 
+    if (!empty($_GET['id_evaluasi']))
+        $id_evaluasi = $_GET['id_evaluasi'];
+
+    $query = "SELECT * FROM evaluasi WHERE id_evaluasi = $id_evaluasi";
+
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getEvaluasiView()
+{
+    global $connect;
+
+    if (!empty($_GET['id_evaluasi']))
+        $id_evaluasi = $_GET['id_evaluasi'];
+
+    $query = "SELECT * FROM evaluasi LEFT JOIN karyawan ON evaluasi.id_karyawan = karyawan.id_karyawan WHERE id_evaluasi = $id_evaluasi";
+
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 
 function getKaryawanStaf()
 {
     global $connect;
 
-    $query = "SELECT * FROM karyawan";
+    $query = "SELECT * FROM karyawan ORDER BY level_user ASC";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;
@@ -304,6 +360,8 @@ function setUpdateIdKaryawan()
 function setEvaluasi()
 {
     global $connect;
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
     if (!empty($_GET['id_karyawan']))
         $id_karyawan = $_GET['id_karyawan'];
     if (!empty($_GET['lama_percobaan']))
@@ -320,15 +378,17 @@ function setEvaluasi()
         $faktor_penilaian = $_GET['faktor_penilaian'];
     if (!empty($_GET['catatan_atasan']))
         $catatan_atasan = $_GET['catatan_atasan'];
-    if (!empty($_GET['catatan_hrd']))
-        $catatan_hrd = $_GET['catatan_hrd'];
-    if (!empty($_GET['dievaluasi_oleh']))
-        $dievaluasi_oleh = $_GET['dievaluasi_oleh'];
-    if (!empty($_GET['disetujui_oleh']))
-        $disetujui_oleh = $_GET['disetujui_oleh'];
+    if (!empty($_GET['status_evaluasi']))
+        $status_evaluasi = $_GET['status_evaluasi'];
+    // if (!empty($_GET['catatan_hrd']))
+    //     $catatan_hrd = $_GET['catatan_hrd'];
+    // if (!empty($_GET['dievaluasi_oleh']))
+    //     $dievaluasi_oleh = $_GET['dievaluasi_oleh'];
+    // if (!empty($_GET['disetujui_oleh']))
+    //     $disetujui_oleh = $_GET['disetujui_oleh'];
 
 
-    $query = "INSERT INTO evaluasi SET id_karyawan = '$id_karyawan', lama_percobaan = '$lama_percobaan', nama_lengkap = '$nama_lengkap',  level_user = '$level_user', tanggal_kerja = '$tanggal_kerja', status = '$status', faktor_penilaian = '$faktor_penilaian', catatan_atasan = '$catatan_atasan', catatan_hrd = '$catatan_hrd', dievaluasi_oleh = '$dievaluasi_oleh', disetujui_oleh = '$disetujui_oleh'";
+    $query = "INSERT INTO evaluasi SET id_karyawan = '$id_karyawan',id_divisi = '$id_divisi', lama_percobaan = '$lama_percobaan', nama_lengkap = '$nama_lengkap',  level_user = '$level_user', tanggal_kerja = '$tanggal_kerja', status = '$status', faktor_penilaian = '$faktor_penilaian', catatan_atasan = '$catatan_atasan', status_evaluasi = '$status_evaluasi'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -403,6 +463,59 @@ function setInventarisUpdateNoGambar()
 
 
     $query = "UPDATE inventaris SET nama = '$nama', tipe = '$tipe', jumlah = '$jumlah', tanggal = '$tanggal', harga = '$harga' WHERE id_inventaris = $id_inventaris";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
+function setUpdateEvaluasi()
+{
+    global $connect;
+    if (!empty($_GET['id_evaluasi']))
+        $id_evaluasi = $_GET['id_evaluasi'];
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+    if (!empty($_GET['lama_percobaan']))
+        $lama_percobaan = $_GET['lama_percobaan'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['level_user']))
+        $level_user = $_GET['level_user'];
+    if (!empty($_GET['tanggal_kerja']))
+        $tanggal_kerja = $_GET['tanggal_kerja'];
+    if (!empty($_GET['status']))
+        $status = $_GET['status'];
+    if (!empty($_GET['faktor_penilaian']))
+        $faktor_penilaian = $_GET['faktor_penilaian'];
+    if (!empty($_GET['catatan_atasan']))
+        $catatan_atasan = $_GET['catatan_atasan'];
+    if (!empty($_GET['catatan_hrd']))
+        $catatan_hrd = $_GET['catatan_hrd'];
+    if (!empty($_GET['dievaluasi_oleh']))
+        $dievaluasi_oleh = $_GET['dievaluasi_oleh'];
+    if (!empty($_GET['disetujui_oleh']))
+        $disetujui_oleh = $_GET['disetujui_oleh'];
+    if (!empty($_GET['status_evaluasi']))
+        $status_evaluasi = $_GET['status_evaluasi'];
+
+
+    $query = "UPDATE evaluasi SET id_karyawan = '$id_karyawan', id_divisi = '$id_divisi', lama_percobaan = '$lama_percobaan', nama_lengkap = '$nama_lengkap', level_user = '$level_user', tanggal_kerja = '$tanggal_kerja', status = '$status', faktor_penilaian = '$faktor_penilaian', catatan_atasan = '$catatan_atasan', catatan_hrd = '$catatan_hrd', dievaluasi_oleh = '$dievaluasi_oleh', disetujui_oleh = '$disetujui_oleh', status_evaluasi = '$status_evaluasi' WHERE id_evaluasi = $id_evaluasi";
     $result = $connect->query($query);
 
     if ($result) {
@@ -1331,7 +1444,7 @@ function getKaryawanKor()
     global $connect;
     if (!empty($_GET['id_user']))
         $id_user = $_GET['id_user'];
-    $query = "SELECT * FROM karyawan LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi WHERE karyawan.id_user = $id_user;";
+    $query = "SELECT * FROM karyawan LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi WHERE karyawan.id_user = $id_user ORDER BY level_user desc";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {

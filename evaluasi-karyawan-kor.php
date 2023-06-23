@@ -98,9 +98,7 @@ include "header-kordinator.php"
                                             <th>jabatan</th>
                                             <th>Tanggal Kerja</th>
                                             <th>Status</th>
-                                            <th>Faktor Penilaian</th>
-                                            <th>Catatan Atasan</th>
-                                            <th>Catatan Hrd</th>
+                                            <th>status evaluasi</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -113,9 +111,20 @@ include "header-kordinator.php"
                                                 <td><?php echo $array_item->level_user; ?></td>
                                                 <td><?php echo $array_item->tanggal_kerja; ?></td>
                                                 <td><?php echo $array_item->status; ?></td>
-                                                <td><?php echo $array_item->faktor_penilaian; ?></td>
-                                                <td><?php echo $array_item->catatan_atasan; ?></td>
-                                                <td><?php echo $array_item->catatan_hrd; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $status = $array_item->status_evaluasi;
+                                                    if ($status == "diproses") {
+                                                        echo '<a class="btn bg-warning text-white">' . $status . '</a>';
+                                                    } elseif ($status == "diterima") {
+                                                        echo '<a class="btn bg-success text-white">' . $status . '</a>';
+                                                    } elseif ($status == "perlu perbaikan") {
+                                                        echo '<a class="btn bg-info text-white">' . $status . '</a>';
+                                                    } else {
+                                                        echo '<a class="btn bg-danger text-white">' . $status . '</a>';
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td>
                                                     <?php
                                                     if (isset($_POST['delete'])) {
@@ -130,10 +139,10 @@ include "header-kordinator.php"
                                                     }
                                                     ?>
                                                     <form method="post">
-                                                        <!-- <a href="karyawan-kor-evaluasi.php?id=<?php echo $array_item->id_evaluasi ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Evaluasi Karyawan">
+                                                        <a href="lihat-evaluasi-kor.php?id=<?php echo $array_item->id_evaluasi ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Lihat Detail">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
-                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_evaluasi ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                        <!-- <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_evaluasi ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
                                                             <i class="fas fa-edit"></i>
                                                         </a> -->
                                                         <input type="hidden" name="id_evaluasi" value="<?php echo $array_item->id_evaluasi; ?>">

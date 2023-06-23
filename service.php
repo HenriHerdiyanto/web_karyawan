@@ -118,7 +118,12 @@ if (isset($_POST['submit'])) {
                                     $output = getRegistran($link);
                                     ?>
                                     <?php if ($output == NULL) { ?>
-                                        <h1 class="text-center">Data Kosong</h1>
+                                        <tr>
+                                            <td colspan="9">
+                                                <center><img src="assets/img/logo-header.png" class="img-fluid" alt=""></center>
+                                                <h1 class="text-center">Belum ada data</h1>
+                                            </td>
+                                        </tr>
                                     <?php  } else { ?>
                                         <?php foreach ($output->data as $array_item) :  ?>
                                             <tr>
