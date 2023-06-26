@@ -22,7 +22,7 @@ if (isset($_POST['login'])) {
                 $_SESSION["login"] = $id_user;
                 $_SESSION["user"] = $level;
                 echo "<script>alert('Login Berhasil')</script>";
-                echo ("<script>location.href = 'test.php';</script>");
+                echo ("<script>location.href = 'kordinator.php';</script>");
             } elseif ($username = $user && $password = $pass && $level = 1) {
                 $_SESSION["login"] = $id_user;
                 $_SESSION["user"] = $level;

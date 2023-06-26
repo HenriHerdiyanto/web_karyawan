@@ -6,6 +6,16 @@ $link = "getKaryawanKor&id_user=" . urlencode($id_user);
 $datas = getRegistran($link);
 $nama_divisi = $datas->data[0]->nama_divisi;
 var_dump($nama_divisi);
+
+
+$link = "getDivisi";
+$output = getRegistran($link);
+$id_divisi = $output->data[0]->id_divisi;
+var_dump($id_divisi);
+
+$link3 = "getStaffNol&id_divisi=" . urlencode($id_divisi);
+$staff = getRegistran($link3);
+var_dump($staff);
 ?>
 
 <?php
@@ -59,6 +69,72 @@ if (isset($_POST['save'])) {
                                 <a href="karyawan-kor-tambah.php" class="btn btn-success " type="button">
                                     <i class="fas fa-plus"></i> Add Staff Kamu
                                 </a>
+                                <?php
+                                if ($staff == null) { ?>
+
+                                <?php } else { ?>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-warning ml-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <i class="fas fa-exclamation-triangle"></i> Notifikasi
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Permintaan Menjadi Staff</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <?php
+                                                    $link3 = "getStaffNol&id_divisi=" . urlencode($id_divisi);
+                                                    $staff = getRegistran($link3);
+                                                    // var_dump($staff);
+                                                    ?>
+                                                    <?php foreach ($staff->data as $key => $array_item) : ?>
+                                                        <?php
+                                                        if (isset($_POST['konfirmasi'])) {
+                                                            $id_karyawan = $_POST['id_karyawan'];
+                                                            $id_user = $_POST['id_user'];
+
+                                                            $link = "setUpdateKonfirmasi&id_karyawan=" . urlencode($id_karyawan) . "&id_user=" . urlencode($id_user);
+                                                            $hasil = getRegistran($link);
+                                                            // var_dump($hasil);
+                                                        }
+                                                        ?>
+                                                        <form action="" method="post">
+                                                            <div class="form-group">
+                                                                <label for="nama_lengkap">Nama</label>
+                                                                <input type="hidden" name="id_karyawan" value="<?= $array_item->id_karyawan ?>">
+                                                                <input type="hidden" name="id_user" value="<?= $data->data[0]->id_user; ?>">
+                                                                <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" value="<?= $array_item->nama_lengkap ?>" readonly>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="no_hp">No Handphone</label>
+                                                                <input type="text" id="no_hp" name="no_hp" class="form-control" value="<?= $array_item->no_hp ?>" readonly>
+                                                            </div>
+
+                                                            <center>
+                                                                <div class="form-group">
+                                                                    <img src="foto_karyawan/<?= $array_item->foto_karyawan ?>" alt="" id="foto_karyawan" class="img-fluid">
+                                                                </div>
+                                                            </center>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" name="konfirmasi" class="btn btn-primary">Konfirmasi</button>
+                                                            </div>
+                                                        </form>
+                                                    <?php endforeach ?>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php }
+                                ?>
                             </div>
                         </div>
                         <!-- /.card-header -->

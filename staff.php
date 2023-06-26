@@ -27,7 +27,7 @@ include "header.php"
                         <div class="card-header">
                             <h3 class="card-title">Data Karyawan</h3>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
-                                <a href="perjalanan-dinas-kor-tambah.php" class="btn btn-success " type="button">
+                                <a href="karyawan_tambah.php" class="btn btn-success " type="button">
                                     <i class="fas fa-plus"></i> Add Permohonan
                                 </a>
                             </div>
@@ -83,6 +83,12 @@ include "header.php"
                         <?php
                         $link = "getKaryawanStaf";
                         $output = getRegistran($link);
+
+                        $link2 = "getDivisi";
+                        $data_divisi = getRegistran($link2);
+                        $id_divisi = $data_divisi->data[0]->id_divisi;
+                        $nama_divisi = $data_divisi->data[0]->nama_divisi;
+                        // var_dump($nama_divisi);
                         ?>
 
                         <div class="card-body table-responsive">
@@ -121,7 +127,12 @@ include "header.php"
                                                 <td><?php echo $array_item->nama_lengkap; ?></td>
                                                 <td><?php echo $array_item->level_user; ?></td>
                                                 <td><?php echo $array_item->status_karyawan; ?></td>
-                                                <td><?php echo $array_item->id_divisi; ?></td>
+                                                <td>
+                                                    <?php foreach ($data_divisi->data as $key => $value) { ?>
+                                                        <?php echo $value->nama_divisi ?>
+                                                    <?php } ?>
+                                                    <!-- <?php echo $array_item->id_divisi; ?> -->
+                                                </td>
                                                 <td><?php echo $array_item->email; ?></td>
                                                 <!-- <td>
                                                     <?php

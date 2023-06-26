@@ -14,7 +14,7 @@ $nama = $data->data[0]->nama_user;
 $level_user = $data->data[0]->level_user;
 $id_user = $data->data[0]->id_user;
 var_dump($level_user);
-if ($level_user > 0 || $level_user == 'staff') {
+if ($level_user > 0) {
   echo ("<script>location.href = 'logout.php';</script>");
 }
 ?>

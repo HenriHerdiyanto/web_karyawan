@@ -64,6 +64,10 @@ if (isset($_POST['submit'])) {
   if ($level_user == 'staff') {
     $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&type=insert';
     $data = getRegistran($link);
+
+    $link2 = "setUserByAdmin&nama_user=" . urlencode($nama_lengkap) . "&username=" . urlencode($email) . "&password=" . urlencode($password) . "&level_user=2";
+    $data2 = getRegistran($link2);
+    var_dump($data2);
   } elseif ($level_user == 'manager') {
     $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&type=insert';
     $data = getRegistran($link);
@@ -214,12 +218,12 @@ if (isset($_POST['submit'])) {
                   </div>
                   <div class="form-group">
                     <label>Level User</label>
-                    <input class="form-control" type="text" name="level_user" value="manager" readonly>
-                    <!-- <select class="form-control" name="level_user">
+                    <!-- <input class="form-control" type="text" name="level_user" value="manager" readonly> -->
+                    <select class="form-control" name="level_user">
                       <option selected>--Pilih Level User--</option>
                       <option value="manager">Manager</option>
                       <option value="staff">Staff</option>
-                    </select> -->
+                    </select>
                   </div>
                   <div class="form-group">
                     <label>Email</label>

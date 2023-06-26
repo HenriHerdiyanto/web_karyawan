@@ -60,11 +60,11 @@ if (isset($_POST['save'])) {
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Data Lembur Staf Karyawan</h3>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
+                            <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
                                 <a href="karyawan-kor-tambah.php" class="btn btn-success " type="button">
                                     <i class="fas fa-plus"></i> Add Staff Kamu
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- /.card-header -->
                         <?php

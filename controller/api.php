@@ -886,6 +886,35 @@ function getDivisi()
     echo json_encode($response);
 }
 
+function getStaffNol()
+{
+
+    global $connect;
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+    $query = "SELECT * FROM karyawan WHERE id_user = 0 and id_divisi = $id_divisi";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function getDivisibyIdDiv()
 {
 
@@ -984,6 +1013,34 @@ function setUpdateDivisiId()
 
 
     $query = "UPDATE divisi SET id_user = '$id_user', kode_divisi = '$kode_divisi', nama_divisi = '$nama_divisi' WHERE id_divisi = '$id_divisi'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function setUpdateKonfirmasi()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+
+
+    $query = "UPDATE karyawan SET id_user = '$id_user' WHERE id_karyawan = '$id_karyawan'";
     $result = $connect->query($query);
 
     if ($result) {
