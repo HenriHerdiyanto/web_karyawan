@@ -65,7 +65,7 @@ if (isset($_POST['submit'])) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Divisi</label>
-                                    <input type="text" name="id_user" value="<?= $id_user ?>">
+                                    <input type="hidden" name="id_user" value="<?= $id_user ?>">
                                     <select class="form-control" name="id_divisi">
                                         <option selected>--Pilih Divisi--</option>
                                         <?php foreach ($data_divisi->data as $key => $value) { ?>

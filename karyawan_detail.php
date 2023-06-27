@@ -147,11 +147,7 @@ var_dump($status);
                     <div class="form-group row">
                       <label for="inputSkills" class="col-sm-2 col-form-label">Jabatan</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" value="<?php if ($data_karyawan->data[0]->level_user = 0) {
-                                                                          echo 'Manager';
-                                                                        } else {
-                                                                          echo 'Staf';
-                                                                        } ?>" disabled>
+                        <input type="text" class="form-control" value="<?php echo $data_karyawan->data[0]->level_user; ?>" disabled>
                       </div>
                     </div>
                   </form>

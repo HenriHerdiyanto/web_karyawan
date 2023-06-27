@@ -62,8 +62,8 @@ if (isset($_POST['submit'])) {
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="id_evaluasi" value="<?php echo $data_evaluasi->data[0]->id_evaluasi; ?>">
-                                    <input type="text" name="id_karyawan" value="<?php echo $data_evaluasi->data[0]->id_karyawan; ?>">
+                                    <input type="hidden" name="id_evaluasi" value="<?php echo $data_evaluasi->data[0]->id_evaluasi; ?>">
+                                    <input type="hidden" name="id_karyawan" value="<?php echo $data_evaluasi->data[0]->id_karyawan; ?>">
                                     <label for="">Divisi</label>
                                     <select class="form-control" name="id_divisi">
                                         <?php foreach ($data_divisi->data as $key => $value) : ?>

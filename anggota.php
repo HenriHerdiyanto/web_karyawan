@@ -99,7 +99,7 @@ require_once 'header.php';
                                             <th>Jenis Kelamin</th>
                                             <th>Email</th>
                                             <th class="text-center">FOTO</th>
-                                            <th>Action</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -113,7 +113,7 @@ require_once 'header.php';
                                                 <td>
                                                     <center><img style="width: 150px; height:150px;" src="foto_karyawan/<?php echo $array_item->foto_karyawan; ?>" alt=""></center>
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     <?php
                                                     if (isset($_POST['delete'])) {
                                                         $id_karyawan = $_POST['id_karyawan'];

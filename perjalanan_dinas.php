@@ -111,8 +111,8 @@ include "header.php"
                                             <th>Tujuan Pengajuan</th>
                                             <th>Kota Tujuan</th>
                                             <th>Keterangan</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -124,7 +124,7 @@ include "header.php"
                                                 <td><?php echo $array_item->tujuan; ?></td>
                                                 <td><?php echo $array_item->kota_tujuan; ?></td>
                                                 <td><?php echo $array_item->keterangan; ?></td>
-                                                <td>
+                                                <td class="text-center">
                                                     <?php
                                                     $status = $array_item->status;
                                                     if ($status == "diproses") {
@@ -136,7 +136,7 @@ include "header.php"
                                                     }
                                                     ?>
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     <?php
                                                     if (isset($_POST['delete'])) {
                                                         $id_dinas = $_POST['id_dinas'];

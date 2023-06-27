@@ -2,29 +2,29 @@
 require_once 'header-kordinator.php';
 
 // input Karyawan
-if (isset($_POST['submit'])) {
-    $id_user = $_POST['id_user'];
-    $nama = $_POST['nama'];
-    $mulai_kerja = $_POST['mulai_kerja'];
-    $pinjaman_terakhir = $_POST['pinjaman_terakhir'];
-    $pelunasan_terakhir = $_POST['pelunasan_terakhir'];
-    $nik = $_POST['nik'];
-    $jabatan = $_POST['jabatan'];
-    $gaji_terakhir = $_POST['gaji_terakhir'];
-    $nilai_loan = $_POST['nilai_loan'];
-    $keperluan = $_POST['keperluan'];
-    $pelunasan = $_POST['pelunasan'];
-    $pemohon = $_POST['pemohon'];
-    $disetujui_oleh = $_POST['disetujui_oleh'];
-    $status = $_POST['status'];
+// if (isset($_POST['submit'])) {
+//     $id_user = $_POST['id_user'];
+//     $nama = $_POST['nama'];
+//     $mulai_kerja = $_POST['mulai_kerja'];
+//     $pinjaman_terakhir = $_POST['pinjaman_terakhir'];
+//     $pelunasan_terakhir = $_POST['pelunasan_terakhir'];
+//     $nik = $_POST['nik'];
+//     $jabatan = $_POST['jabatan'];
+//     $gaji_terakhir = $_POST['gaji_terakhir'];
+//     $nilai_loan = $_POST['nilai_loan'];
+//     $keperluan = $_POST['keperluan'];
+//     $pelunasan = $_POST['pelunasan'];
+//     $pemohon = $_POST['pemohon'];
+//     $disetujui_oleh = $_POST['disetujui_oleh'];
+//     $status = $_POST['status'];
 
 
-    $link = "setPinjaman&id_user=" . urlencode($id_user) . "&nama=" . urlencode($nama) . "&mulai_kerja=" . urlencode($mulai_kerja) . '&pinjaman_terakhir=' . urlencode($pinjaman_terakhir) . '&pelunasan_terakhir=' . urlencode($pelunasan_terakhir) . '&nik=' . urlencode($nik) . '&jabatan=' . urlencode($jabatan) . '&gaji_terakhir=' . urlencode($gaji_terakhir) . '&nilai_loan=' . urlencode($nilai_loan) . '&keperluan=' . urlencode($keperluan) . '&pelunasan=' . urlencode($pelunasan) . '&pemohon=' . urlencode($pemohon) . '&disetujui_oleh=' . urlencode($disetujui_oleh) . '&status=' . urlencode($status) . '&type=insert';
-    $data = getRegistran($link);
-    var_dump($data);
-    echo "<script>alert('PENGAJUAN PINJAMAN KARYAWAN')</script>";
-    echo ("<script>location.href = 'peminjaman-karyawan-kor.php';</script>");
-}
+//     $link = "setPinjaman&id_user=" . urlencode($id_user) . "&nama=" . urlencode($nama) . "&mulai_kerja=" . urlencode($mulai_kerja) . '&pinjaman_terakhir=' . urlencode($pinjaman_terakhir) . '&pelunasan_terakhir=' . urlencode($pelunasan_terakhir) . '&nik=' . urlencode($nik) . '&jabatan=' . urlencode($jabatan) . '&gaji_terakhir=' . urlencode($gaji_terakhir) . '&nilai_loan=' . urlencode($nilai_loan) . '&keperluan=' . urlencode($keperluan) . '&pelunasan=' . urlencode($pelunasan) . '&pemohon=' . urlencode($pemohon) . '&disetujui_oleh=' . urlencode($disetujui_oleh) . '&status=' . urlencode($status) . '&type=insert';
+//     $data = getRegistran($link);
+//     var_dump($data);
+//     echo "<script>alert('PENGAJUAN PINJAMAN KARYAWAN')</script>";
+//     echo ("<script>location.href = 'peminjaman-karyawan-kor.php';</script>");
+// }
 
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -48,10 +48,13 @@ if (isset($_POST['submit'])) {
                     <h3 class="card-title">Pengajuan Surat Peminjaman Karyawan</h3>
                 </div>
                 <!-- /.card-header -->
-                <form method="post" enctype="multipart/form-data">
+                <!-- <form method="post" enctype="multipart/form-data">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
+                                <input type="text" class="form-control" name="nama" id="namaKaryawan">
+                                <div id="dataKaryawan"></div>
+
                                 <div class="form-group">
                                     <label>Nama Karyawan yang dipinjam</label>
                                     <input type="hidden" name="id_user" value="<?= $id_user ?>">
@@ -105,17 +108,155 @@ if (isset($_POST['submit'])) {
                                 <div class="form-group">
                                     <input type="hidden" name="status" value="diproses">
                                 </div>
-
                             </div>
-                            <!-- /.col -->
                         </div>
-                        <!-- /.row -->
-                        <!-- /.card-body -->
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-lg btn-primary float-sm-right" name="submit">Submit</button>
                     </div>
-                </form>
+                </form> -->
+                <style>
+                    .result-container {
+                        border: 1px solid #ccc;
+                        padding: 10px;
+                        margin-bottom: 10px;
+                        background-color: #f7f7f7;
+                    }
+
+                    .result-title {
+                        font-weight: bold;
+                        margin-bottom: 5px;
+                    }
+
+                    .form-group {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 10px;
+                    }
+
+                    .form-group label {
+                        flex: 0 0 auto;
+                        margin-right: 10px;
+                    }
+
+                    .form-group .form-control {
+                        flex: 1 1 auto;
+                    }
+
+                    .form-group .btn {
+                        flex: 0 0 auto;
+                    }
+                </style>
+                <?php
+                if (isset($_POST['testing'])) {
+                    $nama_lengkap = $_POST["nama_lengkap"];
+                    $link = "getKaryawanMuncul&nama_lengkap=" . urlencode($nama_lengkap);
+                    $hasilPencarian = getRegistran($link);
+                    var_dump($hasilPencarian);
+                    if ($hasilPencarian == null) {
+                        // Tidak ada tindakan yang diambil jika hasil pencarian null
+                    } else {
+                        foreach ($hasilPencarian->data as $person) {
+                ?>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h1 class="text-center">Detail Karyawan</h1>
+                                            </div>
+                                            <div class="card-body">
+                                                <form action="" method="post">
+                                                    <div class="row g-2">
+                                                        <div class="col-md-4">
+                                                            <div class="form-floating">
+                                                                <input type="text" name="id_karyawan" class="form-control" value="<?php echo $person->id_karyawan; ?>">
+                                                                <input type="text" name="nama_lengkap" class="form-control" value="<?php echo $person->nama_lengkap; ?>">
+                                                                <input type="text" name="no_ktp" class="form-control" value="<?php echo $person->no_ktp; ?>">
+                                                                <input type="text" class="form-control" value="<?php echo $person->jenis_kelamin; ?>">
+                                                                <input type="text" name="level_user" class="form-control" value="<?php echo $person->level_user; ?>">
+                                                                <input type="text" name="gaji" class="form-control" value="<?php echo $person->gaji; ?>">
+                                                                <input type="text" name="mulai_kerja" class="form-control" value="<?php echo $person->mulai_kerja; ?>">
+                                                                <input type="text" class="form-control" value="<?php echo $person->tanggal_lahir; ?>">
+                                                                <input type="text" class="form-control" value="<?php echo $person->alamat_ktp; ?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control" value="<?php echo $person->alamat_domisili; ?>">
+                                                            <input type="text" class="form-control" value="<?php echo $person->no_hp; ?>">
+                                                            <input type="text" class="form-control" value="<?php echo $person->no_npwp; ?>">
+                                                            <input type="text" class="form-control" value="<?php echo $person->agama; ?>">
+                                                            <input type="text" class="form-control" value="<?php echo $person->gol_darah; ?>">
+                                                            <input type="text" class="form-control" value="<?php echo $person->status_pernikahan; ?>">
+                                                            <input type="text" class="form-control" value="<?php echo $person->status_karyawan; ?>">
+                                                            <input type="text" class="form-control" value="<?php echo $person->email; ?>">
+                                                            <input type="text" class="form-control" value="<?php echo $person->nama_divisi; ?>">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <img src="foto_karyawan/<?php echo $person->foto_karyawan; ?>" alt="">
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <label for="">Pinjaman Terakhir</label>
+                                                            <input type="text" name="pinjaman_terakhir" class="form-control">
+                                                            <label for="">pelunasan Terakhir</label>
+                                                            <input type="text" name="pelunasan_terakhir" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                <?php
+                        }
+                    }
+                }
+                ?>
+
+                <div class="container">
+                    <form method="post" action="">
+                        <div class="form-group mt-5">
+                            <label for="nama">Cari Karyawan:</label>
+                            <input class="form-control" type="text" id="nama_lengkap" name="nama_lengkap">
+                            <button type="submit" class="btn btn-primary" name="testing">Cari</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th class="text-center">Divisi</th>
+                                <th class="col-2 text-center">Status Karyawan</th>
+                                <th class="text-center">Jabatan</th>
+                                <th class="col-2 text-center">Foto Karyawan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $link = "getKaryawanPinjam";
+                            $output = getRegistran($link);
+                            $no = 1;
+                            ?>
+                            <?php foreach ($output->data as $value) : ?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $value->nama_lengkap ?></td>
+                                    <td class="text-center"><?= $value->nama_divisi ?></td>
+                                    <td class="text-center"><?= $value->status_karyawan ?></td>
+                                    <td class="text-center"><?= $value->level_user ?></td>
+                                    <td class="text-center"><img style="width: 150px;" src="foto_karyawan/<?= $value->foto_karyawan ?>" alt=""></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- /.container-fluid -->
@@ -155,41 +296,6 @@ if (isset($_POST['submit'])) {
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="dist/js/demo.js"></script> -->
 <!-- Page specific script -->
-<script>
-    function handleCheckboxChange(checkbox) {
-        const alamatKTP = document.getElementById("alamat_ktp");
-        const alamatDomisili = document.getElementById("alamat_domisili");
-
-        if (checkbox.checked) {
-            alamatDomisili.value = alamatKTP.value;
-            alamatDomisili.readOnly = true;
-        } else {
-            alamatDomisili.value = "";
-            alamatDomisili.readOnly = false;
-        }
-    }
-</script>
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#example2').DataTable();
-    });
-</script>
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-</script>
-<script>
-    $(function() {
-        bsCustomFileInput.init();
-    });
-</script>
 </body>
 
 </html>

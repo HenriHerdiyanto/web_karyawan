@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
     $data = getRegistran($link);
     var_dump($data);
     echo "<script>alert('Evaluasi Berhasil di Tambah')</script>";
-    echo ("<script>location.href = 'karyawan-kor.php';</script>");
+    echo ("<script>location.href = 'evaluasi-karyawan-kor.php';</script>");
 }
 
 ?>

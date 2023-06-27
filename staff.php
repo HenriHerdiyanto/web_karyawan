@@ -117,6 +117,7 @@ include "header.php"
                                             <th>status karyawan</th>
                                             <th>Divisi</th>
                                             <th>Email</th>
+                                            <th>Besaran Gaji</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -134,6 +135,7 @@ include "header.php"
                                                     <!-- <?php echo $array_item->id_divisi; ?> -->
                                                 </td>
                                                 <td><?php echo $array_item->email; ?></td>
+                                                <td><?php echo $array_item->gaji; ?></td>
                                                 <!-- <td>
                                                     <?php
                                                     $status = $array_item->status;
@@ -149,8 +151,8 @@ include "header.php"
                                                 <td>
                                                     <?php
                                                     if (isset($_POST['delete'])) {
-                                                        $id_dinas = $_POST['id_dinas'];
-                                                        $link = "getDeleteDinasId&id_dinas=" . urlencode($id_dinas);
+                                                        $id_karyawan = $_POST['id_karyawan'];
+                                                        $link = "getDeleteDinasId&id_karyawan=" . urlencode($id_karyawan);
                                                         $delete = getRegistran($link);
                                                         if (!$delete) {
                                                             echo "<script>alert('Data berhasil dihapus');window.location='karyawan.php'</script>";
@@ -160,10 +162,10 @@ include "header.php"
                                                     }
                                                     ?>
                                                     <form method="post">
-                                                        <a href="perjalanan_dinas_edit.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                        <a href="karyawan_edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <input type="hidden" name="id_dinas" value="<?php echo $array_item->id_dinas; ?>">
+                                                        <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan; ?>">
                                                         <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>

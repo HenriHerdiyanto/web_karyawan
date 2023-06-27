@@ -162,6 +162,14 @@ if (isset($_POST['submit'])) {
                                     <label>Nomor Telepon</label>
                                     <input type="text" class="form-control" name="no_hp" value="<?php echo $data_karyawan->data[0]->no_hp; ?>">
                                 </div>
+                                <div class="form-group">
+                                    <label>Besaran Gaji Pegawai</label>
+                                    <input type="text" class="form-control" name="no_hp" value="<?php echo $data_karyawan->data[0]->gaji; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tanggal Mulai Kerja</label>
+                                    <input type="text" class="form-control" name="no_hp" value="<?php echo $data_karyawan->data[0]->mulai_kerja; ?>">
+                                </div>
                             </div>
 
                             <div class="col-md-6">

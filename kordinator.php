@@ -52,7 +52,7 @@ var_dump($nama_divisi);
                         <div class="inner">
                             <?php
                             $id_user = $data->data[0]->id_user;
-                            $query = mysqli_query($connect, "SELECT nama_lengkap, COUNT(*) as jumlah_data FROM karyawan WHERE id_user= $id_user");
+                            $query = mysqli_query($connect, "SELECT nama_lengkap, COUNT(*) as jumlah_data FROM karyawan WHERE id_user= $id_user AND level_user = 'staff'");
                             $row = mysqli_fetch_assoc($query);
                             $jumlah_data = $row['jumlah_data'];
                             ?>
