@@ -18,6 +18,9 @@ var_dump($nama_divisi);
                 <div class="col-sm-6">
                     <h1 class="m-0">DIVISI <?= $nama_divisi ?></h1>
                 </div><!-- /.col -->
+                <div align="end" class="col-sm-6">
+                    <a href="" class="btn btn-success btn-lg"><i class="nav-icon fas fa-user"></i> UPDATE PROFILE</a>
+                </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
