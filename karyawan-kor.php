@@ -64,7 +64,7 @@ if (isset($_POST['save'])) {
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data Staf Karyawan</h3>
+                            <h3 class="card-title">Data Staf Karyawan</h3><br>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
                                 <a href="karyawan-kor-tambah.php" class="btn btn-success " type="button">
                                     <i class="fas fa-plus"></i> Add Staff Kamu
@@ -265,20 +265,20 @@ if (isset($_POST['save'])) {
                                                             <i class="fas fa-file"></i>
                                                         </a> -->
                                                         <!-- Button trigger modal -->
-                                                        <a class="btn-sm btn btn-info" type="button" data-toggle="modal" data-target="#divedit<?php echo $array_item->id_karyawan ?>" data-bs-toggle="tooltip" title="Lembur Karyawan">
+                                                        <a class="btn-sm btn btn-info mt-2" type="button" data-toggle="modal" data-target="#divedit<?php echo $array_item->id_karyawan ?>" data-bs-toggle="tooltip" title="Lembur Karyawan">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <a href="karyawan-kor-evaluasi.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Evaluasi Karyawan">
+                                                        <a href="karyawan-kor-evaluasi.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning mt-2" data-bs-toggle="tooltip" title="Evaluasi Karyawan">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
-                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-success" data-bs-toggle="tooltip" title="Ubah data">
+                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-success mt-2" data-bs-toggle="tooltip" title="Ubah data">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <a href="profile-kor.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Lihat Profile">
-                                                            <i class="fas fa-user"></i>
+                                                        <!-- <a href="profile-kor.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Lihat Profile">
+                                                            <i class="fas fa-user"></i> -->
                                                         </a>
                                                         <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan; ?>">
-                                                        <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus data" name="delete">
+                                                        <button class="btn btn-danger btn-sm mt-2" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus data" name="delete">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
                                                     </form>

@@ -20,7 +20,10 @@ if ($level_user < 1) {
     echo ("<script>location.href = 'index.php';</script>");
 }
 
-// var_dump($output4);
+$link = "getKaryawan&id_user=" . urlencode($id_user);
+$data_kar = getRegistran($link);
+$id_kar1 = $data_kar->data[0]->id_karyawan;
+var_dump($id_kar1);
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +98,17 @@ if ($level_user < 1) {
             </a>
             <!-- Sidebar -->
             <div class="sidebar" style="background-color: #322F8A;">
-                <a class="d-block" type="button" data-toggle="modal" data-target="#projectedit<?php echo $id_user ?>">
+                <!-- <a class="d-block" type="button" data-toggle="modal" data-target="profile-kor.php?id=<?= $id_kar1 ?>">
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info" style="color: #FFCF09;">
+                            <b><?php echo $nama; ?></b>
+                        </div>
+                    </div>
+                </a> -->
+                <a href="profile-kor.php?id=<?= $id_kar1 ?>">
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
                             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">

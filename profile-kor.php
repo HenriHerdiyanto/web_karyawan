@@ -8,7 +8,7 @@ $data_divisi = getRegistran($link);
 
 $link = "getKeluarga&id_karyawan=" . urlencode($id_krywn);
 $data_keluarga = getRegistran($link);
-var_dump($data_keluarga);
+// var_dump($data_keluarga);
 
 $link = "getKaryawanById&id_karyawan=" . urlencode($id_krywn);
 $data_karyawan = getRegistran($link);
@@ -17,7 +17,7 @@ $status = $data_karyawan->data[0]->status_karyawan;
 
 $link = "getProfilePendidikan&id_karyawan=" . urlencode($id_krywn);
 $data_pendidikan = getRegistran($link);
-var_dump($data_pendidikan);
+// var_dump($data_pendidikan);
 
 
 if (isset($_POST['submit'])) {

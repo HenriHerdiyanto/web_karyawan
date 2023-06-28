@@ -25,7 +25,7 @@ include "header-kordinator.php"
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data Peminjaman Karyawan</h3>
+                            <h3 class="card-title">Data Peminjaman Karyawan</h3><br>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
                                 <a href="peminjaman-karyawan-kor-tambah.php" class="btn btn-success " type="button">
                                     <i class="fas fa-plus"></i> Add Permohonan
