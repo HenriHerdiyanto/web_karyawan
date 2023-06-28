@@ -271,8 +271,11 @@ if (isset($_POST['save'])) {
                                                         <a href="karyawan-kor-evaluasi.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Evaluasi Karyawan">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
-                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah data">
+                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-success" data-bs-toggle="tooltip" title="Ubah data">
                                                             <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="profile-kor.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Lihat Profile">
+                                                            <i class="fas fa-user"></i>
                                                         </a>
                                                         <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan; ?>">
                                                         <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus data" name="delete">

@@ -296,6 +296,156 @@ function setInventaris()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+function setKeluarga()
+{
+    global $connect;
+
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_ayah']))
+        $nama_ayah = $_GET['nama_ayah'];
+    if (!empty($_GET['tanggal_lahir_ayah']))
+        $tanggal_lahir_ayah = $_GET['tanggal_lahir_ayah'];
+    if (!empty($_GET['pendidikan_terakhir_ayah']))
+        $pendidikan_terakhir_ayah = $_GET['pendidikan_terakhir_ayah'];
+    if (!empty($_GET['pekerjaan_ayah']))
+        $pekerjaan_ayah = $_GET['pekerjaan_ayah'];
+    if (!empty($_GET['jabatan_ayah']))
+        $jabatan_ayah = $_GET['jabatan_ayah'];
+    if (!empty($_GET['nama_perusahaan_ayah']))
+        $nama_perusahaan_ayah = $_GET['nama_perusahaan_ayah'];
+    if (!empty($_GET['nama_ibu']))
+        $nama_ibu = $_GET['nama_ibu'];
+    if (!empty($_GET['tanggal_lahir_ibu']))
+        $tanggal_lahir_ibu = $_GET['tanggal_lahir_ibu'];
+    if (!empty($_GET['pendidikan_terakhir_ibu']))
+        $pendidikan_terakhir_ibu = $_GET['pendidikan_terakhir_ibu'];
+    if (!empty($_GET['pekerjaan_ibu']))
+        $pekerjaan_ibu = $_GET['pekerjaan_ibu'];
+    if (!empty($_GET['jabatan_ibu']))
+        $jabatan_ibu = $_GET['jabatan_ibu'];
+    if (!empty($_GET['nama_perusahaan_ibu']))
+        $nama_perusahaan_ibu = $_GET['nama_perusahaan_ibu'];
+
+    $query = "INSERT INTO keluarga SET id_karyawan = '$id_karyawan', nama_ayah = '$nama_ayah', tanggal_lahir_ayah = '$tanggal_lahir_ayah', pendidikan_terakhir_ayah = '$pendidikan_terakhir_ayah', pekerjaan_ayah = '$pekerjaan_ayah', jabatan_ayah = '$jabatan_ayah', nama_perusahaan_ayah = '$nama_perusahaan_ayah', nama_ibu = '$nama_ibu', tanggal_lahir_ibu = '$tanggal_lahir_ibu', pendidikan_terakhir_ibu = '$pendidikan_terakhir_ibu', pekerjaan_ibu = '$pekerjaan_ibu', jabatan_ibu = '$jabatan_ibu', nama_perusahaan_ibu = '$nama_perusahaan_ibu'";
+
+    if ($connect->query($query)) {
+        if ($connect->affected_rows > 0) {
+            $response = array(
+                'status' => 1,
+                'data' => 'Sukses'
+            );
+        } else {
+            $response = array(
+                'status' => 0,
+                'data' => 'Gagal menyimpan data'
+            );
+        }
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal menjalankan query'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function setUpdateKeluarga()
+{
+    global $connect;
+
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_ayah']))
+        $nama_ayah = $_GET['nama_ayah'];
+    if (!empty($_GET['tanggal_lahir_ayah']))
+        $tanggal_lahir_ayah = $_GET['tanggal_lahir_ayah'];
+    if (!empty($_GET['pendidikan_terakhir_ayah']))
+        $pendidikan_terakhir_ayah = $_GET['pendidikan_terakhir_ayah'];
+    if (!empty($_GET['pekerjaan_ayah']))
+        $pekerjaan_ayah = $_GET['pekerjaan_ayah'];
+    if (!empty($_GET['jabatan_ayah']))
+        $jabatan_ayah = $_GET['jabatan_ayah'];
+    if (!empty($_GET['nama_perusahaan_ayah']))
+        $nama_perusahaan_ayah = $_GET['nama_perusahaan_ayah'];
+    if (!empty($_GET['nama_ibu']))
+        $nama_ibu = $_GET['nama_ibu'];
+    if (!empty($_GET['tanggal_lahir_ibu']))
+        $tanggal_lahir_ibu = $_GET['tanggal_lahir_ibu'];
+    if (!empty($_GET['pendidikan_terakhir_ibu']))
+        $pendidikan_terakhir_ibu = $_GET['pendidikan_terakhir_ibu'];
+    if (!empty($_GET['pekerjaan_ibu']))
+        $pekerjaan_ibu = $_GET['pekerjaan_ibu'];
+    if (!empty($_GET['jabatan_ibu']))
+        $jabatan_ibu = $_GET['jabatan_ibu'];
+    if (!empty($_GET['nama_perusahaan_ibu']))
+        $nama_perusahaan_ibu = $_GET['nama_perusahaan_ibu'];
+
+    $query = "UPDATE keluarga SET nama_ayah = '$nama_ayah', tanggal_lahir_ayah = '$tanggal_lahir_ayah', pendidikan_terakhir_ayah = '$pendidikan_terakhir_ayah', pekerjaan_ayah = '$pekerjaan_ayah', jabatan_ayah = '$jabatan_ayah', nama_perusahaan_ayah = '$nama_perusahaan_ayah', nama_ibu = '$nama_ibu', tanggal_lahir_ibu = '$tanggal_lahir_ibu', pendidikan_terakhir_ibu = '$pendidikan_terakhir_ibu', pekerjaan_ibu = '$pekerjaan_ibu', jabatan_ibu = '$jabatan_ibu', nama_perusahaan_ibu = '$nama_perusahaan_ibu' WHERE id_karyawan = '$id_karyawan'";
+
+    if ($connect->query($query)) {
+        if ($connect->affected_rows > 0) {
+            $response = array(
+                'status' => 1,
+                'data' => 'Sukses'
+            );
+        } else {
+            $response = array(
+                'status' => 0,
+                'data' => 'Gagal menyimpan data'
+            );
+        }
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal menjalankan query'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
+function setProfile()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['jenjang_pendidikan']))
+        $jenjang_pendidikan = $_GET['jenjang_pendidikan'];
+    if (!empty($_GET['instansi_pendidikan']))
+        $instansi_pendidikan = $_GET['instansi_pendidikan'];
+    if (!empty($_GET['jurusan']))
+        $jurusan = $_GET['jurusan'];
+    if (!empty($_GET['tahun_masuk']))
+        $tahun_masuk = $_GET['tahun_masuk'];
+    if (!empty($_GET['tahun_lulus']))
+        $tahun_lulus = $_GET['tahun_lulus'];
+    if (!empty($_GET['index_nilai']))
+        $index_nilai = $_GET['index_nilai'];
+
+
+    $query = "INSERT INTO pendidikan SET id_karyawan = '$id_karyawan', jenjang_pendidikan = '$jenjang_pendidikan', instansi_pendidikan = '$instansi_pendidikan', jurusan = '$jurusan', tahun_masuk = '$tahun_masuk', tahun_lulus = '$tahun_lulus', index_nilai = '$index_nilai'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 
 
 function setUserByAdmin()
@@ -665,6 +815,34 @@ function getInventaris()
 
     global $connect;
     $query = "SELECT * FROM inventaris";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getKeluarga()
+{
+
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    $query = "SELECT * FROM keluarga where id_karyawan = '$id_karyawan'";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -1789,6 +1967,36 @@ function getPinjamKaryawanEdit()
     if (!empty($_GET['id_pinjam']))
         $id_pinjam = $_GET['id_pinjam'];
     $query = "SELECT * FROM pinjam_karyawan WHERE id_pinjam = $id_pinjam;
+    ";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getProfilePendidikan()
+{
+
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    $query = "SELECT * FROM pendidikan WHERE id_karyawan = $id_karyawan;
     ";
     $result = $connect->query($query);
 

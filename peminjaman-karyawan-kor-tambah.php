@@ -204,9 +204,6 @@ require_once 'header-kordinator.php';
                                                     </div>
                                                 </form>
                                             </div>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text">
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

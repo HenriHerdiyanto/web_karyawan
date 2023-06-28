@@ -6,7 +6,12 @@ require_once 'header-kordinator.php';
 $link = "getKaryawanKor&id_user=" . urlencode($id_user);
 $datas = getRegistran($link);
 $nama_divisi = $datas->data[0]->nama_divisi;
-var_dump($nama_divisi);
+$id_karyawan = $datas->data[0]->id_karyawan;
+
+
+$link = "getProfilePendidikan&id_karyawan=" . urlencode($id_karyawan);
+$profile = getRegistran($link);
+// var_dump($profile);
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -19,7 +24,92 @@ var_dump($nama_divisi);
                     <h1 class="m-0">DIVISI <?= $nama_divisi ?></h1>
                 </div><!-- /.col -->
                 <div align="end" class="col-sm-6">
-                    <a href="" class="btn btn-success btn-lg"><i class="nav-icon fas fa-user"></i> UPDATE PROFILE</a>
+                    <!-- Button trigger modal -->
+                    <?php
+                    if ($profile == null) { ?>
+                        <a type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#updateProfileModal">
+                            <i class="nav-icon fas fa-user"></i> Update Profile
+                        </a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="updateProfileModalLabel">Update Profile</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <?php
+                                    if (isset($_POST['update'])) {
+                                        $id_karyawan = $_POST['id_karyawan'];
+                                        $jenjang_pendidikan = $_POST['jenjang_pendidikan'];
+                                        $instansi_pendidikan = $_POST['instansi_pendidikan'];
+                                        $jurusan = $_POST['jurusan'];
+                                        $tahun_masuk = $_POST['tahun_masuk'];
+                                        $tahun_lulus = $_POST['tahun_lulus'];
+                                        $index_nilai = $_POST['index_nilai'];
+
+                                        $link = "setProfile&id_karyawan=" . urlencode($id_karyawan) . "&jenjang_pendidikan=" . urlencode($jenjang_pendidikan) . "&instansi_pendidikan=" . urlencode($instansi_pendidikan) . "&jurusan=" . urlencode($jurusan) . "&tahun_masuk=" . urlencode($tahun_masuk) . "&tahun_lulus=" . urlencode($tahun_lulus) . "&index_nilai=" . urlencode($index_nilai);
+                                        $hasil = getRegistran($link);
+                                        var_dump($hasil);
+                                    }
+                                    ?>
+                                    <form method="POST" action="">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label style="margin-left: 0; display:flex;" for="fullName">Full Name</label>
+                                                <input type="text" class="form-control" name="id_karyawan" value="<?= $datas->data[0]->id_karyawan ?>">
+                                                <input type="text" class="form-control" value="<?= $nama ?>" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="margin-left: 0; display:flex;">Pendidikan Terakhir</label>
+                                                <select class="form-control" name="jenjang_pendidikan">
+                                                    <option value="">--- PILIH ---</option>
+                                                    <option value="doktor">DOKTOR</option>
+                                                    <option value="magister">MAGISTER</option>
+                                                    <option value="sarjana">SARJANA</option>
+                                                    <option value="sma">SMA</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="margin-left: 0; display:flex;">Instansi Penddikan</label>
+                                                <input type="text" name="instansi_pendidikan" class="form-control" placeholder="Nama Instansi">
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="margin-left: 0; display:flex;">Jurusan / Spesialis</label>
+                                                <input type="text" name="jurusan" class="form-control" placeholder="Nama Jurusan / Spesialis">
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="margin-left: 0; display:flex;">Tahun Masuk</label>
+                                                <input type="date" name="tahun_masuk" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="margin-left: 0; display:flex;">Tahun Lulus</label>
+                                                <input type="date" name="tahun_lulus" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label style="margin-left: 0; display:flex;">INDEX NILAI</label>
+                                                <input type="text" name="index_nilai" class="form-control" placeholder="IPK">
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } else { ?>
+                        <a href="profile-kor.php?id=<?php echo $id_karyawan ?>" class="btn btn-lg btn-info">
+                            <i class="nav-icon fas fa-user"></i> Lihat Profile
+                        </a>
+                    <?php }
+                    ?>
+
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -231,7 +321,7 @@ var_dump($nama_divisi);
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
