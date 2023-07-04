@@ -135,7 +135,7 @@ $profile = getRegistran($link);
                         <div class="icon">
                             <i class="nav-icon fas fa-plane"></i>
                         </div>
-                        <a href="perjalanan_dinas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="perjalanan-dinas-kor.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -155,7 +155,7 @@ $profile = getRegistran($link);
                         <div class="icon">
                             <i class="ion ion-person-stalker"></i>
                         </div>
-                        <a href="staff.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="karyawan-kor.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -174,7 +174,7 @@ $profile = getRegistran($link);
                         <div class="icon">
                             <i class="ion ion-ios-copy"></i>
                         </div>
-                        <a href="peminjaman_karyawan.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="peminjaman-karyawan-kor.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -198,7 +198,7 @@ $profile = getRegistran($link);
                         <div class="icon">
                             <i class="ion ion-person-stalker"></i>
                         </div>
-                        <a href="divisi.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="lembur-karyawan-kor.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -211,16 +211,16 @@ $profile = getRegistran($link);
                     <!-- Custom tabs (Charts with tabs)-->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">
-                                Semua To Do List
-                            </h3>
+                            <h2>
+                                To Do List
+                            </h2>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content p-0">
                                 <!-- Morris chart - Sales -->
                                 <div class="card-body table-responsive" id="revenue-chart" style="position: relative;">
                                     <?php
-                                    $link = "getToDoListAll";
+                                    $link = "getTodoList&id_karyawan=" . urlencode($id_karyawan);
                                     $output4 = getRegistran($link);
                                     if ($output4 == NULL) { ?>
                                         <div class="card text-center">
@@ -240,68 +240,60 @@ $profile = getRegistran($link);
                                                                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah To Do List</h1>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <form action="" method="post">
+                                                            <?php
+                                                            if (isset($_POST['todo'])) {
+                                                                $id_karyawan = $_POST['id_karyawan'];
+                                                                $nama_project = $_POST['nama_project'];
+                                                                $todolist = $_POST['todolist'];
+
+                                                                $link = "setTodolist&id_karyawan=" . urlencode($id_karyawan) . "&nama_project=" . urlencode($nama_project) . "&todolist=" . urlencode($todolist);
+                                                                $todo = getRegistran($link);
+                                                                var_dump($todo);
+                                                            }
+                                                            ?>
+                                                            <form action="" method="post">
+                                                                <div class="modal-body">
                                                                     <label for="">Nama Project</label><br>
+                                                                    <input type="text" class="form-control" name="id_karyawan" value="<?= $id_karyawan ?>"><br>
                                                                     <input type="text" class="form-control" name="nama_project"><br>
                                                                     <textarea name="todolist" class="form-control" cols="30" rows="10"></textarea>
-                                                                </form>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                <button type="button" class="btn btn-primary">Understood</button>
-                                                            </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" name="todo" class="btn btn-primary">Understood</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     <?php } else { ?>
+                                        <?php
+                                        if (isset($_POST['updatetodo'])) {
+                                            $id_karyawan = $_POST['id_karyawan'];
+                                            $nama_project = $_POST['nama_project'];
+                                            $todolist = $_POST['todolist'];
 
+                                            $link = "setUpdateTodo&id_karyawan=" . urlencode($id_karyawan) . "&nama_project=" . urlencode($nama_project) . "&todolist=" . urlencode($todolist);
+                                            $datas = getRegistran($link);
+                                            var_dump($datas);
+                                            // echo ("<script>location.href = 'kordinator.php';</script>");
+                                        }
+                                        ?>
+                                        <form action="" method="post">
+                                            <div class="card">
+                                                <div class="card-body">
 
-                                        <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>No. </th>
-                                                    <th>Nama Project</th>
-                                                    <th>Kegiatan</th>
-                                                    <th>Tanggal Mulai</th>
-                                                    <th>Lama Hari</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($output4->data as $key => $array_item) :
-                                                    $mulai = $array_item->tanggal_mulai;
-                                                    $awal = date_create($mulai);
-                                                    $akhir = date_create();
-                                                    $diff = date_diff($awal, $akhir);
-                                                ?>
-                                                    <tr class="<?php if ($array_item->status_job == 'Open') {
-                                                                    echo 'table-success';
-                                                                } elseif ($array_item->status_job == 'Running') {
-                                                                    echo 'table-warning';
-                                                                } else {
-                                                                    echo 'table-danger';
-                                                                } ?>">
-                                                        <td><?php echo $key + 1 ?></td>
-                                                        <td><?php echo $array_item->nama_project; ?></td>
-                                                        <td><?php echo $array_item->subjek; ?></td>
-                                                        <td><?php echo $array_item->tanggal_mulai; ?></td>
-                                                        <td><?php echo $diff->days; ?> Hari</td>
-                                                        <td>
-                                                            <?php echo $array_item->status_job;
-                                                            if ($array_item->status_job == 'Close') {
-                                                                echo '<br> ' . date('d-m-Y', strtotime($array_item->update_time));
-                                                            }
-                                                            ?>
-
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach ?>
-                                            </tbody>
-                                        </table>
+                                                    <input type="hidden" name="id_karyawan" class="form-control" value="<?= $output4->data[0]->id_karyawan ?>"><br>
+                                                    <input type="text" name="nama_project" class="form-control" value="<?= $output4->data[0]->nama_project ?>"><br>
+                                                    <textarea name="todolist" class="form-control" cols="30" rows="10"><?= $output4->data[0]->todolist ?></textarea>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <center><button type="submit" name="updatetodo" class="btn btn-outline-primary d-flex justify-content-center">UPDATE To Do List</button></center>
+                                                </div>
+                                            </div>
+                                        </form>
                                     <?php } ?>
                                 </div>
                             </div>

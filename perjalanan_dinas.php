@@ -27,9 +27,9 @@ include "header.php"
                         <div class="card-header">
                             <h3 class="card-title">Data Perjalanan Dinas</h3>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
-                                <a href="perjalanan-dinas-kor-tambah.php" class="btn btn-success " type="button">
+                                <!-- <a href="perjalanan-dinas-kor-tambah.php" class="btn btn-success " type="button">
                                     <i class="fas fa-plus"></i> Add Permohonan
-                                </a>
+                                </a> -->
                             </div>
                             <!-- Modal Tambah-->
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

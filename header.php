@@ -245,6 +245,12 @@ if ($level_user > 0) {
                 <p class="mx-1">Service Infrastruktur</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="kpi.php" class="nav-link" style="color: #FFCF09;">
+                <i class="fa fa-tools mx-1"></i>
+                <p class="mx-1">KPI Karyawan</p>
+              </a>
+            </li>
           </ul>
         </nav>
 

@@ -176,7 +176,7 @@ if (isset($_POST['save'])) {
                                                 <td><?php echo $array_item->jenis_kelamin; ?></td>
                                                 <td><?php echo $array_item->email; ?></td>
                                                 <td class="text-center">
-                                                    <h4><b><?php echo $array_item->level_user; ?></b></h4>
+                                                    <b><?php echo $array_item->level_user; ?></b>
                                                 </td>
                                                 <td align="center">
                                                     <?php

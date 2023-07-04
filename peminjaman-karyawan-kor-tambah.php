@@ -152,7 +152,7 @@ require_once 'header-kordinator.php';
                     $nama_lengkap = $_POST["nama_lengkap"];
                     $link = "getKaryawanMuncul&nama_lengkap=" . urlencode($nama_lengkap);
                     $hasilPencarian = getRegistran($link);
-                    var_dump($hasilPencarian);
+                    // var_dump($hasilPencarian);
                     if ($hasilPencarian == null) {
                         // Tidak ada tindakan yang diambil jika hasil pencarian null
                     } else {
@@ -170,39 +170,78 @@ require_once 'header-kordinator.php';
                                                     <div class="row g-2">
                                                         <div class="col-md-4">
                                                             <div class="form-floating">
-                                                                <input type="text" name="id_karyawan" class="form-control" value="<?php echo $person->id_karyawan; ?>">
-                                                                <input type="text" name="nama_lengkap" class="form-control" value="<?php echo $person->nama_lengkap; ?>">
-                                                                <input type="text" name="no_ktp" class="form-control" value="<?php echo $person->no_ktp; ?>">
-                                                                <input type="text" class="form-control" value="<?php echo $person->jenis_kelamin; ?>">
-                                                                <input type="text" name="level_user" class="form-control" value="<?php echo $person->level_user; ?>">
-                                                                <input type="text" name="gaji" class="form-control" value="<?php echo $person->gaji; ?>">
-                                                                <input type="text" name="mulai_kerja" class="form-control" value="<?php echo $person->mulai_kerja; ?>">
-                                                                <input type="text" class="form-control" value="<?php echo $person->tanggal_lahir; ?>">
-                                                                <input type="text" class="form-control" value="<?php echo $person->alamat_ktp; ?>">
+                                                                <label for="id_karyawan">ID Karyawan</label>
+                                                                <input type="text" name="id_karyawan" id="id_karyawan" class="form-control" value="<?php echo $person->id_karyawan; ?>">
+
+                                                                <label for="nama_lengkap">Nama Lengkap</label>
+                                                                <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control" value="<?php echo $person->nama_lengkap; ?>">
+
+                                                                <label for="no_ktp">Nomor KTP</label>
+                                                                <input type="text" name="no_ktp" id="no_ktp" class="form-control" value="<?php echo $person->no_ktp; ?>">
+
+                                                                <label for="jenis_kelamin">Jenis Kelamin</label>
+                                                                <input type="text" name="jenis_kelamin" id="jenis_kelamin" class="form-control" value="<?php echo $person->jenis_kelamin; ?>">
+
+                                                                <label for="level_user">Level User</label>
+                                                                <input type="text" name="level_user" id="level_user" class="form-control" value="<?php echo $person->level_user; ?>">
+
+                                                                <label for="gaji">Gaji</label>
+                                                                <input type="text" name="gaji" id="gaji" class="form-control" value="<?php echo $person->gaji; ?>">
+
+                                                                <label for="mulai_kerja">Mulai Kerja</label>
+                                                                <input type="text" name="mulai_kerja" id="mulai_kerja" class="form-control" value="<?php echo $person->mulai_kerja; ?>">
+
+                                                                <label for="tanggal_lahir">Tanggal Lahir</label>
+                                                                <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="form-control" value="<?php echo $person->tanggal_lahir; ?>">
+
+                                                                <label for="alamat_ktp">Alamat KTP</label>
+                                                                <input type="text" name="alamat_ktp" id="alamat_ktp" class="form-control" value="<?php echo $person->alamat_ktp; ?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <input type="text" class="form-control" value="<?php echo $person->alamat_domisili; ?>">
-                                                            <input type="text" class="form-control" value="<?php echo $person->no_hp; ?>">
-                                                            <input type="text" class="form-control" value="<?php echo $person->no_npwp; ?>">
-                                                            <input type="text" class="form-control" value="<?php echo $person->agama; ?>">
-                                                            <input type="text" class="form-control" value="<?php echo $person->gol_darah; ?>">
-                                                            <input type="text" class="form-control" value="<?php echo $person->status_pernikahan; ?>">
-                                                            <input type="text" class="form-control" value="<?php echo $person->status_karyawan; ?>">
-                                                            <input type="text" class="form-control" value="<?php echo $person->email; ?>">
-                                                            <input type="text" class="form-control" value="<?php echo $person->nama_divisi; ?>">
+                                                            <div class="form-floating">
+                                                                <label for="alamat_domisili">Alamat Domisili</label>
+                                                                <input type="text" name="alamat_domisili" id="alamat_domisili" class="form-control" value="<?php echo $person->alamat_domisili; ?>">
+
+                                                                <label for="no_hp">Nomor HP</label>
+                                                                <input type="text" name="no_hp" id="no_hp" class="form-control" value="<?php echo $person->no_hp; ?>">
+
+                                                                <label for="no_npwp">Nomor NPWP</label>
+                                                                <input type="text" name="no_npwp" id="no_npwp" class="form-control" value="<?php echo $person->no_npwp; ?>">
+
+                                                                <label for="agama">Agama</label>
+                                                                <input type="text" name="agama" id="agama" class="form-control" value="<?php echo $person->agama; ?>">
+
+                                                                <label for="gol_darah">Golongan Darah</label>
+                                                                <input type="text" name="gol_darah" id="gol_darah" class="form-control" value="<?php echo $person->gol_darah; ?>">
+
+                                                                <label for="status_pernikahan">Status Pernikahan</label>
+                                                                <input type="text" name="status_pernikahan" id="status_pernikahan" class="form-control" value="<?php echo $person->status_pernikahan; ?>">
+
+                                                                <label for="status_karyawan">Status Karyawan</label>
+                                                                <input type="text" name="status_karyawan" id="status_karyawan" class="form-control" value="<?php echo $person->status_karyawan; ?>">
+
+                                                                <label for="email">Email</label>
+                                                                <input type="text" name="email" id="email" class="form-control" value="<?php echo $person->email; ?>">
+
+                                                                <label for="nama_divisi">Nama Divisi</label>
+                                                                <input type="text" name="nama_divisi" id="nama_divisi" class="form-control" value="<?php echo $person->nama_divisi; ?>">
+                                                            </div>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <img src="foto_karyawan/<?php echo $person->foto_karyawan; ?>" alt="">
+                                                            <img style="width: 100%;" src="foto_karyawan/<?php echo $person->foto_karyawan; ?>" alt="">
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <label for="">Pinjaman Terakhir</label>
-                                                            <input type="text" name="pinjaman_terakhir" class="form-control">
-                                                            <label for="">pelunasan Terakhir</label>
-                                                            <input type="text" name="pelunasan_terakhir" class="form-control">
+                                                            <label for="pinjaman_terakhir">Pinjaman Terakhir</label>
+                                                            <input type="text" name="pinjaman_terakhir" id="pinjaman_terakhir" class="form-control">
+
+                                                            <label for="pelunasan_terakhir">Pelunasan Terakhir</label>
+                                                            <input type="text" name="pelunasan_terakhir" id="pelunasan_terakhir" class="form-control">
                                                         </div>
                                                     </div>
                                                 </form>
+
+
                                             </div>
                                         </div>
                                     </div>

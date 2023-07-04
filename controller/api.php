@@ -296,6 +296,37 @@ function setInventaris()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+
+function setTodolist()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_project']))
+        $nama_project = $_GET['nama_project'];
+    if (!empty($_GET['todolist']))
+        $todolist = $_GET['todolist'];
+
+
+    $query = "INSERT INTO project SET id_karyawan = '$id_karyawan', nama_project = '$nama_project', todolist = '$todolist'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function setKeluarga()
 {
     global $connect;
@@ -538,6 +569,38 @@ function setUpdateIdKaryawan()
 
     $query = "UPDATE karyawan SET id_user = '$id_user' WHERE id_divisi = '$id_divisi'";
     $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function setUpdateTodo()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_project']))
+        $nama_project = $_GET['nama_project'];
+    if (!empty($_GET['todolist']))
+        $todolist = $_GET['todolist'];
+
+    $query = "UPDATE project
+    SET nama_project = '$nama_project', todolist = '$todolist'
+    WHERE id_karyawan = '$id_karyawan'";
+    $result = $connect->query($query);
+
 
     if ($result) {
         $response = array(
@@ -843,6 +906,35 @@ function getKeluarga()
     if (!empty($_GET['id_karyawan']))
         $id_karyawan = $_GET['id_karyawan'];
     $query = "SELECT * FROM keluarga where id_karyawan = '$id_karyawan'";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getTodoList()
+{
+
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    $query = "SELECT * FROM project where id_karyawan = '$id_karyawan'";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {

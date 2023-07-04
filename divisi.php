@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
 }
 $link = "getUserALL";
 $data_user = getRegistran($link);
-var_dump($data_user);
+// var_dump($data_user);
 
 
 $link = "getDivisiSemua";
@@ -111,7 +111,7 @@ $output = getRegistran($link);
             $link = "getDivisibyIdDiv&id_divisi=" . urlencode($value->id_divisi);
             $data = getRegistran($link);
             $nama_kordinator = $data->data[0]->nama_user;
-            var_dump($data);
+            // var_dump($data);
 
             // input Divisi
             if (isset($_POST['save'])) {
