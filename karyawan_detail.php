@@ -11,6 +11,12 @@ $data_karyawan = getRegistran($link);
 $status = $data_karyawan->data[0]->status_karyawan;
 var_dump($status);
 
+$link = "getProfilePendidikan&id_karyawan=" . urlencode($id_krywn);
+$data_pendidikan = getRegistran($link);
+// var_dump($data_pendidikan);
+
+$link = "getKeluarga&id_karyawan=" . urlencode($id_krywn);
+$data_keluarga = getRegistran($link);
 ?>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -27,26 +33,20 @@ var_dump($status);
           </ol>
         </div>
       </div>
-    </div><!-- /.container-fluid -->
+    </div>
   </section>
-
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-3">
-
-          <!-- Profile Image -->
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle" src="foto_karyawan/<?php echo $data_karyawan->data[0]->foto_karyawan; ?>" alt="User profile picture">
               </div>
-
               <h3 class="profile-username text-center"><?php echo $data_karyawan->data[0]->nama_lengkap; ?></h3>
-
               <p class="text-muted text-center"><?php echo $data_karyawan->data[0]->nama_divisi; ?></p>
-
               <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item p-1">
                   <b>Jenis Kelamin</b>
@@ -78,16 +78,12 @@ var_dump($status);
 
               <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
 
-          <!-- About Me Box -->
           <div class="card card-primary">
             <div class="card-header">
               <h3 class="card-title">Address</h3>
             </div>
-            <!-- /.card-header -->
             <div class="card-body">
               <strong><i class="fas fa-map-marker-alt mr-1"></i> Alamat KTP</strong>
               <p class="text-muted"><?php echo $data_karyawan->data[0]->alamat_ktp; ?></p>
@@ -95,21 +91,18 @@ var_dump($status);
               <strong><i class="fas fa-map-marker-alt mr-1"></i> Alamat Domisili</strong>
               <p class="text-muted"><?php echo $data_karyawan->data[0]->alamat_domisili; ?></p>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
         <div class="col-md-9">
           <div class="card">
             <div class="card-header p-2">
               <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Umum</a></li>
                 <li class="nav-item"><a class="nav-link" href="#pendidikan" data-toggle="tab">Pendidikan</a></li>
-                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Keluarga</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li> -->
               </ul>
-            </div><!-- /.card-header -->
+            </div>
             <div class="card-body">
               <div class="tab-content">
                 <div class="active tab-pane" id="activity">
@@ -152,129 +145,265 @@ var_dump($status);
                     </div>
                   </form>
                 </div>
-                <!-- /.tab-pane -->
-
-                <!-- tab-pane-pendidikan -->
                 <div class="tab-pane" id="pendidikan">
                   <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
-                    <a href="karyawan_tambah.php" class="btn btn-success " type="button">
+                    <!-- <a href="karyawan_tambah.php" class="btn btn-success " type="button">
                       <i class="fas fa-plus"></i> Add Karyawan
-                    </a>
+                    </a> -->
                   </div>
-
-                  <div class="card-body table-responsive">
-                    <table id="example" class="table table-striped table-bordered" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th>No. </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <div class="card-body">
+                    <?php
+                    if ($data_pendidikan == null) { ?>
+                      <div class="tab-pane" id="pendidikan">
+                        <h1 class="text-center">USER BELUM UPDATE</h1>
+                      </div>
+                    <?php } else { ?>
+                      <div class="tab-pane" id="pendidikan">
+                        <form class="form-horizontal">
+                          <div class="form-group row">
+                            <label for="inputName" class="col-sm-2 col-form-label">JENJANG PENDIDIKAN :</label>
+                            <div class="col-sm-10">
+                              <input type="email" class="form-control" id="inputName" value="<?php echo $data_pendidikan->data[0]->jenjang_pendidikan; ?>" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">INSTANSI PENDIDIKAN :</label>
+                            <div class="col-sm-10">
+                              <input type="email" class="form-control" id="inputEmail" value="<?php echo $data_pendidikan->data[0]->instansi_pendidikan; ?>" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputName2" class="col-sm-2 col-form-label">JURUSAN :</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="inputName2" value="<?php echo $data_pendidikan->data[0]->jurusan; ?>" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputExperience" class="col-sm-2 col-form-label">TAHUN MASUK :</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="inputName2" value="<?php echo $data_pendidikan->data[0]->tahun_masuk; ?>" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputSkills" class="col-sm-2 col-form-label">TAHUN LULUS :</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" value="<?php echo $data_pendidikan->data[0]->tahun_lulus; ?>" disabled>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputSkills" class="col-sm-2 col-form-label">INDEX NILAI</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" value="<?php echo $data_pendidikan->data[0]->index_nilai; ?>" disabled>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    <?php }
+                    ?>
                   </div>
-                  <!-- /.card-body -->
                 </div>
 
                 <div class="tab-pane" id="timeline">
-                  <!-- The timeline -->
-                  <div class="timeline timeline-inverse">
-                    <!-- timeline time label -->
-                    <div class="time-label">
-                      <span class="bg-danger">
-                        10 Feb. 2014
-                      </span>
+                  <?php
+                  if ($data_keluarga == null) { ?>
+                    <div class="tab-pane" id="pendidikan">
+                      <h1 class="text-center">USER BELUM UPDATE</h1>
                     </div>
-                    <!-- /.timeline-label -->
-                    <!-- timeline item -->
-                    <div>
-                      <i class="fas fa-envelope bg-primary"></i>
-
-                      <div class="timeline-item">
-                        <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                        <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                        <div class="timeline-body">
-                          Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                          weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                          jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                          quora plaxo ideeli hulu weebly balihoo...
+                    <!-- <form method="POST" class="form-horizontal">
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Nama Ayah</label>
+                                <div class="col-sm-10">
+                                  <input type="hidden" class="form-control" name="id_karyawan" value="<?= $id_krywn ?>" placeholder="Name">
+                                  <input type="text" class="form-control mt-2" name="nama_ayah">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                                <div class="col-sm-10">
+                                  <input type="date" class="form-control mt-2" name="tanggal_lahir_ayah">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Pendidikan Terakhir</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control mt-2" name="pendidikan_terakhir_ayah">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Pekerjaan Terakhir</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control mt-2" name="pekerjaan_ayah">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Jabatan Terakhir</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control mt-2" name="jabatan_ayah">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Nama Perusahaan</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control mt-2" name="nama_perusahaan_ayah">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group row">
+                                <label for="inputName2" class="col-sm-2 col-form-label">Nama Ibu</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control" name="nama_ibu">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                                <div class="col-sm-10">
+                                  <input type="date" class="form-control mt-2" name="tanggal_lahir_ibu">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Pendidikan Terakhir</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control mt-2" name="pendidikan_terakhir_ibu">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Pekerjaan Terakhir</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control mt-2" name="pekerjaan_ibu">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Jabatan Terakhir</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control mt-2" name="jabatan_ibu">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Nama Perusahaan</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control mt-2" name="nama_perusahaan_ibu">
+                                </div>
+                              </div>
+                              <div class="form-group row ">
+                                <div class=" col-sm-10">
+                                  <div class="checkbox">
+                                    <label>
+                                      <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <div class=" col-sm-10">
+                                  <button type="submit" name="submit" class="btn btn-danger">Submit</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form> -->
+                  <?php } else { ?>
+                    <!-- <form method="POST" class="form-horizontal"> -->
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Nama Ayah</label>
+                          <div class="col-sm-10">
+                            <input type="hidden" class="form-control" name="id_karyawan" value="<?= $id_krywn ?>" placeholder="Name">
+                            <input type="text" class="form-control mt-2" name="nama_ayah" value="<?= $data_keluarga->data[0]->nama_ayah ?>" readonly>
+                          </div>
                         </div>
-                        <div class="timeline-footer">
-                          <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                          <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                          <div class="col-sm-10">
+                            <input type="date" class="form-control mt-2" name="tanggal_lahir_ayah" value="<?= $data_keluarga->data[0]->tanggal_lahir_ayah ?>" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Pendidikan Terakhir</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control mt-2" name="pendidikan_terakhir_ayah" value="<?= $data_keluarga->data[0]->pendidikan_terakhir_ayah ?>" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Pekerjaan Terakhir</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control mt-2" name="pekerjaan_ayah" value="<?= $data_keluarga->data[0]->pekerjaan_ayah ?>" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Jabatan Terakhir</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control mt-2" name="jabatan_ayah" value="<?= $data_keluarga->data[0]->jabatan_ayah ?>" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Nama Perusahaan</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control mt-2" name="nama_perusahaan_ayah" value="<?= $data_keluarga->data[0]->nama_perusahaan_ayah ?>" readonly>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    <div>
-                      <i class="fas fa-user bg-info"></i>
-
-                      <div class="timeline-item">
-                        <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                        <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                        </h3>
+                      <div class="col-lg-6">
+                        <div class="form-group row">
+                          <label for="inputName2" class="col-sm-2 col-form-label">Nama Ibu</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" name="nama_ibu" value="<?= $data_keluarga->data[0]->nama_ibu ?>" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                          <div class="col-sm-10">
+                            <input type="date" class="form-control mt-2" name="tanggal_lahir_ibu" value="<?= $data_keluarga->data[0]->tanggal_lahir_ibu ?>" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Pendidikan Terakhir</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control mt-2" name="pendidikan_terakhir_ibu" value="<?= $data_keluarga->data[0]->pendidikan_terakhir_ibu ?>" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Pekerjaan Terakhir</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control mt-2" name="pekerjaan_ibu" value="<?= $data_keluarga->data[0]->pekerjaan_ibu ?>" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Jabatan Terakhir</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control mt-2" name="jabatan_ibu" value="<?= $data_keluarga->data[0]->jabatan_ibu ?>" readonly>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputName" class="col-sm-2 col-form-label">Nama Perusahaan</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control mt-2" name="nama_perusahaan_ibu" value="<?= $data_keluarga->data[0]->nama_perusahaan_ibu ?>" readonly>
+                          </div>
+                        </div>
+                        <!-- <div class="form-group row ">
+                              <div class=" col-sm-10">
+                                <div class="checkbox">
+                                  <label>
+                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <div class=" col-sm-10">
+                                <button type="submit" name="update" class="btn btn-success">UPDATE</button>
+                              </div>
+                            </div> -->
                       </div>
                     </div>
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    <div>
-                      <i class="fas fa-comments bg-warning"></i>
-
-                      <div class="timeline-item">
-                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                        <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                        <div class="timeline-body">
-                          Take me to your leader!
-                          Switzerland is small and neutral!
-                          We are more like Germany, ambitious and misunderstood!
-                        </div>
-                        <div class="timeline-footer">
-                          <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END timeline item -->
-                    <!-- timeline time label -->
-                    <div class="time-label">
-                      <span class="bg-success">
-                        3 Jan. 2014
-                      </span>
-                    </div>
-                    <!-- /.timeline-label -->
-                    <!-- timeline item -->
-                    <div>
-                      <i class="fas fa-camera bg-purple"></i>
-
-                      <div class="timeline-item">
-                        <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                        <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                        <div class="timeline-body">
-                          <img src="https://placehold.it/150x100" alt="...">
-                          <img src="https://placehold.it/150x100" alt="...">
-                          <img src="https://placehold.it/150x100" alt="...">
-                          <img src="https://placehold.it/150x100" alt="...">
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END timeline item -->
-                    <div>
-                      <i class="far fa-clock bg-gray"></i>
-                    </div>
-                  </div>
+                    <!-- </form> -->
+                  <?php }
+                  ?>
                 </div>
-                <!-- /.tab-pane -->
-
-                <div class="tab-pane" id="settings">
+                <!-- <div class="tab-pane" id="settings">
                   <form class="form-horizontal">
                     <div class="form-group row">
                       <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -321,18 +450,13 @@ var_dump($status);
                       </div>
                     </div>
                   </form>
-                </div>
-                <!-- /.tab-pane -->
+                </div> -->
               </div>
-              <!-- /.tab-content -->
-            </div><!-- /.card-body -->
+            </div>
           </div>
-          <!-- /.card -->
         </div>
-        <!-- /.col -->
       </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
+    </div>
   </section>
   <!-- /.content -->
 </div>

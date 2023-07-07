@@ -53,6 +53,8 @@ $profile = getRegistran($link);
 
                                         $link = "setProfile&id_karyawan=" . urlencode($id_karyawan) . "&jenjang_pendidikan=" . urlencode($jenjang_pendidikan) . "&instansi_pendidikan=" . urlencode($instansi_pendidikan) . "&jurusan=" . urlencode($jurusan) . "&tahun_masuk=" . urlencode($tahun_masuk) . "&tahun_lulus=" . urlencode($tahun_lulus) . "&index_nilai=" . urlencode($index_nilai);
                                         $hasil = getRegistran($link);
+                                        echo "<script>alert('Login Berhasil')</script>";
+                                        echo ("<script>location.href = 'kordinator.php';</script>");
                                         var_dump($hasil);
                                     }
                                     ?>

@@ -56,18 +56,26 @@ if (isset($_POST['submit'])) {
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="m-3">Inventaris Kantor</h1>
+                    </div>
+                    <div align="end" class="col mt-2 mr-3">
+                        <button class="btn btn-lg btn-success float-sm-right" type="button" data-toggle="modal" data-target="#AddDivisi">
+                            <i class="fas fa-plus"></i> Add Inventaris
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Inventaris Kantor</h1>
-                </div>
-                <div class="col-sm-6 float-sm-right">
-                    <button class="btn btn-lg btn-success float-sm-right" type="button" data-toggle="modal" data-target="#AddDivisi">
-                        <i class="fas fa-plus"></i> Add Inventaris
-                    </button>
-                </div>
                 <!-- Modal Add Divisi -->
                 <div class="modal fade" id="AddDivisi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -116,7 +124,7 @@ if (isset($_POST['submit'])) {
 
     </section>
     <!-- Main content -->
-    <section class="content">
+    <section class="content" style="margin-top: -3%;">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">

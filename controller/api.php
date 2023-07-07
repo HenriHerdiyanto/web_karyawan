@@ -203,31 +203,31 @@ function getEvaluasiView()
     echo json_encode($response);
 }
 
-function getKaryawanStaf()
-{
-    global $connect;
+// function getKaryawanStaf()
+// {
+//     global $connect;
 
-    $query = "SELECT * FROM karyawan ORDER BY level_user desc";
-    $result = $connect->query($query);
-    while ($row = mysqli_fetch_object($result)) {
-        $data[] = $row;
-    }
+//     $query = "SELECT * FROM karyawan ORDER BY level_user desc";
+//     $result = $connect->query($query);
+//     while ($row = mysqli_fetch_object($result)) {
+//         $data[] = $row;
+//     }
 
-    if ($result) {
-        $response = array(
-            'status' => 1,
-            'data' => $data
-        );
-    } else {
-        $response = array(
-            'status' => 0,
-            'data' => 'Gagal'
-        );
-    }
+//     if ($result) {
+//         $response = array(
+//             'status' => 1,
+//             'data' => $data
+//         );
+//     } else {
+//         $response = array(
+//             'status' => 0,
+//             'data' => 'Gagal'
+//         );
+//     }
 
-    header('Content-Type: application/json');
-    echo json_encode($response);
-}
+//     header('Content-Type: application/json');
+//     echo json_encode($response);
+// }
 
 function getStafId()
 {
@@ -2255,6 +2255,35 @@ function getDeleteKaryawanId()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+
+function getDeleteKaryawanAdmin()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+
+    $query = "DELETE FROM karyawan WHERE id_karyawan = $id_karyawan";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function getDeleteLembur()
 {
     global $connect;

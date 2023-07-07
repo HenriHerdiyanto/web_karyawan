@@ -130,6 +130,9 @@ require_once 'header.php';
                                                         <a href="karyawan_detail.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Detail">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
+                                                        <a href="kpi-it.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="KPI">
+                                                            <i class="fas fa-file"></i>
+                                                        </a>
                                                         <a href="karyawan_edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
                                                             <i class="fas fa-edit"></i>
                                                         </a>

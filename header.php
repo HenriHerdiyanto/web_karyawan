@@ -205,7 +205,7 @@ if ($level_user > 0) {
               <a href="staff.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-user-friends"></i>
                 <p>
-                  Semua Karyawan
+                  Daftar Karyawan
                 </p>
               </a>
             </li>
@@ -246,7 +246,7 @@ if ($level_user > 0) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="kpi.php" class="nav-link" style="color: #FFCF09;">
+              <a href="kpi_admin.php" class="nav-link" style="color: #FFCF09;">
                 <i class="fa fa-tools mx-1"></i>
                 <p class="mx-1">KPI Karyawan</p>
               </a>

@@ -171,6 +171,14 @@ var_dump($id_kar1);
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="kpi.php" class="nav-link" style="color: #FFCF09;">
+                                <i class="nav-icon fas fa-clipboard"></i>
+                                <p>
+                                    KPI Karyawan
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 

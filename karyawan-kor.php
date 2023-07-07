@@ -45,16 +45,22 @@ if (isset($_POST['save'])) {
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">DIVISI <?= $nama_divisi ?></h1>
+            <div class="card">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="m-3">Divisi <?php echo $output->data[0]->nama_divisi ?></h1>
+                    </div>
+                    <div align="end" class="col mt-3 mr-3">
+                        <a href="karyawan-kor-tambah.php" class="btn btn-success" type="button">
+                            <i class="fas fa-plus"></i> Add Staff Kamu
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
+        </div>
+    </div>
 
     <!-- Main content -->
     <section class="content">
@@ -64,11 +70,7 @@ if (isset($_POST['save'])) {
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data Staf Karyawan</h3><br>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
-                                <a href="karyawan-kor-tambah.php" class="btn btn-success " type="button">
-                                    <i class="fas fa-plus"></i> Add Staff Kamu
-                                </a>
                                 <?php
                                 if ($staff == null) { ?>
 
@@ -185,99 +187,162 @@ if (isset($_POST['save'])) {
                                                         $link = "getDeleteKaryawanId&id_karyawan=" . urlencode($id_karyawan);
                                                         // $link = "getDeleteKaryawanId";
                                                         $delete = getRegistran($link);
-                                                        var_dump($delete);
-                                                        // if (!$delete) {
-                                                        //     echo "<script>alert('Data berhasil dihapus');window.location='karyawan-kor.php'</script>";
-                                                        // } else {
-                                                        //     echo "<script>alert('Data gagal dihapus');window.location='karyawan-kor.php'</script>";
-                                                        // }
+                                                        // var_dump($delete);
+                                                        if (!$delete) {
+                                                            echo "<script>alert('Data berhasil dihapus');window.location='karyawan-kor.php'</script>";
+                                                        } else {
+                                                            echo "<script>alert('Data gagal dihapus');window.location='karyawan-kor.php'</script>";
+                                                        }
                                                     }
                                                     ?>
-
-
                                                     <!-- Modal -->
-                                                    <!-- Modal Edit Divisi -->
-                                                    <div class="modal fade" id="divedit<?php echo $array_item->id_karyawan ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
+                                                    <!-- <div class="modal fade" id="editModal<?= $array_item->id_karyawan ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-xl">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Form Lembur</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
+                                                                    <h1 class="modal-title text-center fs-5" id="editModalLabel">Edit Data Karyawan</h1>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <form method="post">
-                                                                        <div class="form-group">
-                                                                            <label for="id_karyawan">ID Karyawan</label>
-                                                                            <input type="text" class="form-control" name="id_karyawan" id="id_karyawan" value="<?php echo $array_item->id_karyawan ?>">
+                                                                        <div class="mb-2">
+                                                                            <label>Nama Lengkap</label>
+                                                                            <input type="text" class="form-control" name="nama_lengkap" value="<?= $array_item->nama_lengkap ?>">
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label for="nama_divisi">Nama Divisi</label>
-                                                                            <input type="text" class="form-control" name="nama_divisi" id="nama_divisi" value="<?php echo $array_item->nama_divisi ?>">
+                                                                        <div class="mb-2">
+                                                                            <label>Tanggal Masuk Kerja</label>
+                                                                            <input type="text" class="form-control" name="mulai_kerja" value="<?= $array_item->mulai_kerja ?>">
                                                                         </div>
-                                                                        <div class="form-group">
-                                                                            <label for="nama_lengkap">Nama Karyawan</label>
-                                                                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?php echo $array_item->nama_lengkap; ?>">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="level_user">Jabatan</label>
-                                                                            <input type="text" class="form-control" id="level_user" name="level_user" value="<?php echo $array_item->level_user; ?>">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="project">Project yang dilakukan</label>
-                                                                            <input type="text" class="form-control" id="project" name="project">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="tanggal">Tanggal Lembur</label>
-                                                                            <input type="date" class="form-control" id="tanggal" name="tanggal">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="mulai_lembur">Jam Mulai Lembur</label>
-                                                                            <input type="text" class="form-control" id="mulai_lembur" name="mulai_lembur">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="akhir_lembur">Sampai Jam</label>
-                                                                            <input type="text" class="form-control" id="akhir_lembur" name="akhir_lembur">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="total_lembur">Total Jam Lembur</label>
-                                                                            <input type="text" class="form-control" id="total_lembur" name="total_lembur">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="keterangan">Keterangan</label>
-                                                                            <input type="text" class="form-control" id="keterangan" name="keterangan">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label for="mengetahui">Mengetahui</label>
-                                                                            <input type="text" class="form-control" id="mengetahui" name="mengetahui">
-                                                                        </div>
-                                                                        <button type="submit" name="save" class="btn btn-primary w-100">Simpan</button>
+
+                                                                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                                                                     </form>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div> -->
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="editModal<?= $array_item->id_karyawan ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h1 class="modal-title text-center fs-5" id="staticBackdropLabel">KEY PERFORMANCE INDICATOR</h1>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form method="post">
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                <div class="mb-2">
+                                                                                    <label>Nama Lengkap</label>
+                                                                                    <input type="text" class="form-control text-center" name="id_karyawan" value="<?= $array_item->nama_lengkap ?>">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <div class="mb-2">
+                                                                                    <label>Tanggal Masuk Kerja</label>
+                                                                                    <input type="text" class="form-control text-center" name="id_karyawan" value="<?= $array_item->mulai_kerja ?>">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <table class="table table-hover table-striped table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>No</th>
+                                                                                    <th>Indikator Penelitian</th>
+                                                                                    <th>Nilai</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>1</td>
+                                                                                    <td>KEHADIRAN & TEPAT WAKTU</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>2</td>
+                                                                                    <td>BEKERJA BERDASARKAN SOP</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>3</td>
+                                                                                    <td>MENJELASKAN DENGAN BAIK DAN MUDAH DIMENGERTI</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>4</td>
+                                                                                    <td>MAMPU MENERIMA & MENJALANKAN INSTRUKSI DENGAN BAIK</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>5</td>
+                                                                                    <td>TEAM WORK / BEKERJA SECARA MANDIRI</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>6</td>
+                                                                                    <td>MEMPERHATIKAN HAL - HAL SECARA DETAIL</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>7</td>
+                                                                                    <td>PENYELESAIAN MASALAH DALAM HAL IT DI MAHARIS GROUP</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>8</td>
+                                                                                    <td>LAPORAN HASIL PEKERJAAN IT PER HARINYA</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>9</td>
+                                                                                    <td>PENCATATAN HARDWARE & SOFTWARE DI SERVER MAHARIS GROUP</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>10</td>
+                                                                                    <td>MEMASTIKAN HARDWARE, SOFTWARE, & INTERNET BERJALAN DENGAN EFEKTIF DAN STABIL</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>11</td>
+                                                                                    <td>KECEPATAN MENINDAKLANJUTI PEKERJAAN IT YANG BELUM TERSELESAIKAN</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>12</td>
+                                                                                    <td>PRODUKTIVITAS DALAM BEKERJA</td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>13</td>
+                                                                                    <td><b>TOTAL NILAI</b></td>
+                                                                                    <td><input type="number" name="" class="form-control"></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-primary">Understood</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-
-
                                                     <form method="post">
-                                                        <!-- <a href="lembur-karyawan-kor.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-info" data-bs-toggle="tooltip" title="Lembur Karyawan">
+                                                        <!-- <button type="button" class="btn btn-info btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#editModal<?= $array_item->id_karyawan ?>">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button> -->
+                                                        <a href="karyawan-kor-edit.php?id=<?= $array_item->id_karyawan ?>" data-bs-toggle="tooltip" title="Edit" class="btn btn-warning btn-sm mt-2">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="karyawan-kor-evaluasi.php?id=<?= $array_item->id_karyawan ?>" data-bs-toggle="tooltip" title="Evaluasi" class="btn btn-success btn-sm mt-2">
                                                             <i class="fas fa-file"></i>
-                                                        </a> -->
-                                                        <!-- Button trigger modal -->
-                                                        <a class="btn-sm btn btn-info mt-2" type="button" data-toggle="modal" data-target="#divedit<?php echo $array_item->id_karyawan ?>" data-bs-toggle="tooltip" title="Lembur Karyawan">
-                                                            <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <a href="karyawan-kor-evaluasi.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning mt-2" data-bs-toggle="tooltip" title="Evaluasi Karyawan">
-                                                            <i class="fas fa-eye"></i>
+                                                        <a href="profile-kor.php?id=<?= $array_item->id_karyawan ?>" data-bs-toggle="tooltip" title="Profile" class="btn btn-info btn-sm mt-2">
+                                                            <i class="fas fa-user"></i>
                                                         </a>
-                                                        <a href="karyawan-kor-edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-success mt-2" data-bs-toggle="tooltip" title="Ubah data">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        <!-- <a href="profile-kor.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Lihat Profile">
-                                                            <i class="fas fa-user"></i> -->
-                                                        </a>
-                                                        <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan; ?>">
+                                                        <input type="hidden" name="id_karyawan" value="<?= $array_item->id_karyawan ?>">
                                                         <button class="btn btn-danger btn-sm mt-2" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus data" name="delete">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
@@ -302,7 +367,35 @@ if (isset($_POST['save'])) {
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white d-flex justify-content">
+                            <h3 class="card-title"><i class="fas fa-list mr-2"> KEY PERFORMANCE INDEX</i></h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Email</th>
+                                        <th>Jabatan</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 <!-- /.content-wrapper -->
 

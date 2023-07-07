@@ -6,15 +6,13 @@ require_once 'header.php';
 
 ?>
 
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1 class="m-0">Dashboard</h1>
-        </div><!-- /.col -->
+        </div>
         <div class="col-sm-6 text-right">
           <form action="karyawan_tambah.php" method="post">
             <button class="btn btn-lg btn-success" type="submit">
@@ -22,12 +20,9 @@ require_once 'header.php';
             </button>
           </form>
         </div>
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+      </div>
+    </div>
   </div>
-  <!-- /.content-header -->
-
-  <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -48,10 +43,7 @@ require_once 'header.php';
             <a href="perjalanan_dinas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-
-        <!-- ./col -->
         <div class="col-lg-3 col-6">
-          <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
               <?php
@@ -68,9 +60,7 @@ require_once 'header.php';
             <a href="peminjaman_karyawan.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
         <div class="col-lg-3 col-6">
-          <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
               <?php
@@ -87,9 +77,7 @@ require_once 'header.php';
             <a href="staff.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
         <div class="col-lg-3 col-6">
-          <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
               <?php
@@ -106,23 +94,17 @@ require_once 'header.php';
             <a href="divisi.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
       </div>
-      <!-- /.row -->
-      <!-- Main row -->
       <div class="row">
-        <!-- Left col -->
         <section class="col-lg-7 connectedSortable">
-          <!-- Custom tabs (Charts with tabs)-->
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">
                 Semua To Do List
               </h3>
-            </div><!-- /.card-header -->
+            </div>
             <div class="card-body">
               <div class="tab-content p-0">
-                <!-- Morris chart - Sales -->
                 <div class="card-body table-responsive" id="revenue-chart" style="position: relative;">
                   <?php
                   $link = "getToDoListAll";
@@ -134,8 +116,6 @@ require_once 'header.php';
                       </div>
                     </div>
                   <?php } else { ?>
-
-
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                       <thead>
                         <tr>
@@ -181,51 +161,30 @@ require_once 'header.php';
                   <?php } ?>
                 </div>
               </div>
-            </div><!-- /.card-body -->
+            </div>
           </div>
         </section>
-        <!-- /.Left col -->
-        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+
         <section class="col-lg-5 connectedSortable">
-
-          <!-- Map card -->
-
-          <!-- /.card -->
-
-          <!-- Calendar -->
           <div class="card bg-gradient-success">
             <div class="card-header border-0">
-
               <h3 class="card-title">
                 <i class="far fa-calendar-alt"></i>
                 Calendar
               </h3>
-              <!-- /. tools -->
             </div>
-            <!-- /.card-header -->
             <div class="card-body pt-0">
-              <!--The calendar -->
               <div id="calendar" style="width: 100%"></div>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
         </section>
-        <!-- right col -->
       </div>
-      <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
+    </div>
   </section>
-  <!-- /.content -->
 </div>
-
-<!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
-  <!-- Control sidebar content goes here -->
 </aside>
-<!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -257,9 +216,6 @@ require_once 'header.php';
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
-<!-- AdminLTE for demo purposes -->
-<!-- <script src="dist/js/demo.js"></script> -->
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -278,7 +234,6 @@ require_once 'header.php';
   });
 </script>
 <script>
-  // The Calender
   $('#calendar').datetimepicker({
     format: 'L',
     inline: true

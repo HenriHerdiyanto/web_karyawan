@@ -26,69 +26,22 @@ if (isset($_POST['submit'])) {
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>EVALUASI KARYAWAN OLEH KORDINATOR</h1>
-                    <!-- </div>
-                <div class="col-sm-6 float-sm-right">
-                    <button class="btn btn-lg btn-success float-sm-right" type="button" data-toggle="modal" data-target="#AddDivisi">
-                        <i class="fas fa-plus"></i> Add SERVICE
-                    </button>
-                </div> -->
-                    <!-- Modal Add Divisi -->
-                    <!-- <div class="modal fade" id="AddDivisi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add Invetaris Kantor</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <label for="">Nomor Service</label>
-                                        <input class="form-control" type="text" name="nomor">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Tanggal Service</label>
-                                        <input class="form-control" type="date" name="tanggal">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Infrastruktur yang diservice</label>
-                                        <input class="form-control" type="text" name="infrastruktur">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Ruangan + lantai</label>
-                                        <input class="form-control" type="text" name="ruangan">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Jenis Perbaikan</label>
-                                        <input class="form-control" type="text" name="jenis_perbaikan">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Keterangan</label>
-                                        <input class="form-control" type="text" name="keterangan">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Prepared By</label>
-                                        <input class="form-control" type="text" name="prepared">
-                                    </div>
-                                    <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
-                                </form>
-                            </div>
-                        </div>
+            <div class="card">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="m-3">EVALUASI KARYAWAN OLEH KORDINATOR</h1>
                     </div>
-                </div> -->
+                    <!-- <div align="end" class="col mt-3 mr-3">
+                        <a href="karyawan_tambah.php" class="btn btn-success" type="button">
+                            <i class="fas fa-plus"></i> Add Staff Kamu
+                        </a>
+                    </div> -->
                 </div>
-
             </div>
-
-    </section>
+        </div>
+    </div>
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -96,7 +49,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body table-responsive">
-                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                            <table id="example" class="table table-striped table-bordered table-hover" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
