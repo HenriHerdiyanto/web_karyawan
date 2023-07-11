@@ -90,7 +90,7 @@ $data2 = getRegistran($link);
                   <div class="icon">
                     <i class="ion ion-ios-albums"></i>
                   </div>
-                  <a href="anggota.php?id=<?php echo $array_item->id_user ?>" class="small-box-footer">Anggota<i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="anggota.php?id=<?php echo $array_item->id_divisi ?>" class="small-box-footer">Anggota<i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
             </div>

@@ -366,36 +366,6 @@ if (isset($_POST['save'])) {
         </div>
         <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header bg-primary text-white d-flex justify-content">
-                            <h3 class="card-title"><i class="fas fa-list mr-2"> KEY PERFORMANCE INDEX</i></h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Jabatan</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 <!-- /.content-wrapper -->
 

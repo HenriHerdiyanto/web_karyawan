@@ -210,31 +210,31 @@ if (isset($_POST['update'])) {
                                     <div class="tab-pane" id="pendidikan">
                                         <form class="form-horizontal">
                                             <div class="form-group row">
-                                                <label for="inputName" class="col-sm-2 col-form-label">JENJANG PENDIDIKAN :</label>
+                                                <label for="inputName" class="col-sm-2 col-form-label">JENJANG PENDIDIKAN</label>
                                                 <div class="col-sm-10">
                                                     <input type="email" class="form-control" id="inputName" value="<?php echo $data_pendidikan->data[0]->jenjang_pendidikan; ?>" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputEmail" class="col-sm-2 col-form-label">INSTANSI PENDIDIKAN :</label>
+                                                <label for="inputEmail" class="col-sm-2 col-form-label">INSTANSI PENDIDIKAN</label>
                                                 <div class="col-sm-10">
                                                     <input type="email" class="form-control" id="inputEmail" value="<?php echo $data_pendidikan->data[0]->instansi_pendidikan; ?>" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputName2" class="col-sm-2 col-form-label">JURUSAN :</label>
+                                                <label for="inputName2" class="col-sm-2 col-form-label">JURUSAN</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="inputName2" value="<?php echo $data_pendidikan->data[0]->jurusan; ?>" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputExperience" class="col-sm-2 col-form-label">TAHUN MASUK :</label>
+                                                <label for="inputExperience" class="col-sm-2 col-form-label">TAHUN MASUK</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="inputName2" value="<?php echo $data_pendidikan->data[0]->tahun_masuk; ?>" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="inputSkills" class="col-sm-2 col-form-label">TAHUN LULUS :</label>
+                                                <label for="inputSkills" class="col-sm-2 col-form-label">TAHUN LULUS</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" value="<?php echo $data_pendidikan->data[0]->tahun_lulus; ?>" disabled>
                                                 </div>

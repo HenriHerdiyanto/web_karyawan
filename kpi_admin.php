@@ -2,7 +2,7 @@
 include "controller/koneksi.php";
 require_once 'header.php';
 
-$link = "getDivisi";
+$link = "getDivisiUser";
 $output = getRegistran($link);
 function getRandomColor()
 {
@@ -70,12 +70,11 @@ function getRandomColor()
                             <div class="icon">
                                 <i class="ion ion-ios-albums"></i>
                             </div>
-                            <a href="perjalanan_dinas.php" class="small-box-footer">KPI <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="anggota.php?id=<?php echo $array_item->id_divisi ?>" class="small-box-footer"><?php echo $array_item->id_divisi ?> <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 <?php endforeach ?>
             </div>
-
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
                 <!-- Control sidebar content goes here -->

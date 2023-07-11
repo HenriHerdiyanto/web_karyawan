@@ -6,16 +6,22 @@ require_once 'header.php';
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Staf Karyawan</h1>
+            <div class="card">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="m-3">key performance indicator (KPI)</h1>
+                    </div>
+                    <div align="end" class="col mt-3 mr-3">
+                        <a href="karyawan_tambah.php" class="btn btn-success " type="button">
+                            <i class="fas fa-plus"></i> Add Staff
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
+        </div>
+    </div>
 
     <!-- Main content -->
     <section class="content">
@@ -24,12 +30,6 @@ require_once 'header.php';
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data Staf Karyawan</h3>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
-                                <a href="karyawan_tambah.php?id=<?php echo $id ?>" class="btn btn-success " type="button">
-                                    <i class="fas fa-plus"></i> Add Staff
-                                </a>
-                            </div>
                             <!-- Modal Tambah-->
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -81,9 +81,9 @@ require_once 'header.php';
                         <!-- /.card-header -->
                         <?php
                         $id = $_GET['id'];
-                        $link = "getKaryawan&id_user=" . urlencode($id);
+                        $link = "getKaryawanByIddivisi&id_divisi=" . urlencode($id);
                         $output = getRegistran($link);
-                        var_dump($output);
+                        // var_dump($output);
                         ?>
 
                         <div class="card-body table-responsive">
@@ -94,7 +94,6 @@ require_once 'header.php';
                                     <thead>
                                         <tr>
                                             <th>No. </th>
-                                            <th>Nama Koordinator</th>
                                             <th>Nama Karyawan</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Email</th>
@@ -106,7 +105,6 @@ require_once 'header.php';
                                         <?php foreach ($output->data as $key => $array_item) : ?>
                                             <tr>
                                                 <td><?php echo $key + 1 ?></td>
-                                                <td><?php echo $array_item->nama_user; ?></td>
                                                 <td><?php echo $array_item->nama_lengkap; ?></td>
                                                 <td><?php echo $array_item->jenis_kelamin; ?></td>
                                                 <td><?php echo $array_item->email; ?></td>
@@ -130,7 +128,7 @@ require_once 'header.php';
                                                         <a href="karyawan_detail.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Detail">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
-                                                        <a href="kpi-it.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="KPI">
+                                                        <a href="kpi-it.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-info" data-bs-toggle="tooltip" title="KPI">
                                                             <i class="fas fa-file"></i>
                                                         </a>
                                                         <a href="karyawan_edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">

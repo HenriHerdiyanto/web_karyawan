@@ -34,6 +34,31 @@ function getUser()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+// function getKPIit()
+// {
+//     global $connect;
+
+//     $query = "SELECT * FROM kpi_it";
+//     $result = $connect->query($query);
+//     while ($row = mysqli_fetch_object($result)) {
+//         $data[] = $row;
+//     }
+
+//     if ($result) {
+//         $response = array(
+//             'status' => 1,
+//             'data' => $data
+//         );
+//     } else {
+//         $response = array(
+//             'status' => 0,
+//             'data' => 'Gagal'
+//         );
+//     }
+
+//     header('Content-Type: application/json');
+//     echo json_encode($response);
+// }
 
 function getUserStaff()
 {
@@ -279,6 +304,67 @@ function setInventaris()
 
 
     $query = "INSERT INTO inventaris SET nama = '$nama', tipe = '$tipe', jumlah = '$jumlah', tanggal = '$tanggal', harga = '$harga', gambar = '$gambar'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function setKPI_it()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['mulai_kerja']))
+        $mulai_kerja = $_GET['mulai_kerja'];
+    if (!empty($_GET['indikator1']))
+        $indikator1 = $_GET['indikator1'];
+    if (!empty($_GET['indikator2']))
+        $indikator2 = $_GET['indikator2'];
+    if (!empty($_GET['indikator3']))
+        $indikator3 = $_GET['indikator3'];
+    if (!empty($_GET['indikator4']))
+        $indikator4 = $_GET['indikator4'];
+    if (!empty($_GET['indikator5']))
+        $indikator5 = $_GET['indikator5'];
+    if (!empty($_GET['indikator6']))
+        $indikator6 = $_GET['indikator6'];
+    if (!empty($_GET['indikator7']))
+        $indikator7 = $_GET['indikator7'];
+    if (!empty($_GET['indikator8']))
+        $indikator8 = $_GET['indikator8'];
+    if (!empty($_GET['indikator9']))
+        $indikator9 = $_GET['indikator9'];
+    if (!empty($_GET['indikator10']))
+        $indikator10 = $_GET['indikator10'];
+    if (!empty($_GET['indikator11']))
+        $indikator11 = $_GET['indikator11'];
+    if (!empty($_GET['indikator12']))
+        $indikator12 = $_GET['indikator12'];
+    if (!empty($_GET['total']))
+        $total = $_GET['total'];
+    if (!empty($_GET['komentar']))
+        $komentar = $_GET['komentar'];
+
+
+    $query = "INSERT INTO kpitekno SET id_karyawan = '$id_karyawan',id_user = '$id_user',id_divisi = '$id_divisi', nama_lengkap = '$nama_lengkap', mulai_kerja = '$mulai_kerja', indikator1 = '$indikator1', indikator2 = '$indikator2', indikator3 = '$indikator3', indikator4 = '$indikator4', indikator5 = '$indikator5', indikator6 = '$indikator6', indikator7 = '$indikator7', indikator8 = '$indikator8', indikator9 = '$indikator9', indikator10 = '$indikator10', indikator11 = '$indikator11', indikator12 = '$indikator12', total = '$total', komentar = '$komentar'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -1901,6 +1987,37 @@ function getKaryawanKor()
     echo json_encode($response);
 }
 
+function getKPItekno()
+{
+
+    global $connect;
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+    $query = "SELECT * FROM kpitekno
+    LEFT JOIN divisi ON kpitekno.id_divisi = divisi.id_divisi
+    WHERE kpitekno.id_user =  $id_user";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function getKaryawanPinjam()
 {
 
@@ -2224,6 +2341,39 @@ function getKaryawanById()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+function getKaryawanByIddivisi()
+{
+
+    global $connect;
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+
+    $query = "SELECT karyawan.*, divisi.nama_divisi 
+    FROM karyawan 
+    LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi 
+    WHERE karyawan.id_divisi = $id_divisi
+    ";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 
 
 function getDeleteKaryawanId()
@@ -2263,6 +2413,34 @@ function getDeleteKaryawanAdmin()
         $id_karyawan = $_GET['id_karyawan'];
 
     $query = "DELETE FROM karyawan WHERE id_karyawan = $id_karyawan";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getDeleteKpitekno()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+
+    $query = "DELETE FROM kpitekno WHERE id_karyawan = $id_karyawan";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;
