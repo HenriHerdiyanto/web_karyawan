@@ -11,6 +11,7 @@ $data_karyawan = getRegistran($link);
 $id_karyawan = $data_karyawan->data[0]->id_karyawan;
 $nama_user = $data_karyawan->data[0]->nama_lengkap;
 $level_user = $data_karyawan->data[0]->level_user;
+$id_divisi = $data_karyawan->data[0]->id_divisi;
 // var_dump($data_karyawan);
 
 // $link = "getKaryawan&id_user=" . urlencode($id_user);

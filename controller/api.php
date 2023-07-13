@@ -700,6 +700,33 @@ function setUpdateIdKaryawan()
     echo json_encode($response);
 }
 
+function setUpdateSOP()
+{
+    global $connect;
+    if (!empty($_GET['id_sop']))
+        $id_sop = $_GET['id_sop'];
+    if (!empty($_GET['aturan']))
+        $aturan = $_GET['aturan'];
+
+    $query = "UPDATE sop_admin SET aturan = '$aturan' WHERE id_sop = '$id_sop'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function setUpdateTodo()
 {
     global $connect;
@@ -1242,12 +1269,71 @@ function setDivisi()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+function setSOP()
+{
+    global $connect;
+    if (!empty($_GET['id_user']))
+        $id_user = $_GET['id_user'];
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+    if (!empty($_GET['aturan']))
+        $aturan = $_GET['aturan'];
+
+
+    $query = "INSERT INTO sop_admin SET id_user = '$id_user', id_divisi = '$id_divisi', aturan = '$aturan'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 
 function getDivisi()
 {
 
     global $connect;
     $query = "SELECT * FROM divisi";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getSOP()
+{
+
+    global $connect;
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+    $query = "SELECT * FROM sop_admin 
+    LEFT JOIN divisi ON sop_admin.id_divisi = divisi.id_divisi 
+    WHERE divisi.id_divisi = '$id_divisi'";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -1450,6 +1536,32 @@ function getDeleteDivisiId()
     $id_divisi = $_GET["id_divisi"];
 
     $query = "DELETE FROM divisi WHERE id_divisi = $id_divisi";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getDeleteSOP()
+{
+    global $connect;
+    $id_sop = $_GET["id_sop"];
+
+    $query = "DELETE FROM sop_admin WHERE id_sop = $id_sop";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;
@@ -1886,6 +1998,8 @@ function setPerjalanan()
         $jumlah_personel = $_GET['jumlah_personel'];
     if (!empty($_GET['nama_personel']))
         $nama_personel = $_GET['nama_personel'];
+    if (!empty($_GET['jenis_perjalanan']))
+        $jenis_perjalanan = $_GET['jenis_perjalanan'];
     if (!empty($_GET['kota_tujuan']))
         $kota_tujuan = $_GET['kota_tujuan'];
     if (!empty($_GET['tanggal_berangkat']))
@@ -1916,7 +2030,7 @@ function setPerjalanan()
         $status = $_GET['status'];
 
 
-    $query = "INSERT INTO perjalanan_dinas SET id_user = '$id_user', id_divisi = '$id_divisi', nama_pengajuan = '$nama_pengajuan', jabatan = '$jabatan', project = '$project', tujuan = '$tujuan', jumlah_personel = '$jumlah_personel', nama_personel = '$nama_personel', kota_tujuan = '$kota_tujuan', tanggal_berangkat = '$tanggal_berangkat',waktu_berangkat = '$waktu_berangkat',kota_pulang = '$kota_pulang' ,tanggal_pulang = '$tanggal_pulang', transportasi = '$transportasi', hotel = '$hotel', bagasi = '$bagasi', cash_advance = '$cash_advance', keterangan = '$keterangan', diminta_oleh = '$diminta_oleh', diketahui_oleh = '$diketahui_oleh', disetujui_oleh = '$disetujui_oleh', status = '$status'";
+    $query = "INSERT INTO perjalanan_dinas SET id_user = '$id_user', id_divisi = '$id_divisi', nama_pengajuan = '$nama_pengajuan', jabatan = '$jabatan', project = '$project', tujuan = '$tujuan', jumlah_personel = '$jumlah_personel', nama_personel = '$nama_personel', jenis_perjalanan = '$jenis_perjalanan', kota_tujuan = '$kota_tujuan', tanggal_berangkat = '$tanggal_berangkat',waktu_berangkat = '$waktu_berangkat',kota_pulang = '$kota_pulang' ,tanggal_pulang = '$tanggal_pulang', transportasi = '$transportasi', hotel = '$hotel', bagasi = '$bagasi', cash_advance = '$cash_advance', keterangan = '$keterangan', diminta_oleh = '$diminta_oleh', diketahui_oleh = '$diketahui_oleh', disetujui_oleh = '$disetujui_oleh', status = '$status'";
     $result = $connect->query($query);
 
     if ($result) {

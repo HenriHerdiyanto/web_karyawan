@@ -235,7 +235,7 @@ $data_dinas = getRegistran($link);
                             <small class="jarak">Keterangan:</small>
                         </td>
                         <td>
-                            <small class="jarak"><?php echo $data_dinas->data[0]->keterangan; ?></small>
+                            <small class="jarak"><?php echo $data_dinas->data[0]->jenis_perjalanan; ?></small>
                         </td>
                     </tr>
                 </tbody>

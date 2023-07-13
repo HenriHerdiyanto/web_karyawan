@@ -115,10 +115,17 @@ if (isset($_POST['submit'])) {
                                     <label>Nama Personel</label>
                                     <textarea class="form-control" name="nama_personel" id="" cols="30" rows="5"><?php echo $data_dinas->data[0]->nama_personel; ?></textarea>
                                 </div>
-
                             </div>
 
                             <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Jenis Perjalanan</label>
+                                    <select class="form-control" name="jenis_perjalanan">
+                                        <option selected><?php echo $data_dinas->data[0]->jenis_perjalanan ?></option>
+                                        <option value="Perjalanan Luar Kota">Perjalanan Luar Kota</option>
+                                        <option value="Perjalanan Dalam Kota">Perjalanan Dalam Kota</option>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label>Waktu Berangkat</label>
                                     <input type="text" class="form-control" name="waktu_berangkat" value="<?php echo $data_dinas->data[0]->waktu_berangkat ?>">

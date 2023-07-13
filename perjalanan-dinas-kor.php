@@ -141,7 +141,7 @@ include "header-kordinator.php"
                                                         <?php
                                                         $status = $array_item->status;
                                                         if ($status == "diterima") { ?>
-                                                            <a href="cetak_surat.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="cetak surat">
+                                                            <a href="cetak_surat.php?id=<?php echo $array_item->id_dinas ?>" target="_blank" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="cetak surat">
                                                                 <i class="fas fa-print"></i>
                                                             </a>
                                                         <?php } else { ?>

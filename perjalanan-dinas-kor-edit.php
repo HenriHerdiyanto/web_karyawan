@@ -19,6 +19,7 @@ if (isset($_POST['submit'])) {
     $tujuan = $_POST['tujuan'];
     $jumlah_personel = $_POST['jumlah_personel'];
     $nama_personel = $_POST['nama_personel'];
+    $jenis_perjalanan = $_POST['jenis_perjalanan'];
     $kota_tujuan = $_POST['kota_tujuan'];
     $tanggal_berangkat = $_POST['tanggal_berangkat'];
     $waktu_berangkat = $_POST['waktu_berangkat'];
@@ -31,7 +32,7 @@ if (isset($_POST['submit'])) {
     $keterangan = $_POST['keterangan'];
     $status = $_POST['status'];
 
-    $link = "setUpdateDinas&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan)  . '&status=' . urlencode($status)  . '&type=insert';
+    $link = "setUpdateDinas&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&jenis_perjalanan=' . urlencode($jenis_perjalanan) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan)  . '&status=' . urlencode($status)  . '&type=insert';
     $data = getRegistran($link);
     var_dump($data);
     if ($data) {
@@ -103,6 +104,14 @@ if (isset($_POST['submit'])) {
                                 <div class="form-group">
                                     <label>Nama Personel</label>
                                     <textarea class="form-control" name="nama_personel" id="" cols="30" rows="5"><?php echo $data_dinas->data[0]->nama_personel; ?></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Jenis Perjalanan</label>
+                                    <select class="form-control" name="jenis_perjalanan">
+                                        <option selected><?php echo $data_dinas->data[0]->jenis_perjalanan ?></option>
+                                        <option value="Perjalanan Luar Kota">Perjalanan Luar Kota</option>
+                                        <option value="Perjalanan Dalam Kota">Perjalanan Dalam Kota</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Kota Tujuan</label>

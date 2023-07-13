@@ -14,6 +14,7 @@ if (isset($_POST['submit'])) {
     $tujuan = $_POST['tujuan'];
     $jumlah_personel = $_POST['jumlah_personel'];
     $nama_personel = $_POST['nama_personel'];
+    $jenis_perjalanan = $_POST['jenis_perjalanan'];
     $kota_tujuan = $_POST['kota_tujuan'];
     $tanggal_berangkat = $_POST['tanggal_berangkat'];
     $waktu_berangkat = $_POST['waktu_berangkat'];
@@ -30,7 +31,7 @@ if (isset($_POST['submit'])) {
     $status = $_POST['status'];
 
 
-    $link = "setPerjalanan&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan) . '&diminta_oleh=' . urlencode($diminta_oleh) . '&diketahui_oleh=' . urlencode($diketahui_oleh) . '&disetujui_oleh=' . urlencode($disetujui_oleh) . "&status=" . urlencode($status) . '&type=insert';
+    $link = "setPerjalanan&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&jenis_perjalanan=' . urlencode($jenis_perjalanan) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan) . '&diminta_oleh=' . urlencode($diminta_oleh) . '&diketahui_oleh=' . urlencode($diketahui_oleh) . '&disetujui_oleh=' . urlencode($disetujui_oleh) . "&status=" . urlencode($status) . '&type=insert';
     $data = getRegistran($link);
     var_dump($data);
     echo "<script>alert('PENGAJUAN PERJALANAN DINAS BERHASIL')</script>";
@@ -104,17 +105,24 @@ if (isset($_POST['submit'])) {
                                     <!-- <input type="text" class="form-control" name="jumlah"> -->
                                 </div>
                                 <div class="form-group">
+                                    <label for="">Jenis Perjalanan</label>
+                                    <select class="form-control" name="jenis_perjalanan">
+                                        <option selected>--Pilih--</option>
+                                        <option value="Perjalanan Luar Kota">Perjalanan Luar Kota</option>
+                                        <option value="Perjalanan Dalam Kota">Perjalanan Dalam Kota</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label>Kota Tujuan</label>
                                     <input type="text" class="form-control" name="kota_tujuan">
                                 </div>
+                            </div>
+
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Tanggal Berangkat</label>
                                     <input type="date" class="form-control" name="tanggal_berangkat">
                                 </div>
-
-                            </div>
-
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Waktu Berangkat</label>
                                     <input type="text" class="form-control" name="waktu_berangkat">
