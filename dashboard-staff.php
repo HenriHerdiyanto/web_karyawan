@@ -1,29 +1,21 @@
 <?php
 include "controller/koneksi.php";
-require_once 'header-kordinator.php';
-
-
-$link = "getKaryawanKor&id_user=" . urlencode($id_user);
-$datas = getRegistran($link);
-$nama_divisi = $datas->data[0]->nama_divisi;
-$id_karyawan = $datas->data[0]->id_karyawan;
-
+require_once 'header-staff.php';
 
 $link = "getProfilePendidikan&id_karyawan=" . urlencode($id_karyawan);
 $profile = getRegistran($link);
 // var_dump($profile);
+
 ?>
 
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">DIVISI <?= $nama_divisi ?></h1>
-                </div><!-- /.col -->
-                <div align="end" class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                </div>
+                <div class="col-sm-6 text-right">
                     <!-- Button trigger modal -->
                     <?php
                     if ($profile == null) { ?>
@@ -53,17 +45,17 @@ $profile = getRegistran($link);
 
                                         $link = "setProfile&id_karyawan=" . urlencode($id_karyawan) . "&jenjang_pendidikan=" . urlencode($jenjang_pendidikan) . "&instansi_pendidikan=" . urlencode($instansi_pendidikan) . "&jurusan=" . urlencode($jurusan) . "&tahun_masuk=" . urlencode($tahun_masuk) . "&tahun_lulus=" . urlencode($tahun_lulus) . "&index_nilai=" . urlencode($index_nilai);
                                         $hasil = getRegistran($link);
-                                        echo "<script>alert('Login Berhasil')</script>";
-                                        echo ("<script>location.href = 'kordinator.php';</script>");
-                                        var_dump($hasil);
+                                        echo "<script>alert('Profile Anda Sudah Update')</script>";
+                                        echo ("<script>location.href = 'dashboard-staff.php';</script>");
+                                        // var_dump($hasil);
                                     }
                                     ?>
                                     <form method="POST" action="">
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label style="margin-left: 0; display:flex;" for="fullName">Full Name</label>
-                                                <input type="text" class="form-control" name="id_karyawan" value="<?= $datas->data[0]->id_karyawan ?>">
-                                                <input type="text" class="form-control" value="<?= $nama ?>" readonly>
+                                                <input type="text" class="form-control" name="id_karyawan" value="<?= $id_karyawan ?>">
+                                                <input type="text" class="form-control" value="<?= $nama_user ?>" readonly>
                                             </div>
                                             <div class="form-group">
                                                 <label style="margin-left: 0; display:flex;">Pendidikan Terakhir</label>
@@ -106,28 +98,23 @@ $profile = getRegistran($link);
                             </div>
                         </div>
                     <?php } else { ?>
-                        <a href="profile-kor.php?id=<?php echo $id_karyawan ?>" class="btn btn-lg btn-info">
+                        <a href="profile-staff.php?id=<?php echo $id_karyawan ?>" class="btn btn-lg btn-info">
                             <i class="nav-icon fas fa-user"></i> Lihat Profile
                         </a>
                     <?php }
                     ?>
-
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
                         <div class="inner">
                             <?php
-                            $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM perjalanan_dinas WHERE id_user= $id_user");
+                            $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM perjalanan_dinas WHERE status = 'diproses'");
                             $row = mysqli_fetch_assoc($query);
                             $jumlah_data = $row['jumlah_data'];
                             ?>
@@ -135,38 +122,16 @@ $profile = getRegistran($link);
                             <p>Perjalanan Dinas</p>
                         </div>
                         <div class="icon">
-                            <i class="nav-icon fas fa-plane"></i>
+                            <i class="ion ion-ios-albums"></i>
                         </div>
-                        <a href="perjalanan-dinas-kor.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="perjalanan_dinas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <!-- ./col -->
                 <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <?php
-                            $id_user = $data->data[0]->id_user;
-                            $query = mysqli_query($connect, "SELECT nama_lengkap, COUNT(*) as jumlah_data FROM karyawan WHERE id_user= $id_user AND level_user = 'staff'");
-                            $row = mysqli_fetch_assoc($query);
-                            $jumlah_data = $row['jumlah_data'];
-                            ?>
-                            <h3><?php echo $jumlah_data; ?> Karyawan</h3>
-                            <p>Jumlah Karyawan</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-stalker"></i>
-                        </div>
-                        <a href="karyawan-kor.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
                             <?php
-                            $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM pinjam_karyawan WHERE id_user= $id_user");
+                            $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM pinjam_karyawan WHERE status = 'diproses'");
                             $row = mysqli_fetch_assoc($query);
                             $jumlah_data = $row['jumlah_data'];
                             ?>
@@ -176,39 +141,45 @@ $profile = getRegistran($link);
                         <div class="icon">
                             <i class="ion ion-ios-copy"></i>
                         </div>
-                        <a href="peminjaman-karyawan-kor.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="peminjaman_karyawan.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <!-- ./col -->
                 <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
+                    <div class="small-box bg-warning">
                         <div class="inner">
                             <?php
-
-                            $query = mysqli_query($connect, "SELECT COUNT(*) AS jumlah_data
-                            FROM karyawan
-                            LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi
-                            WHERE karyawan.id_user = $id_user;
-                            ");
+                            $query = mysqli_query($connect, "SELECT nama_lengkap, COUNT(*) as jumlah_data FROM karyawan");
                             $row = mysqli_fetch_assoc($query);
                             $jumlah_data = $row['jumlah_data'];
                             ?>
-                            <h3><?php echo $jumlah_data; ?> DATA LEMBUR</h3>
-                            <p>Jumlah Data Lembur</p>
+                            <h3><?php echo $jumlah_data; ?> Karyawan</h3>
+                            <p>Jumlah Karyawan</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-locked"></i>
+                        </div>
+                        <a href="staff.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <?php
+                            $query = mysqli_query($connect, "SELECT nama_divisi, COUNT(*) as jumlah_data FROM divisi");
+                            $row = mysqli_fetch_assoc($query);
+                            $jumlah_data = $row['jumlah_data'];
+                            ?>
+                            <h3><?php echo $jumlah_data; ?> DIVISI</h3>
+                            <p>Jumlah Divisi</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-stalker"></i>
                         </div>
-                        <a href="lembur-karyawan-kor.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="divisi.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <!-- ./col -->
             </div>
-            <!-- /.row -->
-            <!-- Main row -->
             <div class="row">
-                <!-- Left col -->
                 <section class="col-lg-7 connectedSortable">
                     <!-- Custom tabs (Charts with tabs)-->
                     <div class="card">
@@ -251,7 +222,7 @@ $profile = getRegistran($link);
                                                                 $link = "setTodolist&id_karyawan=" . urlencode($id_karyawan) . "&nama_project=" . urlencode($nama_project) . "&todolist=" . urlencode($todolist);
                                                                 $todo = getRegistran($link);
                                                                 echo "<script>alert('To Do List Ditambahkan')</script>";
-                                                                echo ("<script>location.href = 'kordinator.php';</script>");
+                                                                echo ("<script>location.href = 'dashboard-staff.php';</script>");
                                                             }
                                                             ?>
                                                             <form action="" method="post">
@@ -280,8 +251,9 @@ $profile = getRegistran($link);
 
                                             $link = "setUpdateTodo&id_karyawan=" . urlencode($id_karyawan) . "&nama_project=" . urlencode($nama_project) . "&todolist=" . urlencode($todolist);
                                             $datas = getRegistran($link);
-                                            var_dump($datas);
-                                            // echo ("<script>location.href = 'kordinator.php';</script>");
+                                            // var_dump($datas);
+                                            echo "<script>alert('To Do List Ditambahkan')</script>";
+                                            echo ("<script>location.href = 'dashboard-staff.php';</script>");
                                         }
                                         ?>
                                         <form action="" method="post">
@@ -303,48 +275,27 @@ $profile = getRegistran($link);
                         </div><!-- /.card-body -->
                     </div>
                 </section>
-                <!-- /.Left col -->
-                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+
                 <section class="col-lg-5 connectedSortable">
-
-                    <!-- Map card -->
-
-                    <!-- /.card -->
-
-                    <!-- Calendar -->
                     <div class="card bg-gradient-success">
                         <div class="card-header border-0">
-
                             <h3 class="card-title">
                                 <i class="far fa-calendar-alt"></i>
                                 Calendar
                             </h3>
-                            <!-- /. tools -->
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body pt-0">
-                            <!--The calendar -->
                             <div id="calendar" style="width: 100%"></div>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
                 </section>
-                <!-- right col -->
             </div>
-            <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
-    <!-- /.content -->
 </div>
-
-<!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
 </aside>
-<!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -376,9 +327,6 @@ $profile = getRegistran($link);
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.js"></script>
-<!-- AdminLTE for demo purposes -->
-<!-- <script src="dist/js/demo.js"></script> -->
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -397,7 +345,6 @@ $profile = getRegistran($link);
     });
 </script>
 <script>
-    // The Calender
     $('#calendar').datetimepicker({
         format: 'L',
         inline: true

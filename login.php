@@ -2,14 +2,14 @@
 session_start();
 require_once 'controller/utility.php';
 
-
 $error = "";
 if (isset($_POST['login'])) {
   $username = $_POST['username'];
   $password = $_POST['pass'];
-  // $password2 = sha1($password);
+
   $link = "getUser&username=" . urlencode($username) . "&password=" . urlencode($password);
   $data = getRegistran($link);
+
   if ($data) {
     if ($data->status == '0') {
       $error = "Pengguna tidak terdaftar";
@@ -18,22 +18,29 @@ if (isset($_POST['login'])) {
       $id_user = $data->data[0]->id_user;
       $pass = $data->data[0]->password;
       $level = $data->data[0]->level_user;
-      if ($username = $user && $password = $pass && $level = 0) {
+
+      if ($username == $user && $password == $pass && $level == 0) {
         $_SESSION["login"] = $id_user;
         $_SESSION["user"] = $level;
         echo "<script>alert('Login Berhasil')</script>";
         echo ("<script>location.href = 'index.php';</script>");
-      } elseif ($username = $user && $password = $pass && $level = 1) {
+      } elseif ($username == $user && $password == $pass && $level == 1) {
         $_SESSION["login"] = $id_user;
         $_SESSION["user"] = $level;
         echo "<script>alert('Login Berhasil')</script>";
         echo ("<script>location.href = 'kordinator.php';</script>");
+      } elseif ($username == $user && $password == $pass && $level == 2) {
+        $_SESSION["login"] = $id_user;
+        $_SESSION["user"] = $level;
+        echo "<script>alert('Login Berhasil')</script>";
+        echo ("<script>location.href = 'dasboard-staff.php';</script>");
       }
     }
   } else {
     echo "<script>alert('Username atau Password salah')</script>";
   }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
