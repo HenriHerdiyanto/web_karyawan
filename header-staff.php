@@ -88,7 +88,7 @@ $id_divisi = $data_karyawan->data[0]->id_divisi;
             <!-- Brand Logo -->
             <a href="#" class="brand-link bg-secondary">
                 <img src="assets/img/logomt.png" alt="AdminLTE Logo" class="brand-image">
-                <span class="brand-text font-weight-light">HRMS</span>
+                <span class="brand-text font-weight-light">HRMS ( <?php echo $level_user; ?> )</span>
             </a>
             <!-- Sidebar -->
             <div class="sidebar" style="background-color: #322F8A;">
@@ -108,7 +108,7 @@ $id_divisi = $data_karyawan->data[0]->id_divisi;
                             <img style="width: 50px;" src="foto_karyawan/<?= $data_karyawan->data[0]->foto_karyawan ?>" class="img-circle elevation-2">
                         </div>
                         <div class="info text-center" style="color: #FFCF09;">
-                            <b><?php echo $nama_user; ?> <br><?php echo $level_user; ?> </b>
+                            <b><?php echo $nama_user; ?> </b>
                         </div>
                     </div>
                 </a>

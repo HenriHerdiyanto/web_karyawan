@@ -31,8 +31,8 @@ if (isset($_POST['submit'])) {
     $link = "setUpdateEvaluasi&id_evaluasi=" . urlencode($id_evaluasi) . "&id_karyawan=" . urlencode($id_karyawan) . "&id_divisi=" . urlencode($id_divisi) . "&lama_percobaan=" . urlencode($lama_percobaan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&level_user=" . urlencode($level_user) . "&tanggal_kerja=" . urlencode($tanggal_kerja) . "&status=" . urlencode($status) . "&faktor_penilaian=" . urlencode($faktor_penilaian) . "&catatan_atasan=" . urlencode($catatan_atasan) . "&catatan_hrd=" . urlencode($catatan_hrd) . "&dievaluasi_oleh=" . urlencode($dievaluasi_oleh) . "&disetujui_oleh=" . urlencode($disetujui_oleh) . "&status_evaluasi=" . urlencode($status_evaluasi);
     $data = getRegistran($link);
     var_dump($data);
-    // echo '<script>alert("data berhasil diupdate")</script>';
-    // echo ("<script>location.href = 'karyawan.php';</script>");
+    echo '<script>alert("data berhasil diupdate")</script>';
+    echo ("<script>location.href = 'evaluasi.php';</script>");
 }
 
 ?>

@@ -6,19 +6,21 @@ require_once 'header.php';
 
 ?>
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="height: cover;">
   <div class="content-header">
     <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0">Dashboard</h1>
-        </div>
-        <div class="col-sm-6 text-right">
-          <form action="karyawan_tambah.php" method="post">
-            <button class="btn btn-lg btn-success" type="submit">
-              <i class="fas fa-plus"></i> Add KORDINATOR
-            </button>
-          </form>
+      <div class="card">
+        <div class="row">
+          <div class="col">
+            <h1 class="m-3">Dashboard</h1>
+          </div>
+          <div align="end" class="col mt-2 mr-3">
+            <form action="karyawan_tambah.php" method="post">
+              <button class="btn btn-lg btn-success" type="submit">
+                <i class="fas fa-plus"></i> Add KORDINATOR
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -26,7 +28,7 @@ require_once 'header.php';
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-3 col-sm-12">
           <div class="small-box bg-info">
             <div class="inner">
               <?php
@@ -34,7 +36,7 @@ require_once 'header.php';
               $row = mysqli_fetch_assoc($query);
               $jumlah_data = $row['jumlah_data'];
               ?>
-              <h3><?php echo $jumlah_data; ?> Notifikasi</h3>
+              <h3><?php echo $jumlah_data; ?> Notifikasi Belum Lihat</h3>
               <p>Perjalanan Dinas</p>
             </div>
             <div class="icon">
@@ -43,7 +45,7 @@ require_once 'header.php';
             <a href="perjalanan_dinas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-3 col-sm-12">
           <div class="small-box bg-success">
             <div class="inner">
               <?php
@@ -60,7 +62,7 @@ require_once 'header.php';
             <a href="peminjaman_karyawan.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-3 col-sm-12">
           <div class="small-box bg-warning">
             <div class="inner">
               <?php
@@ -77,7 +79,7 @@ require_once 'header.php';
             <a href="staff.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-3 col-sm-12">
           <div class="small-box bg-danger">
             <div class="inner">
               <?php

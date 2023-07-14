@@ -195,6 +195,32 @@ function getEvaluasi()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+function getSOP()
+{
+    global $connect;
+
+    $query = "SELECT * FROM sop_admin 
+    LEFT JOIN divisi ON sop_admin.id_divisi = divisi.id_divisi ";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 
 function getEvaluasiEdit()
 {
@@ -1325,7 +1351,7 @@ function getDivisi()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
-function getSOP()
+function getSOPid()
 {
 
     global $connect;
@@ -1333,7 +1359,10 @@ function getSOP()
         $id_divisi = $_GET['id_divisi'];
     $query = "SELECT * FROM sop_admin 
     LEFT JOIN divisi ON sop_admin.id_divisi = divisi.id_divisi 
-    WHERE divisi.id_divisi = '$id_divisi'";
+    WHERE divisi.id_divisi =  $id_divisi 
+    ORDER BY id_sop DESC 
+    LIMIT 1
+    ";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {

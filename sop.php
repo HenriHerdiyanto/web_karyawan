@@ -5,6 +5,7 @@ $data_divisi = getRegistran($link);
 
 $link = "getSOP";
 $output = getRegistran($link);
+var_dump($output);
 
 $link2 = "getDivisi";
 $data_divisi = getRegistran($link2);

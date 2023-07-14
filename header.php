@@ -53,7 +53,7 @@ if ($level_user > 0) {
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" style="height: cover;">
   <div class="wrapper">
 
     <!-- Navbar -->

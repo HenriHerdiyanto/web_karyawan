@@ -24,7 +24,7 @@ $nama_divisi9 = isset($data_divisi->data[8]->nama_divisi) ? $data_divisi->data[8
 
 <?php
 if ($data_karyawan->data[0]->id_divisi == $id_divisi) { ?>
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="height: cover;">
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">

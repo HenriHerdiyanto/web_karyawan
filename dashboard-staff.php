@@ -5,7 +5,7 @@ require_once 'header-staff.php';
 $link = "getProfilePendidikan&id_karyawan=" . urlencode($id_karyawan);
 $profile = getRegistran($link);
 // var_dump($profile);
-$link2 = "getSOP&id_divisi=" . urlencode($id_divisi);
+$link2 = "getSOPid&id_divisi=" . urlencode($id_divisi);
 $data_sop = getRegistran($link2);
 // var_dump($data_sop);
 
