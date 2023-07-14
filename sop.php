@@ -6,7 +6,6 @@ $data_divisi = getRegistran($link);
 $link = "getSOP";
 $output = getRegistran($link);
 var_dump($output);
-
 $link2 = "getDivisi";
 $data_divisi = getRegistran($link2);
 $id_divisi = $data_divisi->data[0]->id_divisi;
@@ -51,7 +50,7 @@ if (isset($_POST['sop'])) {
 
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="content-wrapper" style="height: cover;">
     <div class="content-header">
         <div class="container-fluid">
             <div class="card">
@@ -138,7 +137,7 @@ if (isset($_POST['sop'])) {
                             <?php  } else { ?>
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>
-                                        <tr>
+                                        <tr class="bg-secondary">
                                             <th style="width: 10%">No.</th>
                                             <th style="width: 30%">Nama Divisi</th>
                                             <th style="width: 40%">Standard Operating Procedure</th>
@@ -169,7 +168,7 @@ if (isset($_POST['sop'])) {
                                                                     <form method="POST">
                                                                         <div class="modal-body">
                                                                             <div class="mb-3">
-                                                                                <input type="text" name="id_sop" value="<?= $array_item->id_sop ?>">
+                                                                                <input type="hidden" name="id_sop" value="<?= $array_item->id_sop ?>">
                                                                                 <input type="text" class="form-control" id="nama_divisi" value="<?php echo $array_item->nama_divisi; ?>" readonly>
                                                                             </div>
                                                                             <div class="mb-3">

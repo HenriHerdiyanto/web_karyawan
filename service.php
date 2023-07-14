@@ -31,11 +31,11 @@ if (isset($_POST['submit'])) {
             <div class="card">
                 <div class="row">
                     <div class="col">
-                        <h1 class="m-3">Inventaris Kantor</h1>
+                        <h1 class="m-3">Service Kantor</h1>
                     </div>
                     <div align="end" class="col mt-2 mr-3">
                         <button class="btn btn-lg btn-success float-sm-right" type="button" data-toggle="modal" data-target="#AddDivisi">
-                            <i class="fas fa-plus"></i> Add Inventaris
+                            <i class="fas fa-plus"></i> Add Service
                         </button>
                     </div>
                 </div>

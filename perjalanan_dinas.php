@@ -167,8 +167,8 @@ include "header.php"
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>
-                                <?php } ?>
                                 </table>
+                            <?php } ?>
                         </div>
                         <!-- /.card-body -->
                     </div>

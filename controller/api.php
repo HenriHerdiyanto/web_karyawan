@@ -2190,6 +2190,34 @@ function getKPItekno()
     echo json_encode($response);
 }
 
+function getKPIadmin()
+{
+
+    global $connect;
+    $query = "SELECT * FROM kpitekno
+    LEFT JOIN divisi ON kpitekno.id_divisi = divisi.id_divisi";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function getKaryawanPinjam()
 {
 
@@ -2585,6 +2613,33 @@ function getDeleteKaryawanAdmin()
         $id_karyawan = $_GET['id_karyawan'];
 
     $query = "DELETE FROM karyawan WHERE id_karyawan = $id_karyawan";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getDeleteKPIadmin()
+{
+    global $connect;
+    if (!empty($_GET['id_kpi_it']))
+        $id_kpi_it = $_GET['id_kpi_it'];
+
+    $query = "DELETE FROM kpitekno WHERE id_kpi_it = $id_kpi_it";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;
