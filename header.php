@@ -186,6 +186,14 @@ if ($level_user > 0) {
               </a>
             </li>
             <li class="nav-item">
+              <a href="absen-admin.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Absen
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="divisi.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-building"></i>
                 <p>

@@ -124,10 +124,10 @@ $id_divisi = $data_karyawan->data[0]->id_divisi;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
+                            <a href="absen-staff.php" class="nav-link" style="color: #FFCF09;">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
-                                    Anggota Anda
+                                    Absen saya
                                 </p>
                             </a>
                         </li>
