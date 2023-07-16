@@ -155,7 +155,7 @@ if (isset($_POST['sop'])) {
                                                     </span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <div class="d-flex justify-content-center">
+                                                    <div class="d-flex justify-content-center align-items-center">
 
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="editModal<?php echo $array_item->id_sop ?>" tabindex="-1" aria-labelledby="editModalLabel<?php echo $array_item->id_sop ?>" aria-hidden="true">
