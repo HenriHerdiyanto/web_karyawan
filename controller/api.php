@@ -467,6 +467,45 @@ function setTodolist()
     echo json_encode($response);
 }
 
+function setAbsen()
+{
+    global $connect;
+    if (!empty($_GET['first_name']))
+        $first_name = $_GET['first_name'];
+    if (!empty($_GET['last_name']))
+        $last_name = $_GET['last_name'];
+    if (!empty($_GET['gender']))
+        $gender = $_GET['gender'];
+    if (!empty($_GET['country']))
+        $country = $_GET['country'];
+    if (!empty($_GET['age']))
+        $age = $_GET['age'];
+    if (!empty($_GET['date']))
+        $date = $_GET['date'];
+    if (!empty($_GET['id']))
+        $id = $_GET['id'];
+
+
+    $query = "INSERT INTO absen_karyawan SET first_name = '$first_name', last_name = '$last_name', gender = '$gender', country = '$country', age = '$age', date = '$date', id = '$id'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
 function setKeluarga()
 {
     global $connect;
@@ -1045,6 +1084,33 @@ function getInventaris()
 
     global $connect;
     $query = "SELECT * FROM inventaris";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getAbsen()
+{
+
+    global $connect;
+    $query = "SELECT * FROM absen_karyawan";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {

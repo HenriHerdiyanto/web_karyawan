@@ -9,44 +9,6 @@ $link2 = "getSOPid&id_divisi=" . urlencode($id_divisi);
 $data_sop = getRegistran($link2);
 // var_dump($data_sop);
 
-if (isset($_POST['update'])) {
-    $id_karyawan = $_POST['id_karyawan'];
-    $jenjang_pendidikan = $_POST['jenjang_pendidikan'];
-    $instansi_pendidikan = $_POST['instansi_pendidikan'];
-    $jurusan = $_POST['jurusan'];
-    $tahun_masuk = $_POST['tahun_masuk'];
-    $tahun_lulus = $_POST['tahun_lulus'];
-    $index_nilai = $_POST['index_nilai'];
-
-    $link = "setProfile&id_karyawan=" . urlencode($id_karyawan) . "&jenjang_pendidikan=" . urlencode($jenjang_pendidikan) . "&instansi_pendidikan=" . urlencode($instansi_pendidikan) . "&jurusan=" . urlencode($jurusan) . "&tahun_masuk=" . urlencode($tahun_masuk) . "&tahun_lulus=" . urlencode($tahun_lulus) . "&index_nilai=" . urlencode($index_nilai);
-    $hasil = getRegistran($link);
-    echo "<script>alert('Profile Anda Sudah Update')</script>";
-    echo ("<script>location.href = 'dashboard-staff.php';</script>");
-    // var_dump($hasil);
-}
-
-if (isset($_POST['todo'])) {
-    $id_karyawan = $_POST['id_karyawan'];
-    $nama_project = $_POST['nama_project'];
-    $todolist = $_POST['todolist'];
-
-    $link = "setTodolist&id_karyawan=" . urlencode($id_karyawan) . "&nama_project=" . urlencode($nama_project) . "&todolist=" . urlencode($todolist);
-    $todo = getRegistran($link);
-    echo "<script>alert('To Do List Ditambahkan')</script>";
-    echo ("<script>location.href = 'dashboard-staff.php';</script>");
-}
-
-if (isset($_POST['updatetodo'])) {
-    $id_karyawan = $_POST['id_karyawan'];
-    $nama_project = $_POST['nama_project'];
-    $todolist = $_POST['todolist'];
-
-    $link = "setUpdateTodo&id_karyawan=" . urlencode($id_karyawan) . "&nama_project=" . urlencode($nama_project) . "&todolist=" . urlencode($todolist);
-    $datas = getRegistran($link);
-    // var_dump($datas);
-    echo "<script>alert('To Do List Ditambahkan')</script>";
-    echo ("<script>location.href = 'dashboard-staff.php';</script>");
-}
 ?>
 
 <div class="content-wrapper">
@@ -55,79 +17,33 @@ if (isset($_POST['updatetodo'])) {
             <div class="card">
                 <div class="row">
                     <div class="col">
-                        <h1 class="m-3">Dashboard</h1>
+                        <h1 class="m-3">Absen Karyawan</h1>
                     </div>
                     <div align="end" class="col mt-2 mr-3">
                         <!-- Button trigger modal -->
-                        <?php
-                        if ($profile == null) { ?>
-                            <a type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#updateProfileModal">
-                                <i class="nav-icon fas fa-user"></i> Update Profile
-                            </a>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="updateProfileModalLabel">Update Profile</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form method="POST" action="">
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label style="margin-left: 0; display:flex;" for="fullName">Full Name</label>
-                                                    <input type="text" class="form-control" name="id_karyawan" value="<?= $id_karyawan ?>">
-                                                    <input type="text" class="form-control" value="<?= $nama_user ?>" readonly>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label style="margin-left: 0; display:flex;">Pendidikan Terakhir</label>
-                                                    <select class="form-control" name="jenjang_pendidikan">
-                                                        <option value="">--- PILIH ---</option>
-                                                        <option value="doktor">DOKTOR</option>
-                                                        <option value="magister">MAGISTER</option>
-                                                        <option value="sarjana">SARJANA</option>
-                                                        <option value="sma">SMA</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label style="margin-left: 0; display:flex;">Instansi Penddikan</label>
-                                                    <input type="text" name="instansi_pendidikan" class="form-control" placeholder="Nama Instansi">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label style="margin-left: 0; display:flex;">Jurusan / Spesialis</label>
-                                                    <input type="text" name="jurusan" class="form-control" placeholder="Nama Jurusan / Spesialis">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label style="margin-left: 0; display:flex;">Tahun Masuk</label>
-                                                    <input type="date" name="tahun_masuk" class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label style="margin-left: 0; display:flex;">Tahun Lulus</label>
-                                                    <input type="date" name="tahun_lulus" class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label style="margin-left: 0; display:flex;">INDEX NILAI</label>
-                                                    <input type="text" name="index_nilai" class="form-control" placeholder="IPK">
-                                                </div>
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
-                                            </div>
+                        <button type="button" class="btn btn-lg btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $id_karyawan ?>">
+                            <i class="nav-icon fas fa-book-open"></i> ABSEN
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal<?php echo $id_karyawan ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">ABSEN KARYAWAN</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="" method="post">
+                                            <label for="">Masukan NIK Anda:</label><br />
                                         </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
                                     </div>
                                 </div>
                             </div>
-                        <?php } else { ?>
-                            <a href="profile-staff.php?id=<?php echo $id_karyawan ?>" class="btn btn-lg btn-info">
-                                <i class="nav-icon fas fa-user"></i> Lihat Profile
-                            </a>
-                        <?php }
-                        ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,76 +51,6 @@ if (isset($_POST['updatetodo'])) {
     </div>
     <section class="content">
         <div class="container-fluid">
-            <!-- <div class="row">
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <?php
-                            $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM perjalanan_dinas WHERE status = 'diproses'");
-                            $row = mysqli_fetch_assoc($query);
-                            $jumlah_data = $row['jumlah_data'];
-                            ?>
-                            <h3><?php echo $jumlah_data; ?> Notifikasi</h3>
-                            <p>Perjalanan Dinas</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-ios-albums"></i>
-                        </div>
-                        <a href="perjalanan_dinas.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <?php
-                            $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM pinjam_karyawan WHERE status = 'diproses'");
-                            $row = mysqli_fetch_assoc($query);
-                            $jumlah_data = $row['jumlah_data'];
-                            ?>
-                            <h3><?php echo $jumlah_data; ?> Notifikasi</h3>
-                            <p>Peminjaman Karyawan</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-ios-copy"></i>
-                        </div>
-                        <a href="peminjaman_karyawan.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <?php
-                            $query = mysqli_query($connect, "SELECT nama_lengkap, COUNT(*) as jumlah_data FROM karyawan");
-                            $row = mysqli_fetch_assoc($query);
-                            $jumlah_data = $row['jumlah_data'];
-                            ?>
-                            <h3><?php echo $jumlah_data; ?> Karyawan</h3>
-                            <p>Jumlah Karyawan</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-locked"></i>
-                        </div>
-                        <a href="staff.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <?php
-                            $query = mysqli_query($connect, "SELECT nama_divisi, COUNT(*) as jumlah_data FROM divisi");
-                            $row = mysqli_fetch_assoc($query);
-                            $jumlah_data = $row['jumlah_data'];
-                            ?>
-                            <h3><?php echo $jumlah_data; ?> DIVISI</h3>
-                            <p>Jumlah Divisi</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-stalker"></i>
-                        </div>
-                        <a href="divisi.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div> -->
             <div class="row">
                 <section class="col-lg-12 col-sm-12 connectedSortable">
                     <!-- Custom tabs (Charts with tabs)-->

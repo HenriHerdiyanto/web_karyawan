@@ -170,7 +170,7 @@ if (isset($_POST['submit'])) {
                     <input type="text" class="form-control" name="no_hp">
                   </div>
                   <div class="form-group">
-                    <label>Besaran Gaji</label>
+                    <label>Gaji Pokok</label>
                     <input type="text" class="form-control" name="gaji">
                   </div>
                   <div class="form-group">

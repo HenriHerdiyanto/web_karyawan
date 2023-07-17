@@ -1,7 +1,9 @@
 <?php
 include "controller/koneksi.php";
 require_once 'header.php';
-
+$link = "getAbsen";
+$data_absen = getRegistran($link);
+// var_dump($data_absen);
 
 ?>
 
@@ -15,78 +17,37 @@ require_once 'header.php';
                     </div>
                     <div align="end" class="col mt-2 mr-3">
                         <!-- Button trigger modal -->
-                        <a type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#updateProfileModal">
+                        <!-- <a type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#updateProfileModal">
                             <i class="fa fa-user-plus"></i> Upload Data
                         </a>
-
-                        <!-- Modal -->
                         <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="updateProfileModalLabel">Update Profile</h5>
+                                        <h2>Upload data absen karyawan</h2>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="card">
-                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <?php include("aksi.php") ?>
+                                            <form action="" method="POST" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label for="">Keterangan</label>
+                                                    <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan" required>
+                                                    <label for="file">Pilih file Excel:</label>
+                                                    <input type="file" class="form-control" name="file_absen" id="file_absen" accept=".xls, .xlsx" required>
+                                                    <label for="">Tanggal Upload</label>
+                                                    <input type="date" class="form-control" name="tanggal_upload" id="tanggal_upload" placeholder="Tanggal Upload" required>
+                                                </div>
+                                                <button type="submit" name="upload" class="btn btn-primary">Upload</button>
+                                            </form> 
                                         </div>
-                                        <?php
-                                        if (isset($_POST['uploadBtn'])) {
-                                            // Menangani upload file
-                                            $file = $_FILES['fileUpload'];
-
-                                            // Periksa apakah file yang diunggah adalah file Excel
-                                            $allowedExtensions = array('xlsx', 'xls');
-                                            $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-                                            if (in_array($fileExtension, $allowedExtensions)) {
-                                                // Proses file Excel dan tampilkan tabel absensi
-                                                // Anda dapat menambahkan kode untuk membaca file Excel dan menghasilkan data absensi di sini
-
-                                                // Contoh kode untuk menampilkan tabel hasil
-                                        ?>
-                                                <table>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Nama Karyawan</th>
-                                                            <th>Tanggal Absensi</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>John Doe</td>
-                                                            <td>2023-07-14</td>
-                                                            <td>Hadir</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Jane Smith</td>
-                                                            <td>2023-07-14</td>
-                                                            <td>Izin</td>
-                                                        </tr>
-                                                        <!-- Tambahkan baris data absensi sesuai hasil pemrosesan file Excel -->
-                                                    </tbody>
-                                                </table>
-                                        <?php
-                                            } else {
-                                                echo 'Hanya file Excel (.xlsx, .xls) yang diizinkan.';
-                                            }
-                                        }
-                                        ?>
-                                        <form action="" method="POST" enctype="multipart/form-data">
-                                            <div class="card-body">
-                                                <label>Pilih file Excel:</label>
-                                                <input type="file" class="form-control" name="fileUpload" id="fileUpload" accept=".xlsx, .xls">
-                                            </div>
-                                            <div class="card-footer">
-                                                <button type="submit" class="btn btn-success" name="uploadBtn">Upload</button>
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -96,15 +57,137 @@ require_once 'header.php';
         <div class="container-fluid">
             <div class="row">
                 <section class="col-lg-12 col-sm-12 connectedSortable">
-                    <!-- Custom tabs (Charts with tabs)-->
                     <div class="card">
                         <div class="card-header">
-                        </div><!-- /.card-header -->
+                            <h3 class="card-title"><i class="fas fa-chart-pie mr"></i> Data Absen
+                        </div>
                         <div class="card-body">
-                            <div class="tab-content p-0">
+                            <div class="tab-content p-0 table-responsive">
+                                <!-- <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Keterangan</th>
+                                            <th>File Absen</th>
+                                            <th>Tanggal Upload</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $link = "getAbsen";
+                                        $data_absen = getRegistran($link);
+                                        var_dump($data_absen);
+
+                                        $no = 1;
+                                        foreach ($data_absen->data as $array_item) :
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $no++; ?></td>
+                                                <td><?php echo $array_item->keterangan; ?></td>
+                                                <td>
+                                                    <a href="file_absen/<?= $array_item->file_absen ?>" target="_blank">Lihat PDF</a>
+                                                </td>
+                                                <td><?php echo $array_item->tanggal_upload; ?></td>
+                                                <td>
+                                                    <a href="file_absen/<?php echo $array_item->file_absen; ?>" class="btn btn-primary" target="_blank">Lihat</a>
+                                                    <a href="controller/absen.php?aksi=deleteAbsen&id_absen=<?php echo $array_item->id_absen; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table> -->
+
+                                <?php include("aksi.php") ?>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <!-- <label for="">Keterangan</label>
+                                        <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan" required> -->
+                                        <label for="file">Pilih file Excel:</label>
+                                        <input type="file" class="form-control" name="file_absen" id="file_absen">
+                                        <!-- <label for="">Tanggal Upload</label>
+                                        <input type="date" class="form-control" name="tanggal_upload" id="tanggal_upload" placeholder="Tanggal Upload" required> -->
+                                    </div>
+                                    <input type="submit" name="upload" class="btn btn-primary" value="upload">
+                                </form>
                             </div>
-                        </div><!-- /.card-body -->
+                        </div>
                     </div>
+                </section>
+                <section class="col-lg-12 col-sm-12 connectedSortable">
+                    <div class="card">
+                        <?php
+                        if ($data_absen == null) { ?>
+                            <div class="card-body">
+                                <div class="tab-content p-0 table-responsive">
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>ID</th>
+                                                <th>first_name</th>
+                                                <th>last_name</th>
+                                                <th>gender</th>
+                                                <th>country</th>
+                                                <th>age</th>
+                                                <th>date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="9" align="center">Data Kosong</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        <?php } else { ?>
+                            <div class="card-header">
+                                <h2>Data Absen Karyawan</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content p-0 table-responsive">
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>ID</th>
+                                                <th>first_name</th>
+                                                <th>last_name</th>
+                                                <th>gender</th>
+                                                <th>country</th>
+                                                <th class="text-center">age</th>
+                                                <th class="text-center">date</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $no = 1;
+                                            foreach ($data_absen->data as $array_item) :
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $no++; ?></td>
+                                                    <td><?php echo $array_item->id; ?></td>
+                                                    <td><?php echo $array_item->first_name; ?></td>
+                                                    <td><?php echo $array_item->last_name; ?></td>
+                                                    <td><?php echo $array_item->gender; ?></td>
+                                                    <td><?php echo $array_item->country; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->age; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->date; ?></td>
+                                                    <td class="text-center">
+                                                        <a href="controller/absen.php?aksi=deleteAbsen&id=<?php echo $array_item->id; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
+
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        <?php }
+                        ?>
                 </section>
             </div>
         </div>
