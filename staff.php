@@ -1,6 +1,18 @@
 <?php
-include "header.php"
+include "header.php";
 
+if (isset($_POST['delete'])) {
+    $id_karyawan = $_POST['id_karyawan'];
+    $id_user = $_POST['id_user'];
+    $link = "getDeleteKaryawanAdmin&id_karyawan=" . urlencode($id_karyawan);
+    $delete = getRegistran($link);
+    var_dump($delete2);
+    // if (!$delete) {
+    //     echo "<script>alert('Data berhasil dihapus');window.location='staff.php'</script>";
+    // } else {
+    //     echo "<script>alert('Data gagal dihapus');window.location='staff.php'</script>";
+    // }
+}
 ?>
 
 
@@ -69,7 +81,7 @@ include "header.php"
                                             <th>No. </th>
                                             <th>Nama Lengkap</th>
                                             <th>Jabatan</th>
-                                            <th>status karyawan</th>
+                                            <th class="text-center">status karyawan</th>
                                             <th>Divisi</th>
                                             <th>Email</th>
                                             <th>Besaran Gaji</th>
@@ -77,54 +89,37 @@ include "header.php"
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         <?php foreach ($output->data as $key => $array_item) : ?>
                                             <tr>
                                                 <td><?php echo $key + 1 ?></td>
                                                 <td><?php echo $array_item->nama_lengkap; ?></td>
                                                 <td><?php echo $array_item->level_user; ?></td>
-                                                <td><?php echo $array_item->status_karyawan; ?></td>
+                                                <td class="text-center">
+
+                                                    <?php $array_item->akhir_kerja; ?>
+                                                    <?php
+                                                    // Konversi tanggal akhir kerja dari string menjadi objek DateTime
+                                                    $akhir_kerja = new DateTime($array_item->akhir_kerja);
+                                                    // Hitung 30 hari sebelum akhir kerja
+                                                    $batas_waktu = clone $akhir_kerja;
+                                                    $batas_waktu->modify('-30 days');
+
+                                                    // Jika tanggal saat ini lebih besar dari batas_waktu, maka tampilkan tautan "warning masa_kerja"
+                                                    if (new DateTime() > $batas_waktu) {
+                                                        echo '<a href="" class="btn btn-sm btn-warning">warning masa_kerja</a>';
+                                                    } else {
+                                                        echo $array_item->status_karyawan;
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td>
-                                                    <!-- <?php foreach ($data_divisi->data as $key => $value) { ?>
-                                                        <?php echo $value->nama_divisi ?>
-                                                    <?php } ?> -->
                                                     <?php echo $array_item->nama_divisi; ?>
                                                 </td>
                                                 <td><?php echo $array_item->email; ?></td>
                                                 <td><?php echo $array_item->gaji; ?></td>
-                                                <!-- <td>
-                                                    <?php
-                                                    $status = $array_item->status;
-                                                    if ($status == "diproses") {
-                                                        echo '<a class="btn bg-warning text-white">' . $status . '</a>';
-                                                    } elseif ($status == "diterima") {
-                                                        echo '<a class="btn bg-success text-white">' . $status . '</a>';
-                                                    } else {
-                                                        echo '<a class="btn bg-danger text-white">' . $status . '</a>';
-                                                    }
-                                                    ?>
-                                                </td> -->
                                                 <td class="text-center">
-                                                    <?php
-                                                    if (isset($_POST['delete'])) {
-                                                        $id_karyawan = $_POST['id_karyawan'];
-                                                        $id_user = $_POST['id_user'];
-                                                        $link = "getDeleteKaryawanAdmin&id_karyawan=" . urlencode($id_karyawan);
-                                                        $delete = getRegistran($link);
-                                                        var_dump($delete2);
-                                                        // if (!$delete) {
-                                                        //     echo "<script>alert('Data berhasil dihapus');window.location='staff.php'</script>";
-                                                        // } else {
-                                                        //     echo "<script>alert('Data gagal dihapus');window.location='staff.php'</script>";
-                                                        // }
-                                                    }
-                                                    ?>
-
-
-
                                                     <form method="post">
-                                                        <!-- <button type="button" title="KPI" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editModal<?= $array_item->id_karyawan ?>">
-                                                            <i class="fas fa-file"></i>
-                                                        </button> -->
                                                         <a href="karyawan_edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
@@ -140,8 +135,8 @@ include "header.php"
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>
-                                <?php } ?>
                                 </table>
+                            <?php } ?>
                         </div>
                         <!-- /.card-body -->
                     </div>
