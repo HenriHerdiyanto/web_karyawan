@@ -90,34 +90,7 @@ function getUserStaff()
     echo json_encode($response);
 }
 
-function getStaffLogin()
-{
 
-    global $connect;
-    if (!empty($_GET['id_karyawan']))
-        $id_karyawan = $_GET['id_karyawan'];
-
-    $query = "SELECT * FROM karyawan WHERE id_karyawan = '$id_karyawan'";
-    $result = $connect->query($query);
-    while ($row = mysqli_fetch_object($result)) {
-        $data[] = $row;
-    }
-
-    if ($result) {
-        $response = array(
-            'status' => 1,
-            'data' => $data
-        );
-    } else {
-        $response = array(
-            'status' => 0,
-            'data' => 'Gagal'
-        );
-    }
-
-    header('Content-Type: application/json');
-    echo json_encode($response);
-}
 
 function getId_user()
 {
@@ -358,6 +331,60 @@ function setInventaris()
 
 
     $query = "INSERT INTO inventaris SET nama = '$nama', tipe = '$tipe', jumlah = '$jumlah', tanggal = '$tanggal', harga = '$harga', gambar = '$gambar'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function setRequestBudget()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['jenis_item']))
+        $jenis_item = $_GET['jenis_item'];
+    if (!empty($_GET['nama_divisi']))
+        $nama_divisi = $_GET['nama_divisi'];
+    if (!empty($_GET['tanggal']))
+        $tanggal = $_GET['tanggal'];
+    if (!empty($_GET['keperluan1']))
+        $keperluan1 = $_GET['keperluan1'];
+    if (!empty($_GET['harga1']))
+        $harga1 = $_GET['harga1'];
+    if (!empty($_GET['keperluan2']))
+        $keperluan2 = $_GET['keperluan2'];
+    if (!empty($_GET['harga2']))
+        $harga2 = $_GET['harga2'];
+    if (!empty($_GET['keperluan3']))
+        $keperluan3 = $_GET['keperluan3'];
+    if (!empty($_GET['harga3']))
+        $harga3 = $_GET['harga3'];
+    if (!empty($_GET['keperluan4']))
+        $keperluan4 = $_GET['keperluan4'];
+    if (!empty($_GET['harga4']))
+        $harga4 = $_GET['harga4'];
+    if (!empty($_GET['total_harga']))
+        $total_harga = $_GET['total_harga'];
+
+
+
+
+    $query = "INSERT INTO form_request SET id_karyawan = '$id_karyawan', nama_lengkap = '$nama_lengkap', jenis_item = '$jenis_item', nama_divisi = '$nama_divisi', tanggal = '$tanggal', keperluan1 = '$keperluan1', harga1 = '$harga1', keperluan2 = '$keperluan2', harga2 = '$harga2', keperluan3 = '$keperluan3', harga3 = '$harga3', keperluan4 = '$keperluan4', harga4 = '$harga4', total_harga = '$total_harga'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -1139,6 +1166,34 @@ function getKeluarga()
     if (!empty($_GET['id_karyawan']))
         $id_karyawan = $_GET['id_karyawan'];
     $query = "SELECT * FROM keluarga where id_karyawan = '$id_karyawan'";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getRequest()
+{
+
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    $query = "SELECT * FROM form_request where id_karyawan = '$id_karyawan'";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {

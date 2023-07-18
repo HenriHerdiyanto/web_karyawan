@@ -6,13 +6,22 @@ $level = $_SESSION["user"];
 
 require_once 'controller/utility.php';
 
-$link = "getStaffLogin&id_karyawan=" . urlencode($user);
-$data_karyawan = getRegistran($link);
-$id_karyawan = $data_karyawan->data[0]->id_karyawan;
-$nama_user = $data_karyawan->data[0]->nama_lengkap;
-$level_user = $data_karyawan->data[0]->level_user;
-$id_divisi = $data_karyawan->data[0]->id_divisi;
+// $link = "getStaffLogin&id_karyawan=" . urlencode($user);
+// $data_karyawan = getRegistran($link);
+// $id_karyawan = $data_karyawan->data[0]->id_karyawan;
+// $nama_user = $data_karyawan->data[0]->nama_lengkap;
+// $level_user = $data_karyawan->data[0]->level_user;
+// $id_divisi = $data_karyawan->data[0]->id_divisi;
 // var_dump($data_karyawan);
+
+$link = "getKaryawanById&id_karyawan=" . urlencode($user);
+$data_lengkap = getRegistran($link);
+$id_karyawan = $data_lengkap->data[0]->id_karyawan;
+$nama_user = $data_lengkap->data[0]->nama_lengkap;
+$level_user = $data_lengkap->data[0]->level_user;
+$id_divisi = $data_lengkap->data[0]->id_divisi;
+$nama_divisi = $data_lengkap->data[0]->nama_divisi;
+var_dump($data_lengkap);
 
 // $link = "getKaryawan&id_user=" . urlencode($id_user);
 // $data_kar = getRegistran($link);
@@ -102,10 +111,10 @@ $id_divisi = $data_karyawan->data[0]->id_divisi;
                         </div>
                     </div>
                 </a> -->
-                <a href="profile-staff.php?id=<?= $data_karyawan->data[0]->id_karyawan ?>">
+                <a href="profile-staff.php?id=<?= $data_lengkap->data[0]->id_karyawan ?>">
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img style="width: 50px;" src="foto_karyawan/<?= $data_karyawan->data[0]->foto_karyawan ?>" class="img-circle elevation-2">
+                            <img style="width: 50px;" src="foto_karyawan/<?= $data_lengkap->data[0]->foto_karyawan ?>" class="img-circle elevation-2">
                         </div>
                         <div class="info text-center" style="color: #FFCF09;">
                             <b><?php echo $nama_user; ?> </b>
@@ -140,10 +149,10 @@ $id_divisi = $data_karyawan->data[0]->id_divisi;
                             </a>
                         </li> -->
                         <li class="nav-item">
-                            <a href="perjalanan-dinas-kor.php" class="nav-link" style="color: #FFCF09;">
-                                <i class="nav-icon fas fa-plane"></i>
+                            <a href="reques_budget.php" class="nav-link" style="color: #FFCF09;">
+                                <i class="nav-icon fas fa-money-bill-alt"></i>
                                 <p>
-                                    Perjalanan Dinas
+                                    Reques Budget
                                 </p>
                             </a>
                         </li>
