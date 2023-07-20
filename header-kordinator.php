@@ -16,13 +16,14 @@ $nama = $data->data[0]->nama_user;
 $level_user = $data->data[0]->level_user;
 
 var_dump($level_user);
-if ($level_user < 1) {
+if ($level_user < 1 && $level_user > 1) {
     echo ("<script>location.href = 'index.php';</script>");
 }
 
 $link = "getKaryawan&id_user=" . urlencode($id_user);
 $data_kar = getRegistran($link);
 $id_kar1 = $data_kar->data[0]->id_karyawan;
+$id_divisi = $data_kar->data[0]->id_divisi;
 var_dump($id_kar1);
 ?>
 
@@ -142,6 +143,14 @@ var_dump($id_kar1);
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 <p>
                                     Evaluasi Anggota
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="reques_budget.php" class="nav-link" style="color: #FFCF09;">
+                                <i class="nav-icon fas fa-money-bill-alt"></i>
+                                <p>
+                                    Reques Budget
                                 </p>
                             </a>
                         </li>

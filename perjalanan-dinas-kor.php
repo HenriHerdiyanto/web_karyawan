@@ -85,82 +85,105 @@ include "header-kordinator.php"
                         $output = getRegistran($link);
                         ?>
 
-                        <div class="card-body table-responsive">
+                        <div class="card-body">
                             <?php if ($output == NULL) { ?>
-                                <h1 class="text-center">Data Kosong</h1>
-                            <?php  } else { ?>
-                                <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>No. </th>
-                                            <th>Di ajukan Oleh</th>
-                                            <th>Jabatan</th>
-                                            <th>Tujuan Pengajuan</th>
-                                            <th>Kota Tujuan</th>
-                                            <th>Keterangan</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($output->data as $key => $array_item) : ?>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered table-hover" style="width:100%">
+                                        <thead>
                                             <tr>
-                                                <td><?php echo $key + 1 ?></td>
-                                                <td><?php echo $array_item->nama_pengajuan; ?></td>
-                                                <td><?php echo $array_item->jabatan; ?></td>
-                                                <td><?php echo $array_item->tujuan; ?></td>
-                                                <td><?php echo $array_item->kota_tujuan; ?></td>
-                                                <td><?php echo $array_item->keterangan; ?></td>
-                                                <td>
-                                                    <?php
-                                                    $status = $array_item->status;
-                                                    if ($status == "diproses") {
-                                                        echo '<a class="btn bg-warning text-white">' . $status . '</a>';
-                                                    } elseif ($status == "diterima") {
-                                                        echo '<a class="btn bg-success text-white">' . $status . '</a>';
-                                                    } else {
-                                                        echo '<a class="btn bg-danger text-white">' . $status . '</a>';
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    if (isset($_POST['delete'])) {
-                                                        $id_dinas = $_POST['id_dinas'];
-                                                        $link = "getDeleteDinasId&id_dinas=" . urlencode($id_dinas);
-                                                        $delete = getRegistran($link);
-                                                        if (!$delete) {
-                                                            echo "<script>alert('Data berhasil dihapus');window.location='perjalanan-dinas-kor.php'</script>";
-                                                        } else {
-                                                            echo "<script>alert('Data gagal dihapus');window.location='perjalanan-dinas-kor.php'</script>";
-                                                        }
-                                                    }
-                                                    ?>
+                                                <th>No. </th>
+                                                <th>Di ajukan Oleh</th>
+                                                <th>Jabatan</th>
+                                                <th>Tujuan Pengajuan</th>
+                                                <th>Kota Tujuan</th>
+                                                <th>Keterangan</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="8" class="text-center">Data Kosong</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
-                                                    <form method="post">
+                            <?php  } else { ?>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-hover table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No. </th>
+                                                <th>Di ajukan Oleh</th>
+                                                <th>Jabatan</th>
+                                                <th>Tujuan Pengajuan</th>
+                                                <th>Kota Tujuan</th>
+                                                <th>Keterangan</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($output->data as $key => $array_item) : ?>
+                                                <tr>
+                                                    <td><?php echo $key + 1 ?></td>
+                                                    <td><?php echo $array_item->nama_pengajuan; ?></td>
+                                                    <td><?php echo $array_item->jabatan; ?></td>
+                                                    <td><?php echo $array_item->tujuan; ?></td>
+                                                    <td><?php echo $array_item->kota_tujuan; ?></td>
+                                                    <td><?php echo $array_item->keterangan; ?></td>
+                                                    <td>
                                                         <?php
                                                         $status = $array_item->status;
-                                                        if ($status == "diterima") { ?>
-                                                            <a href="cetak_surat.php?id=<?php echo $array_item->id_dinas ?>" target="_blank" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="cetak surat">
-                                                                <i class="fas fa-print"></i>
-                                                            </a>
-                                                        <?php } else { ?>
-                                                        <?php }
+                                                        if ($status == "diproses") {
+                                                            echo '<a class="btn bg-warning text-white">' . $status . '</a>';
+                                                        } elseif ($status == "diterima") {
+                                                            echo '<a class="btn bg-success text-white">' . $status . '</a>';
+                                                        } else {
+                                                            echo '<a class="btn bg-danger text-white">' . $status . '</a>';
+                                                        }
                                                         ?>
-                                                        <a href="perjalanan-dinas-kor-edit.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        <input type="hidden" name="id_dinas" value="<?php echo $array_item->id_dinas; ?>">
-                                                        <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                <?php } ?>
-                                </table>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        if (isset($_POST['delete'])) {
+                                                            $id_dinas = $_POST['id_dinas'];
+                                                            $link = "getDeleteDinasId&id_dinas=" . urlencode($id_dinas);
+                                                            $delete = getRegistran($link);
+                                                            if (!$delete) {
+                                                                echo "<script>alert('Data berhasil dihapus');window.location='perjalanan-dinas-kor.php'</script>";
+                                                            } else {
+                                                                echo "<script>alert('Data gagal dihapus');window.location='perjalanan-dinas-kor.php'</script>";
+                                                            }
+                                                        }
+                                                        ?>
+
+                                                        <form method="post">
+                                                            <?php
+                                                            $status = $array_item->status;
+                                                            if ($status == "diterima") { ?>
+                                                                <a href="cetak_surat.php?id=<?php echo $array_item->id_dinas ?>" target="_blank" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="cetak surat">
+                                                                    <i class="fas fa-print"></i>
+                                                                </a>
+                                                            <?php } else { ?>
+                                                            <?php }
+                                                            ?>
+                                                            <a href="perjalanan-dinas-kor-edit.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <input type="hidden" name="id_dinas" value="<?php echo $array_item->id_dinas; ?>">
+                                                            <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php } ?>
                         </div>
                         <!-- /.card-body -->
                     </div>

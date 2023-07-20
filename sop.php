@@ -50,7 +50,7 @@ if (isset($_POST['sop'])) {
 
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper" style="height: cover;">
+<div class="content-wrapper" style="display: relative;  min-height: cover;">
     <div class="content-header">
         <div class="container-fluid">
             <div class="card">

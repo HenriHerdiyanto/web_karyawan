@@ -69,172 +69,174 @@ if (isset($_POST['delete'])) {
                                     </tbody>
                                 </table>
                             <?php  } else { ?>
-                                <table id="example" class="table table-striped table-bordered table-hover" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Lengkap</th>
-                                            <th>Nama Divisi</th>
-                                            <th>Mulai Kerja</th>
-                                            <th>total</th>
-                                            <th>komentar</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $link = "getKPItekno&id_user=" . urlencode($id_user);
-                                        $data_user = getRegistran($link);
-                                        var_dump($data_user);
-                                        ?>
-                                        <?php $no = 1; ?>
-                                        <?php foreach ($data_user->data as $value) : ?>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered table-hover" style="width:100%">
+                                        <thead>
                                             <tr>
-                                                <td><?= $no++ ?></td>
-                                                <td><?= $value->nama_lengkap ?></td>
-                                                <td><?= $value->nama_divisi ?></td>
-                                                <td><?= $value->mulai_kerja ?></td>
-                                                <td><?= $value->total ?></td>
-                                                <td><?= $value->komentar ?></td>
-                                                <td align="center">
-
-                                                    <form method="post">
-                                                        <button type="button" class="btn btn-info btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#editModal<?= $value->id_karyawan ?>">
-                                                            <i class="fas fa-edit"></i>
-                                                        </button>
-                                                        <input type="hidden" name="id_karyawan" value="<?= $value->id_karyawan ?>">
-                                                        <button class="btn btn-danger btn-sm mt-2" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus data" name="delete">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </form>
-
-                                                </td>
+                                                <th>No</th>
+                                                <th>Nama Lengkap</th>
+                                                <th>Nama Divisi</th>
+                                                <th>Mulai Kerja</th>
+                                                <th>total</th>
+                                                <th>komentar</th>
+                                                <th>Action</th>
                                             </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                <?php } ?>
-                                </table>
-                                <!-- Modal -->
-                                <div class="modal fade" id="editModal<?= $value->id_karyawan ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title text-center fs-5" id="staticBackdropLabel">KEY PERFORMANCE INDICATOR</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="POST">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <div class="mb-2">
-                                                                <label>Nama Lengkap</label>
-                                                                <input type="text" class="form-control text-center" name="id_karyawan" value="<?= $value->nama_lengkap ?>">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="mb-2">
-                                                                <label>Tanggal Masuk Kerja</label>
-                                                                <input type="text" class="form-control text-center" name="id_karyawan" value="<?= $value->mulai_kerja ?>">
-                                                            </div>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $link = "getKPItekno&id_user=" . urlencode($id_user);
+                                            $data_user = getRegistran($link);
+                                            var_dump($data_user);
+                                            ?>
+                                            <?php $no = 1; ?>
+                                            <?php foreach ($data_user->data as $value) : ?>
+                                                <tr>
+                                                    <td><?= $no++ ?></td>
+                                                    <td><?= $value->nama_lengkap ?></td>
+                                                    <td><?= $value->nama_divisi ?></td>
+                                                    <td><?= $value->mulai_kerja ?></td>
+                                                    <td><?= $value->total ?></td>
+                                                    <td><?= $value->komentar ?></td>
+                                                    <td align="center">
+
+                                                        <form method="post">
+                                                            <button type="button" class="btn btn-info btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#editModal<?= $value->id_karyawan ?>">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                            <input type="hidden" name="id_karyawan" value="<?= $value->id_karyawan ?>">
+                                                            <button class="btn btn-danger btn-sm mt-2" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus data" name="delete">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php } ?>
+                            <!-- Modal -->
+                            <div class="modal fade" id="editModal<?= $value->id_karyawan ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title text-center fs-5" id="staticBackdropLabel">KEY PERFORMANCE INDICATOR</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="mb-2">
+                                                            <label>Nama Lengkap</label>
+                                                            <input type="text" class="form-control text-center" name="id_karyawan" value="<?= $value->nama_lengkap ?>">
                                                         </div>
                                                     </div>
-                                                    <table class="table table-hover table-striped table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>No</th>
-                                                                <th>Indikator Penelitian</th>
-                                                                <th>Nilai</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>KEHADIRAN & TEPAT WAKTU</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator1 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>BEKERJA BERDASARKAN SOP</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator2 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>MENJELASKAN DENGAN BAIK DAN MUDAH DIMENGERTI</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator3 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>4</td>
-                                                                <td>MAMPU MENERIMA & MENJALANKAN INSTRUKSI DENGAN BAIK</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator4 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>5</td>
-                                                                <td>TEAM WORK / BEKERJA SECARA MANDIRI</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator5 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>6</td>
-                                                                <td>MEMPERHATIKAN HAL - HAL SECARA DETAIL</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator6 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>7</td>
-                                                                <td>PENYELESAIAN MASALAH DALAM HAL IT DI MAHARIS GROUP</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator7 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>8</td>
-                                                                <td>LAPORAN HASIL PEKERJAAN IT PER HARINYA</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator8 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>9</td>
-                                                                <td>PENCATATAN HARDWARE & SOFTWARE DI SERVER MAHARIS GROUP</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator9 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>10</td>
-                                                                <td>MEMASTIKAN HARDWARE, SOFTWARE, & INTERNET BERJALAN DENGAN EFEKTIF DAN STABIL</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator10 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>11</td>
-                                                                <td>KECEPATAN MENINDAKLANJUTI PEKERJAAN IT YANG BELUM TERSELESAIKAN</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator11 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>12</td>
-                                                                <td>PRODUKTIVITAS DALAM BEKERJA</td>
-                                                                <td><input type="number" name="" value="<?= $value->indikator12 ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>13</td>
-                                                                <td><b>TOTAL NILAI</b></td>
-                                                                <td><input type="number" name="" value="<?= $value->total ?>" class="form-control" readonly></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="table table-hover table-striped table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Komentar Kepala Departemen/Penilai :</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td><textarea name="komentar" class="form-control" cols="30" rows="5" readonly><?= $value->komentar ?></textarea></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Understood</button>
+                                                    <div class="col-6">
+                                                        <div class="mb-2">
+                                                            <label>Tanggal Masuk Kerja</label>
+                                                            <input type="text" class="form-control text-center" name="id_karyawan" value="<?= $value->mulai_kerja ?>">
+                                                        </div>
                                                     </div>
-                                                </form>
-                                            </div>
+                                                </div>
+                                                <table class="table table-hover table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Indikator Penelitian</th>
+                                                            <th>Nilai</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>KEHADIRAN & TEPAT WAKTU</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator1 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>BEKERJA BERDASARKAN SOP</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator2 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>MENJELASKAN DENGAN BAIK DAN MUDAH DIMENGERTI</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator3 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td>MAMPU MENERIMA & MENJALANKAN INSTRUKSI DENGAN BAIK</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator4 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>TEAM WORK / BEKERJA SECARA MANDIRI</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator5 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>6</td>
+                                                            <td>MEMPERHATIKAN HAL - HAL SECARA DETAIL</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator6 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>7</td>
+                                                            <td>PENYELESAIAN MASALAH DALAM HAL IT DI MAHARIS GROUP</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator7 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>8</td>
+                                                            <td>LAPORAN HASIL PEKERJAAN IT PER HARINYA</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator8 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>9</td>
+                                                            <td>PENCATATAN HARDWARE & SOFTWARE DI SERVER MAHARIS GROUP</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator9 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>10</td>
+                                                            <td>MEMASTIKAN HARDWARE, SOFTWARE, & INTERNET BERJALAN DENGAN EFEKTIF DAN STABIL</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator10 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>11</td>
+                                                            <td>KECEPATAN MENINDAKLANJUTI PEKERJAAN IT YANG BELUM TERSELESAIKAN</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator11 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>12</td>
+                                                            <td>PRODUKTIVITAS DALAM BEKERJA</td>
+                                                            <td><input type="number" name="" value="<?= $value->indikator12 ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>13</td>
+                                                            <td><b>TOTAL NILAI</b></td>
+                                                            <td><input type="number" name="" value="<?= $value->total ?>" class="form-control" readonly></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table-hover table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Komentar Kepala Departemen/Penilai :</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><textarea name="komentar" class="form-control" cols="30" rows="5" readonly><?= $value->komentar ?></textarea></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Understood</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>

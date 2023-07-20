@@ -81,13 +81,33 @@ include "header-kordinator.php"
                         </div>
                         <!-- /.card-header -->
                         <?php
-                        $link = "getEvaluasi";
+                        $link = "getEvaluasi&id_divisi=" . urlencode($id_divisi);
                         $output = getRegistran($link);
                         ?>
 
-                        <div class="card-body table-responsive">
+                        <div class="card-body">
                             <?php if ($output == NULL) { ?>
-                                <h1 class="text-center">Data Kosong</h1>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No. </th>
+                                                <th>Lama Percobaan</th>
+                                                <th>Nama Lengkap</th>
+                                                <th>jabatan</th>
+                                                <th>Tanggal Kerja</th>
+                                                <th>Status</th>
+                                                <th>status evaluasi</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="8" class="text-center">Data Kosong</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             <?php  } else { ?>
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>

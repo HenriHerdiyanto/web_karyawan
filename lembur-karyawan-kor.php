@@ -66,15 +66,34 @@ if (isset($_POST['save'])) {
                                 </a>
                             </div> -->
                         </div>
-                        <!-- /.card-header -->
-                        <?php
-                        $link = "getKaryawanKor&id_user=" . urlencode($id_user);
-                        $output = getRegistran($link);
-                        ?>
 
                         <div class="card-body">
-                            <?php if ($output == NULL) { ?>
-                                <h1 class="text-center">Data Kosong</h1>
+                            <?php if ($data_lembur == NULL) { ?>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No. </th>
+                                                <th>Divisi</th>
+                                                <th>Nama Lengkap</th>
+                                                <th>Jabatan</th>
+                                                <th>Project dilakukan</th>
+                                                <th>Tanggal Lembur</th>
+                                                <th>Mulai Lembur</th>
+                                                <th>Akhir Lembur</th>
+                                                <th>Total Jam Lembur</th>
+                                                <th>Keterangan</th>
+                                                <th>Mengetahui</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="12" align="center">Data Kosong</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             <?php  } else { ?>
                                 <div class="table-responsive">
                                     <table id="example" class="table table-striped table-bordered" style="width:100%">

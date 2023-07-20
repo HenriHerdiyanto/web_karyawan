@@ -91,9 +91,27 @@ include "header-kordinator.php"
                         $output = getRegistran($link);
                         ?>
 
-                        <div class="card-body table-responsive">
+                        <div class="card-body">
                             <?php if ($output == NULL) { ?>
-                                <h1 class="text-center">Data Kosong</h1>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No. </th>
+                                                <th>Nama Karyawan</th>
+                                                <th>NIK</th>
+                                                <th>Jabatan</th>
+                                                <th>Keperluan</th>
+                                                <th>Pemohon</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <td colspan="8" align="center">Tidak ada data</td>
+                                        </tbody>
+                                    </table>
+                                </div>
                             <?php  } else { ?>
                                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                                     <thead>

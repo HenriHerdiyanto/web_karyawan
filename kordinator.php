@@ -7,16 +7,20 @@ $link = "getKaryawanKor&id_user=" . urlencode($id_user);
 $datas = getRegistran($link);
 $nama_divisi = $datas->data[0]->nama_divisi;
 $id_karyawan = $datas->data[0]->id_karyawan;
+$id_divisi = $datas->data[0]->id_divisi;
 
 
 $link = "getProfilePendidikan&id_karyawan=" . urlencode($id_karyawan);
 $profile = getRegistran($link);
 // var_dump($profile);
+
+$link2 = "getSOPid&id_divisi=" . urlencode($id_divisi);
+$data_sop = getRegistran($link2);
+// var_dump($data_sop);
 ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -314,28 +318,45 @@ $profile = getRegistran($link);
                     <!-- Calendar -->
                     <div class="card bg-gradient-success">
                         <div class="card-header border-0">
-
                             <h3 class="card-title">
                                 <i class="far fa-calendar-alt"></i>
                                 Calendar
                             </h3>
-                            <!-- /. tools -->
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body pt-0">
-                            <!--The calendar -->
                             <div id="calendar" style="width: 100%"></div>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
+                    <?php
+                    if ($data_sop == null) { ?>
+                        <div class="card bg-gradient-success">
+                            <div class="card-header border-0">
+                                <h3 class="card-title">
+                                    <i class="far fa-file"></i>
+                                    Belum ada SOP
+                                </h3>
+                            </div>
+                        </div>
+                    <?php } else { ?>
+                        <div class="card bg-gradient-success">
+                            <div class="card-header border-0">
+                                <h3 class="card-title">
+                                    <i class="far fa-file"></i>
+                                    <?= $data_sop->data[0]->nama_divisi ?>
+                                </h3>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="sop" style="width: 100%">
+                                    <textarea class="form-control" cols="30" rows="10" readonly><?= $data_sop->data[0]->aturan ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }
+                    ?>
                 </section>
-                <!-- right col -->
             </div>
-            <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
+        </div>
     </section>
-    <!-- /.content -->
 </div>
 
 <!-- Control Sidebar -->

@@ -147,7 +147,10 @@ function getEvaluasi()
 {
     global $connect;
 
-    $query = "SELECT * FROM evaluasi";
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+
+    $query = "SELECT * FROM evaluasi WHERE id_divisi = $id_divisi";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;
