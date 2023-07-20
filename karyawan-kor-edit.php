@@ -131,6 +131,10 @@ if (isset($_POST['submit'])) {
                                     <input type="text" class="form-control" name="nama_lengkap" value="<?php echo $data_karyawan->data[0]->nama_lengkap; ?>">
                                 </div>
                                 <div class="form-group">
+                                    <label>Nomor Induk Karyawan</label>
+                                    <input type="text" class="form-control" name="nomor_induk" value="<?php echo $data_karyawan->data[0]->nomor_induk; ?>" readonly>
+                                </div>
+                                <div class="form-group">
                                     <label for="">Jenis Kelamin</label>
                                     <select class="form-control" name="jenis_kelamin">
                                         <option value="<?= $data_karyawan->data[0]->jenis_kelamin ?>"><?= $data_karyawan->data[0]->jenis_kelamin ?></option>
@@ -164,11 +168,15 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <label>Besaran Gaji Pegawai</label>
-                                    <input type="text" class="form-control" name="no_hp" value="<?php echo $data_karyawan->data[0]->gaji; ?>">
+                                    <input type="text" class="form-control" name="no_hp" value="<?php echo $data_karyawan->data[0]->gaji; ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal Mulai Kerja</label>
-                                    <input type="text" class="form-control" name="no_hp" value="<?php echo $data_karyawan->data[0]->mulai_kerja; ?>">
+                                    <input type="date" class="form-control" name="no_hp" value="<?php echo $data_karyawan->data[0]->mulai_kerja; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tanggal Berakhir Kerja</label>
+                                    <input type="date" class="form-control" name="no_hp" value="<?php echo $data_karyawan->data[0]->akhir_kerja; ?>">
                                 </div>
                             </div>
 

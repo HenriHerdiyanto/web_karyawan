@@ -30,9 +30,9 @@ if (isset($_POST['upload'])) {
             $date = $sheetData[$i][2];
             $jam_masuk = $sheetData[$i][3];
             $jam_keluar = $sheetData[$i][4];
-            $id_karyawan = $sheetData[$i][5];
+            $nomor_induk = $sheetData[$i][5];
 
-            $link = "setAbsen&nama_karyawan=" . urlencode($nama_karyawan) . "&date=" . urlencode($jam_keluar) . "&jam_masuk=" . urlencode($date) . "&jam_keluar=" . urlencode($jam_masuk) . "&id_karyawan=" . urlencode($id_karyawan);
+            $link = "setAbsen&nama_karyawan=" . urlencode($nama_karyawan) . "&date=" . urlencode($jam_keluar) . "&jam_masuk=" . urlencode($date) . "&jam_keluar=" . urlencode($jam_masuk) . "&nomor_induk=" . urlencode($nomor_induk);
             $insert_absen = getRegistran($link);
             var_dump($insert_absen);
             // echo "<script>alert('Data Berhasil diupload')</script>";

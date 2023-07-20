@@ -189,7 +189,7 @@ $data_absen = getRegistran($link);
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>ID Karyawan</th>
+                                                <th>Nomor Karyawan</th>
                                                 <th>Nama Karyawan</th>
                                                 <th>Tanggal</th>
                                                 <th>Jam Masuk</th>
@@ -204,14 +204,14 @@ $data_absen = getRegistran($link);
                                             ?>
                                                 <tr>
                                                     <td><?php echo $no++; ?></td>
-                                                    <td><?php echo $array_item->id_karyawan; ?></td>
+                                                    <td><?php echo $array_item->nomor_induk; ?></td>
                                                     <td><?php echo $array_item->nama_karyawan; ?></td>
                                                     <td class="text-center"><?php echo $array_item->date; ?></td>
                                                     <td><?php echo $array_item->jam_masuk; ?></td>
                                                     <td><?php echo $array_item->jam_keluar; ?></td>
                                                     <td class="text-center">
                                                         <a href="controller/absen.php?aksi=deleteAbsen&id=<?php echo $array_item->id_karyawan; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
-                                                        <a href="" class="btn btn-info">Payroll</a>
+                                                        <a href="payroll.php?nama_karyawan?<?php echo $array_item->nama_karyawan; ?>" class="btn btn-info">Payroll</a>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

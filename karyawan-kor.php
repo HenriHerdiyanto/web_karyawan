@@ -4,13 +4,14 @@ include "header-kordinator.php";
 
 $link = "getKaryawanKor&id_user=" . urlencode($id_user);
 $datas = getRegistran($link);
+// var_dump($datas);
 $nama_divisi = $datas->data[0]->nama_divisi;
+$id_divisi = $datas->data[0]->id_divisi;
 // var_dump($nama_divisi);
 
 
 $link = "getDivisi";
 $output = getRegistran($link);
-$id_divisi = $output->data[0]->id_divisi;
 // var_dump($id_divisi);
 
 $link3 = "getStaffNol&id_divisi=" . urlencode($id_divisi);
@@ -50,7 +51,7 @@ if (isset($_POST['save'])) {
             <div class="card">
                 <div class="row">
                     <div class="col">
-                        <h1 class="m-3">Divisi <?php echo $output->data[0]->nama_divisi ?></h1>
+                        <h1 class="m-3">Divisi <?php echo $datas->data[0]->nama_divisi ?></h1>
                     </div>
                     <div align="end" class="col mt-3 mr-3">
                         <a href="karyawan-kor-tambah.php" class="btn btn-success" type="button">
@@ -82,7 +83,7 @@ if (isset($_POST['save'])) {
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Permintaan Menjadi Staff</h1>
@@ -94,23 +95,54 @@ if (isset($_POST['save'])) {
                                                     $staff = getRegistran($link3);
                                                     // var_dump($staff);
                                                     ?>
-                                                    <?php foreach ($staff->data as $key => $array_item) : ?>
-                                                        <?php
-                                                        if (isset($_POST['konfirmasi'])) {
-                                                            $id_karyawan = $_POST['id_karyawan'];
-                                                            $id_user = $_POST['id_user'];
 
-                                                            $link = "setUpdateKonfirmasi&id_karyawan=" . urlencode($id_karyawan) . "&id_user=" . urlencode($id_user);
-                                                            $hasil = getRegistran($link);
-                                                            // var_dump($hasil);
-                                                            if ($hasil) {
-                                                                echo "<script>alert('Data Berhasil ditambah')</script>";
-                                                                echo ("<script>location.href = 'karyawan-kor.php';</script>");
-                                                            }
+                                                    <?php
+                                                    if (isset($_POST['konfirmasi'])) {
+                                                        $id_karyawan = $_POST['id_karyawan'];
+                                                        $id_user = $_POST['id_user'];
+
+                                                        $link = "setUpdateKonfirmasi&id_karyawan=" . urlencode($id_karyawan) . "&id_user=" . urlencode($id_user);
+                                                        $hasil = getRegistran($link);
+                                                        // var_dump($hasil);
+                                                        if ($hasil) {
+                                                            echo "<script>alert('Data Berhasil ditambah')</script>";
+                                                            echo ("<script>location.href = 'karyawan-kor.php';</script>");
                                                         }
-                                                        ?>
-                                                        <form action="" method="post">
-                                                            <div class="card" style="width: 100%;">
+                                                    }
+                                                    ?>
+                                                    <form action="" method="post">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-striped table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>No</th>
+                                                                        <th>Nama</th>
+                                                                        <th>Nomor Handphone</th>
+                                                                        <th>Email</th>
+                                                                        <th>Foto</th>
+                                                                        <th class="text-center">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php foreach ($staff->data as $key => $array_item) : ?>
+                                                                        <tr>
+                                                                            <td><?php echo $key + 1 ?></td>
+                                                                            <td><?php echo $array_item->nama_lengkap; ?></td>
+                                                                            <td><?php echo $array_item->no_hp; ?></td>
+                                                                            <td><?php echo $array_item->email; ?></td>
+                                                                            <td align="center">
+                                                                                <img style="width: 200px;" src="foto_karyawan/<?= $array_item->foto_karyawan ?>" alt="" id="foto_karyawan" class="img-fluid">
+                                                                            <td align="center">
+                                                                                <input type="hidden" name="id_karyawan" value="<?= $array_item->id_karyawan ?>">
+                                                                                <input type="hidden" name="id_user" value="<?= $data->data[0]->id_user; ?>">
+                                                                                <button type="submit" name="konfirmasi" class="btn btn-primary">Konfirmasi</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php endforeach ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <!-- <div class="card" style="width: 100%;">
                                                                 <div class="card-body">
                                                                     <div class="form-group">
                                                                         <label for="nama_lengkap">Nama</label>
@@ -132,12 +164,15 @@ if (isset($_POST['save'])) {
 
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                        
                                                                         <button type="submit" name="konfirmasi" class="btn btn-primary">Konfirmasi</button>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </form>
-                                                    <?php endforeach ?>
+                                                            </div> -->
+                                                    </form>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    </div>
                                                 </div>
 
                                             </div>

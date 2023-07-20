@@ -11,6 +11,7 @@ $data_divisi = getRegistran($link);
 if (isset($_POST['submit'])) {
 
   $id_divisi = $_POST['id_divisi'];
+  $nomor_induk = $_POST['nomor_induk'];
   $nama_lengkap = $_POST['nama_lengkap'];
   $jenis_kelamin = $_POST['jenis_kelamin'];
   $tempat_lahir = $_POST['tempat_lahir'];
@@ -29,6 +30,7 @@ if (isset($_POST['submit'])) {
   $level_user = $_POST['level_user'];
   $gaji = $_POST['gaji'];
   $mulai_kerja = $_POST['mulai_kerja'];
+  $akhir_kerja = $_POST['akhir_kerja'];
 
   $extensi_izin = array("jpg", "jpeg", "png", "pdf", "gif");
   $size_izin = (20971520000000 / 2);
@@ -64,14 +66,14 @@ if (isset($_POST['submit'])) {
 
 
   if ($level_user == 'staff') {
-    $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&type=insert';
+    $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja) . '&type=insert';
     $data = getRegistran($link);
 
     $link2 = "setUserByAdmin&nama_user=" . urlencode($nama_lengkap) . "&username=" . urlencode($email) . "&password=" . urlencode($password) . "&level_user=2";
     $data2 = getRegistran($link2);
     var_dump($data2);
   } elseif ($level_user == 'manager') {
-    $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&type=insert';
+    $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja) . '&type=insert';
     $data = getRegistran($link);
     var_dump($data);
 
@@ -79,8 +81,8 @@ if (isset($_POST['submit'])) {
     $data2 = getRegistran($link2);
     var_dump($data2);
   }
-  echo '<script>alert("KORDINATOR berhasil ditambah")</script>';
-  echo ("<script>location.href = 'divisi.php';</script>");
+  echo '<script>alert("Data berhasil ditambah")</script>';
+  echo ("<script>location.href = 'staff.php';</script>");
 }
 
 ?>
@@ -138,6 +140,9 @@ if (isset($_POST['submit'])) {
                     <input type="text" class="form-control" name="nama_lengkap">
                   </div>
                   <div class="form-group">
+                    <input class="form-control" name="nomor_induk" type="hidden" id="nomor-induk" readonly>
+                  </div>
+                  <div class="form-group">
                     <label for="">Jenis Kelamin</label>
                     <select class="form-control" name="jenis_kelamin">
                       <option selected>--Pilih Gender--</option>
@@ -180,6 +185,10 @@ if (isset($_POST['submit'])) {
                 </div>
 
                 <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Batas Akhir Kerja</label>
+                    <input type="date" class="form-control" name="akhir_kerja">
+                  </div>
                   <div class="form-group">
                     <label>Nomor KTP</label>
                     <input type="text" class="form-control" name="no_ktp">
@@ -261,7 +270,7 @@ if (isset($_POST['submit'])) {
               <!-- /.card-body -->
             </div>
             <div class="card-footer">
-              <button type="submit" class="btn btn-lg btn-primary float-sm-right" name="submit">Submit</button>
+              <button type="submit" class="btn btn-lg btn-primary float-sm-right" onclick="generateNomorInduk()" name="submit">Submit</button>
             </div>
           </form>
         </div>
@@ -281,6 +290,20 @@ if (isset($_POST['submit'])) {
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<script>
+  let nomorInduk = 9270;
+
+  function generateRandomInduk() {
+    const min = 1000; // Angka minimum untuk nomor induk random
+    const max = 9999; // Angka maksimum untuk nomor induk random
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function generateNomorInduk() {
+    nomorInduk = generateRandomInduk();
+    document.getElementById("nomor-induk").value = nomorInduk;
+  }
+</script>
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>

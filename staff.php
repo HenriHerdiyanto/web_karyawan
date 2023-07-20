@@ -3,7 +3,7 @@ include "header.php";
 
 if (isset($_POST['delete'])) {
     $id_karyawan = $_POST['id_karyawan'];
-    $id_user = $_POST['id_user'];
+    // $id_user = $_POST['id_user'];
     $link = "getDeleteKaryawanAdmin&id_karyawan=" . urlencode($id_karyawan);
     $delete = getRegistran($link);
     var_dump($delete2);
@@ -13,6 +13,16 @@ if (isset($_POST['delete'])) {
     //     echo "<script>alert('Data gagal dihapus');window.location='staff.php'</script>";
     // }
 }
+
+$link = "getKaryawanPinjam";
+$output = getRegistran($link);
+$id_karyawan = $output->data[0]->id_karyawan;
+
+$link2 = "getDivisi";
+$data_divisi = getRegistran($link2);
+$id_divisi = $data_divisi->data[0]->id_divisi;
+$nama_divisi = $data_divisi->data[0]->nama_divisi;
+// var_dump($nama_divisi);
 ?>
 
 
@@ -27,7 +37,7 @@ if (isset($_POST['delete'])) {
                     </div>
                     <div align="end" class="col mt-3 mr-3">
                         <a href="karyawan_tambah.php" class="btn btn-success" type="button">
-                            <i class="fas fa-plus"></i> Add Staff Kamu
+                            <i class="fas fa-plus"></i> Add New Karyawan
                         </a>
                     </div>
                 </div>
@@ -44,20 +54,6 @@ if (isset($_POST['delete'])) {
                     <div class="card">
                         <div class="card-header">
                         </div>
-                        <!-- /.card-header -->
-                        <?php
-                        $link = "getKaryawanPinjam";
-                        $output = getRegistran($link);
-                        $id_karyawan = $output->data[0]->id_karyawan;
-
-                        $link2 = "getDivisi";
-                        $data_divisi = getRegistran($link2);
-                        $id_divisi = $data_divisi->data[0]->id_divisi;
-                        $nama_divisi = $data_divisi->data[0]->nama_divisi;
-                        // var_dump($nama_divisi);
-
-                        ?>
-
                         <div class="card-body table-responsive">
                             <?php if ($output == NULL) { ?>
                                 <div class="col-lg-12">
@@ -80,6 +76,7 @@ if (isset($_POST['delete'])) {
                                         <tr>
                                             <th>No. </th>
                                             <th>Nama Lengkap</th>
+                                            <th>Nomor Karyawan</th>
                                             <th>Jabatan</th>
                                             <th class="text-center">status karyawan</th>
                                             <th>Divisi</th>
@@ -90,10 +87,14 @@ if (isset($_POST['delete'])) {
                                     </thead>
                                     <tbody>
 
-                                        <?php foreach ($output->data as $key => $array_item) : ?>
+                                        <?php foreach ($output->data as $key => $array_item) :
+                                            $gaji = $array_item->gaji;
+                                            $formatted_gaji = number_format($gaji, 0, ",", ".");
+                                        ?>
                                             <tr>
                                                 <td><?php echo $key + 1 ?></td>
                                                 <td><?php echo $array_item->nama_lengkap; ?></td>
+                                                <td><?php echo $array_item->nomor_induk; ?></td>
                                                 <td><?php echo $array_item->level_user; ?></td>
                                                 <td class="text-center">
 
@@ -117,7 +118,7 @@ if (isset($_POST['delete'])) {
                                                     <?php echo $array_item->nama_divisi; ?>
                                                 </td>
                                                 <td><?php echo $array_item->email; ?></td>
-                                                <td><?php echo $array_item->gaji; ?></td>
+                                                <td>Rp. <?php echo $formatted_gaji ?></td>
                                                 <td class="text-center">
                                                     <form method="post">
                                                         <a href="karyawan_edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
@@ -138,21 +139,12 @@ if (isset($_POST['delete'])) {
                                 </table>
                             <?php } ?>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-
-
-                    <!-- /.card -->
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
 
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">

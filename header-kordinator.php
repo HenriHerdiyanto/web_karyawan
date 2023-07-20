@@ -25,12 +25,12 @@ $link = "getKaryawan&id_user=" . urlencode($id_user);
 $data_kar = getRegistran($link);
 $id_kar1 = $data_kar->data[0]->id_karyawan;
 $id_divisi = $data_kar->data[0]->id_divisi;
-var_dump($id_kar1);
+// var_dump($id_kar1);
 
 $link = "getKaryawanById&id_karyawan=" . urlencode($id_kar1);
 $data_lengkap = getRegistran($link);
 $nama_divisi = $data_lengkap->data[0]->nama_divisi;
-var_dump($data_lengkap);
+// var_dump($data_lengkap);
 ?>
 
 <!DOCTYPE html>

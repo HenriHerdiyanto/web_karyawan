@@ -8,6 +8,16 @@ $request = getRegistran($link);
 $link2 = "getSOPid&id_divisi=" . urlencode($id_divisi);
 $data_sop = getRegistran($link2);
 // var_dump($data_sop);
+if (isset($_POST['hapus'])) {
+    $id_form = $_POST['id_form'];
+    $link = "getDeleteBudget&id_form=" . urlencode($id_form);
+    $delete = getRegistran($link);
+    if (!$delete) {
+        echo "<script>alert('Data berhasil dihapus');window.location='request_budget_kor.php'</script>";
+    } else {
+        echo "<script>alert('Data gagal dihapus');window.location='request_budget_kor.php'</script>";
+    }
+}
 
 if (isset($_POST['submit'])) {
     $id_karyawan = $_POST['id_karyawan'];
@@ -173,7 +183,7 @@ if (isset($_POST['submit'])) {
                                                 <th>Keperluan</th>
                                                 <th>Harga</th>
                                                 <th>Total Harga</th>
-                                                <th>Status</th>
+                                                <th class="text-center">Status</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -199,7 +209,7 @@ if (isset($_POST['submit'])) {
                                                         <th>Keperluan</th>
                                                         <th>Harga</th>
                                                         <th>Total Harga</th>
-                                                        <th>status</th>
+                                                        <th class="text-center">status</th>
                                                         <th class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
@@ -213,7 +223,7 @@ if (isset($_POST['submit'])) {
                                                             <td><?php echo $array_item->keperluan1; ?></td>
                                                             <td><?php echo $array_item->harga1; ?></td>
                                                             <td><?php echo $array_item->total_harga; ?></td>
-                                                            <td>
+                                                            <td class="text-center">
                                                                 <?php
                                                                 if ($array_item->status == "diproses") {
                                                                     echo "<span class='badge bg-info text-dark'>" . $array_item->status . "</span>";
@@ -226,114 +236,102 @@ if (isset($_POST['submit'])) {
                                                             </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex align-items-center justify-content-center">
-                                                                    <?php
-                                                                    if (isset($_POST['hapuskpi'])) {
-                                                                        $id_karyawan = $_POST['id_karyawan'];
-                                                                        $link = "getDeleteKPIadmin&id_karyawan=" . urlencode($id_karyawan);
-                                                                        $delete = getRegistran($link);
-                                                                        if (!$delete) {
-                                                                            echo "<script>alert('Data berhasil dihapus');window.location='kpi_admin.php'</script>";
-                                                                        } else {
-                                                                            echo "<script>alert('Data gagal dihapus');window.location='karyawan.php'</script>";
-                                                                        }
-                                                                    }
-                                                                    ?>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="staticBackdrop<?php echo $array_item->id_form ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-xl">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Data Request Budget</h1>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="" method="post">
+                                                                                        <div class="modal-body">
+                                                                                            <div class="row">
+                                                                                                <div class="col-6">
+                                                                                                    <div class="mb-2">
+                                                                                                        <label for="nama_lengkap">Nama Lengkap</label>
+                                                                                                        <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" value="<?php echo $array_item->nama_lengkap; ?>" readonly>
+                                                                                                        <input type="hidden" name="id_karyawan" class="form-control" value="<?= $id_kar1 ?>" readonly>
+                                                                                                    </div>
+                                                                                                    <div class="mb-2">
+                                                                                                        <label for="jenis_item">Jenis Item</label>
+                                                                                                        <select id="jenis_item" name="jenis_item" class="form-control">
+                                                                                                            <option selected disabled><?php echo $array_item->jenis_item; ?></option>
+                                                                                                            <option value="barang">Barang</option>
+                                                                                                            <option value="jasa">Jasa</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-6">
+                                                                                                    <div class="mb-2">
+                                                                                                        <label for="nama_divisi">Divisi</label>
+                                                                                                        <input type="text" id="nama_divisi" name="nama_divisi" class="form-control" value="<?php echo $array_item->nama_divisi; ?>" readonly>
+                                                                                                    </div>
+                                                                                                    <div class="mb-2">
+                                                                                                        <label for="tanggal">Tanggal</label>
+                                                                                                        <input type="date" id="tanggal" value="<?php echo $array_item->tanggal; ?>" name="tanggal" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <hr>
+                                                                                            <small class="text-danger">*jangan gunakan titik Unit Price (Contoh: 5000)</small>
+                                                                                            <table class="table table-hover table-striped table-bordered">
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th>No</th>
+                                                                                                        <th>Keperluan</th>
+                                                                                                        <th>Unit Price</th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td>1</td>
+                                                                                                        <td><input type="text" value="<?php echo $array_item->keperluan1; ?>" class="form-control" name="keperluan1"></td>
+                                                                                                        <td><input type="number" value="<?php echo $array_item->harga1; ?>" name="harga1" class="form-control nilai-input"></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>2</td>
+                                                                                                        <td><input type="text" value="<?php echo $array_item->keperluan2; ?>" class="form-control" name="keperluan2"></td>
+                                                                                                        <td><input type="number" value="<?php echo $array_item->harga2; ?>" name="harga2" class="form-control nilai-input"></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>3</td>
+                                                                                                        <td><input type="text" value="<?php echo $array_item->keperluan3; ?>" class="form-control" name="keperluan3"></td>
+                                                                                                        <td><input type="number" value="<?php echo $array_item->harga3; ?>" name="harga3" class="form-control nilai-input"></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>4</td>
+                                                                                                        <td><input type="text" value="<?php echo $array_item->keperluan4; ?>" class="form-control" name="keperluan4"></td>
+                                                                                                        <td><input type="number" value="<?php echo $array_item->harga4; ?>" name="harga4" class="form-control nilai-input"></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>5</td>
+                                                                                                        <td><b>TOTAL NILAI</b></td>
+                                                                                                        <td><input type="number" value="<?php echo $array_item->total_harga; ?>" name="total_harga" class="form-control total-nilai" readonly></td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
+                                                                                            <button type="submit" name="submit" class="btn btn-lg btn-success">Kirim</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                     <form action="" method="post">
                                                                         <!-- <a href="perjalanan_dinas_edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
                                                                     <i class="fas fa-edit"></i>
                                                                 </a> -->
-                                                                        <!-- Modal -->
-                                                                        <div class="modal fade" id="staticBackdrop<?php echo $array_item->id_form ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                                            <div class="modal-dialog modal-xl">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Data Request Budget</h1>
-                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <form action="" method="post">
-                                                                                            <div class="modal-body">
-                                                                                                <div class="row">
-                                                                                                    <div class="col-6">
-                                                                                                        <div class="mb-2">
-                                                                                                            <label for="nama_lengkap">Nama Lengkap</label>
-                                                                                                            <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" value="<?php echo $array_item->nama_lengkap; ?>" readonly>
-                                                                                                            <input type="hidden" name="id_karyawan" class="form-control" value="<?= $id_kar1 ?>" readonly>
-                                                                                                        </div>
-                                                                                                        <div class="mb-2">
-                                                                                                            <label for="jenis_item">Jenis Item</label>
-                                                                                                            <select id="jenis_item" name="jenis_item" class="form-control">
-                                                                                                                <option selected disabled><?php echo $array_item->jenis_item; ?></option>
-                                                                                                                <option value="barang">Barang</option>
-                                                                                                                <option value="jasa">Jasa</option>
-                                                                                                            </select>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="col-6">
-                                                                                                        <div class="mb-2">
-                                                                                                            <label for="nama_divisi">Divisi</label>
-                                                                                                            <input type="text" id="nama_divisi" name="nama_divisi" class="form-control" value="<?php echo $array_item->nama_divisi; ?>" readonly>
-                                                                                                        </div>
-                                                                                                        <div class="mb-2">
-                                                                                                            <label for="tanggal">Tanggal</label>
-                                                                                                            <input type="date" id="tanggal" value="<?php echo $array_item->tanggal; ?>" name="tanggal" class="form-control">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <hr>
-                                                                                                <small class="text-danger">*jangan gunakan titik Unit Price (Contoh: 5000)</small>
-                                                                                                <table class="table table-hover table-striped table-bordered">
-                                                                                                    <thead>
-                                                                                                        <tr>
-                                                                                                            <th>No</th>
-                                                                                                            <th>Keperluan</th>
-                                                                                                            <th>Unit Price</th>
-                                                                                                        </tr>
-                                                                                                    </thead>
-                                                                                                    <tbody>
-                                                                                                        <tr>
-                                                                                                            <td>1</td>
-                                                                                                            <td><input type="text" value="<?php echo $array_item->keperluan1; ?>" class="form-control" name="keperluan1"></td>
-                                                                                                            <td><input type="number" value="<?php echo $array_item->harga1; ?>" name="harga1" class="form-control nilai-input"></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>2</td>
-                                                                                                            <td><input type="text" value="<?php echo $array_item->keperluan2; ?>" class="form-control" name="keperluan2"></td>
-                                                                                                            <td><input type="number" value="<?php echo $array_item->harga2; ?>" name="harga2" class="form-control nilai-input"></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>3</td>
-                                                                                                            <td><input type="text" value="<?php echo $array_item->keperluan3; ?>" class="form-control" name="keperluan3"></td>
-                                                                                                            <td><input type="number" value="<?php echo $array_item->harga3; ?>" name="harga3" class="form-control nilai-input"></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>4</td>
-                                                                                                            <td><input type="text" value="<?php echo $array_item->keperluan4; ?>" class="form-control" name="keperluan4"></td>
-                                                                                                            <td><input type="number" value="<?php echo $array_item->harga4; ?>" name="harga4" class="form-control nilai-input"></td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td>5</td>
-                                                                                                            <td><b>TOTAL NILAI</b></td>
-                                                                                                            <td><input type="number" value="<?php echo $array_item->total_harga; ?>" name="total_harga" class="form-control total-nilai" readonly></td>
-                                                                                                        </tr>
-                                                                                                    </tbody>
-                                                                                                </table>
-                                                                                            </div>
-                                                                                            <div class="modal-footer">
-                                                                                                <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
-                                                                                                <button type="submit" name="submit" class="btn btn-lg btn-success">Kirim</button>
-                                                                                            </div>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
                                                                         <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?php echo $array_item->id_form ?>">
                                                                             <i class="fas fa-edit"></i>
                                                                         </button>
 
-                                                                        <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_form ?>">
-                                                                        <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="hapuskpi">
+                                                                        <input type="hidden" name="id_form" value="<?php echo $array_item->id_form ?>">
+                                                                        <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="hapus">
                                                                             <i class="fas fa-trash-alt"></i>
                                                                         </button>
                                                                     </form>

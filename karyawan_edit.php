@@ -8,11 +8,14 @@ $data_divisi = getRegistran($link);
 
 $link = "getKaryawanById&id_karyawan=" . urlencode($id_krywn);
 $data_karyawan = getRegistran($link);
+$gaji = $data_karyawan->data[0]->gaji;
+$formatted_gaji = number_format($gaji, 0, ",", ".");
 
 // input Karyawan
 if (isset($_POST['submit'])) {
   $id_divisi = $_POST['id_divisi'];
   $nama_lengkap = $_POST['nama_lengkap'];
+  $nomor_induk = $_POST['nomor_induk'];
   $jenis_kelamin = $_POST['jenis_kelamin'];
   $tempat_lahir = $_POST['tempat_lahir'];
   $tanggal_lahir = $_POST['tanggal_lahir'];
@@ -29,6 +32,7 @@ if (isset($_POST['submit'])) {
   $password = $_POST['password'];
   $level_user = $_POST['level_user'];
   $gaji = $_POST['gaji'];
+  $gaji = str_replace(".", "", $gaji);
   $mulai_kerja = $_POST['mulai_kerja'];
   $akhir_kerja = $_POST['akhir_kerja'];
 
@@ -67,16 +71,16 @@ if (isset($_POST['submit'])) {
   if (empty($sumber_file)) {
 
     if (empty($password)) {
-      $link = "setUpdateKaryawanNoFtPw&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
+      $link = "setUpdateKaryawanNoFtPw&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
     } else {
-      $link = "setUpdateKaryawanNoFoto&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
+      $link = "setUpdateKaryawanNoFoto&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
     }
   } else {
 
     if (empty($password)) {
-      $link = "setUpdateKaryawanNoPassword&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
+      $link = "setUpdateKaryawanNoPassword&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
     } else {
-      $link = "setUpdateKaryawan&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
+      $link = "setUpdateKaryawan&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
     }
   }
 
@@ -129,6 +133,10 @@ if (isset($_POST['submit'])) {
                   <input type="text" class="form-control" name="nama_lengkap" value="<?php echo $data_karyawan->data[0]->nama_lengkap; ?>">
                 </div>
                 <div class="form-group">
+                  <label>Nomor Induk Karyawan</label>
+                  <input type="text" class="form-control" name="nomor_induk" value="<?php echo $data_karyawan->data[0]->nomor_induk; ?>">
+                </div>
+                <div class="form-group">
                   <label for="jenis_kelamin">Jenis Kelamin</label>
                   <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                     <option value="<?php echo $data_karyawan->data[0]->jenis_kelamin; ?>"><?php echo $data_karyawan->data[0]->jenis_kelamin; ?></option>
@@ -163,19 +171,19 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="form-group">
                   <label>Besaran Gaji Karyawan</label>
-                  <input type="text" class="form-control" name="gaji" value="<?php echo $data_karyawan->data[0]->gaji; ?>">
+                  <input type="text" class="form-control" name="gaji" id="gajiInput" oninput="formatGaji()" value="<?php echo $formatted_gaji; ?>">
                 </div>
                 <div class="form-group">
                   <label>Mulai Kerja</label>
                   <input type="date" class="form-control" name="mulai_kerja" value="<?php echo $data_karyawan->data[0]->mulai_kerja; ?>">
                 </div>
+              </div>
+
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>Berakhir Kerja</label>
                   <input type="date" class="form-control" name="akhir_kerja" value="<?php echo $data_karyawan->data[0]->akhir_kerja; ?>">
                 </div>
-              </div>
-
-              <div class="col-md-6">
                 <div class="form-group">
                   <label>Nomor KTP</label>
                   <input type="text" class="form-control" name="no_ktp" value="<?php echo $data_karyawan->data[0]->no_ktp; ?>">
@@ -324,6 +332,17 @@ if (isset($_POST['submit'])) {
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="dist/js/demo.js"></script> -->
+<script>
+  function formatGaji() {
+    const input = document.getElementById("gajiInput");
+    let value = input.value.replace(/\D/g, ""); // Hilangkan karakter selain angka
+
+    // Format angka dengan pemisah ribuan (contoh: 5.000)
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+    input.value = value;
+  }
+</script>
 <!-- Page specific script -->
 <script>
   function handleCheckboxChange(checkbox) {

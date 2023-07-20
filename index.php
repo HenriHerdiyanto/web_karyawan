@@ -107,59 +107,84 @@ require_once 'header.php';
             </div>
             <div class="card-body">
               <div class="tab-content p-0">
+                <!-- Morris chart - Sales -->
                 <div class="card-body table-responsive" id="revenue-chart" style="position: relative;">
                   <?php
-                  $link = "getToDoListAll";
+                  $link = "getTodoListAdm&id_user=" . urlencode($id_user);
                   $output4 = getRegistran($link);
                   if ($output4 == NULL) { ?>
                     <div class="card text-center">
                       <div class="card-body">
                         <h5 class="card-text">Belum ada To Do List, silahkan tambahkan To do List</h5>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          Tambah To Do List
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah To Do List</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <?php
+                              if (isset($_POST['todo'])) {
+                                $id_user = $_POST['id_user'];
+                                $nama_project = $_POST['nama_project'];
+                                $todolist = $_POST['todolist'];
+
+                                $link = "setTodolist&id_user=" . urlencode($id_user) . "&nama_project=" . urlencode($nama_project) . "&todolist=" . urlencode($todolist);
+                                $todo = getRegistran($link);
+                                echo "<script>alert('To Do List Ditambahkan')</script>";
+                                echo ("<script>location.href = 'index.php';</script>");
+                              }
+                              ?>
+                              <form action="" method="post">
+                                <div class="modal-body">
+                                  <label for="">Nama Project</label><br>
+                                  <input type="text" class="form-control" name="id_user" value="<?= $id_user ?>"><br>
+                                  <input type="text" class="form-control" name="nama_project"><br>
+                                  <textarea name="todolist" class="form-control" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="submit" name="todo" class="btn btn-primary">Understood</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   <?php } else { ?>
-                    <table id="example" class="table table-striped table-bordered" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th>No. </th>
-                          <th>Nama Project</th>
-                          <th>Kegiatan</th>
-                          <th>Tanggal Mulai</th>
-                          <th>Lama Hari</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php foreach ($output4->data as $key => $array_item) :
-                          $mulai = $array_item->tanggal_mulai;
-                          $awal = date_create($mulai);
-                          $akhir = date_create();
-                          $diff = date_diff($awal, $akhir);
-                        ?>
-                          <tr class="<?php if ($array_item->status_job == 'Open') {
-                                        echo 'table-success';
-                                      } elseif ($array_item->status_job == 'Running') {
-                                        echo 'table-warning';
-                                      } else {
-                                        echo 'table-danger';
-                                      } ?>">
-                            <td><?php echo $key + 1 ?></td>
-                            <td><?php echo $array_item->nama_project; ?></td>
-                            <td><?php echo $array_item->subjek; ?></td>
-                            <td><?php echo $array_item->tanggal_mulai; ?></td>
-                            <td><?php echo $diff->days; ?> Hari</td>
-                            <td>
-                              <?php echo $array_item->status_job;
-                              if ($array_item->status_job == 'Close') {
-                                echo '<br> ' . date('d-m-Y', strtotime($array_item->update_time));
-                              }
-                              ?>
+                    <?php
+                    if (isset($_POST['updatetodo'])) {
+                      $id_user = $_POST['id_user'];
+                      $nama_project = $_POST['nama_project'];
+                      $todolist = $_POST['todolist'];
 
-                            </td>
-                          </tr>
-                        <?php endforeach ?>
-                      </tbody>
-                    </table>
+                      $link = "setUpdateTodo&id_user=" . urlencode($id_user) . "&nama_project=" . urlencode($nama_project) . "&todolist=" . urlencode($todolist);
+                      $datas = getRegistran($link);
+                      var_dump($datas);
+                      // echo ("<script>location.href = 'kordinator.php';</script>");
+                    }
+                    ?>
+                    <form action="" method="post">
+                      <div class="card">
+                        <div class="card-body">
+
+                          <input type="hidden" name="id_user" class="form-control" value="<?= $output4->data[0]->id_user ?>"><br>
+                          <input type="text" name="nama_project" class="form-control" value="<?= $output4->data[0]->nama_project ?>"><br>
+                          <textarea name="todolist" class="form-control" cols="30" rows="10"><?= $output4->data[0]->todolist ?></textarea>
+                        </div>
+                        <div class="card-footer">
+                          <center><button type="submit" name="updatetodo" class="btn btn-outline-primary d-flex justify-content-center">UPDATE To Do List</button></center>
+                        </div>
+                      </div>
+                    </form>
                   <?php } ?>
                 </div>
               </div>
@@ -196,6 +221,7 @@ require_once 'header.php';
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->

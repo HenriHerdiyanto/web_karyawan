@@ -304,7 +304,7 @@ $data_sop = getRegistran($link2);
                                     <?php } ?>
                                 </div>
                             </div>
-                        </div><!-- /.card-body -->
+                        </div>
                     </div>
                 </section>
                 <!-- /.Left col -->

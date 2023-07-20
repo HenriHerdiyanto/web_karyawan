@@ -75,7 +75,6 @@ $status = $output->data[0]->status;
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         <?php foreach ($output->data as $key => $array_item) : ?>
                                             <tr>
                                                 <td><?php echo $key + 1 ?></td>
