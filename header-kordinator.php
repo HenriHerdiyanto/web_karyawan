@@ -20,11 +20,17 @@ if ($level_user < 1 && $level_user > 1) {
     echo ("<script>location.href = 'index.php';</script>");
 }
 
+
 $link = "getKaryawan&id_user=" . urlencode($id_user);
 $data_kar = getRegistran($link);
 $id_kar1 = $data_kar->data[0]->id_karyawan;
 $id_divisi = $data_kar->data[0]->id_divisi;
 var_dump($id_kar1);
+
+$link = "getKaryawanById&id_karyawan=" . urlencode($id_kar1);
+$data_lengkap = getRegistran($link);
+$nama_divisi = $data_lengkap->data[0]->nama_divisi;
+var_dump($data_lengkap);
 ?>
 
 <!DOCTYPE html>
@@ -147,7 +153,7 @@ var_dump($id_kar1);
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="reques_budget.php" class="nav-link" style="color: #FFCF09;">
+                            <a href="request_budget_kor.php" class="nav-link" style="color: #FFCF09;">
                                 <i class="nav-icon fas fa-money-bill-alt"></i>
                                 <p>
                                     Reques Budget

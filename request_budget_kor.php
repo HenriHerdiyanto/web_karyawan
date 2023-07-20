@@ -1,8 +1,8 @@
 <?php
 include "controller/koneksi.php";
-require_once 'header-staff.php';
+require_once 'header-kordinator.php';
 
-$link = "getRequest&id_karyawan=" . urlencode($id_karyawan);
+$link = "getRequest&id_karyawan=" . urlencode($id_kar1);
 $request = getRegistran($link);
 // var_dump($profile);
 $link2 = "getSOPid&id_divisi=" . urlencode($id_divisi);
@@ -30,9 +30,9 @@ if (isset($_POST['submit'])) {
     $create = getRegistran($link);
     // var_dump($create);
     if ($create->status == 1) {
-        echo "<script>alert('Data berhasil dikirim');window.location.href='request_budget.php';</script>";
+        echo "<script>alert('Data berhasil dikirim');window.location.href='request_budget_kor.php';</script>";
     } else {
-        echo "<script>alert('Data gagal dikirim');window.location.href='request_budget.php';</script>";
+        echo "<script>alert('Data gagal dikirim');window.location.href='request_budget_kor.php';</script>";
     }
 }
 
@@ -55,11 +55,11 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div align="end" class="col mt-2 mr-3">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-lg btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $id_karyawan ?>">
+                        <button type="button" class="btn btn-lg btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $id_kar1 ?>">
                             <i class="nav-icon fas fa-plus"></i> Request
                         </button>
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal<?php echo $id_karyawan ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal<?php echo $id_kar1 ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -72,8 +72,8 @@ if (isset($_POST['submit'])) {
                                                 <div class="col-6">
                                                     <div class="mb-2">
                                                         <label for="nama_lengkap">Nama Lengkap</label>
-                                                        <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" value="<?= $nama_user ?>" readonly>
-                                                        <input type="hidden" name="id_karyawan" class="form-control" value="<?= $id_karyawan ?>" readonly>
+                                                        <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" value="<?= $nama ?>" readonly>
+                                                        <input type="hidden" name="id_karyawan" class="form-control" value="<?= $id_kar1 ?>" readonly>
                                                     </div>
                                                     <div class="mb-2">
                                                         <label for="jenis_item">Jenis Item</label>
@@ -228,8 +228,8 @@ if (isset($_POST['submit'])) {
                                                                 <div class="d-flex align-items-center justify-content-center">
                                                                     <?php
                                                                     if (isset($_POST['hapuskpi'])) {
-                                                                        $id_kpi_it = $_POST['id_kpi_it'];
-                                                                        $link = "getDeleteKPIadmin&id_kpi_it=" . urlencode($id_kpi_it);
+                                                                        $id_karyawan = $_POST['id_karyawan'];
+                                                                        $link = "getDeleteKPIadmin&id_karyawan=" . urlencode($id_karyawan);
                                                                         $delete = getRegistran($link);
                                                                         if (!$delete) {
                                                                             echo "<script>alert('Data berhasil dihapus');window.location='kpi_admin.php'</script>";
@@ -258,7 +258,7 @@ if (isset($_POST['submit'])) {
                                                                                                         <div class="mb-2">
                                                                                                             <label for="nama_lengkap">Nama Lengkap</label>
                                                                                                             <input type="text" id="nama_lengkap" name="nama_lengkap" class="form-control" value="<?php echo $array_item->nama_lengkap; ?>" readonly>
-                                                                                                            <input type="hidden" name="id_karyawan" class="form-control" value="<?= $id_karyawan ?>" readonly>
+                                                                                                            <input type="hidden" name="id_karyawan" class="form-control" value="<?= $id_kar1 ?>" readonly>
                                                                                                         </div>
                                                                                                         <div class="mb-2">
                                                                                                             <label for="jenis_item">Jenis Item</label>
@@ -281,7 +281,7 @@ if (isset($_POST['submit'])) {
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <hr>
-                                                                                                <small style="margin-left: auto;" class="text-danger">*jangan gunakan titik Unit Price (Contoh: 5000)</small>
+                                                                                                <small class="text-danger">*jangan gunakan titik Unit Price (Contoh: 5000)</small>
                                                                                                 <table class="table table-hover table-striped table-bordered">
                                                                                                     <thead>
                                                                                                         <tr>
@@ -331,7 +331,8 @@ if (isset($_POST['submit'])) {
                                                                         <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?php echo $array_item->id_form ?>">
                                                                             <i class="fas fa-edit"></i>
                                                                         </button>
-                                                                        <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan ?>">
+
+                                                                        <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_form ?>">
                                                                         <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="hapuskpi">
                                                                             <i class="fas fa-trash-alt"></i>
                                                                         </button>

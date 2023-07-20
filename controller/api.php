@@ -2820,6 +2820,33 @@ function getDeleteKaryawanAdmin()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+function getDeleteBudget()
+{
+    global $connect;
+    if (!empty($_GET['id_form']))
+        $id_form = $_GET['id_form'];
+
+    $query = "DELETE FROM form_request WHERE id_form = $id_form";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 function getDeleteKPIadmin()
 {
     global $connect;
