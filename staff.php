@@ -107,7 +107,7 @@ if (isset($_POST['delete'])) {
 
                                                     // Jika tanggal saat ini lebih besar dari batas_waktu, maka tampilkan tautan "warning masa_kerja"
                                                     if (new DateTime() > $batas_waktu) {
-                                                        echo '<a href="" class="btn btn-sm btn-warning">warning masa_kerja</a>';
+                                                        echo '<span class="btn btn-sm btn-warning">warning masa_kerja</span>';
                                                     } else {
                                                         echo $array_item->status_karyawan;
                                                     }

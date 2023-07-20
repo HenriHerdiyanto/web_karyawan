@@ -63,40 +63,6 @@ $data_absen = getRegistran($link);
                         </div>
                         <div class="card-body">
                             <div class="tab-content p-0 table-responsive">
-                                <!-- <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Keterangan</th>
-                                            <th>File Absen</th>
-                                            <th>Tanggal Upload</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $link = "getAbsen";
-                                        $data_absen = getRegistran($link);
-                                        var_dump($data_absen);
-
-                                        $no = 1;
-                                        foreach ($data_absen->data as $array_item) :
-                                        ?>
-                                            <tr>
-                                                <td><?php echo $no++; ?></td>
-                                                <td><?php echo $array_item->keterangan; ?></td>
-                                                <td>
-                                                    <a href="file_absen/<?= $array_item->file_absen ?>" target="_blank">Lihat PDF</a>
-                                                </td>
-                                                <td><?php echo $array_item->tanggal_upload; ?></td>
-                                                <td>
-                                                    <a href="file_absen/<?php echo $array_item->file_absen; ?>" class="btn btn-primary" target="_blank">Lihat</a>
-                                                    <a href="controller/absen.php?aksi=deleteAbsen&id_absen=<?php echo $array_item->id_absen; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table> -->
 
                                 <?php include("aksi.php") ?>
                                 <form action="" method="POST" enctype="multipart/form-data">
@@ -113,6 +79,80 @@ $data_absen = getRegistran($link);
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>input manual</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="" method="post">
+                                <div class="mb-2">
+                                    <label for="id_karyawan" class="form-label">ID Karyawan</label>
+                                    <input type="text" class="form-control" name="id_karyawan" id="id_karyawan" placeholder="ID Karyawan" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="nama_karyawan" class="form-label">Nama Karyawan</label>
+                                    <input type="text" class="form-control" name="nama_karyawan" id="nama_karyawan" placeholder="Nama Karyawan" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="date" class="form-label">Tanggal</label>
+                                    <input type="date" class="form-control" name="date" id="date" placeholder="Tanggal" required>
+                                </div>
+                                <!-- jam masuk -->
+                                <div id='jamMasuk' style="">
+                                    <label for="">Jam Masuk :</label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <select class="form-control" name="hourIn" required>
+                                                <option value="">Hour</option>
+                                                <?php
+                                                for ($i = 0; $i <= 23; $i++) {
+                                                    echo "<option value='$i'>$i</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <select class="form-control" name="minuteIn" required>
+                                                <option value="">Minute</option>
+                                                <?php
+                                                for ($i = 0; $i <= 59; $i++) {
+                                                    echo "<option value='$i'>$i</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- jam keluar -->
+                                <div id='jamKeluar' style="">
+                                    <label for="">Jam Keluar :</label>
+                                    <div class="row">
+                                        <div class="col">
+                                            <select class="form-control" name="hourOut" required>
+                                                <option value="">Hour</option>
+                                                <?php
+                                                for ($i = 0; $i <= 23; $i++) {
+                                                    echo "<option value='$i'>$i</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <select class="form-control" name="minuteOut" required>
+                                                <option value="">Minute</option>
+                                                <?php
+                                                for ($i = 0; $i <= 59; $i++) {
+                                                    echo "<option value='$i'>$i</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </section>
                 <section class="col-lg-12 col-sm-12 connectedSortable">
                     <div class="card">
@@ -124,14 +164,11 @@ $data_absen = getRegistran($link);
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>ID</th>
-                                                <th>first_name</th>
-                                                <th>last_name</th>
-                                                <th>gender</th>
-                                                <th>country</th>
-                                                <th>age</th>
-                                                <th>date</th>
-                                                <th>Action</th>
+                                                <th>ID Karyawan</th>
+                                                <th>Nama Karyawan</th>
+                                                <th>Tanggal</th>
+                                                <th>Jam Masuk</th>
+                                                <th>Jam Keluar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -152,13 +189,11 @@ $data_absen = getRegistran($link);
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>ID</th>
-                                                <th>first_name</th>
-                                                <th>last_name</th>
-                                                <th>gender</th>
-                                                <th>country</th>
-                                                <th class="text-center">age</th>
-                                                <th class="text-center">date</th>
+                                                <th>ID Karyawan</th>
+                                                <th>Nama Karyawan</th>
+                                                <th>Tanggal</th>
+                                                <th>Jam Masuk</th>
+                                                <th>Jam Keluar</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -169,15 +204,13 @@ $data_absen = getRegistran($link);
                                             ?>
                                                 <tr>
                                                     <td><?php echo $no++; ?></td>
-                                                    <td><?php echo $array_item->id; ?></td>
-                                                    <td><?php echo $array_item->first_name; ?></td>
-                                                    <td><?php echo $array_item->last_name; ?></td>
-                                                    <td><?php echo $array_item->gender; ?></td>
-                                                    <td><?php echo $array_item->country; ?></td>
-                                                    <td class="text-center"><?php echo $array_item->age; ?></td>
+                                                    <td><?php echo $array_item->id_karyawan; ?></td>
+                                                    <td><?php echo $array_item->nama_karyawan; ?></td>
                                                     <td class="text-center"><?php echo $array_item->date; ?></td>
+                                                    <td><?php echo $array_item->jam_masuk; ?></td>
+                                                    <td><?php echo $array_item->jam_keluar; ?></td>
                                                     <td class="text-center">
-                                                        <a href="controller/absen.php?aksi=deleteAbsen&id=<?php echo $array_item->id; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
+                                                        <a href="controller/absen.php?aksi=deleteAbsen&id=<?php echo $array_item->id_karyawan; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
                                                         <a href="" class="btn btn-info">Payroll</a>
                                                     </td>
                                                 </tr>

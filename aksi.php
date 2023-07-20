@@ -26,32 +26,17 @@ if (isset($_POST['upload'])) {
 
         $jumlahData = count($sheetData) - 1;
         for ($i = 1; $i < count($sheetData); $i++) {
-            $first_name = $sheetData[$i][1];
-            $last_name = $sheetData[$i][2];
-            $gender = $sheetData[$i][3];
-            $gender = str_replace(array("Female", "Male"), array("P", "L"), $gender);
-            $country = $sheetData[$i][4];
-            $age = $sheetData[$i][5];
-            $date = $sheetData[$i][6];
-            $id = $sheetData[$i][7];
+            $nama_karyawan = $sheetData[$i][1];
+            $date = $sheetData[$i][2];
+            $jam_masuk = $sheetData[$i][3];
+            $jam_keluar = $sheetData[$i][4];
+            $id_karyawan = $sheetData[$i][5];
 
-            $date_explode = explode("/", $date);
-            $date = $date_explode['2'] . "-" . $date_explode['1'] . "-" . $date_explode[0];
-            // echo "
-            //     <tr>
-            //         <td>" . $first_name . "</td>
-            //         <td>" . $last_name . "</td>
-            //         <td>" . $gender . "</td>
-            //         <td>" . $country . "</td>
-            //         <td>" . $age . "</td>
-            //         <td>" . $date . "</td>
-            //         <td>" . $id . "</td> <br>
-            //     </tr>
-            // ";
-
-            $link = "setAbsen&first_name=" . urlencode($first_name) . "&last_name=" . urlencode($last_name) . "&gender=" . urlencode($gender) . "&country=" . urlencode($country) . "&age=" . urlencode($age) . "&date=" . urlencode($date) . "&id=" . urlencode($id);
+            $link = "setAbsen&nama_karyawan=" . urlencode($nama_karyawan) . "&date=" . urlencode($jam_keluar) . "&jam_masuk=" . urlencode($date) . "&jam_keluar=" . urlencode($jam_masuk) . "&id_karyawan=" . urlencode($id_karyawan);
             $insert_absen = getRegistran($link);
-            // var_dump($insert_absen);
+            var_dump($insert_absen);
+            // echo "<script>alert('Data Berhasil diupload')</script>";
+            // echo ("<script>location.href = 'absen-admin.php';</script>");
         }
         if ($jumlahData > 0) {
             $success .= "Data berhasil diupload";

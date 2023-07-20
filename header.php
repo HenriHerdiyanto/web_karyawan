@@ -234,6 +234,14 @@ if ($level_user > 0) {
               </a>
             </li>
             <li class="nav-item">
+              <a href="request_budget_admin.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-money-bill-alt"></i>
+                <p>
+                  Reques Budget
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="peminjaman_karyawan.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-clipboard"></i>
                 <p>

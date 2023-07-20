@@ -34,31 +34,31 @@ function getUser()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
-// function getKPIit()
-// {
-//     global $connect;
+function getReqAdmin()
+{
+    global $connect;
 
-//     $query = "SELECT * FROM kpi_it";
-//     $result = $connect->query($query);
-//     while ($row = mysqli_fetch_object($result)) {
-//         $data[] = $row;
-//     }
+    $query = "SELECT * FROM form_request";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
 
-//     if ($result) {
-//         $response = array(
-//             'status' => 1,
-//             'data' => $data
-//         );
-//     } else {
-//         $response = array(
-//             'status' => 0,
-//             'data' => 'Gagal'
-//         );
-//     }
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
 
-//     header('Content-Type: application/json');
-//     echo json_encode($response);
-// }
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 
 function getUserStaff()
 {
@@ -380,11 +380,13 @@ function setRequestBudget()
         $harga4 = $_GET['harga4'];
     if (!empty($_GET['total_harga']))
         $total_harga = $_GET['total_harga'];
+    if (!empty($_GET['status']))
+        $status = $_GET['status'];
 
 
 
 
-    $query = "INSERT INTO form_request SET id_karyawan = '$id_karyawan', nama_lengkap = '$nama_lengkap', jenis_item = '$jenis_item', nama_divisi = '$nama_divisi', tanggal = '$tanggal', keperluan1 = '$keperluan1', harga1 = '$harga1', keperluan2 = '$keperluan2', harga2 = '$harga2', keperluan3 = '$keperluan3', harga3 = '$harga3', keperluan4 = '$keperluan4', harga4 = '$harga4', total_harga = '$total_harga'";
+    $query = "INSERT INTO form_request SET id_karyawan = '$id_karyawan', nama_lengkap = '$nama_lengkap', jenis_item = '$jenis_item', nama_divisi = '$nama_divisi', tanggal = '$tanggal', keperluan1 = '$keperluan1', harga1 = '$harga1', keperluan2 = '$keperluan2', harga2 = '$harga2', keperluan3 = '$keperluan3', harga3 = '$harga3', keperluan4 = '$keperluan4', harga4 = '$harga4', total_harga = '$total_harga', status = '$status'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -497,23 +499,20 @@ function setTodolist()
 function setAbsen()
 {
     global $connect;
-    if (!empty($_GET['first_name']))
-        $first_name = $_GET['first_name'];
-    if (!empty($_GET['last_name']))
-        $last_name = $_GET['last_name'];
-    if (!empty($_GET['gender']))
-        $gender = $_GET['gender'];
-    if (!empty($_GET['country']))
-        $country = $_GET['country'];
-    if (!empty($_GET['age']))
-        $age = $_GET['age'];
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_karyawan']))
+        $nama_karyawan = $_GET['nama_karyawan'];
     if (!empty($_GET['date']))
         $date = $_GET['date'];
-    if (!empty($_GET['id']))
-        $id = $_GET['id'];
+    if (!empty($_GET['jam_masuk']))
+        $jam_masuk = $_GET['jam_masuk'];
+    if (!empty($_GET['jam_keluar']))
+        $jam_keluar = $_GET['jam_keluar'];
 
 
-    $query = "INSERT INTO absen_karyawan SET first_name = '$first_name', last_name = '$last_name', gender = '$gender', country = '$country', age = '$age', date = '$date', id = '$id'";
+    $query = "INSERT INTO absen_karyawan SET nama_karyawan = '$nama_karyawan', date = '$date', jam_masuk = '$jam_masuk', jam_keluar = '$jam_keluar',id_karyawan = '$id_karyawan'";
+    echo $query;
     $result = $connect->query($query);
 
     if ($result) {
@@ -621,6 +620,69 @@ function setUpdateKeluarga()
         $nama_perusahaan_ibu = $_GET['nama_perusahaan_ibu'];
 
     $query = "UPDATE keluarga SET nama_ayah = '$nama_ayah', tanggal_lahir_ayah = '$tanggal_lahir_ayah', pendidikan_terakhir_ayah = '$pendidikan_terakhir_ayah', pekerjaan_ayah = '$pekerjaan_ayah', jabatan_ayah = '$jabatan_ayah', nama_perusahaan_ayah = '$nama_perusahaan_ayah', nama_ibu = '$nama_ibu', tanggal_lahir_ibu = '$tanggal_lahir_ibu', pendidikan_terakhir_ibu = '$pendidikan_terakhir_ibu', pekerjaan_ibu = '$pekerjaan_ibu', jabatan_ibu = '$jabatan_ibu', nama_perusahaan_ibu = '$nama_perusahaan_ibu' WHERE id_karyawan = '$id_karyawan'";
+
+    if ($connect->query($query)) {
+        if ($connect->affected_rows > 0) {
+            $response = array(
+                'status' => 1,
+                'data' => 'Sukses'
+            );
+        } else {
+            $response = array(
+                'status' => 0,
+                'data' => 'Gagal menyimpan data'
+            );
+        }
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal menjalankan query'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function setUpdateReqAdmin()
+{
+    global $connect;
+
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['jenis_item']))
+        $jenis_item = $_GET['jenis_item'];
+    if (!empty($_GET['nama_divisi']))
+        $nama_divisi = $_GET['nama_divisi'];
+    if (!empty($_GET['tanggal']))
+        $tanggal = $_GET['tanggal'];
+    if (!empty($_GET['keperluan1']))
+        $keperluan1 = $_GET['keperluan1'];
+    if (!empty($_GET['harga1']))
+        $harga1 = $_GET['harga1'];
+    if (!empty($_GET['keperluan2']))
+        $keperluan2 = $_GET['keperluan2'];
+    if (!empty($_GET['harga2']))
+        $harga2 = $_GET['harga2'];
+    if (!empty($_GET['keperluan3']))
+        $keperluan3 = $_GET['keperluan3'];
+    if (!empty($_GET['harga3']))
+        $harga3 = $_GET['harga3'];
+    if (!empty($_GET['keperluan4']))
+        $keperluan4 = $_GET['keperluan4'];
+    if (!empty($_GET['harga4']))
+        $harga4 = $_GET['harga4'];
+    if (!empty($_GET['total_harga']))
+        $total_harga = $_GET['total_harga'];
+    if (!empty($_GET['diketahui']))
+        $diketahui = $_GET['diketahui'];
+    if (!empty($_GET['disetujui']))
+        $disetujui = $_GET['disetujui'];
+    if (!empty($_GET['status']))
+        $status = $_GET['status'];
+
+    $query = "UPDATE form_request SET nama_lengkap = '$nama_lengkap', jenis_item = '$jenis_item', nama_divisi = '$nama_divisi', tanggal = '$tanggal', keperluan1 = '$keperluan1', harga1 = '$harga1', keperluan2 = '$keperluan2', harga2 = '$harga2', keperluan3 = '$keperluan3', harga3 = '$harga3', keperluan4 = '$keperluan4', harga4 = '$harga4', total_harga = '$total_harga', diketahui = '$diketahui', disetujui = '$disetujui', status = '$status' WHERE id_karyawan = '$id_karyawan'";
 
     if ($connect->query($query)) {
         if ($connect->affected_rows > 0) {

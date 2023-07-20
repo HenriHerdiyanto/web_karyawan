@@ -24,8 +24,9 @@ if (isset($_POST['submit'])) {
     $keperluan4 = $_POST['keperluan4'];
     $harga4 = $_POST['harga4'];
     $total_harga = $_POST['total_harga'];
+    $status = $_POST['status'];
 
-    $link = "setRequestBudget&id_karyawan=" . urlencode($id_karyawan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&jenis_item=" . urlencode($jenis_item) . "&nama_divisi=" . urlencode($nama_divisi) . "&tanggal=" . urlencode($tanggal) . "&keperluan1=" . urlencode($keperluan1) . "&harga1=" . urlencode($harga1) . "&keperluan2=" . urlencode($keperluan2) . "&harga2=" . urlencode($harga2) . "&keperluan3=" . urlencode($keperluan3) . "&harga3=" . urlencode($harga3) . "&keperluan4=" . urlencode($keperluan4) . "&harga4=" . urlencode($harga4) . "&total_harga=" . urlencode($total_harga);
+    $link = "setRequestBudget&id_karyawan=" . urlencode($id_karyawan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&jenis_item=" . urlencode($jenis_item) . "&nama_divisi=" . urlencode($nama_divisi) . "&tanggal=" . urlencode($tanggal) . "&keperluan1=" . urlencode($keperluan1) . "&harga1=" . urlencode($harga1) . "&keperluan2=" . urlencode($keperluan2) . "&harga2=" . urlencode($harga2) . "&keperluan3=" . urlencode($keperluan3) . "&harga3=" . urlencode($harga3) . "&keperluan4=" . urlencode($keperluan4) . "&harga4=" . urlencode($harga4) . "&total_harga=" . urlencode($total_harga) . "&status=" . urlencode($status);
     $create = getRegistran($link);
     // var_dump($create);
     if ($create->status == 1) {
@@ -130,6 +131,9 @@ if (isset($_POST['submit'])) {
                                                         <td><b>TOTAL NILAI</b></td>
                                                         <td><input type="number" name="total_harga" class="form-control total-nilai" readonly></td>
                                                     </tr>
+                                                    <tr>
+                                                        <td><input type="hidden" value="diproses" name="status" class="form-control total-nilai" readonly></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -169,12 +173,13 @@ if (isset($_POST['submit'])) {
                                                 <th>Keperluan</th>
                                                 <th>Harga</th>
                                                 <th>Total Harga</th>
+                                                <th>Status</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td colspan="8" class="text-center">Data Kosong</td>
+                                                <td colspan="9" class="text-center">Data Kosong</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -193,6 +198,7 @@ if (isset($_POST['submit'])) {
                                                     <th>Keperluan</th>
                                                     <th>Harga</th>
                                                     <th>Total Harga</th>
+                                                    <th>status</th>
                                                     <th class="text-center">Action</th>
                                                 </tr>
                                             </thead>
@@ -206,6 +212,17 @@ if (isset($_POST['submit'])) {
                                                         <td><?php echo $array_item->keperluan1; ?></td>
                                                         <td><?php echo $array_item->harga1; ?></td>
                                                         <td><?php echo $array_item->total_harga; ?></td>
+                                                        <td>
+                                                            <?php
+                                                            if ($array_item->status == "diproses") {
+                                                                echo "<span class='badge bg-info text-dark'>" . $array_item->status . "</span>";
+                                                            } elseif ($array_item->status == "disetujui") {
+                                                                echo "<span class='badge bg-success'>" . $array_item->status . "</span>";
+                                                            } elseif ($array_item->status == "ditolak") {
+                                                                echo "<span class='badge bg-danger'>" . $array_item->status . "</span>";
+                                                            }
+                                                            ?>
+                                                        </td>
                                                         <td class="text-center">
                                                             <div class="d-flex align-items-center justify-content-center">
                                                                 <?php

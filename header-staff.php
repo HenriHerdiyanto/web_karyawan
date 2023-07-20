@@ -21,7 +21,7 @@ $nama_user = $data_lengkap->data[0]->nama_lengkap;
 $level_user = $data_lengkap->data[0]->level_user;
 $id_divisi = $data_lengkap->data[0]->id_divisi;
 $nama_divisi = $data_lengkap->data[0]->nama_divisi;
-var_dump($data_lengkap);
+// var_dump($data_lengkap);
 
 // $link = "getKaryawan&id_user=" . urlencode($id_user);
 // $data_kar = getRegistran($link);
