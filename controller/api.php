@@ -2502,6 +2502,47 @@ function getKaryawanMuncul()
     echo json_encode($response);
 }
 
+function getPayroll()
+{
+
+    global $connect;
+    if (!empty($_GET['nomor_induk']))
+        $nomor_induk = $_GET['nomor_induk'];
+    $query = "SELECT DISTINCT
+    ak.*,
+    k.*,
+    d.*
+    FROM 
+        absen_karyawan AS ak
+    INNER JOIN 
+        karyawan AS k ON ak.nomor_induk = k.nomor_induk
+    INNER JOIN 
+        divisi AS d ON k.id_divisi = d.id_divisi
+    WHERE 
+        ak.nomor_induk = '$nomor_induk'
+        ";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function getKaryawan()
 {
 

@@ -98,7 +98,7 @@ $data_absen = getRegistran($link);
                                     <input type="date" class="form-control" name="date" id="date" placeholder="Tanggal" required>
                                 </div>
                                 <!-- jam masuk -->
-                                <div id='jamMasuk' style="">
+                                <div id='jamMasuk'>
                                     <label for="">Jam Masuk :</label>
                                     <div class="row">
                                         <div class="col">
@@ -124,7 +124,7 @@ $data_absen = getRegistran($link);
                                     </div>
                                 </div>
                                 <!-- jam keluar -->
-                                <div id='jamKeluar' style="">
+                                <div id='jamKeluar'>
                                     <label for="">Jam Keluar :</label>
                                     <div class="row">
                                         <div class="col">
@@ -211,7 +211,8 @@ $data_absen = getRegistran($link);
                                                     <td><?php echo $array_item->jam_keluar; ?></td>
                                                     <td class="text-center">
                                                         <a href="controller/absen.php?aksi=deleteAbsen&id=<?php echo $array_item->id_karyawan; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
-                                                        <a href="payroll.php?nama_karyawan?<?php echo $array_item->nama_karyawan; ?>" class="btn btn-info">Payroll</a>
+                                                        <a href="payroll.php?nomor_induk=<?php echo $array_item->nomor_induk; ?>" class="btn btn-info">Payroll</a>
+
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
