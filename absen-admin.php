@@ -212,7 +212,6 @@ $data_absen = getRegistran($link);
                                                     <td class="text-center">
                                                         <a href="controller/absen.php?aksi=deleteAbsen&id=<?php echo $array_item->id_karyawan; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
                                                         <a href="payroll.php?nomor_induk=<?php echo $array_item->nomor_induk; ?>" class="btn btn-info">Payroll</a>
-
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

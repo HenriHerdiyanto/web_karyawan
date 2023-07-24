@@ -352,6 +352,128 @@ function setInventaris()
     echo json_encode($response);
 }
 
+function setPayroll()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['id_divisi']))
+        $id_divisi = $_GET['id_divisi'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['level_user']))
+        $level_user = $_GET['level_user'];
+    if (!empty($_GET['pendidikan']))
+        $pendidikan = $_GET['pendidikan'];
+    if (!empty($_GET['status_ptkp']))
+        $status_ptkp = $_GET['status_ptkp'];
+    if (!empty($_GET['cabang']))
+        $cabang = $_GET['cabang'];
+    if (!empty($_GET['group_payroll']))
+        $group_payroll = $_GET['group_payroll'];
+    if (!empty($_GET['gaji_pokok']))
+        $gaji_pokok = $_GET['gaji_pokok'];
+    if (!empty($_GET['tempat_kerja']))
+        $tempat_kerja = $_GET['tempat_kerja'];
+    if (!empty($_GET['besar_tunjangan']))
+        $besar_tunjangan = $_GET['besar_tunjangan'];
+    if (!empty($_GET['tunjangan_pulsa']))
+        $tunjangan_pulsa = $_GET['tunjangan_pulsa'];
+    if (!empty($_GET['lain_lain']))
+        $lain_lain = $_GET['lain_lain'];
+    if (!empty($_GET['tunjangan_pendidikan']))
+        $tunjangan_pendidikan = $_GET['tunjangan_pendidikan'];
+    if (!empty($_GET['uang_makan']))
+        $uang_makan = $_GET['uang_makan'];
+    if (!empty($_GET['uang_transport']))
+        $uang_transport = $_GET['uang_transport'];
+    if (!empty($_GET['total_gaji']))
+        $total_gaji = $_GET['total_gaji'];
+    if (!empty($_GET['lembur']))
+        $lembur = $_GET['lembur'];
+    if (!empty($_GET['dinas']))
+        $dinas = $_GET['dinas'];
+    if (!empty($_GET['cuti_tahunan']))
+        $cuti_tahunan = $_GET['cuti_tahunan'];
+    if (!empty($_GET['thr']))
+        $thr = $_GET['thr'];
+    if (!empty($_GET['total_tunjangan']))
+        $total_tunjangan = $_GET['total_tunjangan'];
+    if (!empty($_GET['total_gaji_tunjangan']))
+        $total_gaji_tunjangan = $_GET['total_gaji_tunjangan'];
+    if (!empty($_GET['referal_client']))
+        $referal_client = $_GET['referal_client'];
+    if (!empty($_GET['insentif_kk']))
+        $insentif_kk = $_GET['insentif_kk'];
+    if (!empty($_GET['insentif_spv']))
+        $insentif_spv = $_GET['insentif_spv'];
+    if (!empty($_GET['insentif_staff']))
+        $insentif_staff = $_GET['insentif_staff'];
+    if (!empty($_GET['insentif_spt_op']))
+        $insentif_spt_op = $_GET['insentif_spt_op'];
+    if (!empty($_GET['insentif_spt_badan']))
+        $insentif_spt_badan = $_GET['insentif_spt_badan'];
+    if (!empty($_GET['insentif_spt']))
+        $insentif_spt = $_GET['insentif_spt'];
+    if (!empty($_GET['komisi_marketing']))
+        $komisi_marketing = $_GET['komisi_marketing'];
+    if (!empty($_GET['total_insentif']))
+        $total_insentif = $_GET['total_insentif'];
+    if (!empty($_GET['total_pendapatan']))
+        $total_pendapatan = $_GET['total_pendapatan'];
+    if (!empty($_GET['terlambat']))
+        $terlambat = $_GET['terlambat'];
+    if (!empty($_GET['cuti_bersama']))
+        $cuti_bersama = $_GET['cuti_bersama'];
+    if (!empty($_GET['cuti']))
+        $cuti = $_GET['cuti'];
+    if (!empty($_GET['sakit']))
+        $sakit = $_GET['sakit'];
+    if (!empty($_GET['izin']))
+        $izin = $_GET['izin'];
+    if (!empty($_GET['alpha']))
+        $alpha = $_GET['alpha'];
+    if (!empty($_GET['pinjaman']))
+        $pinjaman = $_GET['pinjaman'];
+    if (!empty($_GET['bpjs_perusahaan']))
+        $bpjs_perusahaan = $_GET['bpjs_perusahaan'];
+    if (!empty($_GET['bpjs_karyawan']))
+        $bpjs_karyawan = $_GET['bpjs_karyawan'];
+    if (!empty($_GET['jkk']))
+        $jkk = $_GET['jkk'];
+    if (!empty($_GET['jkm']))
+        $jkm = $_GET['jkm'];
+    if (!empty($_GET['jht_37']))
+        $jht_37 = $_GET['jht_37'];
+    if (!empty($_GET['ditanggung_perusahaan']))
+        $ditanggung_perusahaan = $_GET['ditanggung_perusahaan'];
+    if (!empty($_GET['ditanggung_karyawan']))
+        $ditanggung_karyawan = $_GET['ditanggung_karyawan'];
+    if (!empty($_GET['total_pengurangan']))
+        $total_pengurangan = $_GET['total_pengurangan'];
+    if (!empty($_GET['total_gaji_bersih']))
+        $total_gaji_bersih = $_GET['total_gaji_bersih'];
+
+
+    $query = "INSERT INTO payroll SET id_karyawan = '$id_karyawan', id_divisi = '$id_divisi', nama_lengkap = '$nama_lengkap', level_user = '$level_user', pendidikan = '$pendidikan', status_ptkp = '$status_ptkp', cabang = '$cabang', group_payroll = '$group_payroll', gaji_pokok = '$gaji_pokok', tempat_kerja = '$tempat_kerja', besar_tunjangan = '$besar_tunjangan', tunjangan_pulsa = '$tunjangan_pulsa', lain_lain = '$lain_lain', tunjangan_pendidikan = '$tunjangan_pendidikan', uang_makan = '$uang_makan', uang_transport = '$uang_transport', total_gaji = '$total_gaji', lembur = '$lembur', dinas = '$dinas', cuti_tahunan = '$cuti_tahunan', thr = '$thr',total_tunjangan = '$total_tunjangan', total_gaji_tunjangan = '$total_gaji_tunjangan', referal_client = '$referal_client', insentif_kk = '$insentif_kk', insentif_spv = '$insentif_spv', insentif_staff = '$insentif_staff', insentif_spt_op = '$insentif_spt_op', insentif_spt_badan = '$insentif_spt_badan', insentif_spt = '$insentif_spt', komisi_marketing = '$komisi_marketing', total_insentif = '$total_insentif',total_pendapatan = '$total_pendapatan', terlambat = '$terlambat', cuti_bersama = '$cuti_bersama', cuti = '$cuti', sakit = '$sakit', izin = '$izin',alpha = '$alpha', pinjaman = '$pinjaman', bpjs_perusahaan = '$bpjs_perusahaan',bpjs_karyawan = '$bpjs_karyawan', jkk = '$jkk', jkm = '$jkm',jht_37 = '$jht_37', ditanggung_perusahaan = '$ditanggung_perusahaan',ditanggung_karyawan = '$ditanggung_karyawan',total_pengurangan = '$total_pengurangan',total_gaji_bersih = '$total_gaji_bersih'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function setRequestBudget()
 {
     global $connect;
@@ -1211,6 +1333,33 @@ function getAbsen()
 
     global $connect;
     $query = "SELECT * FROM absen_karyawan";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getPayrollAdmin()
+{
+
+    global $connect;
+    $query = "SELECT * FROM payroll";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {

@@ -226,7 +226,7 @@ if ($level_user > 0) {
               </a>
             </li>
             <li class="nav-item">
-              <a href="payroll.php" class="nav-link" style="color: #FFCF09;">
+              <a href="admin-payroll.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-money-check-alt"></i>
                 <p>
                   payroll

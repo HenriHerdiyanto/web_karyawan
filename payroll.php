@@ -32,7 +32,69 @@ if (isset($_GET['nomor_induk'])) {
         <div class="container-fluid">
             <div class="row">
                 <section class="col-lg-12 col-sm-12 connectedSortable">
-                    <form action="" method="post">
+                    <?php
+                    if (isset($_POST['submit'])) {
+                        $id_karyawan = $_POST['id_karyawan'];
+                        $id_divisi = $_POST['id_divisi'];
+                        $nama_lengkap = $_POST['nama_lengkap'];
+                        $level_user = $_POST['level_user'];
+                        $pendidikan = $_POST['pendidikan'];
+                        $status_ptkp = $_POST['status_ptkp'];
+                        $cabang = $_POST['cabang'];
+                        $group_payroll = $_POST['group_payroll'];
+                        $gaji_pokok = $_POST['gaji_pokok'];
+                        $tempat_kerja = $_POST['tempat_kerja'];
+                        $besar_tunjangan = $_POST['besar_tunjangan'];
+                        $tunjangan_pulsa = $_POST['tunjangan_pulsa'];
+                        $lain_lain = $_POST['lain_lain'];
+                        $tunjangan_pendidikan = $_POST['tunjangan_pendidikan'];
+                        $uang_makan = $_POST['uang_makan'];
+                        $uang_transport = $_POST['uang_transport'];
+                        $total_gaji = $_POST['total_gaji'];
+                        $lembur = $_POST['lembur'];
+                        $dinas = $_POST['dinas'];
+                        $cuti_tahunan = $_POST['cuti_tahunan'];
+                        $thr = $_POST['thr'];
+                        $total_tunjangan = $_POST['total_tunjangan'];
+                        $total_gaji_tunjangan = $_POST['total_gaji_tunjangan'];
+                        $referal_client = $_POST['referal_client'];
+                        $insentif_kk = $_POST['insentif_kk'];
+                        $insentif_spv = $_POST['insentif_spv'];
+                        $insentif_staff = $_POST['insentif_staff'];
+                        $insentif_spt_op = $_POST['insentif_spt_op'];
+                        $insentif_spt_badan = $_POST['insentif_spt_badan'];
+                        $insentif_spt = $_POST['insentif_spt'];
+                        $komisi_marketing = $_POST['komisi_marketing'];
+                        $total_insentif = $_POST['total_insentif'];
+                        $total_pendapatan = $_POST['total_pendapatan'];
+                        $terlambat = $_POST['terlambat'];
+                        $cuti_bersama = $_POST['cuti_bersama'];
+                        $cuti = $_POST['cuti'];
+                        $sakit = $_POST['sakit'];
+                        $izin = $_POST['izin'];
+                        $alpha = $_POST['alpha'];
+                        $pinjaman = $_POST['pinjaman'];
+                        $bpjs_perusahaan = $_POST['bpjs_perusahaan'];
+                        $bpjs_karyawan = $_POST['bpjs_karyawan'];
+                        $jkk = $_POST['jkk'];
+                        $jkm = $_POST['jkm'];
+                        $jht_37 = $_POST['jht_37'];
+                        $ditanggung_perusahaan = $_POST['ditanggung_perusahaan'];
+                        $ditanggung_karyawan = $_POST['ditanggung_karyawan'];
+                        $total_pengurangan = $_POST['total_pengurangan'];
+                        $total_gaji_bersih = $_POST['total_gaji_bersih'];
+
+                        $link = "setPayroll&id_karyawan=" . urlencode($id_karyawan) . "&id_divisi=" . urlencode($id_divisi) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&level_user=" . urlencode($level_user) . "&pendidikan=" . urlencode($pendidikan) . "&status_ptkp=" . ($status_ptkp) . "&cabang=" . urlencode($cabang) . "&group_payroll=" . urlencode($group_payroll) . "&gaji_pokok=" . urlencode($gaji_pokok) . "&tempat_kerja=" . urlencode($tempat_kerja) . "&besar_tunjangan=" . urlencode($besar_tunjangan) . "&tunjangan_pulsa=" . urlencode($tunjangan_pulsa) . "&lain_lain=" . urlencode($lain_lain) . "&tunjangan_pendidikan=" . urlencode($tunjangan_pendidikan) . "&uang_makan=" . urlencode($uang_makan) . "&uang_transport=" . urlencode($uang_transport) . "&total_gaji=" . urlencode($total_gaji) . "&lembur=" . urlencode($lembur) . "&dinas=" . urlencode($dinas) . "&cuti_tahunan=" . urlencode($cuti_tahunan) . "&thr=" . urlencode($thr) . "&total_tunjangan=" . ($total_tunjangan) . "&total_gaji_tunjangan=" . urlencode($total_gaji_tunjangan) . "&referal_client=" . urlencode($referal_client) . "&insentif_kk=" . urlencode($insentif_kk) . "&insentif_spv=" . urlencode($insentif_spv) . "&insentif_staff=" . urlencode($insentif_staff) . "&insentif_spt_op=" . urlencode($insentif_spt_op) . "&insentif_spt_badan=" . urlencode($insentif_spt_badan) . "&insentif_spt=" . urlencode($insentif_spt) . "&komisi_marketing=" . urlencode($komisi_marketing) . "&total_insentif=" . urlencode($total_insentif) . "&total_pendapatan=" . urlencode($total_pendapatan) . "&terlambat=" . urlencode($terlambat) . "&cuti_bersama=" . urlencode($cuti_bersama) . "&cuti=" . urlencode($cuti) . "&sakit=" . urlencode($sakit) . "&izin=" . urlencode($izin) . "&alpha=" . urlencode($alpha) . "&pinjaman=" . urlencode($pinjaman) . "&bpjs_perusahaan=" . urlencode($bpjs_perusahaan) . "&bpjs_karyawan=" . urlencode($bpjs_karyawan) . "&jkk=" . urlencode($jkk) . "&jkm=" . urlencode($jkm) . "&jht_37=" . urlencode($jht_37) . "&ditanggung_perusahaan=" . urlencode($ditanggung_perusahaan) . "&ditanggung_karyawan=" . urlencode($ditanggung_karyawan) . "&total_pengurangan=" . urlencode($total_pengurangan) . "&total_gaji_bersih=" . urlencode($total_gaji_bersih);
+                        $hasil_payrol = getRegistran($link);
+                        var_dump($hasil_payrol);
+                        // if ($hasil_payrol->status == "success") {
+                        //     echo "<script>alert('Data Berhasil Disimpan');window.location='payroll.php';</script>";
+                        // } else {
+                        //     echo "<script>alert('Data Gagal Disimpan');window.location='payroll.php';</script>";
+                        // }
+                    }
+                    ?>
+                    <form action="" method="POST">
                         <div class="card col-lg-12">
                             <div class="card-header">
                                 <h3 class="card-title"><i class="fas fa-chart-pie mr"></i>Data Pribadi
@@ -53,21 +115,21 @@ if (isset($_GET['nomor_induk'])) {
                                             </div>
                                             <div class="mb-2">
                                                 <label for="pendidikan" class="form-label">Pendidikan</label>
-                                                <input type="text" class="form-control" id="pendidikan" name="pendidikan">
+                                                <input type="text" class="form-control" id="pendidikan" name="pendidikan" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-2">
                                                 <label for="status_ptkp" class="form-label">Status PTKP</label>
-                                                <input type="text" class="form-control" id="status_ptkp" name="status_ptkp">
+                                                <input type="text" class="form-control" id="status_ptkp" name="status_ptkp" required>
                                             </div>
                                             <div class="mb-2">
                                                 <label for="cabang" class="form-label">Cabang</label>
-                                                <input type="text" class="form-control" id="cabang" name="cabang">
+                                                <input type="text" class="form-control" id="cabang" name="cabang" required>
                                             </div>
                                             <div class="mb-2">
                                                 <label for="group" class="form-label">Group</label>
-                                                <input type="text" class="form-control" id="group" name="group">
+                                                <input type="text" class="form-control" id="group" name="group_payroll" required>
                                             </div>
                                         </div>
                                     </div>
@@ -83,42 +145,45 @@ if (isset($_GET['nomor_induk'])) {
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="gaji_pokok" class="form-label">GAJI POKOK</label>
-                                            <input type="number" class="form-control nilai-input" id="gaji_pokok" name="gaji_pokok">
+                                            <input type="number" class="form-control nilai-input" id="gaji_pokok" name="gaji_pokok" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="tempat_kerja" class="form-label">Tempat Bekerja</label>
-                                            <input type="text" class="form-control" id="tempat_kerja" name="tempat_kerja" placeholder="HO / CGK / PIK / BALI / YAO / CKR">
+                                            <input type="text" class="form-control" id="tempat_kerja" name="tempat_kerja" placeholder="HO / CGK / PIK / BALI / YAO / CKR" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="besar_tunjangan" class="form-label">Besar Tunjangan Jabatan</label>
-                                            <input type="number" class="form-control nilai-input" id="besar_tunjangan" name="besar_tunjangan">
+                                            <input type="number" class="form-control nilai-input" id="besar_tunjangan" name="besar_tunjangan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="tunjangan_pulsa" class="form-label">Tunjangan Pulsa</label>
-                                            <input type="number" class="form-control nilai-input" id="tunjangan_pulsa" name="tunjangan_pulsa">
+                                            <input type="number" class="form-control nilai-input" id="tunjangan_pulsa" name="tunjangan_pulsa" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="lain_lain" class="form-label">Tunjangan Lain-lain</label>
-                                            <input type="number" class="form-control nilai-input" id="lain_lain" name="lain_lain">
+                                            <input type="number" class="form-control nilai-input" id="lain_lain" name="lain_lain" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="tunjangan_pendidikan" class="form-label">Tunjangan Pendidikan</label>
-                                            <input type="number" class="form-control nilai-input" id="tunjangan_pendidikan" name="tunjangan_pendidikan">
+                                            <input type="number" class="form-control nilai-input" id="tunjangan_pendidikan" name="tunjangan_pendidikan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="uang_makan" class="form-label">Uang Makan</label>
-                                            <input type="number" class="form-control nilai-input" id="uang_makan" name="uang_makan">
+                                            <input type="number" class="form-control nilai-input" id="uang_makan" name="uang_makan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="uang_transport" class="form-label">Uang Transport</label>
-                                            <input type="number" class="form-control nilai-input" id="uang_transport" name="uang_transport">
+                                            <input type="number" class="form-control nilai-input" id="uang_transport" name="uang_transport" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="total_gaji" class="form-label">TOTAL GAJI BULANAN</label>
-                                            <small class="text-red">*tambahkan angka 1 lalu hapus</small>
-                                            <input type="number" class="form-control total-nilai" id="total_gaji" name="total_gaji">
+                                            <input type="number" class="form-control total-nilai" readonly required>
+                                        </div>
+                                        <div class="mb-2">
+                                            <small class="text-red">*Masukan Kembali Total Gaji Bulanan Diatas</small>
+                                            <input type="number" class="form-control total-nilai" id="total_gaji" name="total_gaji" required>
                                         </div>
                                     </div>
                                 </div>
@@ -133,30 +198,33 @@ if (isset($_GET['nomor_induk'])) {
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="lembur">Lembur</label>
-                                            <input type="number" class="form-control nilai-input1" id="lembur" name="lembur">
+                                            <input type="number" class="form-control nilai-input1" id="lembur" name="lembur" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="dinas">Dinas</label>
-                                            <input type="number" class="form-control nilai-input1" id="dinas" name="dinas">
+                                            <input type="number" class="form-control nilai-input1" id="dinas" name="dinas" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="cuti_tahunan">Cuti Tahunan</label>
-                                            <input type="number" class="form-control nilai-input1" id="cuti_tahunan" name="cuti_tahunan">
+                                            <input type="number" class="form-control nilai-input1" id="cuti_tahunan" name="cuti_tahunan" required>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="thr">THR</label>
+                                            <input type="number" class="form-control nilai-input1" id="thr" name="thr" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-2">
-                                            <label for="thr">THR</label>
-                                            <input type="number" class="form-control nilai-input1" id="thr" name="thr">
+                                            <label for="total_tunjangan">Total Tunjangan Di Luar Gaji</label>
+                                            <input type="number" class="form-control total-nilai1" readonly required>
                                         </div>
                                         <div class="mb-2">
-                                            <label for="total_tunjangan">Total Tunjangan Di Luar Gaji</label>
-                                            <small class="text-red">*tambahkan angka 1 lalu hapus</small>
-                                            <input type="number" class="form-control total-nilai1" id="total_tunjangan" name="total_tunjangan">
+                                            <small class="text-red">*Masukan Kembali Tunjangan Di Luar Gaji Diatas</small>
+                                            <input type="number" class="form-control total-nilai1" id="total_tunjangan" name="total_tunjangan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="total_gaji_tunjangan">Total Gaji + Tunjangan Di Luar Gaji</label>
-                                            <input type="number" class="form-control total-nilai2" id="total_gaji_tunjangan" name="total_gaji_tunjangan">
+                                            <input type="number" class="form-control total-nilai2" id="total_gaji_tunjangan" name="total_gaji_tunjangan" required>
                                         </div>
                                     </div>
                                 </div>
@@ -171,47 +239,49 @@ if (isset($_GET['nomor_induk'])) {
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="">REFERAL CLIENT-5%</label>
-                                            <input type="number" class="form-control nilai-input6" id="referal_client" name="referal_client">
+                                            <input type="number" class="form-control nilai-input6" id="referal_client" name="referal_client" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">INSENTIF KK-5%</label>
-                                            <input type="number" class="form-control nilai-input6" id="insentif_kk" name="insentif_kk">
+                                            <input type="number" class="form-control nilai-input6" id="insentif_kk" name="insentif_kk" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">INSENTIF SPV-1%</label>
-                                            <input type="number" class="form-control nilai-input6" id="insentif_spv" name="insentif_spv">
+                                            <input type="number" class="form-control nilai-input6" id="insentif_spv" name="insentif_spv" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">INSENTIF STAFF-2%</label>
-                                            <input type="number" class="form-control nilai-input6" id="insentif_staff" name="insentif_staff">
+                                            <input type="number" class="form-control nilai-input6" id="insentif_staff" name="insentif_staff" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">INSENTIF SPT OP</label>
-                                            <input type="number" class="form-control nilai-input6" id="insentif_spt_op" name="insentif_spt_op">
+                                            <input type="number" class="form-control nilai-input6" id="insentif_spt_op" name="insentif_spt_op" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="">INSENTIF SPT BADAN</label>
-                                            <input type="number" class="form-control nilai-input6" id="insentif_spt_badan" name="insentif_spt_badan">
+                                            <input type="number" class="form-control nilai-input6" id="insentif_spt_badan" name="insentif_spt_badan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">INSENTIF SPT</label>
-                                            <input type="number" class="form-control nilai-input6" id="insentif_spt" name="insentif_spt">
+                                            <input type="number" class="form-control nilai-input6" id="insentif_spt" name="insentif_spt" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">KOMISI MARKETING</label>
-                                            <input type="number" class="form-control nilai-input6" id="komisi_marketing" name="komisi_marketing">
+                                            <input type="number" class="form-control nilai-input6" id="komisi_marketing" name="komisi_marketing" required>
                                         </div>
                                         <div class="mb-2">
-                                            <label for="">TOTAL INSENTIF DAN KOMISI LAINNYA - PAYMENT PERTENGAHAN BULAN</label>
-                                            <small class="text-red">*tambahkan angka 1 lalu hapus</small>
-                                            <input type="number" class="form-control total-nilai6" id="total_insentif" name="total_insentif">
+                                            <label for="total_insentif">TOTAL INSENTIF DAN KOMISI LAINNYA - PAYMENT PERTENGAHAN BULAN</label>
+                                            <input type="number" class="form-control total-nilai6" readonly required>
                                         </div>
-
                                         <div class="mb-2">
-                                            <label for="">TOTAL PENDAPATAN BRUTO / BULAN</label>
-                                            <input type="number" class="form-control total-nilai7" id="total_pendapatan" name="total_pendapatan">
+                                            <small class="text-red">*Masukan Kembali TOTAL INSENTIF DAN KOMISI LAINNYA - PAYMENT PERTENGAHAN BULAN diatas</small>
+                                            <input type="number" class="form-control" id="total_insentif" name="total_insentif" required>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="total_pendapatan">TOTAL PENDAPATAN BRUTO / BULAN</label>
+                                            <input type="number" class="form-control total-nilai7" id="total_pendapatan" name="total_pendapatan" required>
                                         </div>
                                     </div>
                                 </div>
@@ -226,69 +296,73 @@ if (isset($_GET['nomor_induk'])) {
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="">Terlambat</label>
-                                            <input type="number" class="form-control nilai-input4" id="terlambat" name="terlambat">
+                                            <input type="number" class="form-control nilai-input4" id="terlambat" name="terlambat" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">Cuti Bersama</label>
-                                            <input type="number" class="form-control nilai-input4" id="cuti_bersama" name="cuti_bersama">
+                                            <input type="number" class="form-control nilai-input4" id="cuti_bersama" name="cuti_bersama" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">CUTI</label>
-                                            <input type="number" class="form-control nilai-input4" id="cuti" name="cuti">
+                                            <input type="number" class="form-control nilai-input4" id="cuti" name="cuti" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">Sakit</label>
-                                            <input type="number" class="form-control nilai-input4" id="sakit" name="sakit">
+                                            <input type="number" class="form-control nilai-input4" id="sakit" name="sakit" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">IZIN</label>
-                                            <input type="number" class="form-control nilai-input4" id="izin" name="izin">
+                                            <input type="number" class="form-control nilai-input4" id="izin" name="izin" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">Alpha</label>
-                                            <input type="number" class="form-control nilai-input4" id="alpa" name="alpha">
+                                            <input type="number" class="form-control nilai-input4" id="alpa" name="alpha" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">Pinjaman</label>
-                                            <input type="number" class="form-control nilai-input4" id="pinjaman" name="pinjaman">
+                                            <input type="number" class="form-control nilai-input4" id="pinjaman" name="pinjaman" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">BPJS KESEHATAN Ditanggung Karyawan 1%</label>
-                                            <input type="number" class="form-control nilai-input4" id="bpjs_karyawan" name="bpjs_karyawan">
+                                            <input type="number" class="form-control nilai-input4" id="bpjs_karyawan" name="bpjs_karyawan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">BPJS KETENAGAKERJAAN Ditanggung Karyawan 2.00%</label>
-                                            <input type="number" class="form-control nilai-input4" id="ditanggung_karyawan" name="ditanggung_karyawan">
+                                            <input type="number" class="form-control nilai-input4" id="ditanggung_karyawan" name="ditanggung_karyawan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">TOTAL PENGURANGAN</label>
-                                            <input type="number" class="form-control total-nilai4" id="total_pengurangan" name="total_pengurangan">
+                                            <input type="number" class="form-control total-nilai4" readonly required>
+                                        </div>
+                                        <div class="mb-2">
+                                            <small class="text-red">*Masukan TOTAL PENGURANGAN diatas</small>
+                                            <input type="number" class="form-control total-nilai4" id="total_pengurangan" name="total_pengurangan" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="">JKK 0.24%</label>
-                                            <input type="number" class="form-control" id="jkk" name="jkk">
+                                            <input type="number" class="form-control nilai-input10" id="jkk" name="jkk" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">JKM 0.30%</label>
-                                            <input type="number" class="form-control" id="jkm" name="jkm">
+                                            <input type="number" class="form-control nilai-input10" id="jkm" name="jkm" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">JHT 3.7%</label>
-                                            <input type="number" class="form-control" id="jht_37" name="jht_37">
+                                            <input type="number" class="form-control nilai-input10" id="jht_37" name="jht_37" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">BPJS KESEHATAN Ditanggung Perusahaan 4%</label>
-                                            <input type="number" class="form-control" id="bpjs_perusahaan" name="bpjs_perusahaan">
+                                            <input type="number" class="form-control nilai-input10" id="bpjs_perusahaan" name="bpjs_perusahaan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">BPJS KETENAGAKERJAAN Ditanggung Perusahaan 4.24%</label>
-                                            <input type="number" class="form-control" id="ditanggung_perusahaan" name="ditanggung_perusahaan">
+                                            <input type="number" class="form-control total-nilai10" id="ditanggung_perusahaan" name="ditanggung_perusahaan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">TOTAL GAJI BERSIH</label>
-                                            <input type="number" class="form-control total-nilai9" id="total_gaji_bersih" name="total_gaji_bersih">
+                                            <input type="number" class="form-control total-nilai9" id="total_gaji_bersih" name="total_gaji_bersih" required>
                                         </div>
                                     </div>
                                 </div>
@@ -315,20 +389,20 @@ if (isset($_GET['nomor_induk'])) {
 <script>
     // JavaScript code
     document.addEventListener("DOMContentLoaded", function() {
-        // Function to update the value of total-nilai9
+        // Function to update the value of total_gaji_bersih
         function updateTotalGajiBersih() {
-            const totalNilai7 = parseFloat(document.querySelector(".total-nilai7").value) || 0;
-            const totalNilai4 = parseFloat(document.querySelector(".total-nilai4").value) || 0;
-            const totalGajiBersih = totalNilai7 - totalNilai4;
-            document.querySelector(".total-nilai9").value = totalGajiBersih.toFixed(); // Display with 2 decimal places
+            const totalPendapatan = parseFloat(document.getElementById("total_pendapatan").value) || 0;
+            const totalPengurangan = parseFloat(document.getElementById("total_pengurangan").value) || 0;
+            const totalGajiBersih = totalPendapatan - totalPengurangan;
+            document.getElementById("total_gaji_bersih").value = totalGajiBersih.toFixed();
         }
 
         // Call the updateTotalGajiBersih function when the page loads
         updateTotalGajiBersih();
 
-        // Call the updateTotalGajiBersih function whenever values in total-nilai7 and total-nilai4 change
-        document.querySelector(".total-nilai7").addEventListener("input", updateTotalGajiBersih);
-        document.querySelector(".total-nilai4").addEventListener("input", updateTotalGajiBersih);
+        // Call the updateTotalGajiBersih function whenever values in total_pendapatan and total_pengurangan change
+        document.getElementById("total_pendapatan").addEventListener("input", updateTotalGajiBersih);
+        document.getElementById("total_pengurangan").addEventListener("input", updateTotalGajiBersih);
     });
 </script>
 
@@ -336,24 +410,23 @@ if (isset($_GET['nomor_induk'])) {
 <script>
     // JavaScript code
     document.addEventListener("DOMContentLoaded", function() {
-        // Function to update the value of total-nilai7
+        // Function to update the value of total_pendapatan
         function updateTotalPendapatan() {
-            const nilai2 = parseFloat(document.querySelector(".total-nilai2").value) || 0;
-            const nilai6 = parseFloat(document.querySelector(".total-nilai6").value) || 0;
-            const totalPendapatan = nilai2 + nilai6;
-            document.querySelector(".total-nilai7").value = totalPendapatan.toFixed(); // Display with 2 decimal places
+            const nilai_gaji_tunjangan = parseFloat(document.getElementById("total_gaji_tunjangan").value) || 0;
+            const nilai_insentif = parseFloat(document.getElementById("total_insentif").value) || 0;
+            const totalPendapatan = nilai_gaji_tunjangan + nilai_insentif;
+            document.getElementById("total_pendapatan").value = totalPendapatan.toFixed();
         }
 
         // Call the updateTotalPendapatan function when the page loads
         updateTotalPendapatan();
 
-        // Call the updateTotalPendapatan function whenever values in total-nilai2 and total-nilai6 change
-        document.querySelector(".total-nilai2").addEventListener("input", updateTotalPendapatan);
-        document.querySelector(".total-nilai6").addEventListener("input", updateTotalPendapatan);
+        // Call the updateTotalPendapatan function whenever values in total_gaji_tunjangan and total_insentif change
+        document.getElementById("total_gaji_tunjangan").addEventListener("input", updateTotalPendapatan);
+        document.getElementById("total_insentif").addEventListener("input", updateTotalPendapatan);
     });
 </script>
 <!-- untuk mendapatkan total gaji bulanan + tunjangan diluar gaji -->
-<!-- Add this script at the end of your HTML body or in a separate JS file -->
 <script>
     class TotalNilaiCalculator {
         constructor() {
@@ -383,36 +456,32 @@ if (isset($_GET['nomor_induk'])) {
         new TotalNilaiCalculator();
     });
 </script>
-<!-- Add this script at the end of your HTML body or in a separate JS file -->
+<!-- TOTAL INSENTIF -->
 <script>
-    class TotalNilai6Calculator {
-        constructor() {
-            this.nilaiInput6Elements = document.querySelectorAll(".nilai-input6");
-            this.totalNilai6Input = document.getElementById("total_insentif");
-
-            this.attachEventListeners();
-        }
-
-        attachEventListeners() {
-            this.nilaiInput6Elements.forEach((input) => {
-                input.addEventListener("input", this.calculateTotalNilai6.bind(this));
-            });
-        }
-
-        calculateTotalNilai6() {
-            let totalNilai6 = 0;
-            this.nilaiInput6Elements.forEach((input) => {
-                const value = parseFloat(input.value) || 0;
-                totalNilai6 += value;
-            });
-
-            this.totalNilai6Input.value = totalNilai6;
-        }
-    }
-
-    // Create an instance of the class when the document is ready
+    // JavaScript code
     document.addEventListener("DOMContentLoaded", function() {
-        new TotalNilai6Calculator();
+        // Function to update the value of total-nilai6
+        function updateTotalNilai6() {
+            const nilaiInput6Elements = document.querySelectorAll(".nilai-input6");
+            let totalNilai6 = 0;
+
+            nilaiInput6Elements.forEach(function(inputElement) {
+                const nilai = parseFloat(inputElement.value) || 0;
+                totalNilai6 += nilai;
+            });
+
+            document.querySelectorAll(".total-nilai6").forEach(function(outputElement) {
+                outputElement.value = totalNilai6.toFixed();
+            });
+        }
+
+        // Call the updateTotalNilai6 function when the page loads
+        updateTotalNilai6();
+
+        // Call the updateTotalNilai6 function whenever values in nilai-input6 change
+        document.querySelectorAll(".nilai-input6").forEach(function(inputElement) {
+            inputElement.addEventListener("input", updateTotalNilai6);
+        });
     });
 </script>
 
@@ -452,6 +521,32 @@ if (isset($_GET['nomor_induk'])) {
 
     // Menjalankan fungsi hitungTotalNilai saat input nilai berubah
     nilaiInputs.forEach(input => {
+        input.addEventListener('input', hitungTotalNilai);
+    });
+</script>
+<script>
+    // Mendapatkan elemen input nilai
+    const nilaiInputs10 = document.querySelectorAll('.nilai-input10');
+
+    // Mendapatkan elemen input total nilai
+    const totalNilaiInput10 = document.querySelector('.total-nilai10');
+
+    // Menghitung total nilai
+    function hitungTotalNilai() {
+        let totalNilai = 0;
+
+        // Meloopi setiap input nilai dan menjumlahkannya
+        nilaiInputs10.forEach(input => {
+            const nilai = parseFloat(input.value) || 0;
+            totalNilai += nilai;
+        });
+
+        // Mengatur nilai total pada input total nilai
+        totalNilaiInput10.value = totalNilai;
+    }
+
+    // Menjalankan fungsi hitungTotalNilai saat input nilai berubah
+    nilaiInputs10.forEach(input => {
         input.addEventListener('input', hitungTotalNilai);
     });
 </script>
