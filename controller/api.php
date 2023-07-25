@@ -1409,6 +1409,34 @@ function getKeluarga()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+function getDetailPayroll()
+{
+
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    $query = "SELECT * FROM payroll where id_karyawan = '$id_karyawan'";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 function getRequest()
 {
 

@@ -175,8 +175,6 @@ if ($level_user > 0) {
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-            with font-awesome or any other icon font library -->
             <li class="nav-item">
               <a href="index.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -187,12 +185,37 @@ if ($level_user > 0) {
             </li>
             <li class="nav-item">
               <a href="absen-admin.php" class="nav-link" style="color: #FFCF09;">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-calendar-alt"></i>
                 <p>
-                  Absen
+                  Absen Karyawan
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="staff.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                  Daftar Karyawan
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="admin-payroll.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-money-check-alt"></i>
+                <p>
+                  Payroll Karyawan
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="sop.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-file-alt"></i>
+                <p>
+                  SOP Karyawan
+                </p>
+              </a>
+            </li>
+            <div class="user-panel  pb-3 mb-3 d-flex"></div>
             <li class="nav-item">
               <a href="divisi.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-building"></i>
@@ -203,35 +226,29 @@ if ($level_user > 0) {
             </li>
             <li class="nav-item">
               <a href="karyawan.php" class="nav-link" style="color: #FFCF09;">
-                <i class="nav-icon fas fa-users"></i>
+                <i class="nav-icon fas fa-user-tie"></i>
                 <p>
                   Kordinator
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="staff.php" class="nav-link" style="color: #FFCF09;">
-                <i class="nav-icon fas fa-user-friends"></i>
-                <p>
-                  Daftar Karyawan
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
               <a href="evaluasi.php" class="nav-link" style="color: #FFCF09;">
-                <i class="nav-icon fas fa-user-friends"></i>
+                <i class="nav-icon fas fa-clipboard-list"></i>
                 <p>
                   Evaluasi Karyawan
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="admin-payroll.php" class="nav-link" style="color: #FFCF09;">
-                <i class="nav-icon fas fa-money-check-alt"></i>
+              <a href="kpi_admin.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-chart-bar"></i>
                 <p>
-                  payroll
+                  KPI Karyawan
                 </p>
               </a>
+            </li>
+            <div class="user-panel  pb-3 mb-3 d-flex"></div>
             <li class="nav-item">
               <a href="perjalanan_dinas.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-plane"></i>
@@ -256,32 +273,26 @@ if ($level_user > 0) {
                 </p>
               </a>
             </li>
+            <div class="user-panel  pb-3 mb-3 d-flex"></div>
             <li class="nav-item">
               <a href="inventaris.php" class="nav-link" style="color: #FFCF09;">
-                <i class="fa fa-suitcase mx-1"></i>
-                <p class="mx-1">List Inventaris</p>
+                <i class="nav-icon fas fa-suitcase"></i>
+                <p>
+                  List Inventaris
+                </p>
               </a>
             </li>
             <li class="nav-item">
               <a href="service.php" class="nav-link" style="color: #FFCF09;">
-                <i class="fa fa-tools mx-1"></i>
-                <p class="mx-1">Service Infrastruktur</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="kpi_admin.php" class="nav-link" style="color: #FFCF09;">
-                <i class="fa fa-tools mx-1"></i>
-                <p class="mx-1">KPI Karyawan</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="sop.php" class="nav-link" style="color: #FFCF09;">
-                <i class="fa fa-tools mx-1"></i>
-                <p class="mx-1">SOP Karyawan</p>
+                <i class="nav-icon fas fa-tools"></i>
+                <p>
+                  Service Infrastruktur
+                </p>
               </a>
             </li>
           </ul>
         </nav>
+
 
         <!-- /.sidebar-menu -->
       </div>

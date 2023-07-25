@@ -97,7 +97,7 @@ if (isset($_GET['nomor_induk'])) {
                     <form action="" method="POST">
                         <div class="card col-lg-12">
                             <div class="card-header">
-                                <h3 class="card-title"><i class="fas fa-chart-pie mr"></i>Data Pribadi
+                                <h3 class="card-title"><i class="fas fa-user mr"></i>Data Pribadi
                             </div>
                             <div class="card-body">
                                 <div class="tab-content p-0">
@@ -328,7 +328,7 @@ if (isset($_GET['nomor_induk'])) {
                                         </div>
                                         <div class="mb-2">
                                             <label for="">BPJS KETENAGAKERJAAN Ditanggung Karyawan 2.00%</label>
-                                            <input type="number" class="form-control nilai-input4" id="ditanggung_karyawan" name="ditanggung_karyawan" required>
+                                            <input type="number" class="form-control nilai-input4 nilai-input3" id="ditanggung_karyawan" name="ditanggung_karyawan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">TOTAL PENGURANGAN</label>
@@ -351,6 +351,10 @@ if (isset($_GET['nomor_induk'])) {
                                         <div class="mb-2">
                                             <label for="">JHT 3.7%</label>
                                             <input type="number" class="form-control nilai-input10" id="jht_37" name="jht_37" required>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="">JHT 2%</label>
+                                            <input type="number" class="form-control total-nilai3" id="jht_37" name="jht_37" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">BPJS KESEHATAN Ditanggung Perusahaan 4%</label>
@@ -599,6 +603,32 @@ if (isset($_GET['nomor_induk'])) {
 
     // Menjalankan fungsi hitungTotalNilai saat input nilai berubah
     nilaiInputs4.forEach(input => {
+        input.addEventListener('input', hitungTotalNilai);
+    });
+</script>
+<script>
+    // Mendapatkan elemen input nilai
+    const nilaiInputs3 = document.querySelectorAll('.nilai-input3');
+
+    // Mendapatkan elemen input total nilai
+    const totalNilaiInput3 = document.querySelector('.total-nilai3');
+
+    // Menghitung total nilai
+    function hitungTotalNilai() {
+        let totalNilai = 0;
+
+        // Meloopi setiap input nilai dan menjumlahkannya
+        nilaiInputs3.forEach(input => {
+            const nilai = parseFloat(input.value) || 0;
+            totalNilai += nilai;
+        });
+
+        // Mengatur nilai total pada input total nilai
+        totalNilaiInput3.value = totalNilai;
+    }
+
+    // Menjalankan fungsi hitungTotalNilai saat input nilai berubah
+    nilaiInputs3.forEach(input => {
         input.addEventListener('input', hitungTotalNilai);
     });
 </script>

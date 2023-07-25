@@ -1,6 +1,6 @@
 <?php
 $hostname = "localhost";
-$database = "hrms";
+$database = "hris";
 $username = "root";
 $password = "";
 $connect = mysqli_connect($hostname, $username, $password, $database);
