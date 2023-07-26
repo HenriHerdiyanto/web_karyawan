@@ -6,13 +6,23 @@ if (isset($_GET['nomor_induk'])) {
     $nomor_induk = $_GET['nomor_induk'];
     $link = "getPayroll&nomor_induk=" . $nomor_induk;
     $payroll = getRegistran($link);
+    $id_karyawan = $payroll->data[0]->id_karyawan;
     // var_dump($payroll);
 } else {
     echo "Error: 'nomor_induk' parameter is missing in the URL.";
 }
+$id_karyawan = $payroll->data[0]->id_karyawan;
+$query = mysqli_query($connect, "SELECT id_karyawan, SUM(total_lembur) AS jumlah_lembur FROM lembur WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan");
+$row = mysqli_fetch_assoc($query);
+$jumlah_data = $row['jumlah_lembur'];
+
+$final_value = $jumlah_data * 50000;
+
+// $link = "getJumlahLembur&id_karyawan=" . urlencode($id_karyawan);
+// $data_lembur = getRegistran($link);
+// var_dump($data_lembur);
 
 ?>
-
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
@@ -198,7 +208,7 @@ if (isset($_GET['nomor_induk'])) {
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="lembur">Lembur</label>
-                                            <input type="number" class="form-control nilai-input1" id="lembur" name="lembur" required>
+                                            <input type="number" class="form-control nilai-input1" id="lembur" name="lembur" value="<?= $final_value ?>" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="dinas">Dinas</label>

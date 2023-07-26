@@ -161,6 +161,14 @@ $nama_divisi = $data_lengkap->data[0]->nama_divisi;
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="cuti_kor.php" class="nav-link" style="color: #FFCF09;">
+                                <i class="nav-icon fas fa-money-bill-alt"></i>
+                                <p>
+                                    Pengajuan Cuti
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="perjalanan-dinas-kor.php" class="nav-link" style="color: #FFCF09;">
                                 <i class="nav-icon fas fa-plane"></i>
                                 <p>

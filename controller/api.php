@@ -34,6 +34,60 @@ function getUser()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+function getCuti()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+
+    $query = "SELECT * FROM cuti WHERE id_karyawan = '$id_karyawan'";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getSisaCuti()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+
+    $query = "SELECT * FROM cuti WHERE id_karyawan = $id_karyawan ORDER BY id_cuti DESC LIMIT 1";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 function getReqAdmin()
 {
     global $connect;
@@ -334,6 +388,52 @@ function setInventaris()
 
 
     $query = "INSERT INTO inventaris SET nama = '$nama', tipe = '$tipe', jumlah = '$jumlah', tanggal = '$tanggal', harga = '$harga', gambar = '$gambar'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function getAddCuti()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['nama_divisi']))
+        $nama_divisi = $_GET['nama_divisi'];
+    if (!empty($_GET['level_user']))
+        $level_user = $_GET['level_user'];
+    if (!empty($_GET['hak_cuti']))
+        $hak_cuti = $_GET['hak_cuti'];
+    if (!empty($_GET['ambil_cuti']))
+        $ambil_cuti = $_GET['ambil_cuti'];
+    if (!empty($_GET['sisa_cuti']))
+        $sisa_cuti = $_GET['sisa_cuti'];
+    if (!empty($_GET['tanggal_mulai']))
+        $tanggal_mulai = $_GET['tanggal_mulai'];
+    if (!empty($_GET['tanggal_selesai']))
+        $tanggal_selesai = $_GET['tanggal_selesai'];
+    if (!empty($_GET['alasan_cuti']))
+        $alasan_cuti = $_GET['alasan_cuti'];
+    if (!empty($_GET['status']))
+        $status = $_GET['status'];
+
+
+    $query = "INSERT INTO cuti SET id_karyawan = '$id_karyawan', nama_lengkap = '$nama_lengkap', nama_divisi = '$nama_divisi', level_user = '$level_user', hak_cuti = '$hak_cuti', ambil_cuti = '$ambil_cuti', sisa_cuti = '$sisa_cuti', tanggal_mulai = '$tanggal_mulai', tanggal_selesai = '$tanggal_selesai', alasan_cuti = '$alasan_cuti', status = '$status'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -1521,6 +1621,34 @@ function getTodoListAdm()
     if (!empty($_GET['id_user']))
         $id_user = $_GET['id_user'];
     $query = "SELECT * FROM project where id_user = '$id_user'";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getJumlahLembur()
+{
+
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    $query = "SELECT id_karyawan, SUM(total_lembur) AS jumlah_lembur FROM lembur WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
