@@ -1,17 +1,20 @@
 <?php
-include "header-kordinator.php";
+include "header-staff.php";
 
 
-$link = "getKaryawanKor&id_user=" . urlencode($id_user);
+$link = "getKaryawanstaff&id_karyawan=" . urlencode($id_karyawan);
 $datas = getRegistran($link);
-// $nama_divisi = $datas->data[0]->nama_divisi;
-// var_dump($datas);
+$nama_divisi = $datas->data[0]->nama_divisi;
+// var_dump($nama_divisi);
 
-$link = "getLemburByNama&nama_divisi=" . urlencode($nama_divisi);
+$link = "getLemburByNama&id_karyawan=" . urlencode($id_karyawan);
 $data_lembur = getRegistran($link);
-var_dump($data_lembur);
+$status_lembur = $data_lembur->data[0]->status;
+// var_dump($data_lembur);
 
+?>
 
+<?php
 if (isset($_POST['save'])) {
     $id_karyawan = $_POST['id_karyawan'];
     $nama_divisi = $_POST['nama_divisi'];
@@ -28,7 +31,7 @@ if (isset($_POST['save'])) {
     $data = getRegistran($link);
     var_dump($data);
     echo "<script>alert('Data Berhasil terkirim')</script>";
-    echo "<script>location.href = 'lembur-karyawan-kor.php';</script>";
+    echo "<script>location.href = 'lembur_staff.php';</script>";
 }
 ?>
 <!-- Content Wrapper. Contains page content -->
@@ -72,12 +75,12 @@ if (isset($_POST['save'])) {
                                                         <div class="col-lg-6">
                                                             <div class="mb-2">
                                                                 <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                                                                <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?= $datas->data[0]->nama_lengkap ?>" readonly>
-                                                                <input type="hidden" class="form-control" id="id_karyawan" name="id_karyawan" value="<?= $datas->data[0]->id_karyawan ?>" readonly>
+                                                                <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?= $nama_user ?>" readonly>
+                                                                <input type="hidden" class="form-control" id="id_karyawan" name="id_karyawan" value="<?= $id_karyawan ?>" readonly>
                                                             </div>
                                                             <div class="mb-2">
                                                                 <label for="level_user" class="form-label">Jabatan</label>
-                                                                <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $datas->data[0]->level_user ?>" readonly>
+                                                                <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $level_user ?>" readonly>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
@@ -254,6 +257,7 @@ if (isset($_POST['save'])) {
 </aside>
 <!-- /.control-sidebar -->
 </div>
+
 <script>
     // Function to calculate the total lembur
     function calculateTotalLembur() {

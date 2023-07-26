@@ -79,7 +79,7 @@ $data_absen = getRegistran($link);
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-header">
                             <h3>input manual</h3>
                         </div>
@@ -97,7 +97,6 @@ $data_absen = getRegistran($link);
                                     <label for="date" class="form-label">Tanggal</label>
                                     <input type="date" class="form-control" name="date" id="date" placeholder="Tanggal" required>
                                 </div>
-                                <!-- jam masuk -->
                                 <div id='jamMasuk'>
                                     <label for="">Jam Masuk :</label>
                                     <div class="row">
@@ -123,7 +122,6 @@ $data_absen = getRegistran($link);
                                         </div>
                                     </div>
                                 </div>
-                                <!-- jam keluar -->
                                 <div id='jamKeluar'>
                                     <label for="">Jam Keluar :</label>
                                     <div class="row">
@@ -152,7 +150,7 @@ $data_absen = getRegistran($link);
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> -->
                 </section>
                 <section class="col-lg-12 col-sm-12 connectedSortable">
                     <div class="card">

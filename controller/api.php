@@ -938,22 +938,41 @@ function setLembur2()
         $keterangan = $_GET['keterangan'];
     if (!empty($_GET['mengetahui']))
         $mengetahui = $_GET['mengetahui'];
-
-
-    $query = "INSERT INTO lembur SET id_karyawan = '$id_karyawan', nama_divisi = '$nama_divisi', nama_lengkap = '$nama_lengkap', level_user = '$level_user', project = '$project', tanggal = '$tanggal', mulai_lembur = '$mulai_lembur', akhir_lembur = '$akhir_lembur', total_lembur = '$total_lembur', keterangan = '$keterangan', mengetahui = '$mengetahui'";
-    $result = $connect->query($query);
-
-    if ($result) {
-        $response = array(
-            'status' => 1,
-            'data' => 'Sukses'
-        );
+    if (!empty($_GET['status']))
+        $status = $_GET['status'];
+    //jika $keterangan dan $mengetahui kosong, insert into lembur jika tidak update lembur
+    if ($keterangan == null && $mengetahui == null) {
+        //insert ke database
+        $query = "INSERT INTO lembur SET id_karyawan = '$id_karyawan', nama_divisi = '$nama_divisi', nama_lengkap = '$nama_lengkap', level_user = '$level_user', project = '$project', tanggal = '$tanggal', mulai_lembur = '$mulai_lembur', akhir_lembur = '$akhir_lembur', total_lembur = '$total_lembur', status = '$status'";
+        $result = $connect->query($query);
+        if ($result) {
+            $response = array(
+                'status' => 1,
+                'data' => 'Sukses'
+            );
+        } else {
+            $response = array(
+                'status' => 0,
+                'data' => 'Gagal'
+            );
+        }
     } else {
-        $response = array(
-            'status' => 0,
-            'data' => 'Gagal'
-        );
+        #update data di tabel lembur dengan parameter yang sudah tersedia dari form input
+        $query = "UPDATE lembur SET keterangan = '$keterangan', mengetahui = '$mengetahui', status = '$status' WHERE id_karyawan = '$id_karyawan'";
+        $result = $connect->query($query);
+        if ($result) {
+            $response = array(
+                'status' => 1,
+                'data' => 'Sukses'
+            );
+        } else {
+            $response = array(
+                'status' => 0,
+                'data' => 'Gagal'
+            );
+        }
     }
+
 
     header('Content-Type: application/json');
     echo json_encode($response);
@@ -1527,10 +1546,27 @@ function getLemburByNama()
 {
 
     global $connect;
-    if (!empty($_GET['nama_divisi']))
+    $nama_divisi = '';
+    $id_karyawan = '';
+
+    // Periksa dan ambil nilai dari $_GET
+    if (isset($_GET['nama_divisi']) && !empty($_GET['nama_divisi'])) {
         $nama_divisi = $_GET['nama_divisi'];
-    $query = "SELECT * FROM lembur WHERE nama_divisi = '$nama_divisi'";
-    $result = $connect->query($query);
+    }
+
+    if (isset($_GET['id_karyawan']) && !empty($_GET['id_karyawan'])) {
+        $id_karyawan = $_GET['id_karyawan'];
+    }
+    if ($nama_divisi == null && $id_karyawan == null) {
+        $query = "SELECT * FROM lembur";
+        $result = $connect->query($query);
+    } elseif ($id_karyawan == null) {
+        $query = "SELECT * FROM lembur WHERE nama_divisi = '$nama_divisi'";
+        $result = $connect->query($query);
+    } else {
+        $query = "SELECT * FROM lembur WHERE id_karyawan = '$id_karyawan'";
+        $result = $connect->query($query);
+    }
 
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;
@@ -2541,9 +2577,37 @@ function getKaryawanKor()
     global $connect;
     if (!empty($_GET['id_user']))
         $id_user = $_GET['id_user'];
+
     $query = "SELECT * FROM karyawan LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi WHERE karyawan.id_user = $id_user ORDER BY level_user desc";
     $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
 
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getKaryawanstaff()
+{
+
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+
+    $query = "SELECT * FROM karyawan LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi WHERE karyawan.id_karyawan = $id_karyawan";
+    $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;
     }

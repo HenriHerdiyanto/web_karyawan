@@ -6,7 +6,7 @@ if (isset($_GET['nomor_induk'])) {
     $nomor_induk = $_GET['nomor_induk'];
     $link = "getPayroll&nomor_induk=" . $nomor_induk;
     $payroll = getRegistran($link);
-    var_dump($payroll);
+    // var_dump($payroll);
 } else {
     echo "Error: 'nomor_induk' parameter is missing in the URL.";
 }

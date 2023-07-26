@@ -13,7 +13,7 @@ $data = getRegistran($link);
 $nama = $data->data[0]->nama_user;
 $level_user = $data->data[0]->level_user;
 $id_user = $data->data[0]->id_user;
-var_dump($level_user);
+var_dump($data);
 if ($level_user > 0) {
   echo ("<script>location.href = 'logout.php';</script>");
 }
@@ -212,6 +212,14 @@ if ($level_user > 0) {
                 <i class="nav-icon fas fa-file-alt"></i>
                 <p>
                   SOP Karyawan
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="lembur-admin.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-file-alt"></i>
+                <p>
+                  Lembur Karyawan
                 </p>
               </a>
             </li>

@@ -170,7 +170,7 @@ if ($level_user != 'staff') {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="lembur-karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
+                            <a href="lembur_staff.php" class="nav-link" style="color: #FFCF09;">
                                 <i class="nav-icon fas fa-clipboard"></i>
                                 <p>
                                     Lembur Karyawan

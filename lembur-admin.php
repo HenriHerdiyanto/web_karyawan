@@ -1,13 +1,7 @@
 <?php
-include "header-kordinator.php";
+include "header.php";
 
-
-$link = "getKaryawanKor&id_user=" . urlencode($id_user);
-$datas = getRegistran($link);
-// $nama_divisi = $datas->data[0]->nama_divisi;
-// var_dump($datas);
-
-$link = "getLemburByNama&nama_divisi=" . urlencode($nama_divisi);
+$link = "getLemburByNama";
 $data_lembur = getRegistran($link);
 var_dump($data_lembur);
 
@@ -33,16 +27,84 @@ if (isset($_POST['save'])) {
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">DIVISI <?= $nama_divisi ?></h1>
+            <div class="card">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="m-3">Lembur Karyawan</h1>
+                    </div>
+                    <div align="end" class="col mt-3 mr-3">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <i class="fas fa-plus"></i> Add Lembur
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Lembur</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="" method="post">
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="mb-2">
+                                                        <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+                                                        <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?= $datas->data[0]->nama_lengkap ?>" readonly>
+                                                        <input type="hidden" class="form-control" id="id_karyawan" name="id_karyawan" value="<?= $datas->data[0]->id_karyawan ?>" readonly>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <label for="level_user" class="form-label">Jabatan</label>
+                                                        <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $datas->data[0]->level_user ?>" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="mb-2">
+                                                        <label for="nama_divisi" class="form-label">Nama Divisi</label>
+                                                        <input type="text" class="form-control" id="nama_divisi" name="nama_divisi" value="<?= $nama_divisi ?>" readonly>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <label for="project" class="form-label">Project yang dilakukan</label>
+                                                        <input type="text" class="form-control" id="project" name="project">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-2">
+                                                        <label for="tanggal">Tanggal</label>
+                                                        <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <label for="mulai_lembur">Mulai Lembur</label>
+                                                        <input type="time" class="form-control" id="mulai_lembur" name="mulai_lembur" required>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <label for="akhir_lembur">Akhir Lembur</label>
+                                                        <input type="time" class="form-control" id="akhir_lembur" name="akhir_lembur" required>
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <label for="total_lembur">Total Jam Lembur / JAM</label>
+                                                        <input type="number" class="form-control" id="total_lembur" name="total_lembur" required>
+                                                        <input type="hidden" class="form-control" id="status" name="status" value="diproses">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" name="save" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
+        </div>
+    </div>
 
     <!-- Main content -->
     <section class="content">
@@ -52,73 +114,8 @@ if (isset($_POST['save'])) {
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Data Lembur Staf Karyawan</h3>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    <i class="fas fa-plus"></i> Add Lembur
-                                </button>
-                                <!-- Modal -->
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Lembur</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form action="" method="post">
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="mb-2">
-                                                                <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                                                                <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?= $datas->data[0]->nama_lengkap ?>" readonly>
-                                                                <input type="hidden" class="form-control" id="id_karyawan" name="id_karyawan" value="<?= $datas->data[0]->id_karyawan ?>" readonly>
-                                                            </div>
-                                                            <div class="mb-2">
-                                                                <label for="level_user" class="form-label">Jabatan</label>
-                                                                <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $datas->data[0]->level_user ?>" readonly>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="mb-2">
-                                                                <label for="nama_divisi" class="form-label">Nama Divisi</label>
-                                                                <input type="text" class="form-control" id="nama_divisi" name="nama_divisi" value="<?= $nama_divisi ?>" readonly>
-                                                            </div>
-                                                            <div class="mb-2">
-                                                                <label for="project" class="form-label">Project yang dilakukan</label>
-                                                                <input type="text" class="form-control" id="project" name="project">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-12">
-                                                            <div class="mb-2">
-                                                                <label for="tanggal">Tanggal</label>
-                                                                <input type="date" class="form-control" id="tanggal" name="tanggal" required>
-                                                            </div>
-                                                            <div class="mb-2">
-                                                                <label for="mulai_lembur">Mulai Lembur</label>
-                                                                <input type="time" class="form-control" id="mulai_lembur" name="mulai_lembur" required>
-                                                            </div>
-                                                            <div class="mb-2">
-                                                                <label for="akhir_lembur">Akhir Lembur</label>
-                                                                <input type="time" class="form-control" id="akhir_lembur" name="akhir_lembur" required>
-                                                            </div>
-                                                            <div class="mb-2">
-                                                                <label for="total_lembur">Total Jam Lembur / JAM</label>
-                                                                <input type="number" class="form-control" id="total_lembur" name="total_lembur" required>
-                                                                <input type="hidden" class="form-control" id="status" name="status" value="diproses">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" name="save" class="btn btn-primary">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
 
@@ -127,7 +124,7 @@ if (isset($_POST['save'])) {
                                 <div class="table-responsive">
                                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
-                                            <tr>
+                                            <tr class="bg-secondary">
                                                 <th>No. </th>
                                                 <th>Divisi</th>
                                                 <th>Nama Lengkap</th>
@@ -152,7 +149,7 @@ if (isset($_POST['save'])) {
                                 <div class="table-responsive">
                                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
-                                            <tr>
+                                            <tr class="bg-secondary">
                                                 <th>No. </th>
                                                 <th>Divisi</th>
                                                 <th>Nama Lengkap</th>
