@@ -166,16 +166,20 @@ include "header-kordinator.php"
                                                                 <a href="cetak_surat.php?id=<?php echo $array_item->id_dinas ?>" target="_blank" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="cetak surat">
                                                                     <i class="fas fa-print"></i>
                                                                 </a>
+                                                                <input type="hidden" name="id_dinas" value="<?php echo $array_item->id_dinas; ?>">
+                                                                <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             <?php } else { ?>
+                                                                <a href="perjalanan-dinas-kor-edit.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </a>
+                                                                <input type="hidden" name="id_dinas" value="<?php echo $array_item->id_dinas; ?>">
+                                                                <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             <?php }
                                                             ?>
-                                                            <a href="perjalanan-dinas-kor-edit.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
-                                                                <i class="fas fa-edit"></i>
-                                                            </a>
-                                                            <input type="hidden" name="id_dinas" value="<?php echo $array_item->id_dinas; ?>">
-                                                            <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                            </button>
                                                         </form>
                                                     </td>
                                                 </tr>

@@ -256,6 +256,14 @@ if ($level_user > 0) {
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="cuti_admin.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-chart-bar"></i>
+                <p>
+                  CUTI Karyawan
+                </p>
+              </a>
+            </li>
             <div class="user-panel  pb-3 mb-3 d-flex"></div>
             <li class="nav-item">
               <a href="perjalanan_dinas.php" class="nav-link" style="color: #FFCF09;">

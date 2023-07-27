@@ -172,7 +172,7 @@ $data_dinas = getRegistran($link);
                             <small class="jarak">Waktu Berangkat:</small>
                         </td>
                         <td>
-                            <small class="jarak"><?php echo $data_dinas->data[0]->waktu_berangkat; ?></small>
+                            <small class="jarak"><?php echo $data_dinas->data[0]->waktu_berangkat; ?> Hari</small>
                         </td>
                     </tr>
                     <tr>
@@ -226,9 +226,10 @@ $data_dinas = getRegistran($link);
                             <small class="jarak">Cash Advance:</small>
                         </td>
                         <td>
-                            <small class="jarak"><?php echo $data_dinas->data[0]->cash_advance; ?></small>
+                            <small class="jarak">Rp.<?php echo number_format($data_dinas->data[0]->cash_advance, 0, ',', '.'); ?></small>
                         </td>
                     </tr>
+
                     <tr>
                         <td>11.</td>
                         <td>
@@ -254,12 +255,12 @@ $data_dinas = getRegistran($link);
                 <div class="col">
                     <label style="margin-left: 80px;">Disetujui oleh:</label>
                     <span><?php echo $data_dinas->data[0]->disetujui_oleh; ?><br></span>
-                    <span style="margin-left: 80px;">Tanggal: <?php echo date('d/m/Y'); ?></span>
+                    <span style="margin-left: 80px;">Tanggal: <?php echo date('d F Y'); ?></span>
                 </div>
             </div>
         </div><br><br>
         <div class="footer">
-            <p>Tanggal: <?php echo date('d/m/Y'); ?></p>
+            <p>Tanggal: <?php echo date('d F Y'); ?></p>
             <p>Surat Permohonan Perjalanan Dinas</p>
         </div>
     </div>

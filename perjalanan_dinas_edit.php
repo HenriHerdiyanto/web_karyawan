@@ -27,6 +27,7 @@ if (isset($_POST['submit'])) {
     $transportasi = $_POST['transportasi'];
     $hotel = $_POST['hotel'];
     $bagasi = $_POST['bagasi'];
+    $cash = $_POST['cash'];
     $cash_advance = $_POST['cash_advance'];
     $keterangan = $_POST['keterangan'];
     $diminta_oleh = $_POST['diminta_oleh'];
@@ -34,7 +35,7 @@ if (isset($_POST['submit'])) {
     $disetujui_oleh = $_POST['disetujui_oleh'];
     $status = $_POST['status'];
 
-    $link = "setUpdateDinasAdmin&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan)  . '&diminta_oleh=' . urlencode($diminta_oleh)  . '&diketahui_oleh=' . urlencode($diketahui_oleh)  . '&disetujui_oleh=' . urlencode($disetujui_oleh)  . '&status=' . urlencode($status)  . '&type=insert';
+    $link = "setUpdateDinasAdmin&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash=' . urlencode($cash) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan)  . '&diminta_oleh=' . urlencode($diminta_oleh)  . '&diketahui_oleh=' . urlencode($diketahui_oleh)  . '&disetujui_oleh=' . urlencode($disetujui_oleh)  . '&status=' . urlencode($status)  . '&type=insert';
     $data = getRegistran($link);
     var_dump($data);
     if ($data) {
@@ -127,8 +128,8 @@ if (isset($_POST['submit'])) {
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Waktu Berangkat</label>
-                                    <input type="text" class="form-control" name="waktu_berangkat" value="<?php echo $data_dinas->data[0]->waktu_berangkat ?>">
+                                    <label>Total Lama Perjalanan ( Satuan Hari )</label>
+                                    <input type="number" class="form-control" id="waktu_berangkat" name="waktu_berangkat" value="<?php echo $data_dinas->data[0]->waktu_berangkat ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Kota Pulang</label>
@@ -159,8 +160,12 @@ if (isset($_POST['submit'])) {
                                     <input type="text" class="form-control" name="bagasi" value="<?php echo $data_dinas->data[0]->bagasi ?>">
                                 </div>
                                 <div class="form-group">
+                                    <label>cash advance ( / Hari )</label>
+                                    <input type="number" class="form-control" id="cash" name="cash" value="<?php echo $data_dinas->data[0]->cash ?>" required>
+                                </div>
+                                <div class="form-group">
                                     <label>Cash Advance</label>
-                                    <input type="text" class="form-control" name="cash_advance" value="<?php echo $data_dinas->data[0]->cash_advance ?>">
+                                    <input type="text" class="form-control" name="cash_advance" value="<?php echo $data_dinas->data[0]->cash_advance ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Keterangan</label>
@@ -216,7 +221,29 @@ if (isset($_POST['submit'])) {
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<script>
+    // Ambil referensi ke elemen input waktu_berangkat dan cash
+    const waktuBerangkatInput = document.getElementById('waktu_berangkat');
+    const cashInput = document.getElementById('cash');
 
+    // Fungsi untuk mengupdate hasil perkalian
+    function updateCashAdvance() {
+        // Ambil nilai dari input waktu_berangkat dan cash
+        const waktuBerangkat = waktuBerangkatInput.value;
+        const cash = cashInput.value;
+
+        // Lakukan perkalian
+        const cashAdvance = waktuBerangkat * cash;
+
+        // Masukkan hasil perkalian ke dalam input cash_advance
+        const cashAdvanceInput = document.querySelector('input[name="cash_advance"]');
+        cashAdvanceInput.value = cashAdvance;
+    }
+
+    // Panggil fungsi updateCashAdvance() ketika input waktu_berangkat atau cash berubah
+    waktuBerangkatInput.addEventListener('input', updateCashAdvance);
+    cashInput.addEventListener('input', updateCashAdvance);
+</script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

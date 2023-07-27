@@ -23,15 +23,16 @@ if (isset($_POST['submit'])) {
     $transportasi = $_POST['transportasi'];
     $hotel = $_POST['hotel'];
     $bagasi = $_POST['bagasi'];
+    $cash = $_POST['cash'];
     $cash_advance = $_POST['cash_advance'];
     $keterangan = $_POST['keterangan'];
-    $diminta_oleh = $_POST['diminta_oleh'];
-    $diketahui_oleh = $_POST['diketahui_oleh'];
-    $disetujui_oleh = $_POST['disetujui_oleh'];
+    // $diminta_oleh = $_POST['diminta_oleh'];
+    // $diketahui_oleh = $_POST['diketahui_oleh'];
+    // $disetujui_oleh = $_POST['disetujui_oleh'];
     $status = $_POST['status'];
 
 
-    $link = "setPerjalanan&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&jenis_perjalanan=' . urlencode($jenis_perjalanan) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan) . '&diminta_oleh=' . urlencode($diminta_oleh) . '&diketahui_oleh=' . urlencode($diketahui_oleh) . '&disetujui_oleh=' . urlencode($disetujui_oleh) . "&status=" . urlencode($status) . '&type=insert';
+    $link = "setPerjalanan&id_user=" . urlencode($id_user) . "&id_divisi=" . urlencode($id_divisi) . "&nama_pengajuan=" . urlencode($nama_pengajuan) . '&jabatan=' . urlencode($jabatan) . '&project=' . urlencode($project) . '&tujuan=' . urlencode($tujuan) . '&jumlah_personel=' . urlencode($jumlah_personel) . '&nama_personel=' . urlencode($nama_personel) . '&jenis_perjalanan=' . urlencode($jenis_perjalanan) . '&kota_tujuan=' . urlencode($kota_tujuan) . '&tanggal_berangkat=' . urlencode($tanggal_berangkat) . '&waktu_berangkat=' . urlencode($waktu_berangkat) . '&kota_pulang=' . urlencode($kota_pulang) . '&tanggal_pulang=' . urlencode($tanggal_pulang) . '&transportasi=' . urlencode($transportasi) . '&hotel=' . urlencode($hotel) . '&bagasi=' . urlencode($bagasi) . '&cash=' . urlencode($cash) . '&cash_advance=' . urlencode($cash_advance) . '&keterangan=' . urlencode($keterangan) . '&diminta_oleh=' . urlencode($diminta_oleh) . "&status=" . urlencode($status) . '&type=insert';
     $data = getRegistran($link);
     var_dump($data);
     echo "<script>alert('PENGAJUAN PERJALANAN DINAS BERHASIL')</script>";
@@ -76,7 +77,7 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Yang Mengajukan Surat</label>
-                                    <input type="text" class="form-control" name="nama_pengajuan" value="<?= $nama ?>">
+                                    <input type="text" class="form-control" name="nama_pengajuan" value="<?= $nama ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Jabatan</label>
@@ -89,24 +90,25 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <label>Project yang dilakukan</label>
-                                    <input type="text" class="form-control" name="project">
+                                    <input type="text" class="form-control" name="project" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Maksud dan tujuan</label>
-                                    <input type="text" class="form-control" name="tujuan">
+                                    <input type="text" class="form-control" name="tujuan" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Jumlah Personel</label>
-                                    <input type="number" class="form-control" name="jumlah_personel">
+                                    <input type="number" class="form-control" name="jumlah_personel" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Personel</label>
-                                    <textarea name="nama_personel" class="form-control" id="" cols="30" rows="5"></textarea>
+                                    <small class="text-red">(*Jika lebih dari 1 Orang Masukan nama anda juga)</small>
+                                    <textarea name="nama_personel" class="form-control" id="" cols="30" rows="5" required></textarea>
                                     <!-- <input type="text" class="form-control" name="jumlah"> -->
                                 </div>
                                 <div class="form-group">
                                     <label for="">Jenis Perjalanan</label>
-                                    <select class="form-control" name="jenis_perjalanan">
+                                    <select class="form-control" name="jenis_perjalanan" required>
                                         <option selected>--Pilih--</option>
                                         <option value="Perjalanan Luar Kota">Perjalanan Luar Kota</option>
                                         <option value="Perjalanan Dalam Kota">Perjalanan Dalam Kota</option>
@@ -114,30 +116,30 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <label>Kota Tujuan</label>
-                                    <input type="text" class="form-control" name="kota_tujuan">
+                                    <input type="text" class="form-control" name="kota_tujuan" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label>Total Lama Perjalanan ( Satuan Hari )</label>
+                                    <input type="number" class="form-control" id="waktu_berangkat" name="waktu_berangkat" required>
+                                </div>
+                                <div class="form-group">
                                     <label>Tanggal Berangkat</label>
-                                    <input type="date" class="form-control" name="tanggal_berangkat">
-                                </div>
-                                <div class="form-group">
-                                    <label>Waktu Berangkat</label>
-                                    <input type="text" class="form-control" name="waktu_berangkat">
-                                </div>
-                                <div class="form-group">
-                                    <label>Kota Pulang</label>
-                                    <input type="text" class="form-control" name="kota_pulang">
+                                    <input type="date" class="form-control" name="tanggal_berangkat" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal pulang</label>
-                                    <input type="date" class="form-control" name="tanggal_pulang">
+                                    <input type="date" class="form-control" name="tanggal_pulang" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kota Pulang</label>
+                                    <input type="text" class="form-control" name="kota_pulang" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Transportasi</label>
-                                    <select class="form-control" name="transportasi">
+                                    <select class="form-control" name="transportasi" required>
                                         <option selected>--Pilih--</option>
                                         <option value="Disiapkan user">Disiapkan user</option>
                                         <option value="Disiapkan perusahaan">Disiapkan perusahaan</option>
@@ -145,7 +147,7 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <label for="">Hotel / tempat tinggal</label>
-                                    <select class="form-control" name="hotel">
+                                    <select class="form-control" name="hotel" required>
                                         <option selected>--Pilih--</option>
                                         <option value="Disiapkan user">Disiapkan user</option>
                                         <option value="Disiapkan perusahaan">Disiapkan perusahaan</option>
@@ -153,28 +155,32 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <label>Bagasi</label>
-                                    <input type="text" class="form-control" name="bagasi">
+                                    <input type="text" class="form-control" name="bagasi" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>cash advance</label>
-                                    <input type="text" class="form-control" name="cash_advance">
+                                    <label>cash advance ( / Hari )</label>
+                                    <input type="number" class="form-control" id="cash" name="cash" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Total cash advance ( / Hari )</label>
+                                    <input type="number" class="form-control" name="cash_advance" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Keterangan</label>
-                                    <textarea name="keterangan" class="form-control" id="" cols="30" rows="5"></textarea>
+                                    <textarea name="keterangan" class="form-control" id="" cols="30" rows="5" required></textarea>
                                 </div>
-                                <div class="form-group">
-                                    <!-- <label>Di Minta Oleh</label> -->
+                                <!-- <div class="form-group">
+                                    <label>Di Minta Oleh</label>
                                     <input type="hidden" class="form-control" name="diminta_oleh">
                                 </div>
                                 <div class="form-group">
-                                    <!-- <label>Di Ketahui Oleh</label> -->
+                                    <label>Di Ketahui Oleh</label>
                                     <input type="hidden" class="form-control" name="diketahui_oleh">
                                 </div>
                                 <div class="form-group">
-                                    <!-- <label>Di Setujui Oleh</label> -->
+                                    <label>Di Setujui Oleh</label>
                                     <input type="hidden" class="form-control" name="disetujui_oleh">
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <input type="hidden" name="status" value="diproses">
                                 </div>
@@ -206,6 +212,30 @@ if (isset($_POST['submit'])) {
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<!-- Letakkan script di bagian akhir sebelum </body> tag -->
+<script>
+    // Ambil referensi ke elemen input waktu_berangkat dan cash
+    const waktuBerangkatInput = document.getElementById('waktu_berangkat');
+    const cashInput = document.getElementById('cash');
+
+    // Fungsi untuk mengupdate hasil perkalian
+    function updateCashAdvance() {
+        // Ambil nilai dari input waktu_berangkat dan cash
+        const waktuBerangkat = waktuBerangkatInput.value;
+        const cash = cashInput.value;
+
+        // Lakukan perkalian
+        const cashAdvance = waktuBerangkat * cash;
+
+        // Masukkan hasil perkalian ke dalam input cash_advance
+        const cashAdvanceInput = document.querySelector('input[name="cash_advance"]');
+        cashAdvanceInput.value = cashAdvance;
+    }
+
+    // Panggil fungsi updateCashAdvance() ketika input waktu_berangkat atau cash berubah
+    waktuBerangkatInput.addEventListener('input', updateCashAdvance);
+    cashInput.addEventListener('input', updateCashAdvance);
+</script>
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>

@@ -127,7 +127,7 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <label>Waktu Berangkat</label>
-                                    <input type="text" class="form-control" name="waktu_berangkat" value="<?php echo $data_dinas->data[0]->waktu_berangkat ?>">
+                                    <input type="text" class="form-control" id="waktu_berangkat" name="waktu_berangkat" value="<?php echo $data_dinas->data[0]->waktu_berangkat ?>">
                                 </div>
                                 <div class="form-group">
                                     <label>Kota Pulang</label>
@@ -156,6 +156,10 @@ if (isset($_POST['submit'])) {
                                 <div class="form-group">
                                     <label>Bagasi</label>
                                     <input type="text" class="form-control" name="bagasi" value="<?php echo $data_dinas->data[0]->bagasi ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Cash Advance ( / Hari )</label>
+                                    <input type="text" class="form-control" name="cash" id="cash" value="<?php echo $data_dinas->data[0]->cash ?>">
                                 </div>
                                 <div class="form-group">
                                     <label>Cash Advance</label>
@@ -193,7 +197,29 @@ if (isset($_POST['submit'])) {
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<script>
+    // Ambil referensi ke elemen input waktu_berangkat dan cash
+    const waktuBerangkatInput = document.getElementById('waktu_berangkat');
+    const cashInput = document.getElementById('cash');
 
+    // Fungsi untuk mengupdate hasil perkalian
+    function updateCashAdvance() {
+        // Ambil nilai dari input waktu_berangkat dan cash
+        const waktuBerangkat = waktuBerangkatInput.value;
+        const cash = cashInput.value;
+
+        // Lakukan perkalian
+        const cashAdvance = waktuBerangkat * cash;
+
+        // Masukkan hasil perkalian ke dalam input cash_advance
+        const cashAdvanceInput = document.querySelector('input[name="cash_advance"]');
+        cashAdvanceInput.value = cashAdvance;
+    }
+
+    // Panggil fungsi updateCashAdvance() ketika input waktu_berangkat atau cash berubah
+    waktuBerangkatInput.addEventListener('input', updateCashAdvance);
+    cashInput.addEventListener('input', updateCashAdvance);
+</script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -218,20 +244,6 @@ if (isset($_POST['submit'])) {
 <!-- <script src="dist/js/demo.js"></script> -->
 <!-- Page specific script -->
 <script>
-    function handleCheckboxChange(checkbox) {
-        const alamatKTP = document.getElementById("alamat_ktp");
-        const alamatDomisili = document.getElementById("alamat_domisili");
-
-        if (checkbox.checked) {
-            alamatDomisili.value = alamatKTP.value;
-            alamatDomisili.readOnly = true;
-        } else {
-            alamatDomisili.value = "";
-            alamatDomisili.readOnly = false;
-        }
-    }
-</script>
-<script>
     $(document).ready(function() {
         $('#example').DataTable();
     });
@@ -240,12 +252,6 @@ if (isset($_POST['submit'])) {
     $(document).ready(function() {
         $('#example2').DataTable();
     });
-</script>
-<script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
 </script>
 <script>
     $(function() {

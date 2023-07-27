@@ -279,7 +279,7 @@ if (isset($_POST['cuti'])) {
                                                         <th>Pulang Cuti</th>
                                                         <th>Keterangan Cuti</th>
                                                         <th>Status</th>
-                                                        <th>Action</th>
+                                                        <!-- <th>Action</th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -307,11 +307,11 @@ if (isset($_POST['cuti'])) {
                                                                 }
                                                                 ?>
                                                             </td>
-                                                            <td>
+                                                            <!-- <td>
                                                                 <?php
                                                                 if (isset($_POST['delete'])) {
-                                                                    $id_dinas = $_POST['id_dinas'];
-                                                                    $link = "getDeleteDinasId&id_dinas=" . urlencode($id_dinas);
+                                                                    $id_karyawan = $_POST['id_karyawan'];
+                                                                    $link = "getDeleteDinasId&id_karyawan=" . urlencode($id_karyawan);
                                                                     $delete = getRegistran($link);
                                                                     if (!$delete) {
                                                                         echo "<script>alert('Data berhasil dihapus');window.location='perjalanan-dinas-kor.php'</script>";
@@ -325,21 +325,21 @@ if (isset($_POST['cuti'])) {
                                                                     <?php
                                                                     $status = $array_item->status;
                                                                     if ($status == "diterima") { ?>
-                                                                        <a href="cetak_surat.php?id=<?php echo $array_item->id_dinas ?>" target="_blank" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="cetak surat">
+                                                                        <a href="cetak_surat.php?id=<?php echo $array_item->id_karyawan ?>" target="_blank" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="cetak surat">
                                                                             <i class="fas fa-print"></i>
                                                                         </a>
                                                                     <?php } else { ?>
                                                                     <?php }
                                                                     ?>
-                                                                    <a href="perjalanan-dinas-kor-edit.php?id=<?php echo $array_item->id_dinas ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
-                                                                        <i class="fas fa-edit"></i>
+                                                                    <a href="perjalanan-dinas-kor-edit.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Lihat">
+                                                                        <i class="fas fa-eye"></i>
                                                                     </a>
-                                                                    <input type="hidden" name="id_dinas" value="<?php echo $array_item->id_dinas; ?>">
+                                                                    <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan; ?>">
                                                                     <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
                                                                         <i class="fas fa-trash-alt"></i>
                                                                     </button>
                                                                 </form>
-                                                            </td>
+                                                            </td> -->
                                                         </tr>
                                                     <?php endforeach ?>
                                                 </tbody>

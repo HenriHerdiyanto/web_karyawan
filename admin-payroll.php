@@ -114,21 +114,21 @@ $data_payroll = getRegistran($link);
                                                                                                 </div>
                                                                                                 <div class="mb-2">
                                                                                                     <label for="pendidikan" class="form-label">Pendidikan</label>
-                                                                                                    <input type="text" class="form-control text-center" id="pendidikan" value="<?= $array_item->pendidikan; ?>" name="pendidikan" required>
+                                                                                                    <input type="text" class="form-control text-center" id="pendidikan" value="<?= $array_item->pendidikan; ?>" name="pendidikan" required readonly>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="col-lg-6">
                                                                                                 <div class="mb-2">
                                                                                                     <label for="status_ptkp" class="form-label">Status PTKP</label>
-                                                                                                    <input type="text" class="form-control text-center" id="status_ptkp" value="<?= $array_item->status_ptkp; ?>" name="status_ptkp" required>
+                                                                                                    <input type="text" class="form-control text-center" id="status_ptkp" value="<?= $array_item->status_ptkp; ?>" name="status_ptkp" required readonly>
                                                                                                 </div>
                                                                                                 <div class="mb-2">
                                                                                                     <label for="cabang" class="form-label">Cabang</label>
-                                                                                                    <input type="text" class="form-control text-center" id="cabang" value="<?= $array_item->cabang; ?>" name="cabang" required>
+                                                                                                    <input type="text" class="form-control text-center" id="cabang" value="<?= $array_item->cabang; ?>" name="cabang" required readonly>
                                                                                                 </div>
                                                                                                 <div class="mb-2">
                                                                                                     <label for="group" class="form-label">Group</label>
-                                                                                                    <input type="text" class="form-control text-center" id="group" value="<?= $array_item->group_payroll; ?>" name="group_payroll" required>
+                                                                                                    <input type="text" class="form-control text-center" id="group" value="<?= $array_item->group_payroll; ?>" name="group_payroll" required readonly>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -144,46 +144,46 @@ $data_payroll = getRegistran($link);
                                                                                         <div class="col-lg-6">
                                                                                             <div class="mb-2">
                                                                                                 <label for="gaji_pokok" class="form-label">GAJI POKOK</label>
-                                                                                                <input type="number" value="<?= $array_item->gaji_pokok; ?>" class="form-control nilai-input text-center" id="gaji_pokok" name="gaji_pokok" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->gaji_pokok, 0, ',', '.'); ?>" class="form-control nilai-input text-center" id="gaji_pokok" name="gaji_pokok" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="tempat_kerja" class="form-label">Tempat Bekerja</label>
-                                                                                                <input type="text" value="<?= $array_item->tempat_kerja; ?>" class="form-control text-center" id="tempat_kerja " name="tempat_kerja" placeholder="HO / CGK / PIK / BALI / YAO / CKR" required>
+                                                                                                <input type="text" value="Rp. <?= $array_item->tempat_kerja; ?>" class="form-control text-center" id="tempat_kerja " name="tempat_kerja" placeholder="HO / CGK / PIK / BALI / YAO / CKR" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="besar_tunjangan" class="form-label">Besar Tunjangan Jabatan</label>
-                                                                                                <input type="number" value="<?= $array_item->besar_tunjangan; ?>" class="form-control nilai-input text-center" id="besar_tunjangan" name="besar_tunjangan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->besar_tunjangan, 0, ',', '.'); ?>" class="form-control nilai-input text-center" id="besar_tunjangan" name="besar_tunjangan" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="tunjangan_pulsa" class="form-label">Tunjangan Pulsa</label>
-                                                                                                <input type="number" value="<?= $array_item->tunjangan_pulsa; ?>" class="form-control nilai-input text-center" id="tunjangan_pulsa" name="tunjangan_pulsa" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->tunjangan_pulsa, 0, ',', '.'); ?>" class="form-control nilai-input text-center" id="tunjangan_pulsa" name="tunjangan_pulsa" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="lain_lain" class="form-label">Tunjangan Lain-lain</label>
-                                                                                                <input type="number" value="<?= $array_item->lain_lain; ?>" class="form-control nilai-input text-center" id="lain_lain" name="lain_lain" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->lain_lain, 0, ',', '.'); ?>" class="form-control nilai-input text-center" id="lain_lain" name="lain_lain" required readonly>
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-lg-6">
                                                                                             <div class="mb-2">
                                                                                                 <label for="tunjangan_pendidikan" class="form-label">Tunjangan Pendidikan</label>
-                                                                                                <input type="number" value="<?= $array_item->tunjangan_pendidikan; ?>" class="form-control nilai-input text-center" id="tunjangan_pendidikan" name="tunjangan_pendidikan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->tunjangan_pendidikan, 0, ',', '.'); ?>" class="form-control nilai-input text-center" id="tunjangan_pendidikan" name="tunjangan_pendidikan" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="uang_makan" class="form-label">Uang Makan</label>
-                                                                                                <input type="number" value="<?= $array_item->uang_makan; ?>" class="form-control nilai-input text-center" id="uang_makan" name="uang_makan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->uang_makan, 0, ',', '.'); ?>" class="form-control nilai-input text-center" id="uang_makan" name="uang_makan" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="uang_transport" class="form-label">Uang Transport</label>
-                                                                                                <input type="number" value="<?= $array_item->uang_transport; ?>" class="form-control nilai-input text-center" id="uang_transport" name="uang_transport" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->uang_transport, 0, ',', '.'); ?>" class="form-control nilai-input text-center" id="uang_transport" name="uang_transport" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="total_gaji" class="form-label">TOTAL GAJI BULANAN</label>
-                                                                                                <input type="number" value="<?= $array_item->total_gaji; ?>" class="form-control total-nilai text-center" readonly required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->total_gaji, 0, ',', '.'); ?>" class="form-control total-nilai text-center" readonly required>
                                                                                             </div>
-                                                                                            <div class="mb-2">
+                                                                                            <!-- <div class="mb-2">
                                                                                                 <small class="text-red">*Masukan Kembali Total Gaji Bulanan Diatas</small>
-                                                                                                <input type="number" value="<?= $array_item->total_gaji; ?>" class="form-control total-nilai text-center" id="total_gaji" name="total_gaji" required>
-                                                                                            </div>
+                                                                                                <input type="number" value="Rp. <?= $array_item->total_gaji; ?>" class="form-control total-nilai text-center" id="total_gaji" name="total_gaji" required readonly>
+                                                                                            </div> -->
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -197,33 +197,33 @@ $data_payroll = getRegistran($link);
                                                                                         <div class="col-lg-6">
                                                                                             <div class="mb-2">
                                                                                                 <label for="lembur">Lembur</label>
-                                                                                                <input type="number" value="<?= $array_item->lembur; ?>" class="form-control nilai-input1 text-center" id="lembur" name="lembur" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->lembur, 0, ',', '.'); ?>" class="form-control nilai-input1 text-center" id="lembur" name="lembur" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="dinas">Dinas</label>
-                                                                                                <input type="number" value="<?= $array_item->dinas; ?>" class="form-control nilai-input1 text-center" id="dinas" name="dinas" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->dinas, 0, ',', '.'); ?>" class="form-control nilai-input1 text-center" id="dinas" name="dinas" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="cuti_tahunan">Cuti Tahunan</label>
-                                                                                                <input type="number" value="<?= $array_item->cuti_tahunan; ?>" class="form-control nilai-input1 text-center" id="cuti_tahunan" name="cuti_tahunan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->cuti_tahunan, 0, ',', '.'); ?>" class="form-control nilai-input1 text-center" id="cuti_tahunan" name="cuti_tahunan" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="thr">THR</label>
-                                                                                                <input type="number" value="<?= $array_item->thr; ?>" class="form-control nilai-input1 text-center" id="thr" name="thr" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->thr, 0, ',', '.'); ?>" class="form-control nilai-input1 text-center" id="thr" name="thr" required readonly>
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-lg-6">
                                                                                             <div class="mb-2">
                                                                                                 <label for="total_tunjangan">Total Tunjangan Di Luar Gaji</label>
-                                                                                                <input type="number" value="<?= $array_item->total_tunjangan; ?>" class="form-control total-nilai1 text-center" readonly required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->total_tunjangan, 0, ',', '.'); ?>" class="form-control total-nilai1 text-center" readonly required>
                                                                                             </div>
-                                                                                            <div class="mb-2">
+                                                                                            <!-- <div class="mb-2">
                                                                                                 <small class="text-red">*Masukan Kembali Tunjangan Di Luar Gaji Diatas</small>
-                                                                                                <input type="number" value="<?= $array_item->total_tunjangan; ?>" class="form-control total-nilai1 text-center" id="total_tunjangan" name="total_tunjangan" required>
-                                                                                            </div>
+                                                                                                <input type="number" value="Rp. <?= $array_item->total_tunjangan; ?>" class="form-control total-nilai1 text-center" id="total_tunjangan" name="total_tunjangan" required readonly>
+                                                                                            </div> -->
                                                                                             <div class="mb-2">
                                                                                                 <label for="total_gaji_tunjangan">Total Gaji + Tunjangan Di Luar Gaji</label>
-                                                                                                <input type="number" value="<?= $array_item->total_gaji_tunjangan; ?>" class="form-control total-nilai2 text-center" id="total_gaji_tunjangan" name="total_gaji_tunjangan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->total_gaji_tunjangan, 0, ',', '.'); ?>" class="form-control total-nilai2 text-center" id="total_gaji_tunjangan" name="total_gaji_tunjangan" required readonly>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -238,49 +238,49 @@ $data_payroll = getRegistran($link);
                                                                                         <div class="col-lg-6">
                                                                                             <div class="mb-2">
                                                                                                 <label for="">REFERAL CLIENT-5%</label>
-                                                                                                <input type="number" value="<?= $array_item->referal_client; ?>" class="form-control nilai-input6 text-center" id="referal_client" name="referal_client" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->referal_client, 0, ',', '.'); ?>" class="form-control nilai-input6 text-center" id="referal_client" name="referal_client" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">INSENTIF KK-5%</label>
-                                                                                                <input type="number" value="<?= $array_item->insentif_kk; ?>" class="form-control nilai-input6 text-center" id="insentif_kk" name="insentif_kk" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->insentif_kk, 0, ',', '.'); ?>" class="form-control nilai-input6 text-center" id="insentif_kk" name="insentif_kk" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">INSENTIF SPV-1%</label>
-                                                                                                <input type="number" value="<?= $array_item->insentif_spv; ?>" class="form-control nilai-input6 text-center" id="insentif_spv" name="insentif_spv" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->insentif_spv, 0, ',', '.'); ?>" class="form-control nilai-input6 text-center" id="insentif_spv" name="insentif_spv" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">INSENTIF STAFF-2%</label>
-                                                                                                <input type="number" value="<?= $array_item->insentif_staff; ?>" class="form-control nilai-input6 text-center" id="insentif_staff" name="insentif_staff" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->insentif_staff, 0, ',', '.'); ?>" class="form-control nilai-input6 text-center" id="insentif_staff" name="insentif_staff" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">INSENTIF SPT OP</label>
-                                                                                                <input type="number" value="<?= $array_item->insentif_spt_op; ?>" class="form-control nilai-input6 text-center" id="insentif_spt_op" name="insentif_spt_op" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->insentif_spt_op, 0, ',', '.'); ?>" class="form-control nilai-input6 text-center" id="insentif_spt_op" name="insentif_spt_op" required readonly>
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="col-lg-6">
                                                                                             <div class="mb-2">
                                                                                                 <label for="">INSENTIF SPT BADAN</label>
-                                                                                                <input type="number" value="<?= $array_item->insentif_spt_badan; ?>" class="form-control nilai-input6 text-center" id="insentif_spt_badan" name="insentif_spt_badan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->insentif_spt_badan, 0, ',', '.'); ?>" class="form-control nilai-input6 text-center" id="insentif_spt_badan" name="insentif_spt_badan" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">INSENTIF SPT</label>
-                                                                                                <input type="number" value="<?= $array_item->insentif_spt; ?>" class="form-control nilai-input6 text-center" id="insentif_spt" name="insentif_spt" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->insentif_spt, 0, ',', '.'); ?>" class="form-control nilai-input6 text-center" id="insentif_spt" name="insentif_spt" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">KOMISI MARKETING</label>
-                                                                                                <input type="number" value="<?= $array_item->komisi_marketing; ?>" class="form-control nilai-input6 text-center" id="komisi_marketing" name="komisi_marketing" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->komisi_marketing, 0, ',', '.'); ?>" class="form-control nilai-input6 text-center" id="komisi_marketing" name="komisi_marketing" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="total_insentif">TOTAL INSENTIF DAN KOMISI LAINNYA - PAYMENT PERTENGAHAN BULAN</label>
-                                                                                                <input type="number" value="<?= $array_item->total_insentif; ?>" class="form-control total-nilai6 text-center" readonly required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->total_insentif, 0, ',', '.'); ?>" class="form-control total-nilai6 text-center" readonly required>
                                                                                             </div>
-                                                                                            <div class="mb-2">
+                                                                                            <!-- <div class="mb-2">
                                                                                                 <small class="text-red">*Masukan Kembali TOTAL INSENTIF DAN KOMISI LAINNYA - PAYMENT PERTENGAHAN BULAN diatas</small>
-                                                                                                <input type="number" value="<?= $array_item->total_insentif; ?>" class="form-control text-center" id="total_insentif" name="total_insentif" required>
-                                                                                            </div>
+                                                                                                <input type="number" value="Rp. <?= $array_item->total_insentif; ?>" class="form-control text-center" id="total_insentif" name="total_insentif" required readonly>
+                                                                                            </div> -->
                                                                                             <div class="mb-2">
                                                                                                 <label for="total_pendapatan">TOTAL PENDAPATAN BRUTO / BULAN</label>
-                                                                                                <input type="number" value="<?= $array_item->total_pendapatan; ?>" class="form-control total-nilai7 text-center" id="total_pendapatan" name="total_pendapatan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->total_pendapatan, 0, ',', '.'); ?>" class="form-control total-nilai7 text-center" id="total_pendapatan" name="total_pendapatan" required readonly>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -295,73 +295,73 @@ $data_payroll = getRegistran($link);
                                                                                         <div class="col-lg-6">
                                                                                             <div class="mb-2">
                                                                                                 <label for="">Terlambat</label>
-                                                                                                <input type="number" value="<?= $array_item->terlambat; ?>" class="form-control nilai-input4 text-center" id="terlambat" name="terlambat" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->terlambat, 0, ',', '.'); ?>" class="form-control nilai-input4 text-center" id="terlambat" name="terlambat" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">Cuti Bersama</label>
-                                                                                                <input type="number" value="<?= $array_item->cuti_bersama; ?>" class="form-control nilai-input4 text-center" id="cuti_bersama" name="cuti_bersama" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->cuti_bersama, 0, ',', '.'); ?>" class="form-control nilai-input4 text-center" id="cuti_bersama" name="cuti_bersama" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">CUTI</label>
-                                                                                                <input type="number" value="<?= $array_item->cuti; ?>" class="form-control nilai-input4 text-center" id="cuti" name="cuti" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->cuti, 0, ',', '.'); ?>" class="form-control nilai-input4 text-center" id="cuti" name="cuti" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">Sakit</label>
-                                                                                                <input type="number" value="<?= $array_item->sakit; ?>" class="form-control nilai-input4 text-center" id="sakit" name="sakit" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->sakit, 0, ',', '.'); ?>" class="form-control nilai-input4 text-center" id="sakit" name="sakit" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">IZIN</label>
-                                                                                                <input type="number" value="<?= $array_item->izin; ?>" class="form-control nilai-input4 text-center" id="izin" name="izin" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->izin, 0, ',', '.'); ?>" class="form-control nilai-input4 text-center" id="izin" name="izin" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">Alpha</label>
-                                                                                                <input type="number" value="<?= $array_item->alpha; ?>" class="form-control nilai-input4 text-center" id="alpa" name="alpha" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->alpha, 0, ',', '.'); ?>" class="form-control nilai-input4 text-center" id="alpa" name="alpha" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">Pinjaman</label>
-                                                                                                <input type="number" value="<?= $array_item->pinjaman; ?>" class="form-control nilai-input4 text-center" id="pinjaman" name="pinjaman" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->pinjaman, 0, ',', '.'); ?>" class="form-control nilai-input4 text-center" id="pinjaman" name="pinjaman" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">BPJS KESEHATAN Ditanggung Karyawan 1%</label>
-                                                                                                <input type="number" value="<?= $array_item->bpjs_karyawan; ?>" class="form-control nilai-input4 text-center" id="bpjs_karyawan" name="bpjs_karyawan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->bpjs_karyawan, 0, ',', '.'); ?>" class="form-control nilai-input4 text-center" id="bpjs_karyawan" name="bpjs_karyawan" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">BPJS KETENAGAKERJAAN Ditanggung Karyawan 2.00%</label>
-                                                                                                <input type="number" value="<?= $array_item->ditanggung_karyawan; ?>" class="form-control nilai-input4 text-center" id="ditanggung_karyawan" name="ditanggung_karyawan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->ditanggung_karyawan, 0, ',', '.'); ?>" class="form-control nilai-input4 text-center" id="ditanggung_karyawan" name="ditanggung_karyawan" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">TOTAL PENGURANGAN</label>
-                                                                                                <input type="number" value="<?= $array_item->total_pengurangan; ?>" class="form-control total-nilai4 text-center" readonly required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->total_pengurangan, 0, ',', '.'); ?>" class="form-control total-nilai4 text-center" readonly required>
                                                                                             </div>
-                                                                                            <div class="mb-2">
+                                                                                            <!-- <div class="mb-2">
                                                                                                 <small class="text-red">*Masukan TOTAL PENGURANGAN diatas</small>
-                                                                                                <input type="number" value="<?= $array_item->total_pengurangan; ?>" class="form-control total-nilai4 text-center" id="total_pengurangan" name="total_pengurangan" required>
-                                                                                            </div>
+                                                                                                <input type="number" value="Rp. <?= $array_item->total_pengurangan; ?>" class="form-control total-nilai4 text-center" id="total_pengurangan" name="total_pengurangan" required readonly>
+                                                                                            </div> -->
                                                                                         </div>
                                                                                         <div class="col-lg-6">
                                                                                             <div class="mb-2">
                                                                                                 <label for="">JKK 0.24%</label>
-                                                                                                <input type="number" value="<?= $array_item->jkk; ?>" class="form-control nilai-input10 text-center" id="jkk" name="jkk" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->jkk, 0, ',', '.'); ?>" class="form-control nilai-input10 text-center" id="jkk" name="jkk" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">JKM 0.30%</label>
-                                                                                                <input type="number" value="<?= $array_item->jkm; ?>" class="form-control nilai-input10 text-center" id="jkm" name="jkm" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->jkm, 0, ',', '.'); ?>" class="form-control nilai-input10 text-center" id="jkm" name="jkm" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">JHT 3.7%</label>
-                                                                                                <input type="number" value="<?= $array_item->jht_37; ?>" class="form-control nilai-input10 text-center" id="jht_37" name="jht_37" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->jht_37, 0, ',', '.'); ?>" class="form-control nilai-input10 text-center" id="jht_37" name="jht_37" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">BPJS KESEHATAN Ditanggung Perusahaan 4%</label>
-                                                                                                <input type="number" value="<?= $array_item->bpjs_perusahaan; ?>" class="form-control nilai-input10 text-center" id="bpjs_perusahaan" name="bpjs_perusahaan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->bpjs_perusahaan, 0, ',', '.'); ?>" class="form-control nilai-input10 text-center" id="bpjs_perusahaan" name="bpjs_perusahaan" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">BPJS KETENAGAKERJAAN Ditanggung Perusahaan 4.24%</label>
-                                                                                                <input type="number" value="<?= $array_item->ditanggung_perusahaan; ?>" class="form-control total-nilai10 text-center" id="ditanggung_perusahaan" name="ditanggung_perusahaan" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->ditanggung_perusahaan, 0, ',', '.'); ?>" class="form-control total-nilai10 text-center" id="ditanggung_perusahaan" name="ditanggung_perusahaan" required readonly>
                                                                                             </div>
                                                                                             <div class="mb-2">
                                                                                                 <label for="">TOTAL GAJI BERSIH</label>
-                                                                                                <input type="number" value="<?= $array_item->total_gaji_bersih; ?>" class="form-control total-nilai9 text-center" id="total_gaji_bersih" name="total_gaji_bersih" required>
+                                                                                                <input type="text" value="Rp. <?= number_format($array_item->total_gaji_bersih, 0, ',', '.'); ?>" class="form-control total-nilai9 text-center" id="total_gaji_bersih" name="total_gaji_bersih" required readonly>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -381,10 +381,10 @@ $data_payroll = getRegistran($link);
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?php echo $array_item->id_karyawan ?>">
-                                                            <i class="fas fa-eye"></i>
-                                                        </button>
                                                         <form method="post">
+                                                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?php echo $array_item->id_karyawan ?>">
+                                                                <i class="fas fa-eye"></i>
+                                                            </button>
                                                             <!-- <a href="karyawan_detail.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Detail">
                                                                     <i class="fas fa-eye"></i>
                                                                 </a> -->

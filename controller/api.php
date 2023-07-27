@@ -37,16 +37,24 @@ function getUser()
 function getCuti()
 {
     global $connect;
-    if (!empty($_GET['id_karyawan']))
-        $id_karyawan = $_GET['id_karyawan'];
 
-    $query = "SELECT * FROM cuti WHERE id_karyawan = '$id_karyawan'";
-    $result = $connect->query($query);
-    while ($row = mysqli_fetch_object($result)) {
-        $data[] = $row;
+    if (isset($_GET['id_karyawan'])) {
+        $id_karyawan = $_GET['id_karyawan'];
+        $query = "SELECT * FROM cuti WHERE id_karyawan = ?";
+        $stmt = $connect->prepare($query);
+        $stmt->bind_param("i", $id_karyawan);
+    } else {
+        $query = "SELECT * FROM cuti";
+        $stmt = $connect->prepare($query);
     }
 
-    if ($result) {
+    $data = array();
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        while ($row = mysqli_fetch_object($result)) {
+            $data[] = $row;
+        }
+        $stmt->close();
         $response = array(
             'status' => 1,
             'data' => $data
@@ -61,6 +69,8 @@ function getCuti()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+
+
 function getSisaCuti()
 {
     global $connect;
@@ -409,6 +419,8 @@ function setInventaris()
 function getAddCuti()
 {
     global $connect;
+    if (!empty($_GET['id_cuti']))
+        $id_cuti = $_GET['id_cuti'];
     if (!empty($_GET['id_karyawan']))
         $id_karyawan = $_GET['id_karyawan'];
     if (!empty($_GET['nama_lengkap']))
@@ -432,9 +444,13 @@ function getAddCuti()
     if (!empty($_GET['status']))
         $status = $_GET['status'];
 
-
-    $query = "INSERT INTO cuti SET id_karyawan = '$id_karyawan', nama_lengkap = '$nama_lengkap', nama_divisi = '$nama_divisi', level_user = '$level_user', hak_cuti = '$hak_cuti', ambil_cuti = '$ambil_cuti', sisa_cuti = '$sisa_cuti', tanggal_mulai = '$tanggal_mulai', tanggal_selesai = '$tanggal_selesai', alasan_cuti = '$alasan_cuti', status = '$status'";
-    $result = $connect->query($query);
+    if ($id_cuti) {
+        $query = "UPDATE cuti SET alasan_cuti = '$alasan_cuti', status = '$status' WHERE id_cuti = '$id_cuti'";
+        $result = $connect->query($query);
+    } else {
+        $query = "INSERT INTO cuti SET id_karyawan = '$id_karyawan', nama_lengkap = '$nama_lengkap', nama_divisi = '$nama_divisi', level_user = '$level_user', hak_cuti = '$hak_cuti', ambil_cuti = '$ambil_cuti', sisa_cuti = '$sisa_cuti', tanggal_mulai = '$tanggal_mulai', tanggal_selesai = '$tanggal_selesai', alasan_cuti = '$alasan_cuti', status = '$status'";
+        $result = $connect->query($query);
+    }
 
     if ($result) {
         $response = array(
@@ -2544,6 +2560,8 @@ function setUpdateDinasAdmin()
         $hotel = $_GET['hotel'];
     if (!empty($_GET['bagasi']))
         $bagasi = $_GET['bagasi'];
+    if (!empty($_GET['cash']))
+        $cash = $_GET['cash'];
     if (!empty($_GET['cash_advance']))
         $cash_advance = $_GET['cash_advance'];
     if (!empty($_GET['keterangan']))
@@ -2558,7 +2576,7 @@ function setUpdateDinasAdmin()
         $status = $_GET['status'];
 
 
-    $query = "UPDATE perjalanan_dinas SET id_user = '$id_user', id_divisi = '$id_divisi', nama_pengajuan = '$nama_pengajuan', jabatan = '$jabatan', project = '$project', tujuan = '$tujuan', jumlah_personel = '$jumlah_personel', nama_personel = '$nama_personel', kota_tujuan = '$kota_tujuan', tanggal_berangkat = '$tanggal_berangkat',waktu_berangkat = '$waktu_berangkat',kota_pulang = '$kota_pulang' ,tanggal_pulang = '$tanggal_pulang', transportasi = '$transportasi', hotel = '$hotel', bagasi = '$bagasi', cash_advance = '$cash_advance', keterangan = '$keterangan', diminta_oleh = '$diminta_oleh', diketahui_oleh = '$diketahui_oleh',disetujui_oleh = '$disetujui_oleh', status = '$status'";
+    $query = "UPDATE perjalanan_dinas SET id_user = '$id_user', id_divisi = '$id_divisi', nama_pengajuan = '$nama_pengajuan', jabatan = '$jabatan', project = '$project', tujuan = '$tujuan', jumlah_personel = '$jumlah_personel', nama_personel = '$nama_personel', kota_tujuan = '$kota_tujuan', tanggal_berangkat = '$tanggal_berangkat',waktu_berangkat = '$waktu_berangkat',kota_pulang = '$kota_pulang' ,tanggal_pulang = '$tanggal_pulang', transportasi = '$transportasi', hotel = '$hotel', bagasi = '$bagasi', cash = '$cash', cash_advance = '$cash_advance', keterangan = '$keterangan', diminta_oleh = '$diminta_oleh', diketahui_oleh = '$diketahui_oleh',disetujui_oleh = '$disetujui_oleh', status = '$status'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -2614,21 +2632,17 @@ function setPerjalanan()
         $hotel = $_GET['hotel'];
     if (!empty($_GET['bagasi']))
         $bagasi = $_GET['bagasi'];
+    if (!empty($_GET['cash']))
+        $cash = $_GET['cash'];
     if (!empty($_GET['cash_advance']))
         $cash_advance = $_GET['cash_advance'];
     if (!empty($_GET['keterangan']))
         $keterangan = $_GET['keterangan'];
-    if (!empty($_GET['diminta_oleh']))
-        $diminta_oleh = $_GET['diminta_oleh'];
-    if (!empty($_GET['diketahui_oleh']))
-        $diketahui_oleh = $_GET['diketahui_oleh'];
-    if (!empty($_GET['disetujui_oleh']))
-        $disetujui_oleh = $_GET['disetujui_oleh'];
     if (!empty($_GET['status']))
         $status = $_GET['status'];
 
 
-    $query = "INSERT INTO perjalanan_dinas SET id_user = '$id_user', id_divisi = '$id_divisi', nama_pengajuan = '$nama_pengajuan', jabatan = '$jabatan', project = '$project', tujuan = '$tujuan', jumlah_personel = '$jumlah_personel', nama_personel = '$nama_personel', jenis_perjalanan = '$jenis_perjalanan', kota_tujuan = '$kota_tujuan', tanggal_berangkat = '$tanggal_berangkat',waktu_berangkat = '$waktu_berangkat',kota_pulang = '$kota_pulang' ,tanggal_pulang = '$tanggal_pulang', transportasi = '$transportasi', hotel = '$hotel', bagasi = '$bagasi', cash_advance = '$cash_advance', keterangan = '$keterangan', diminta_oleh = '$diminta_oleh', diketahui_oleh = '$diketahui_oleh', disetujui_oleh = '$disetujui_oleh', status = '$status'";
+    $query = "INSERT INTO perjalanan_dinas SET id_user = '$id_user', id_divisi = '$id_divisi', nama_pengajuan = '$nama_pengajuan', jabatan = '$jabatan', project = '$project', tujuan = '$tujuan', jumlah_personel = '$jumlah_personel', nama_personel = '$nama_personel', jenis_perjalanan = '$jenis_perjalanan', kota_tujuan = '$kota_tujuan', tanggal_berangkat = '$tanggal_berangkat',waktu_berangkat = '$waktu_berangkat',kota_pulang = '$kota_pulang' ,tanggal_pulang = '$tanggal_pulang', transportasi = '$transportasi', hotel = '$hotel', bagasi = '$bagasi', cash = '$cash',cash_advance = '$cash_advance', keterangan = '$keterangan', status = '$status'";
     $result = $connect->query($query);
 
     if ($result) {

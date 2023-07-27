@@ -15,8 +15,10 @@ $id_karyawan = $payroll->data[0]->id_karyawan;
 $query = mysqli_query($connect, "SELECT id_karyawan, SUM(total_lembur) AS jumlah_lembur FROM lembur WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan");
 $row = mysqli_fetch_assoc($query);
 $jumlah_data = $row['jumlah_lembur'];
-
 $final_value = $jumlah_data * 50000;
+$query2 = mysqli_query($connect, "SELECT gaji FROM karyawan WHERE id_karyawan = $id_karyawan");
+$row2 = mysqli_fetch_assoc($query2);
+$gaji = $row2['gaji'];
 
 // $link = "getJumlahLembur&id_karyawan=" . urlencode($id_karyawan);
 // $data_lembur = getRegistran($link);
@@ -155,7 +157,7 @@ $final_value = $jumlah_data * 50000;
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="gaji_pokok" class="form-label">GAJI POKOK</label>
-                                            <input type="number" class="form-control nilai-input" id="gaji_pokok" name="gaji_pokok" required>
+                                            <input type="text" class="form-control nilai-input" id="gaji_pokok" value="<?= $gaji ?>" name="gaji_pokok" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="tempat_kerja" class="form-label">Tempat Bekerja</label>
