@@ -1122,6 +1122,33 @@ function setUpdateIdKaryawan()
     echo json_encode($response);
 }
 
+function setUpdateFoto()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['foto_karyawan']))
+        $foto_karyawan = $_GET['foto_karyawan'];
+
+    $query = "UPDATE karyawan SET foto_karyawan = '$foto_karyawan' WHERE id_karyawan = '$id_karyawan'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function setUpdateSOP()
 {
     global $connect;

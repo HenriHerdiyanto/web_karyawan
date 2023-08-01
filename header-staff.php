@@ -143,14 +143,14 @@ if ($level_user != 'staff') {
                                 </p>
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a href="evaluasi-karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
+                        <li class="nav-item">
+                            <a href="cuti_staff.php" class="nav-link" style="color: #FFCF09;">
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 <p>
-                                    Evaluasi Anggota
+                                    Pengajuan Cuti
                                 </p>
                             </a>
-                        </li> -->
+                        </li>
                         <li class="nav-item">
                             <a href="reques_budget.php" class="nav-link" style="color: #FFCF09;">
                                 <i class="nav-icon fas fa-money-bill-alt"></i>

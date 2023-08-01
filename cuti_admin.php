@@ -5,7 +5,7 @@ $output = getRegistran($link);
 var_dump($output);
 $link = "getCuti";
 $cuti = getRegistran($link);
-var_dump($cuti);
+// var_dump($cuti);
 
 
 

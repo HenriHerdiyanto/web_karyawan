@@ -1,16 +1,16 @@
 <?php
-include "header-kordinator.php";
-$link = "getKaryawanstaff&id_karyawan=" . urlencode($id_kar1);
+include "header-staff.php";
+$link = "getKaryawanstaff&id_karyawan=" . urlencode($id_karyawan);
 $output = getRegistran($link);
 // var_dump($output);
-$link = "getCuti&id_karyawan=" . urlencode($id_kar1);
+$link = "getCuti&id_karyawan=" . urlencode($id_karyawan);
 $cuti = getRegistran($link);
-// var_dump($cuti);
+// var_dump($cuti); 
 
 
-$link = "getSisaCuti&id_karyawan=" . urlencode($id_kar1);
+$link = "getSisaCuti&id_karyawan=" . urlencode($id_karyawan);
 $sisa_cuti = getRegistran($link);
-var_dump($sisa_cuti);
+// var_dump($sisa_cuti);
 
 
 if (isset($_POST['cuti'])) {
@@ -27,11 +27,11 @@ if (isset($_POST['cuti'])) {
     $status = $_POST['status'];
     $link = "getAddCuti&id_karyawan=" . urlencode($id) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&nama_divisi=" . urlencode($nama_divisi) . "&level_user=" . urlencode($level_user) . "&hak_cuti=" . urlencode($hak_cuti) . "&ambil_cuti=" . urlencode($ambil_cuti) . "&sisa_cuti=" . urlencode($sisa_cuti) . "&tanggal_mulai=" . urlencode($tanggal_mulai) . "&tanggal_selesai=" . urlencode($tanggal_selesai) . "&alasan_cuti=" . urlencode($alasan_cuti) . "&status=" . urlencode($status);
     $output = getRegistran($link);
-    var_dump($output);
+    // var_dump($output);
     if (!$output) {
-        echo "<script>alert('Data berhasil ditambahkan');window.location='cuti_kor.php'</script>";
+        echo "<script>alert('Data berhasil ditambahkan');window.location='cuti_staff.php'</script>";
     } else {
-        echo "<script>alert('Data gagal ditambahkan');window.location='cuti_kor.php'</script>";
+        echo "<script>alert('Data gagal ditambahkan');window.location='cuti_staff.php'</script>";
     }
 }
 
@@ -58,33 +58,104 @@ if (isset($_POST['cuti'])) {
                     </div>
                     <div align="end" class="col mt-3 mr-3">
                         <?php
-                        if ($sisa_cuti->data[0]->sisa_cuti == 0) { ?>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#habis">
-                                <i class="fas fa-plus"></i> Sisa Cuti
-                            </button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="habis" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                                <i class="fas fa-close">X</i>
-                                            </button>
+                        // Cek apakah objek $cuti tidak null dan properti "data" ada dan tidak kosong
+                        if (!is_null($cuti) && property_exists($cuti, 'data') && is_array($cuti->data) && count($cuti->data) > 0) {
+                            $jumlah_cuti = $cuti->data[0]->sisa_cuti;
+
+                            if ($sisa_cuti->data[0]->sisa_cuti > 0) { ?>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cuti">
+                                    <i class="fas fa-plus"></i> Add CUTI
+                                </button>
+                                <div class="modal fade" id="cuti" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengajuan Cuti</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="" method="post">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-2">
+                                                                <label for="nama_lengkap">Nama Lengkap</label>
+                                                                <input type="text" class="form-control" id="id_karyawan" name="id_karyawan" value="<?= $output->data[0]->id_karyawan ?>" required>
+                                                                <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?= $output->data[0]->nama_lengkap ?>" required readonly>
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <label for="nama_divisi">Nama Divisi</label>
+                                                                <input type="text" class="form-control" id="nama_divisi" name="nama_divisi" value="<?= $output->data[0]->nama_divisi ?>" required readonly>
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <label for="level_user">Jabatan</label>
+                                                                <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $output->data[0]->level_user ?>" required readonly>
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <label for="hak_cuti">Hak Cuti ( Satuan Hari )</label>
+                                                                <input type="number" class="form-control" id="hak_cuti" name="hak_cuti" value="<?= $sisa_cuti->data[0]->sisa_cuti ?>" required readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-2">
+                                                                <label for="ambil_cuti">Lama Permintaan Cuti</label>
+                                                                <input type="number" class="form-control" id="ambil_cuti" name="ambil_cuti" placeholder="Lama Permintaan Cuti ( Satuan Hari )" required required oninput="hitungSisaCuti()">
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <label for="sisa_cuti">Sisa Cuti ( Satuan Hari )</label>
+                                                                <input type="number" class="form-control" id="sisa_cuti" name="sisa_cuti" placeholder="Sisa Cuti" required readonly>
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <label for="tanggal_mulai">Tanggal Mulai</label>
+                                                                <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai" placeholder="Tanggal Mulai" required>
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <label for="tanggal_selesai">Tanggal Selesai</label>
+                                                                <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" placeholder="Tanggal Selesai" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-2">
+                                                                <label for="alasan_cuti">Alasan cuti</label>
+                                                                <textarea class="form-control" id="alasan_cuti" name="alasan_cuti" rows="3" placeholder="alasan_cuti" required></textarea>
+                                                                <input type="text" class="form-control" id="status" name="status" value="diproses" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" name="cuti" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div class="modal-body">
-                                            <div class="card">
-                                                <div class="card-body text-center bg-success p-5 rounded mb-4 shadow-sm h-75 justify-content-between d-flex flex-column">
-                                                    <p style="color: white;">SUDAH MELEWATI BATAS MAKSIMAL CUTI</p>
-                                                    <h1 style="color: white;">SISA CUTI ANDA SUDAH HABIS</h1>
-                                                    <a href="cuti_kor.php" class="btn btn-primary">OK</a>
+                                    </div>
+                                </div>
+                            <?php } else { ?>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#habis">
+                                    <i class="fas fa-plus"></i> Sisa Cuti
+                                </button>
+                                <div class="modal fade" id="habis" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                                    <i class="fas fa-close">X</i>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="card">
+                                                    <div class="card-body text-center bg-success p-5 rounded mb-4 shadow-sm h-75 justify-content-between d-flex flex-column">
+                                                        <p style="color: white;">SUDAH MELEWATI BATAS MAKSIMAL CUTI</p>
+                                                        <h1 style="color: white;">SISA CUTI ANDA SUDAH HABIS</h1>
+                                                        <a href="cuti_staff.php" class="btn btn-primary">OK</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php } elseif ($cuti == null) { ?>
+                            <?php }
+                        } else { ?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 <i class="fas fa-plus"></i> Add CUTI
                             </button>
@@ -152,78 +223,9 @@ if (isset($_POST['cuti'])) {
                                     </div>
                                 </div>
                             </div>
-                        <?php } else { ?>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cuti">
-                                <i class="fas fa-plus"></i> Add CUTI
-                            </button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="cuti" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengajuan Cuti</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <form action="" method="post">
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="mb-2">
-                                                            <label for="nama_lengkap">Nama Lengkap</label>
-                                                            <input type="text" class="form-control" id="id_karyawan" name="id_karyawan" value="<?= $output->data[0]->id_karyawan ?>" required>
-                                                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?= $output->data[0]->nama_lengkap ?>" required readonly>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="nama_divisi">Nama Divisi</label>
-                                                            <input type="text" class="form-control" id="nama_divisi" name="nama_divisi" value="<?= $output->data[0]->nama_divisi ?>" required readonly>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="level_user">Jabatan</label>
-                                                            <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $output->data[0]->level_user ?>" required readonly>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="hak_cuti">Hak Cuti ( Satuan Hari )</label>
-                                                            <input type="number" class="form-control" id="hak_cuti" name="hak_cuti" value="<?= $sisa_cuti->data[0]->sisa_cuti ?>" required readonly>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="mb-2">
-                                                            <label for="ambil_cuti">Lama Permintaan Cuti</label>
-                                                            <input type="number" class="form-control" id="ambil_cuti" name="ambil_cuti" placeholder="Lama Permintaan Cuti ( Satuan Hari )" required required oninput="hitungSisaCuti()">
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="sisa_cuti">Sisa Cuti ( Satuan Hari )</label>
-                                                            <input type="number" class="form-control" id="sisa_cuti" name="sisa_cuti" placeholder="Sisa Cuti" required readonly>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="tanggal_mulai">Tanggal Mulai</label>
-                                                            <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai" placeholder="Tanggal Mulai" required>
-                                                        </div>
-                                                        <div class="mb-2">
-                                                            <label for="tanggal_selesai">Tanggal Selesai</label>
-                                                            <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" placeholder="Tanggal Selesai" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-2">
-                                                            <label for="alasan_cuti">Alasan cuti</label>
-                                                            <textarea class="form-control" id="alasan_cuti" name="alasan_cuti" rows="3" placeholder="alasan_cuti" required></textarea>
-                                                            <input type="text" class="form-control" id="status" name="status" value="diproses" required>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" name="cuti" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                        <?php }
+                        ?>
 
-                        <?php } ?>
                     </div>
                 </div>
             </div>
