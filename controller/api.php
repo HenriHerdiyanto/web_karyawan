@@ -2171,11 +2171,20 @@ function getDeleteDivisiId()
 {
     global $connect;
     $id_divisi = $_GET["id_divisi"];
+    $id_absen = $_GET["id_absen"];
 
-    $query = "DELETE FROM divisi WHERE id_divisi = $id_divisi";
-    $result = $connect->query($query);
-    while ($row = mysqli_fetch_object($result)) {
-        $data[] = $row;
+    if ($id_absen == null) {
+        $query = "DELETE FROM divisi WHERE id_divisi = $id_divisi";
+        $result = $connect->query($query);
+        while ($row = mysqli_fetch_object($result)) {
+            $data[] = $row;
+        }
+    } else {
+        $query = "DELETE FROM absen_karyawan WHERE id_absen = $id_absen";
+        $result = $connect->query($query);
+        while ($row = mysqli_fetch_object($result)) {
+            $data[] = $row;
+        }
     }
 
     if ($result) {
@@ -3312,6 +3321,7 @@ function getDeleteKaryawanAdmin()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+
 function getDeleteBudget()
 {
     global $connect;
@@ -3374,6 +3384,33 @@ function getDeleteKpitekno()
         $id_karyawan = $_GET['id_karyawan'];
 
     $query = "DELETE FROM kpitekno WHERE id_karyawan = $id_karyawan";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getDeleteCutiKaryawan()
+{
+    global $connect;
+    if (!empty($_GET['id_cuti']))
+        $id_cuti = $_GET['id_cuti'];
+
+    $query = "DELETE FROM cuti WHERE id_cuti = $id_cuti";
     $result = $connect->query($query);
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;

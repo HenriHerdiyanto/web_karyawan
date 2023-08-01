@@ -197,6 +197,18 @@ $data_absen = getRegistran($link);
                                         </thead>
                                         <tbody>
                                             <?php
+                                            if (isset($_POST['delete'])) {
+                                                $id_absen = $_POST['id_absen'];
+                                                $link = "getDeleteDivisiId&id_absen=" . urlencode($id_absen);
+                                                $delete = getRegistran($link);
+                                                if ($delete) {
+                                                    echo "<script>alert('Data berhasil dihapus')</script>";
+                                                    echo "<script>location='absen-admin.php'</script>";
+                                                } else {
+                                                    echo "<script>alert('Data gagal dihapus')</script>";
+                                                    echo "<script>location='absen-admin.php'</script>";
+                                                }
+                                            }
                                             $no = 1;
                                             foreach ($data_absen->data as $array_item) :
                                             ?>
@@ -208,8 +220,14 @@ $data_absen = getRegistran($link);
                                                     <td><?php echo $array_item->jam_masuk; ?></td>
                                                     <td><?php echo $array_item->jam_keluar; ?></td>
                                                     <td class="text-center">
-                                                        <a href="controller/absen.php?aksi=deleteAbsen&id=<?php echo $array_item->id_karyawan; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
-                                                        <a href="payroll.php?nomor_induk=<?php echo $array_item->nomor_induk; ?>" class="btn btn-info">Payroll</a>
+                                                        <form method="post">
+                                                            <input type="hidden" name="id_absen" value="<?php echo $array_item->id_absen; ?>">
+                                                            <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
+                                                                Hapus
+                                                            </button>
+                                                        </form>
+                                                        <!-- <a href="controller/absen.php?aksi=deleteAbsen&id=<?php echo $array_item->id_absen; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a> -->
+                                                        <a href="payroll.php?nomor_induk=<?php echo $array_item->nomor_induk; ?>" class="btn btn-sm  btn-info">Payroll</a>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

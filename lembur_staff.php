@@ -9,12 +9,23 @@ $nama_divisi = $datas->data[0]->nama_divisi;
 
 $link = "getLemburByNama&id_karyawan=" . urlencode($id_karyawan);
 $data_lembur = getRegistran($link);
-$status_lembur = $data_lembur->data[0]->status;
+// $status_lembur = $data_lembur->data[0]->status;
 // var_dump($data_lembur);
 
 ?>
 
 <?php
+if (isset($_POST['delete'])) {
+    $id_lembur = $_POST['id_lembur'];
+    $link = "getDeleteLembur&id_lembur=" . urlencode($id_lembur);
+    $delete = getRegistran($link);
+    if (!$delete) {
+        echo "<script>alert('Data berhasil dihapus');window.location='lembur-karyawan-kor.php'</script>";
+    } else {
+        echo "<script>alert('Data gagal dihapus');window.location='lembur-karyawan-kor.php'</script>";
+    }
+}
+
 if (isset($_POST['save'])) {
     $id_karyawan = $_POST['id_karyawan'];
     $nama_divisi = $_POST['nama_divisi'];
@@ -193,20 +204,6 @@ if (isset($_POST['save'])) {
                                                         ?>
                                                     </td>
                                                     <td align="center">
-                                                        <?php
-                                                        if (isset($_POST['delete'])) {
-                                                            $id_lembur = $_POST['id_lembur'];
-                                                            $link = "getDeleteLembur&id_lembur=" . urlencode($id_lembur);
-                                                            $delete = getRegistran($link);
-                                                            if (!$delete) {
-                                                                echo "<script>alert('Data berhasil dihapus');window.location='lembur-karyawan-kor.php'</script>";
-                                                            } else {
-                                                                echo "<script>alert('Data gagal dihapus');window.location='lembur-karyawan-kor.php'</script>";
-                                                            }
-                                                        }
-                                                        ?>
-
-
                                                         <form method="post">
                                                             <!-- <a href="lembur-karyawan-kor.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-info" data-bs-toggle="tooltip" title="Lembur Karyawan">
                                                             <i class="fas fa-file"></i>

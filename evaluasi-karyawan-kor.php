@@ -1,6 +1,17 @@
 <?php
-include "header-kordinator.php"
-
+include "header-kordinator.php";
+$link = "getEvaluasi&id_divisi=" . urlencode($id_divisi);
+$output = getRegistran($link);
+if (isset($_POST['delete'])) {
+    $id_evaluasi = $_POST['id_evaluasi'];
+    $link = "getDeleteEvaluasiId&id_evaluasi=" . urlencode($id_evaluasi);
+    $delete = getRegistran($link);
+    if (!$delete) {
+        echo "<script>alert('Data berhasil dihapus');window.location='evaluasi-karyawan-kor.php'</script>";
+    } else {
+        echo "<script>alert('Data gagal dihapus');window.location='evaluasi-karyawan-kor.php''</script>";
+    }
+}
 ?>
 
 
@@ -79,12 +90,6 @@ include "header-kordinator.php"
                                 </div>
                             </div>
                         </div>
-                        <!-- /.card-header -->
-                        <?php
-                        $link = "getEvaluasi&id_divisi=" . urlencode($id_divisi);
-                        $output = getRegistran($link);
-                        ?>
-
                         <div class="card-body">
                             <?php if ($output == NULL) { ?>
                                 <div class="table-responsive">
@@ -146,18 +151,6 @@ include "header-kordinator.php"
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <?php
-                                                    if (isset($_POST['delete'])) {
-                                                        $id_evaluasi = $_POST['id_evaluasi'];
-                                                        $link = "getDeleteEvaluasiId&id_evaluasi=" . urlencode($id_evaluasi);
-                                                        $delete = getRegistran($link);
-                                                        if (!$delete) {
-                                                            echo "<script>alert('Data berhasil dihapus');window.location='evaluasi-karyawan-kor.php'</script>";
-                                                        } else {
-                                                            echo "<script>alert('Data gagal dihapus');window.location='evaluasi-karyawan-kor.php''</script>";
-                                                        }
-                                                    }
-                                                    ?>
                                                     <form method="post">
                                                         <a href="lihat-evaluasi-kor.php?id=<?php echo $array_item->id_evaluasi ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Lihat Detail">
                                                             <i class="fas fa-eye"></i>

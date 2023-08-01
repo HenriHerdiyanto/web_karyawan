@@ -1,6 +1,10 @@
 <?php
 require_once 'header.php';
-
+$id = $_GET['id'];
+$link = "getKaryawanByIddivisi&id_divisi=" . urlencode($id);
+$output = getRegistran($link);
+$nama_divisi_kor = $output->data[0]->nama_divisi;
+var_dump($nama_divisi_kor);
 ?>
 
 
@@ -11,7 +15,7 @@ require_once 'header.php';
             <div class="card">
                 <div class="row">
                     <div class="col">
-                        <h1 class="m-3">key performance indicator (KPI)</h1>
+                        <h1 class="m-3">Karyawan Divisi <?= $nama_divisi_kor ?></h1>
                     </div>
                     <div align="end" class="col mt-3 mr-3">
                         <a href="karyawan_tambah.php" class="btn btn-success " type="button">
@@ -79,12 +83,6 @@ require_once 'header.php';
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <?php
-                        $id = $_GET['id'];
-                        $link = "getKaryawanByIddivisi&id_divisi=" . urlencode($id);
-                        $output = getRegistran($link);
-                        // var_dump($output);
-                        ?>
 
                         <div class="card-body table-responsive">
                             <?php if ($output == NULL) { ?>

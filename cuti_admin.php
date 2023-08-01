@@ -32,6 +32,31 @@ if (isset($_POST['cuti'])) {
     }
 }
 
+if (isset($_POST['update'])) {
+    $id_cuti = $_POST['id_cuti'];
+    $status = $_POST['status'];
+    $alasan_cuti = $_POST['alasan_cuti'];
+    $link = "getAddCuti&id_cuti=" . urlencode($id_cuti) . "&alasan_cuti=" . urlencode($alasan_cuti) . "&status=" . urlencode($status);
+    $update = getRegistran($link);
+    // var_dump($update);
+    if (!$update) {
+        echo "<script>alert('Data berhasil diupdate');window.location='cuti_admin.php'</script>";
+    } else {
+        echo "<script>alert('Data gagal diupdate');window.location='cuti_admin.php'</script>";
+    }
+}
+
+if (isset($_POST['delete'])) {
+    $id_cuti = $_POST['id_cuti'];
+    $link = "getDeleteCutiKaryawan&id_cuti=" . urlencode($id_cuti);
+    $delete = getRegistran($link);
+    var_dump($delete);
+    // if (!$delete) {
+    //     echo "<script>alert('Data berhasil dihapus');window.location='cuti_admin.php'</script>";
+    // } else {
+    //     echo "<script>alert('Data gagal dihapus');window.location='cuti_admin.php'</script>";
+    // }
+}
 ?>
 
 <style>
@@ -138,31 +163,6 @@ if (isset($_POST['cuti'])) {
                                                                 ?>
                                                             </td>
                                                             <td>
-                                                                <?php
-                                                                if (isset($_POST['delete'])) {
-                                                                    $id_karyawan = $_POST['id_karyawan'];
-                                                                    $link = "getDeleteDinasId&id_karyawan=" . urlencode($id_karyawan);
-                                                                    $delete = getRegistran($link);
-                                                                    if (!$delete) {
-                                                                        echo "<script>alert('Data berhasil dihapus');window.location='cuti_admin.php'</script>";
-                                                                    } else {
-                                                                        echo "<script>alert('Data gagal dihapus');window.location='cuti_admin.php'</script>";
-                                                                    }
-                                                                }
-                                                                if (isset($_POST['update'])) {
-                                                                    $id_cuti = $_POST['id_cuti'];
-                                                                    $status = $_POST['status'];
-                                                                    $alasan_cuti = $_POST['alasan_cuti'];
-                                                                    $link = "getAddCuti&id_cuti=" . urlencode($id_cuti) . "&alasan_cuti=" . urlencode($alasan_cuti) . "&status=" . urlencode($status);
-                                                                    $update = getRegistran($link);
-                                                                    var_dump($update);
-                                                                    // if (!$update) {
-                                                                    //     echo "<script>alert('Data berhasil diupdate');window.location='cuti_admin.php'</script>";
-                                                                    // } else {
-                                                                    //     echo "<script>alert('Data gagal diupdate');window.location='cuti_admin.php'</script>";
-                                                                    // }
-                                                                }
-                                                                ?>
 
                                                                 <form method="post">
                                                                     <!-- Tambahkan tombol yang akan memicu tampilan modal -->
@@ -251,7 +251,7 @@ if (isset($_POST['cuti'])) {
                                                                         </div>
                                                                     </div>
 
-                                                                    <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan; ?>">
+                                                                    <input type="hidden" name="id_cuti" value="<?php echo $array_item->id_cuti; ?>">
                                                                     <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
                                                                         <i class="fas fa-trash-alt"></i>
                                                                     </button>

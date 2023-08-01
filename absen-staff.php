@@ -2,9 +2,10 @@
 include "controller/koneksi.php";
 require_once 'header-staff.php';
 
-$link = "getProfilePendidikan&id_karyawan=" . urlencode($id_karyawan);
+$link = "getKaryawanById&id_karyawan=" . urlencode($id_karyawan);
 $profile = getRegistran($link);
-// var_dump($profile);
+$nama_lengkap = $profile->data[0]->nama_lengkap;
+var_dump($profile);
 $link2 = "getSOPid&id_divisi=" . urlencode($id_divisi);
 $data_sop = getRegistran($link2);
 // var_dump($data_sop);
@@ -33,9 +34,12 @@ $data_sop = getRegistran($link2);
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="" method="post">
-                                            <label for="">Masukan NIK Anda:</label><br />
-                                        </form>
+
+
+
+
+
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -57,8 +61,70 @@ $data_sop = getRegistran($link2);
                     <div class="card">
                         <div class="card-header">
                         </div><!-- /.card-header -->
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <div class="tab-content p-0">
+                                <h1>Form Absensi Karyawan</h1>
+                                <form>
+                                    <!-- <label for="barcodeInput">Barcode:</label> -->
+                                    <input type="hidden" id="barcodeInput" readonly>
+                                    <input type="button" value="Generate Barcode" onclick="generateBarcode()">
+                                    <input type="submit" value="Submit">
+                                </form>
+                                <canvas id="barcodeCanvas" style="display: none;"></canvas> <!-- Baris ini untuk menggenerate barcode dan menyembunyikannya -->
+                                <img id="barcodeImage" src="" style="display: none;"> <!-- Baris ini untuk menampilkan gambar barcode -->
+                                <script>
+                                    const namaLengkap = <?php echo json_encode($nama_lengkap); ?>; // Mendapatkan nilai $nama_lengkap dari server PHP
+
+                                    function getCurrentDateTime() {
+                                        const currentDate = new Date();
+                                        const year = currentDate.getFullYear();
+                                        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                                        const day = String(currentDate.getDate()).padStart(2, '0');
+                                        const hours = String(currentDate.getHours()).padStart(2, '0');
+                                        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+                                        const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+                                        return `${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
+                                    }
+
+                                    function generateBarcode() {
+                                        const apiBaseUrl = 'https://barcode.tec-it.com/barcode.ashx?data=';
+                                        const currentDateTime = getCurrentDateTime();
+                                        const barcodeValue = `${namaLengkap}_${currentDateTime}`;
+                                        const barcodeType = 'CODE128';
+                                        const barcodeSize = '50x50'; // Ukuran gambar barcode
+                                        const barcodeImageURL = `${apiBaseUrl}${barcodeValue}&code=${barcodeType}&dpi=96&unit=Fit&format=png&rotation=0&align=Center&color=000000&bgcolor=FFFFFF&code=${barcodeType}&modulewidth=0.3&paddingleft=10&paddingright=10&paddingtop=10&paddingbottom=10&size=${barcodeSize}`;
+
+                                        document.getElementById('barcodeInput').value = barcodeValue;
+
+                                        // Generate barcode secara visual menggunakan JsBarcode
+                                        const barcodeCanvas = document.getElementById('barcodeCanvas');
+                                        JsBarcode(barcodeCanvas, barcodeValue, {
+                                            format: "CODE128",
+                                            displayValue: false,
+                                            fontSize: 20,
+                                            height: 50,
+                                        });
+
+                                        // Ubah gambar menjadi data URL dan tampilkan di elemen <img>
+                                        const barcodeImage = document.getElementById('barcodeImage');
+                                        const canvas = document.createElement('canvas');
+                                        canvas.width = barcodeCanvas.width;
+                                        canvas.height = barcodeCanvas.height;
+                                        const ctx = canvas.getContext('2d');
+                                        ctx.drawImage(barcodeCanvas, 0, 0, canvas.width, canvas.height);
+                                        barcodeImage.src = canvas.toDataURL('image/png');
+                                        barcodeImage.style.display = 'inline'; // Tampilkan gambar setelah selesai generate
+                                    }
+
+                                    // Handler saat form disubmit
+                                    document.querySelector('form').addEventListener('submit', function(event) {
+                                        event.preventDefault();
+                                        const barcodeValue = document.getElementById('barcodeInput').value;
+                                        // Lakukan proses absensi sesuai dengan barcodeValue, seperti mengirim ke server atau menyimpan ke database.
+                                        alert('Karyawan dengan barcode ' + barcodeValue + ' telah melakukan absensi.');
+                                    });
+                                </script>
                             </div>
                         </div><!-- /.card-body -->
                     </div>
@@ -70,6 +136,13 @@ $data_sop = getRegistran($link2);
 <aside class="control-sidebar control-sidebar-dark">
 </aside>
 </div>
+<!-- script barcode -->
+<script src="https://cdn.jsdelivr.net/npm/instascan@1.0.0/instascan.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+<!-- Tambahkan library JsBarcode melalui CDN -->
+<!-- tutup script barcode -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>

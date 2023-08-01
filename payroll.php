@@ -20,9 +20,9 @@ $query2 = mysqli_query($connect, "SELECT gaji FROM karyawan WHERE id_karyawan = 
 $row2 = mysqli_fetch_assoc($query2);
 $gaji = $row2['gaji'];
 
-// $link = "getJumlahLembur&id_karyawan=" . urlencode($id_karyawan);
-// $data_lembur = getRegistran($link);
-// var_dump($data_lembur);
+$link = "getProfilePendidikan&id_karyawan=" . urlencode($id_karyawan);
+$data_pendidikan = getRegistran($link);
+var_dump($data_pendidikan);
 
 ?>
 <div class="content-wrapper">
@@ -127,7 +127,7 @@ $gaji = $row2['gaji'];
                                             </div>
                                             <div class="mb-2">
                                                 <label for="pendidikan" class="form-label">Pendidikan</label>
-                                                <input type="text" class="form-control" id="pendidikan" name="pendidikan" required>
+                                                <input type="text" class="form-control" id="pendidikan" name="pendidikan" value="<?= $data_pendidikan->data[0]->jenjang_pendidikan ?>" required readonly>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
