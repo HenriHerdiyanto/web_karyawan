@@ -292,6 +292,36 @@ function getEvaluasiEdit()
     echo json_encode($response);
 }
 
+function getAbsenBaru()
+{
+    global $connect;
+
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+
+    $query = "SELECT * FROM absen WHERE id_karyawan = $id_karyawan";
+
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function getEvaluasiView()
 {
     global $connect;
@@ -399,6 +429,87 @@ function setInventaris()
 
     $query = "INSERT INTO inventaris SET nama = '$nama', tipe = '$tipe', jumlah = '$jumlah', tanggal = '$tanggal', harga = '$harga', gambar = '$gambar'";
     $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function insertAbsen()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['tanggal']))
+        $tanggal = $_GET['tanggal'];
+    if (!empty($_GET['waktu_masuk']))
+        $waktu_masuk = $_GET['waktu_masuk'];
+    if (!empty($_GET['waktu_keluar']))
+        $waktu_keluar = $_GET['waktu_keluar'];
+    if (!empty($_GET['barcode']))
+        $barcode = $_GET['barcode'];
+
+    if ($waktu_keluar == null) {
+        $query = "INSERT INTO absen SET id_karyawan = '$id_karyawan', nama_lengkap = '$nama_lengkap', tanggal = '$tanggal', waktu_masuk = '$waktu_masuk', barcode = '$barcode'";
+        $result = $connect->query($query);
+    } else {
+        $query = "UPDATE absen SET id_karyawan = '$id_karyawan', waktu_keluar = '$waktu_keluar'";
+        $result = $connect->query($query);
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+function setIzinSakit()
+{
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['tanggal']))
+        $tanggal = $_GET['tanggal'];
+    if (!empty($_GET['izin']))
+        $izin = $_GET['izin'];
+    if (!empty($_GET['sakit']))
+        $sakit = $_GET['sakit'];
+    if (!empty($_GET['keterangan']))
+        $keterangan = $_GET['keterangan'];
+
+    if ($sakit == null) {
+        $query = "INSERT INTO absen SET id_karyawan = '$id_karyawan', nama_lengkap = '$nama_lengkap', tanggal = '$tanggal', izin = '$izin', keterangan = '$keterangan'";
+        $result = $connect->query($query);
+    } else {
+        $query = "INSERT INTO absen SET id_karyawan = '$id_karyawan', nama_lengkap = '$nama_lengkap', tanggal = '$tanggal', sakit = '$sakit', keterangan = '$keterangan'";
+        $result = $connect->query($query);
+    }
+
 
     if ($result) {
         $response = array(

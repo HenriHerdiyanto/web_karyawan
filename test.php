@@ -1,40 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+// Array keluarga
+$data = array();
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <style>
-    .card {
-      max-width: 320px;
-      height: 500px;
-      margin: 0 auto;
-      margin-top: 20px;
-      background-image: url('assets/img/card-bg.png');
-      background-size: cover;
-      color: #fff;
-    }
+$kakek = array(
+  "nama" => "Irfan",
+  "nama" => "irhan"
+);
 
-    .card-body {
-      padding: 20px;
-    }
-  </style>
-</head>
+$ayah = array(
+  "nama" => "Rizal",
+  "umur" => 50,
+  "jenis_kelamin" => "Laki-laki",
+  "hobi" => "Membaca"
+);
 
-<body>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Nama Karyawan</h5>
-      <h6 class="card-subtitle mb-2">Jabatan</h6>
-      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel aliquet turpis.</p>
-      <p class="card-text">Alamat: Jl. Contoh Alamat No. 123</p>
-      <p class="card-text">Telepon: 1234567890</p>
-    </div>
-    <a href="logout.php">Logout</a>
-  </div>
+$ibu = array(
+  "nama" => "Rina",
+  "umur" => 45,
+  "jenis_kelamin" => "Perempuan",
+  "hobi" => "Membaca"
+);
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+$anak = array(
+  "nama" => "Rizky",
+  "umur" => 19,
+  "jenis_kelamin" => "Laki-laki",
+  "hobi" => "Membaca"
+);
 
-</html>
+// $data['data'] = array(
+//   "kakek" => $kakek,
+//   "ayah" => $ayah,
+//   "ibu" => $ibu,
+//   "anak" => $anak
+// );
+// $data['data']['kakek'] = array(
+//   "nama-kakek" => $kakek
+// );
+// $data['data']['kakek']['ayah']['anak'] = array(
+//   $anak
+// );
+
+$kakek = array(
+  "nama-kakek" => "Irfan",
+  "orangtua" => array(
+    "ayah" => array(
+      "nama" => "Rizal",
+      "umur" => 50,
+      "jenis_kelamin" => "Laki-laki",
+      "hobi" => "Membaca"
+    ),
+    "ibu" => array(
+      "anak" => array(
+        "nama" => "Rizky",
+        "umur" => 19,
+        "jenis_kelamin" => "Laki-laki",
+        "hobi" => "Membaca"
+      )
+    )
+  )
+);
+
+$data['data'] = array(
+  "kakek" => $kakek
+);
+
+header('Content-Type: application/json');
+echo json_encode($data, JSON_PRETTY_PRINT);

@@ -8,6 +8,8 @@ $profile = getRegistran($link);
 $link2 = "getSOPid&id_divisi=" . urlencode($id_divisi);
 $data_sop = getRegistran($link2);
 // var_dump($data_sop);
+$link = "getTodoList&id_karyawan=" . urlencode($id_karyawan);
+$output4 = getRegistran($link);
 
 if (isset($_POST['update'])) {
     $id_karyawan = $_POST['id_karyawan'];
@@ -219,8 +221,6 @@ if (isset($_POST['updatetodo'])) {
                                 <!-- Morris chart - Sales -->
                                 <div class="card-body table-responsive" id="revenue-chart" style="position: relative;">
                                     <?php
-                                    $link = "getTodoList&id_karyawan=" . urlencode($id_karyawan);
-                                    $output4 = getRegistran($link);
                                     if ($output4 == NULL) { ?>
                                         <div class="card text-center">
                                             <div class="card-body">
@@ -236,13 +236,13 @@ if (isset($_POST['updatetodo'])) {
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah To Do List</h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <!-- <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah To Do List</h1> -->
+                                                                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                                                                <label for="">Nama Project</label>
                                                             </div>
                                                             <form action="" method="post">
                                                                 <div class="modal-body">
-                                                                    <label for="">Nama Project</label><br>
-                                                                    <input type="text" class="form-control" name="id_karyawan" value="<?= $id_karyawan ?>"><br>
+                                                                    <input type="hidden" class="form-control" name="id_karyawan" value="<?= $id_karyawan ?>"><br>
                                                                     <input type="text" class="form-control" name="nama_project"><br>
                                                                     <textarea name="todolist" class="form-control" cols="30" rows="10"></textarea>
                                                                 </div>
