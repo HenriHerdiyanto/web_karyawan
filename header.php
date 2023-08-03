@@ -192,6 +192,14 @@ if ($level_user > 0) {
               </a>
             </li>
             <li class="nav-item">
+              <a href="absen-testing.php" class="nav-link" style="color: #FFCF09;">
+                <i class="nav-icon fas fa-calendar-alt"></i>
+                <p>
+                  Absen testing
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="staff.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-users"></i>
                 <p>

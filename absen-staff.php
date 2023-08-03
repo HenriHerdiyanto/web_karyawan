@@ -9,12 +9,22 @@ $nama_lengkap = $profile->data[0]->nama_lengkap;
 $link2 = "getSOPid&id_divisi=" . urlencode($id_divisi);
 $data_sop = getRegistran($link2);
 // var_dump($data_sop);
+$link = "getAbsenBaru&id_karyawan=" . urlencode($id_karyawan);
+$data = getRegistran($link);
+// var_dump($data);
+
+$link = "getAbsenBarukeluar&id_karyawan=" . urlencode($id_karyawan);
+$data_absen_keluar = getRegistran($link);
+// var_dump($data);
+
 if (isset($_POST['update'])) {
-    $id_karyawan = $_POST['id_karyawan'];
+    $id_absen = $_POST['id_absen'];
     $waktu_keluar = $_POST['waktu_keluar'];
-    $link = "insertAbsen&id_karyawan=" . urlencode($id_karyawan) .  "&waktu_keluar=" . urlencode($waktu_keluar);
+    $link = "insertAbsen&id_absen=" . urlencode($id_absen) .  "&waktu_keluar=" . urlencode($waktu_keluar);
     $insert = getRegistran($link);
     var_dump($insert);
+    // echo "<script>alert('Absen Keluar Berhasil')</script>";
+    // echo "<script>window.location.href='absen-staff.php'</script>";
 }
 
 if (isset($_POST['submit'])) {
@@ -25,7 +35,9 @@ if (isset($_POST['submit'])) {
     $barcode = $_POST['barcode'];
     $link = "insertAbsen&id_karyawan=" . urlencode($id_karyawan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&tanggal=" . urlencode($tanggal) . "&waktu_masuk=" . urlencode($waktu_masuk) . "&barcode=" . urlencode($barcode);
     $insert = getRegistran($link);
-    var_dump($insert);
+    // var_dump($insert);
+    echo "<script>alert('Absen Masuk Berhasil')</script>";
+    echo "<script>window.location.href='absen-staff.php'</script>";
 }
 
 if (isset($_POST['izin'])) {
@@ -36,7 +48,20 @@ if (isset($_POST['izin'])) {
     $keterangan = $_POST['keterangan'];
     $link = "setIzinSakit&id_karyawan=" . urlencode($id_karyawan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&tanggal=" . urlencode($tanggal) . "&izin=1" . "&keterangan=" . urlencode($keterangan);
     $insert = getRegistran($link);
-    var_dump($insert);
+    echo "<script>alert('Izin Berhasil')</script>";
+    echo "<script>window.location.href='absen-staff.php'</script>";
+}
+
+if (isset($_POST['sakit'])) {
+    $id_karyawan = $_POST['id_karyawan'];
+    $nama_lengkap = $_POST['nama_lengkap'];
+    $tanggal = $_POST['tanggal'];
+    $sakit = $_POST['sakit'];
+    $keterangan = $_POST['keterangan'];
+    $link = "setIzinSakit&id_karyawan=" . urlencode($id_karyawan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&tanggal=" . urlencode($tanggal) . "&sakit=1" . "&keterangan=" . urlencode($keterangan);
+    $insert = getRegistran($link);
+    echo "<script>alert('Sakit Berhasil diajukan')</script>";
+    echo "<script>window.location.href='absen-staff.php'</script>";
 }
 ?>
 <style>
@@ -64,7 +89,7 @@ if (isset($_POST['izin'])) {
                         </div>
                         <!-- Button trigger modal -->
                         <a type="button" class="small-box-footer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            Check Now
+                            Check In
                         </a>
                         <!-- <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                     </div>
@@ -82,7 +107,7 @@ if (isset($_POST['izin'])) {
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="mb-2">
                                                 <label for="namaInput">Nama:</label>
-                                                <input class="form-control" type="hidden" name="id_karyawan" value="<?= $id_karyawan ?>">
+                                                <input class="form-control" type="text" name="id_karyawan" value="<?= $id_karyawan ?>">
                                                 <input class="form-control" type="text" value="<?= $nama_lengkap ?>" name="nama_lengkap" id="namaInput" required readonly>
                                             </div>
                                             <div class="mb-2">
@@ -125,7 +150,7 @@ if (isset($_POST['izin'])) {
                         </div>
                         <!-- Button trigger modal -->
                         <a type="button" class="small-box-footer" data-bs-toggle="modal" data-bs-target="#absenkeluar">
-                            Check Now
+                            Check Out
                         </a>
                     </div>
                 </div>
@@ -134,7 +159,7 @@ if (isset($_POST['izin'])) {
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Absen Keluar</h1>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X</button>
                             </div>
                             <div class="modal-body">
@@ -143,7 +168,7 @@ if (isset($_POST['izin'])) {
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="mb-2">
                                                 <label for="namaInput">Nama:</label>
-                                                <input class="form-control" type="hidden" name="id_karyawan" value="<?= $id_karyawan ?>">
+                                                <input class="form-control" type="text" name="id_absen" value="<?= $data_absen_keluar->data[0]->id_absen ?>">
                                                 <input class="form-control" type="text" value="<?= $nama_lengkap ?>" name="nama_lengkap" id="namaInput" required readonly>
                                             </div>
                                             <div class="mb-2">
@@ -247,22 +272,10 @@ if (isset($_POST['izin'])) {
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Sakit</h1>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X</button>
                             </div>
                             <div class="modal-body">
-                                <?php
-                                if (isset($_POST['sakit'])) {
-                                    $id_karyawan = $_POST['id_karyawan'];
-                                    $nama_lengkap = $_POST['nama_lengkap'];
-                                    $tanggal = $_POST['tanggal'];
-                                    $sakit = $_POST['sakit'];
-                                    $keterangan = $_POST['keterangan'];
-                                    $link = "setIzinSakit&id_karyawan=" . urlencode($id_karyawan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&tanggal=" . urlencode($tanggal) . "&sakit=1" . "&keterangan=" . urlencode($keterangan);
-                                    $insert = getRegistran($link);
-                                    var_dump($insert);
-                                }
-                                ?>
                                 <form method="POST">
                                     <div class="modal-body">
                                         <div class="row">
@@ -309,46 +322,68 @@ if (isset($_POST['izin'])) {
                                 </div><!-- /.card-header -->
                                 <div class="card-body text-center">
                                     <div class="tab-content p-0">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-hover table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 3%;">No</th>
-                                                        <th style="width: 15%;">Nama</th>
-                                                        <th style="width: 15%;">Tanggal</th>
-                                                        <th style="width: 10%;">Waktu Masuk</th>
-                                                        <th style="width: 10%;">Waktu Keluar</th>
-                                                        <th style="width: 10%;">Alpha</th>
-                                                        <th style="width: 10%;">Sakit</th>
-                                                        <th style="width: 10%;">Izin</th>
-                                                        <th style="width: 10%;">Barcode</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $no = 1;
-                                                    $link = "getAbsenBaru&id_karyawan=" . urlencode($id_karyawan);
-                                                    $data = getRegistran($link);
-                                                    // var_dump($data);
-                                                    foreach ($data->data as $row) {
-                                                    ?>
+                                        <?php
+                                        if (empty($data->data)) { ?>
+                                            <div class="card-body">
+                                                <div class="tab-content p-0 table-responsive">
+                                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>Nama Karyawan</th>
+                                                                <th>Tanggal</th>
+                                                                <th>Jam Masuk</th>
+                                                                <th>Jam Keluar</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="9" align="center">Data Kosong</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        <?php } else { ?>
+                                            <div class="table-responsive">
+                                                <table id="example" class="table table-striped table-bordered">
+                                                    <thead>
                                                         <tr>
-                                                            <td><?= $no++ ?></td>
-                                                            <td><?= $row->nama_lengkap ?></td>
-                                                            <td><?= $row->tanggal ?></td>
-                                                            <td><?= $row->waktu_masuk ?></td>
-                                                            <td><?= $row->waktu_keluar ?></td>
-                                                            <td><?= $row->alpha ?></td>
-                                                            <td><?= $row->sakit ?></td>
-                                                            <td><?= $row->izin ?></td>
-                                                            <td><?= $row->barcode ?></td>
+                                                            <th style="width: 3%;">No</th>
+                                                            <th style="width: 15%;">Nama</th>
+                                                            <th style="width: 15%;">Tanggal</th>
+                                                            <th style="width: 10%;">Waktu Masuk</th>
+                                                            <th style="width: 10%;">Waktu Keluar</th>
+                                                            <th style="width: 10%;">Alpha</th>
+                                                            <th style="width: 10%;">Sakit</th>
+                                                            <th style="width: 10%;">Izin</th>
+                                                            <th style="width: 10%;">Barcode</th>
                                                         </tr>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $no = 1;
+                                                        foreach ($data->data as $row) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?= $no++ ?></td>
+                                                                <td><?= $row->nama_lengkap ?></td>
+                                                                <td><?= $row->tanggal ?></td>
+                                                                <td><?= $row->waktu_masuk ?></td>
+                                                                <td><?= $row->waktu_keluar ?></td>
+                                                                <td><?= $row->alpha ?></td>
+                                                                <td><?= $row->sakit ?></td>
+                                                                <td><?= $row->izin ?></td>
+                                                                <td><?= $row->barcode ?></td>
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        <?php }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -538,10 +573,9 @@ if (isset($_POST['izin'])) {
     });
 </script>
 <script>
-    $('#calendar').datetimepicker({
-        format: 'L',
-        inline: true
-    })
+    $(document).ready(function() {
+        $('#example2').DataTable();
+    });
 </script>
 </body>
 

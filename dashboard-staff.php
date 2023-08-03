@@ -81,7 +81,7 @@ if (isset($_POST['updatetodo'])) {
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label style="margin-left: 0; display:flex;" for="fullName">Full Name</label>
-                                                    <input type="text" class="form-control" name="id_karyawan" value="<?= $id_karyawan ?>">
+                                                    <input type="hidden" class="form-control" name="id_karyawan" value="<?= $id_karyawan ?>">
                                                     <input type="text" class="form-control" value="<?= $nama_user ?>" readonly>
                                                 </div>
                                                 <div class="form-group">

@@ -322,6 +322,37 @@ function getAbsenBaru()
     echo json_encode($response);
 }
 
+function getAbsenBarukeluar()
+{
+    global $connect;
+
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+
+    $query = "SELECT * FROM absen WHERE id_karyawan = $id_karyawan ORDER BY id_absen DESC LIMIT 1;
+    ";
+
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
 function getEvaluasiView()
 {
     global $connect;
@@ -451,6 +482,8 @@ function insertAbsen()
     global $connect;
     if (!empty($_GET['id_karyawan']))
         $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['id_absen']))
+        $id_absen = $_GET['id_absen'];
     if (!empty($_GET['nama_lengkap']))
         $nama_lengkap = $_GET['nama_lengkap'];
     if (!empty($_GET['tanggal']))
@@ -462,11 +495,11 @@ function insertAbsen()
     if (!empty($_GET['barcode']))
         $barcode = $_GET['barcode'];
 
-    if ($waktu_keluar == null) {
+    if ($id_absen == null) {
         $query = "INSERT INTO absen SET id_karyawan = '$id_karyawan', nama_lengkap = '$nama_lengkap', tanggal = '$tanggal', waktu_masuk = '$waktu_masuk', barcode = '$barcode'";
         $result = $connect->query($query);
     } else {
-        $query = "UPDATE absen SET id_karyawan = '$id_karyawan', waktu_keluar = '$waktu_keluar'";
+        $query = "UPDATE absen SET waktu_keluar = '$waktu_keluar' WHERE id_absen = '$id_absen'";
         $result = $connect->query($query);
     }
 
@@ -1606,6 +1639,32 @@ function getAbsen()
 
     global $connect;
     $query = "SELECT * FROM absen_karyawan";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getAbsenb()
+{
+
+    global $connect;
+    $query = "SELECT * FROM absen";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -3051,6 +3110,34 @@ function getPayroll()
     WHERE 
         ak.nomor_induk = '$nomor_induk'
         ";
+    $result = $connect->query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getPayroll2()
+{
+
+    global $connect;
+    if (!empty($_GET['id_karyawan']))
+        $id_karyawan = $_GET['id_karyawan'];
+    $query = "SELECT DISTINCT ak.*, k.*, d.* FROM absen AS ak INNER JOIN karyawan AS k ON ak.id_karyawan = k.id_karyawan INNER JOIN divisi AS d ON k.id_divisi = d.id_divisi WHERE ak.id_karyawan = '$id_karyawan'";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {

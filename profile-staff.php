@@ -38,8 +38,8 @@ if (isset($_POST['submit'])) {
     $link = "setKeluarga&id_karyawan=" . urlencode($id_krywn) . "&nama_ayah=" . urlencode($nama_ayah) . "&tanggal_lahir_ayah=" . urlencode($tanggal_lahir_ayah) . "&pendidikan_terakhir_ayah=" . urlencode($pendidikan_terakhir_ayah) . "&pekerjaan_ayah=" . urlencode($pekerjaan_ayah) . "&jabatan_ayah=" . urlencode($jabatan_ayah) . "&nama_perusahaan_ayah=" . urlencode($nama_perusahaan_ayah) . "&nama_ibu=" . urlencode($nama_ibu) . "&tanggal_lahir_ibu=" . urlencode($tanggal_lahir_ibu) . "&pendidikan_terakhir_ibu=" . urlencode($pendidikan_terakhir_ibu) . "&pekerjaan_ibu=" . urlencode($pekerjaan_ibu) . "&jabatan_ibu=" . urlencode($jabatan_ibu) . "&nama_perusahaan_ibu=" . urlencode($nama_perusahaan_ibu);
     $keluarga = getRegistran($link);
     var_dump($keluarga);
-    echo "<script>alert('Login Berhasil')</script>";
-    echo ("<script>location.href = 'profile-staff.php';</script>");
+    echo "<script>alert('Update Keluarga Berhasil')</script>";
+    echo ("<script>location.href = 'dashboard-staff.php';</script>");
 }
 
 if (isset($_POST['update'])) {
@@ -60,8 +60,8 @@ if (isset($_POST['update'])) {
     $link = "setUpdateKeluarga&id_karyawan=" . urlencode($id_krywn) . "&nama_ayah=" . urlencode($nama_ayah) . "&tanggal_lahir_ayah=" . urlencode($tanggal_lahir_ayah) . "&pendidikan_terakhir_ayah=" . urlencode($pendidikan_terakhir_ayah) . "&pekerjaan_ayah=" . urlencode($pekerjaan_ayah) . "&jabatan_ayah=" . urlencode($jabatan_ayah) . "&nama_perusahaan_ayah=" . urlencode($nama_perusahaan_ayah) . "&nama_ibu=" . urlencode($nama_ibu) . "&tanggal_lahir_ibu=" . urlencode($tanggal_lahir_ibu) . "&pendidikan_terakhir_ibu=" . urlencode($pendidikan_terakhir_ibu) . "&pekerjaan_ibu=" . urlencode($pekerjaan_ibu) . "&jabatan_ibu=" . urlencode($jabatan_ibu) . "&nama_perusahaan_ibu=" . urlencode($nama_perusahaan_ibu);
     $keluarga = getRegistran($link);
     var_dump($keluarga);
-    echo "<script>alert('Login Berhasil')</script>";
-    echo ("<script>location.href = 'profile-kor.php';</script>");
+    echo "<script>alert('Update Keluarga Berhasil')</script>";
+    echo ("<script>location.href = 'dashboard-staff.php';</script>");
 }
 ?>
 <div class="content-wrapper">
@@ -203,7 +203,47 @@ if (isset($_POST['update'])) {
                                 <?php
                                 if ($data_pendidikan == null) { ?>
                                     <div class="tab-pane" id="pendidikan">
-                                        <h1 class="text-center">SILAHKAN UPDATE DIHALAMAN DASHBOARD</h1>
+                                        <div class="tab-pane" id="pendidikan">
+                                            <h1 class="text-center mb-3">Silahkan UPDATE di Dashboard Anda</h1>
+                                            <form class="form-horizontal">
+                                                <div class="form-group row">
+                                                    <label for="inputName" class="col-sm-2 col-form-label">JENJANG PENDIDIKAN</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control" id="inputName" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputEmail" class="col-sm-2 col-form-label">INSTANSI PENDIDIKAN</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control" id="inputEmail" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputName2" class="col-sm-2 col-form-label">JURUSAN</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="inputName2" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputExperience" class="col-sm-2 col-form-label">TAHUN MASUK</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="inputName2" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputSkills" class="col-sm-2 col-form-label">TAHUN LULUS</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="inputSkills" class="col-sm-2 col-form-label">INDEX NILAI</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" disabled>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 <?php } else { ?>
                                     <!-- tab-pane-pendidikan -->
