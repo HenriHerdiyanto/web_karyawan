@@ -84,9 +84,20 @@ if (isset($_POST['submit'])) {
 $id_karyawan = $payroll->data[0]->id_karyawan;
 // mencari jumlah lembur pada tabel lembur
 $query = mysqli_query($connect, "SELECT id_karyawan, SUM(total_lembur) AS jumlah_lembur FROM lembur WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan");
-$row = mysqli_fetch_assoc($query);
-$jumlah_data = $row['jumlah_lembur'];
-$final_value = $jumlah_data * 50000;
+
+if ($query) {
+    $row = mysqli_fetch_assoc($query);
+
+    if ($row) {
+        $jumlah_data = $row['jumlah_lembur'];
+        $final_value = $jumlah_data * 50000;
+    } else {
+        echo "Data not found.";
+    }
+} else {
+    echo "Query error: " . mysqli_error($connect);
+}
+
 
 // mencari jumlah sakit pada absen
 $query1 = mysqli_query($connect, "SELECT id_karyawan, SUM(sakit) AS jumlah_sakit FROM absen WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;");
@@ -95,14 +106,20 @@ $jumlah_sakit = $row1['jumlah_sakit'];
 $final_sakit = $jumlah_sakit * 50000;
 
 // mencari jumlah IZIN pada absen
-$query1 = mysqli_query($connect, "SELECT id_karyawan, SUM(izin) AS jumlah_izin FROM absen WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;");
-$row1 = mysqli_fetch_assoc($query1);
+$query2 = mysqli_query($connect, "SELECT id_karyawan, SUM(izin) AS jumlah_izin FROM absen WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;");
+$row1 = mysqli_fetch_assoc($query2);
 $jumlah_izin = $row1['jumlah_izin'];
 $final_izin = $jumlah_izin * 50000;
 
+// mencari jumlah terlambat pada absen
+$query3 = mysqli_query($connect, "SELECT id_karyawan, SUM(terlambat) AS jumlah_terlambat FROM absen WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;");
+$row1 = mysqli_fetch_assoc($query3);
+$jumlah_terlambat = $row1['jumlah_terlambat'];
+$final_terlambat = $jumlah_terlambat * 50000;
+
 // panggil gaji pokok pada kolom gaji tabel karyawan
-$query2 = mysqli_query($connect, "SELECT gaji FROM karyawan WHERE id_karyawan = $id_karyawan");
-$row2 = mysqli_fetch_assoc($query2);
+$query4 = mysqli_query($connect, "SELECT gaji FROM karyawan WHERE id_karyawan = $id_karyawan");
+$row2 = mysqli_fetch_assoc($query4);
 $gaji = $row2['gaji'];
 
 // panggil pendidikan pada tabel pendidikan
@@ -336,7 +353,13 @@ var_dump($data_pendidikan);
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="">Terlambat</label>
-                                            <input type="number" class="form-control nilai-input4" id="terlambat" name="terlambat" required>
+                                            <?php
+                                            if ($final_terlambat == null) { ?>
+                                                <input type="number" class="form-control nilai-input4" id="terlambat" name="terlambat" required>
+                                            <?php } else { ?>
+                                                <input type="number" class="form-control nilai-input4" id="terlambat" value="<?= $final_terlambat ?>" name="terlambat" required>
+                                            <?php }
+                                            ?>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">Cuti Bersama</label>

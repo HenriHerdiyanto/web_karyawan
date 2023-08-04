@@ -1,9 +1,51 @@
 <?php
-include "header-kordinator.php"
+include "header-kordinator.php";
+
+$link = "getKaryawanstaff&id_karyawan=" . urlencode($id_kar1);
+$output = getRegistran($link);
+
+$link = "gePinjamKaryawan&id_karyawan=" . urlencode($id_kar1);
+$output = getRegistran($link);
+var_dump($output);
+
+if (isset($_POST['submit'])) {
+    $id_karyawan = $_POST['id_karyawan'];
+    $nama_lengkap = $_POST['nama_lengkap'];
+    $mulai_kerja = $_POST['mulai_kerja'];
+    $jumlah_pinjam = $_POST['jumlah_pinjam'];
+    $tanggal_pinjam = $_POST['tanggal_pinjam'];
+    $pelunasan_terakhir = $_POST['pelunasan_terakhir'];
+    $nik = $_POST['nik'];
+    $level_user = $_POST['level_user'];
+    $gaji = $_POST['gaji'];
+    $jumlah_cicilan = $_POST['jumlah_cicilan'];
+    $keperluan = $_POST['keperluan'];
+    $pelunasan = $_POST['pelunasan'];
+    $pemohon = $_POST['pemohon'];
+    $status = $_POST['status'];
+
+    $link = "setPinjaman&id_karyawan=" . urlencode($id_karyawan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&mulai_kerja=" . urlencode($mulai_kerja) . "&jumlah_pinjam=" . urlencode($jumlah_pinjam) . "&tanggal_pinjam=" . urlencode($tanggal_pinjam) . "&pelunasan_terakhir=" . urlencode($pelunasan_terakhir) . "&nik=" . urlencode($nik) . "&jabatan=" . urlencode($level_user) . "&gaji=" . urlencode($gaji) . "&jumlah_cicilan=" . urlencode($jumlah_cicilan) . "&keperluan=" . urlencode($keperluan) . "&pelunasan=" . urlencode($pelunasan) . "&pemohon=" . urlencode($pemohon) . "&status=" . urlencode($status);
+    $add = getRegistran($link);
+    var_dump($add);
+    // if (!$add) {
+    //     echo "<script>alert('Data berhasil ditambahkan');window.location='karyawan.php'</script>";
+    // } else {
+    //     echo "<script>alert('Data gagal ditambahkan');window.location='karyawan.php'</script>";
+    // }
+}
 
 ?>
 
+<style>
+    /* buatkan css agar posisi label berada rata dikiri */
+    label {
+        display: inline-block;
+        width: 200px;
+        margin-right: 100%;
+        text-align: justify;
 
+    }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <div class="content-header">
@@ -14,82 +56,106 @@ include "header-kordinator.php"
                         <h1 class="m-3">PERMOHONAN PEMINJAMAN KARYAWAN</h1>
                     </div>
                     <div align="end" class="col mt-2 mr-3">
-                        <a href="peminjaman-karyawan-kor-tambah.php" class="btn btn-success " type="button">
+                        <!-- <a href="peminjaman-karyawan-kor-tambah.php" class="btn btn-success " type="button">
                             <i class="fas fa-plus"></i> Add Permohonan
-                        </a>
+                        </a> -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <i class="fas fa-plus"></i> Add Permohonan
+                        </button>
+                        <!-- Modal -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Permohonan Pijaman Karyawan</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-2">
+                                    <label for="nama_lengkap">Nama Karyawan</label>
+                                    <input type="hidden" class="form-control" name="id_karyawan" value="<?= $id_kar1 ?>" placeholder="Nama Karyawan">
+                                    <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" value="<?= $nama ?>" placeholder="Nama Karyawan">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="mulai_kerja">Mulai Kerja</label>
+                                    <input type="date" class="form-control" id="mulai_kerja" name="mulai_kerja" value="<?= $output->data[0]->mulai_kerja ?>" placeholder="mulai_kerja">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="jumlah_pinjam">Jumlah Pinjam</label>
+                                    <input type="text" class="form-control" id="jumlah_pinjam" name="jumlah_pinjam">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="tanggal_pinjam">Tanggal Pinjam</label>
+                                    <input type="date" class="form-control" id="tanggal_pinjam" name="tanggal_pinjam">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="pelunasan_terakhir">Tanggal Pelunasan Terakhir</label>
+                                    <input type="date" class="form-control" id="pelunasan_terakhir" name="pelunasan_terakhir">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="nik">NIK</label>
+                                    <input type="text" class="form-control" id="nik" name="nik" value="<?= $output->data[0]->no_ktp ?>" placeholder="NIK">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="level_user">Jabatan</label>
+                                    <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $output->data[0]->level_user ?>">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-2">
+                                    <label for="gaji">Gaji Terakhir</label>
+                                    <input type="text" class="form-control" id="gaji" name="gaji" value="<?= $output->data[0]->gaji ?>">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="jumlah_cicilan">Jumlah Cicilan</label>
+                                    <input type="text" class="form-control" id="jumlah_cicilan" name="jumlah_cicilan">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="keperluan">Keperluan</label>
+                                    <input type="text" class="form-control" id="keperluan" name="keperluan" placeholder="Keperluan">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="pelunasan">Pelunasan perbulan selama berapa lama</label>
+                                    <input type="text" class="form-control" id="pelunasan" name="pelunasan" placeholder="pelunasan">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="pemohon">Pemohon</label>
+                                    <input type="text" class="form-control" id="pemohon" name="pemohon" value="<?= $nama ?>" placeholder="Pemohon">
+                                </div>
+                                <div class="mb-2">
+                                    <!-- <label for="status">Status</label> -->
+                                    <input type="hidden" class="form-control" id="status" name="status" value="diproses" placeholder="Status">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="submit" class="btn btn-primary">SUBMIT</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-lg-12 col-sm-12">
 
                     <div class="card">
-                        <div class="card-header">
-                            <!-- <h3 class="card-title">Data Peminjaman Karyawan</h3><br>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
-                                <a href="peminjaman-karyawan-kor-tambah.php" class="btn btn-success " type="button">
-                                    <i class="fas fa-plus"></i> Add Permohonan
-                                </a>
-                            </div> -->
-                            <!-- Modal Tambah-->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Input Staf</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post">
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Nama Lengkap</label>
-                                                    <input type="text" class="form-control" name="nama_lengkap">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="">Jenis Kelamin</label>
-                                                    <select class="form-control" name="jenis_kelamin">
-                                                        <option selected>--Pilih Gender--</option>
-                                                        <option value="0">Laki-laki</option>
-                                                        <option value="1">Perempuan</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">Email</label>
-                                                    <input type="email" class="form-control" name="email">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputPassword1">Password</label>
-                                                    <input type="text" class="form-control" name="password">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="">Jabatan</label>
-                                                    <select class="form-control" name="level">
-                                                        <option selected>--Pilih Posisi--</option>
-                                                        <option value="0">Admin</option>
-                                                        <option value="1">Supervisor</option>
-                                                        <option value="2">Staf</option>
-                                                    </select>
-                                                </div>
-                                                <button type="submit" name="submit" class="btn btn-primary w-100">Submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="card-header bg-primary">
+                            <h3 class="card-title"><b>History Pembayaran</h3>
                         </div>
-                        <!-- /.card-header -->
-                        <?php
-                        $link = "gePinjamKaryawan&id_user=" . urlencode($id_user);
-                        $output = getRegistran($link);
-                        ?>
 
                         <div class="card-body">
                             <?php if ($output == NULL) { ?>
@@ -102,7 +168,9 @@ include "header-kordinator.php"
                                                 <th>NIK</th>
                                                 <th>Jabatan</th>
                                                 <th>Keperluan</th>
-                                                <th>Pemohon</th>
+                                                <th>Tanggal Bayar</th>
+                                                <th>Jumlah Bayar</th>
+                                                <th>Bukti Bayar</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -113,92 +181,81 @@ include "header-kordinator.php"
                                     </table>
                                 </div>
                             <?php  } else { ?>
-                                <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>No. </th>
-                                            <th>Nama Karyawan</th>
-                                            <th>NIK</th>
-                                            <th>Jabatan</th>
-                                            <th>Keperluan</th>
-                                            <th>Pemohon</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($output->data as $key => $array_item) : ?>
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
                                             <tr>
-                                                <td><?php echo $key + 1 ?></td>
-                                                <td><?php echo $array_item->nama; ?></td>
-                                                <td><?php echo $array_item->nik; ?></td>
-                                                <td><?php echo $array_item->jabatan; ?></td>
-                                                <td><?php echo $array_item->keperluan; ?></td>
-                                                <td><?php echo $array_item->pemohon; ?></td>
-                                                <td>
-                                                    <?php
-                                                    $status = $array_item->status;
-                                                    if ($status == "diproses") {
-                                                        echo '<a class="btn bg-warning text-white">' . $status . '</a>';
-                                                    } elseif ($status == "diterima") {
-                                                        echo '<a class="btn bg-success text-white">' . $status . '</a>';
-                                                    } else {
-                                                        echo '<a class="btn bg-danger text-white">' . $status . '</a>';
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    if (isset($_POST['delete'])) {
-                                                        $id_pinjam = $_POST['id_pinjam'];
-                                                        $link = "getDeletePinjamKaryawan&id_pinjam=" . urlencode($id_pinjam);
-                                                        $delete = getRegistran($link);
-                                                        if (!$delete) {
-                                                            echo "<script>alert('Data berhasil dihapus');window.location='karyawan.php'</script>";
-                                                        } else {
-                                                            echo "<script>alert('Data gagal dihapus');window.location='karyawan.php'</script>";
-                                                        }
-                                                    }
-                                                    ?>
-
-                                                    <form method="post">
+                                                <th style="width: 5%; text-align: left;">No.</th>
+                                                <th style="width: 15%; text-align: left;">Nama Karyawan</th>
+                                                <th style="width: 10%; text-align: left;">Jabatan</th>
+                                                <th style="width: 15%; text-align: left;">Keperluan</th>
+                                                <th style="width: 10%; text-align: left;">Tanggal Bayar</th>
+                                                <th style="width: 10%; text-align: right;">Jumlah Pinjaman</th>
+                                                <th style="width: 10%; text-align: right;">Jumlah cicilan</th>
+                                                <th style="width: 10%; text-align: left;">Bukti Bayar</th>
+                                                <th style="width: 5%; text-align: left;">Status</th>
+                                                <th style="width: 10%; text-align: left;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($output->data as $key => $array_item) : ?>
+                                                <tr>
+                                                    <td style="text-align: left;"><?php echo $key + 1 ?></td>
+                                                    <td style="text-align: left;"><?php echo $array_item->nama_lengkap; ?></td>
+                                                    <td style="text-align: left;"><?php echo $array_item->jabatan; ?></td>
+                                                    <td style="text-align: left;"><?php echo $array_item->keperluan; ?></td>
+                                                    <td style="text-align: left;"><?php echo $array_item->tanggal_bayar; ?></td>
+                                                    <td style="text-align: right;"><?php echo number_format($array_item->jumlah_pinjam) ?></td>
+                                                    <td style="text-align: right;"><?php echo number_format($array_item->jumlah_bayar) ?></td>
+                                                    <td style="text-align: left;"><img class="img-fluid" src="foto_cicilan/<?php echo $array_item->foto_cicilan; ?>" alt=""></td>
+                                                    <td style="text-align: left;">
                                                         <?php
                                                         $status = $array_item->status;
-                                                        if ($status == "diterima") { ?>
-                                                            <a href="cetak_surat.php?id=<?php echo $array_item->id_pinjam ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="cetak surat">
-                                                                <i class="fas fa-print"></i>
-                                                            </a>
-                                                        <?php } else { ?>
-                                                        <?php }
+                                                        if ($status == "diproses") {
+                                                            echo '<a class="btn bg-warning text-white">' . $status . '</a>';
+                                                        } elseif ($status == "diterima") {
+                                                            echo '<a class="btn bg-success text-white">' . $status . '</a>';
+                                                        } else {
+                                                            echo '<a class="btn bg-danger text-white">' . $status . '</a>';
+                                                        }
                                                         ?>
-                                                        <a href="peminjaman-karyawan-kor-edit.php?id=<?php echo $array_item->id_pinjam ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        <input type="hidden" name="id_pinjam" value="<?php echo $array_item->id_pinjam; ?>">
-                                                        <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                <?php } ?>
-                                </table>
+                                                    </td>
+                                                    <td style="text-align: left;">
+                                                        <?php
+                                                        if (isset($_POST['delete'])) {
+                                                            $id_pinjam = $_POST['id_pinjam'];
+                                                            $link = "getDeletePinjamKaryawan&id_pinjam=" . urlencode($id_pinjam);
+                                                            $delete = getRegistran($link);
+                                                            if (!$delete) {
+                                                                echo "<script>alert('Data berhasil dihapus');window.location='karyawan.php'</script>";
+                                                            } else {
+                                                                echo "<script>alert('Data gagal dihapus');window.location='karyawan.php'</script>";
+                                                            }
+                                                        }
+                                                        ?>
+
+                                                        <form method="post">
+                                                            <a href="peminjaman-karyawan-kor-edit.php?id=<?php echo $array_item->id_pinjam ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="bayar">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <input type="hidden" name="id_pinjam" value="<?php echo $array_item->id_pinjam; ?>">
+                                                            <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php } ?>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-
-
-                    <!-- /.card -->
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 
@@ -248,6 +305,7 @@ include "header-kordinator.php"
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -113,7 +113,8 @@ include "header.php"
                                             <th>Nama Karyawan</th>
                                             <th>Jabatan</th>
                                             <th>NIK</th>
-                                            <th>Nilai Loan</th>
+                                            <th>Cicilan / Bulan</th>
+                                            <th>Jumlah Sudah Bayar</th>
                                             <th>Keperluan</th>
                                             <th>Pemohon</th>
                                             <th>Status</th>
@@ -124,10 +125,11 @@ include "header.php"
                                         <?php foreach ($output->data as $key => $array_item) : ?>
                                             <tr>
                                                 <td><?php echo $key + 1 ?></td>
-                                                <td><?php echo $array_item->nama; ?></td>
+                                                <td><?php echo $array_item->nama_lengkap; ?></td>
                                                 <td><?php echo $array_item->jabatan; ?></td>
                                                 <td><?php echo $array_item->nik; ?></td>
-                                                <td><?php echo $array_item->nilai_loan; ?></td>
+                                                <td><?php echo $array_item->jumlah_cicilan; ?></td>
+                                                <td><?php echo $array_item->jumlah_bayar; ?></td>
                                                 <td><?php echo $array_item->keperluan; ?></td>
                                                 <td><?php echo $array_item->pemohon; ?></td>
                                                 <td>

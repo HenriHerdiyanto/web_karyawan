@@ -72,6 +72,7 @@ if (isset($_POST['delete'])) {
                                                 <th>Tanggal</th>
                                                 <th>Jam Masuk</th>
                                                 <th>Jam Keluar</th>
+                                                <th>Terlambat</th>
                                                 <th>Sakit</th>
                                                 <th>Izin</th>
                                                 <th>Keterangan</th>
@@ -82,14 +83,14 @@ if (isset($_POST['delete'])) {
                                         <tbody>
                                             <?php
                                             $no = 1;
-                                            foreach ($data_absen1->data as $array_item) :
-                                            ?>
+                                            foreach ($data_absen1->data as $array_item) : ?>
                                                 <tr>
                                                     <td><?php echo $no++; ?></td>
                                                     <td><?php echo $array_item->nama_lengkap; ?></td>
                                                     <td><?php echo $array_item->tanggal; ?></td>
                                                     <td><?php echo $array_item->waktu_masuk; ?></td>
                                                     <td><?php echo $array_item->waktu_keluar; ?></td>
+                                                    <td><?php echo $array_item->terlambat; ?></td>
                                                     <td><?php echo $array_item->sakit; ?></td>
                                                     <td><?php echo $array_item->izin; ?></td>
                                                     <td><?php echo $array_item->keterangan; ?></td>

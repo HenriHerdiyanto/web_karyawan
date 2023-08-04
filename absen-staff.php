@@ -32,8 +32,15 @@ if (isset($_POST['submit'])) {
     $nama_lengkap = $_POST['nama_lengkap'];
     $tanggal = $_POST['tanggal'];
     $waktu_masuk = $_POST['waktu_masuk'];
+    $terlambat = $_POST['terlambat'];
     $barcode = $_POST['barcode'];
-    $link = "insertAbsen&id_karyawan=" . urlencode($id_karyawan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&tanggal=" . urlencode($tanggal) . "&waktu_masuk=" . urlencode($waktu_masuk) . "&barcode=" . urlencode($barcode);
+    // jika waktu masuk lebih dari jam 08:15:00
+    if ($waktu_masuk > '08:15:00') {
+        $terlambat = '1';
+    } else {
+        $terlambat = '0';
+    }
+    $link = "insertAbsen&id_karyawan=" . urlencode($id_karyawan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&tanggal=" . urlencode($tanggal) . "&waktu_masuk=" . urlencode($waktu_masuk) . "&barcode=" . urlencode($barcode) . "&terlambat=" . urlencode($terlambat);
     $insert = getRegistran($link);
     // var_dump($insert);
     echo "<script>alert('Absen Masuk Berhasil')</script>";
@@ -107,7 +114,7 @@ if (isset($_POST['sakit'])) {
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="mb-2">
                                                 <label for="namaInput">Nama:</label>
-                                                <input class="form-control" type="text" name="id_karyawan" value="<?= $id_karyawan ?>">
+                                                <input class="form-control" type="hidden" name="id_karyawan" value="<?= $id_karyawan ?>">
                                                 <input class="form-control" type="text" value="<?= $nama_lengkap ?>" name="nama_lengkap" id="namaInput" required readonly>
                                             </div>
                                             <div class="mb-2">
@@ -117,6 +124,9 @@ if (isset($_POST['sakit'])) {
                                             <div class="mb-2">
                                                 <label for="waktuInput">Waktu:</label>
                                                 <input class="form-control" type="time" id="waktuInput" name="waktu_masuk" required readonly>
+                                            </div>
+                                            <div class="mb-2">
+                                                <input type="hidden" name="terlambat">
                                             </div>
                                             <div class="mb-2">
                                                 <input type="button" id="generateBtn" class="btn btn-success w-100" value="Generate Barcode" onclick="generateBarcode()">
@@ -168,7 +178,7 @@ if (isset($_POST['sakit'])) {
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="mb-2">
                                                 <label for="namaInput">Nama:</label>
-                                                <input class="form-control" type="text" name="id_absen" value="<?= $data_absen_keluar->data[0]->id_absen ?>">
+                                                <input class="form-control" type="hidden" name="id_absen" value="<?= $data_absen_keluar->data[0]->id_absen ?>">
                                                 <input class="form-control" type="text" value="<?= $nama_lengkap ?>" name="nama_lengkap" id="namaInput" required readonly>
                                             </div>
                                             <div class="mb-2">
@@ -241,7 +251,7 @@ if (isset($_POST['sakit'])) {
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="mb-2">
                                                 <label for="keterangan">Alasan IZIN:</label>
-                                                <textarea class="form-control" name="keterangan" id="keterangan" cols="30" rows="10" required></textarea>
+                                                <textarea class="form-control" name="keterangan" placeholder="apa alasan izin anda" id="keterangan" cols="30" rows="10" required></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -296,7 +306,7 @@ if (isset($_POST['sakit'])) {
                                             <div class="col-lg-6 col-sm-12">
                                                 <div class="mb-2">
                                                     <label for="keterangan">Keterangan sakit:</label>
-                                                    <textarea class="form-control" name="keterangan" id="keterangan" cols="30" rows="10" required></textarea>
+                                                    <textarea class="form-control" name="keterangan" placeholder="sakit apa anda" id="keterangan" cols="30" rows="10" required></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -354,7 +364,7 @@ if (isset($_POST['sakit'])) {
                                                             <th style="width: 15%;">Tanggal</th>
                                                             <th style="width: 10%;">Waktu Masuk</th>
                                                             <th style="width: 10%;">Waktu Keluar</th>
-                                                            <th style="width: 10%;">Alpha</th>
+                                                            <th style="width: 10%;">Terlambat</th>
                                                             <th style="width: 10%;">Sakit</th>
                                                             <th style="width: 10%;">Izin</th>
                                                             <th style="width: 10%;">Barcode</th>
@@ -371,7 +381,7 @@ if (isset($_POST['sakit'])) {
                                                                 <td><?= $row->tanggal ?></td>
                                                                 <td><?= $row->waktu_masuk ?></td>
                                                                 <td><?= $row->waktu_keluar ?></td>
-                                                                <td><?= $row->alpha ?></td>
+                                                                <td><?= $row->terlambat ?></td>
                                                                 <td><?= $row->sakit ?></td>
                                                                 <td><?= $row->izin ?></td>
                                                                 <td><?= $row->barcode ?></td>
