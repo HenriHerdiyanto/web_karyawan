@@ -127,7 +127,13 @@ var_dump($data_pendidikan);
                                             </div>
                                             <div class="mb-2">
                                                 <label for="pendidikan" class="form-label">Pendidikan</label>
-                                                <input type="text" class="form-control" id="pendidikan" name="pendidikan" value="<?= $data_pendidikan->data[0]->jenjang_pendidikan ?>" required readonly>
+                                                <?php
+                                                if ($data_pendidikan == null) { ?>
+                                                    <input type="text" class="form-control" id="pendidikan" name="pendidikan" required readonly>
+                                                <?php } else { ?>
+                                                    <input type="text" class="form-control" id="pendidikan" name="pendidikan" value="<?= $data_pendidikan->data[0]->jenjang_pendidikan ?>" required readonly>
+                                                <?php }
+                                                ?>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">

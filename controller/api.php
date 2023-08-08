@@ -929,11 +929,22 @@ function setAbsen()
         $jam_masuk = $_GET['jam_masuk'];
     if (!empty($_GET['jam_keluar']))
         $jam_keluar = $_GET['jam_keluar'];
-
-
-    $query = "INSERT INTO absen_karyawan SET nama_karyawan = '$nama_karyawan', date = '$date', jam_masuk = '$jam_masuk', jam_keluar = '$jam_keluar',nomor_induk = '$nomor_induk'";
-    echo $query;
-    $result = $connect->query($query);
+    if (!empty($_GET['terlambat']))
+        $terlambat = $_GET['terlambat'];
+    if ($jam_masuk > '8:00:00') {
+        $query = "INSERT INTO absen_karyawan SET nama_karyawan = '$nama_karyawan', date = '$date', jam_masuk = '$jam_masuk', jam_keluar = '$jam_keluar',nomor_induk = '$nomor_induk',terlambat = '1'";
+        echo $query;
+        $result = $connect->query($query);
+        // hapus data null
+        $query1 = "DELETE FROM absen_karyawan WHERE jam_masuk = '00:00:00' && nomor_induk = '0'";
+        $result = $connect->query($query1);
+    } else {
+        $query = "INSERT INTO absen_karyawan SET nama_karyawan = '$nama_karyawan', date = '$date', jam_masuk = '$jam_masuk', jam_keluar = '$jam_keluar',nomor_induk = '$nomor_induk',terlambat = '0'";
+        echo $query;
+        $result = $connect->query($query);
+        $query2 = "DELETE FROM absen_karyawan WHERE jam_masuk = '00:00:00' && nomor_induk = '0'";
+        $result = $connect->query($query2);
+    }
 
     if ($result) {
         $response = array(

@@ -5,9 +5,20 @@ require_once 'header.php';
 
 $link = "getAbsen";
 $data_absen = getRegistran($link);
-// var_dump($data_absen);
 
+var_dump($data_absen);
 
+if (isset($_POST['reset'])) {
+    $link = "getDeleteDivisiId";
+    $reset = getRegistran($link);
+    if (!$reset) {
+        echo "<script>alert('Data berhasil direset')</script>";
+        echo "<script>location='absen-admin.php'</script>";
+    } else {
+        echo "<script>alert('Data gagal direset')</script>";
+        echo "<script>location='absen-admin.php'</script>";
+    }
+}
 ?>
 <style>
     /* buatkan css agar posisi label berada rata dikiri */
@@ -57,7 +68,7 @@ $data_absen = getRegistran($link);
                                     <form action="" method="POST" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="file">Pilih file Excel:</label>
-                                            <input type="file" class="form-control" name="file_absen" id="file_absen">
+                                            <input type="file" class="form-control" name="file_absen" id="file_absen" required>
                                         </div>
                                         <input type="submit" name="upload" class="btn btn-outline-primary w-100" value="upload">
                                     </form>
@@ -77,8 +88,21 @@ $data_absen = getRegistran($link);
                 </section>
                 <section class="col-lg-12 col-sm-12 connectedSortable">
                     <div class="card">
+
                         <?php
                         if ($data_absen == null) { ?>
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col">
+                                        <h2>Data Absen Karyawan</h2>
+                                    </div>
+                                    <div class="col d-flex justify-content-end">
+                                        <form action="" method="post">
+                                            <button type="submit" name="reset" class="btn btn-danger">Reset Data</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card-body">
                                 <div class="tab-content p-0 table-responsive">
                                     <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -90,6 +114,7 @@ $data_absen = getRegistran($link);
                                                 <th>Tanggal</th>
                                                 <th>Jam Masuk</th>
                                                 <th>Jam Keluar</th>
+                                                <th>Terlambat</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -108,19 +133,6 @@ $data_absen = getRegistran($link);
                                         <h2>Data Absen Karyawan</h2>
                                     </div>
                                     <div class="col d-flex justify-content-end">
-                                        <?php
-                                        if (isset($_POST['reset'])) {
-                                            $link = "getDeleteDivisiId";
-                                            $reset = getRegistran($link);
-                                            if (!$reset) {
-                                                echo "<script>alert('Data berhasil direset')</script>";
-                                                echo "<script>location='absen-admin.php'</script>";
-                                            } else {
-                                                echo "<script>alert('Data gagal direset')</script>";
-                                                echo "<script>location='absen-admin.php'</script>";
-                                            }
-                                        }
-                                        ?>
                                         <form action="" method="post">
                                             <button type="submit" name="reset" class="btn btn-danger">Reset Data</button>
                                         </form>
@@ -138,6 +150,7 @@ $data_absen = getRegistran($link);
                                                 <th>Tanggal</th>
                                                 <th>Jam Masuk</th>
                                                 <th>Jam Keluar</th>
+                                                <th>Terlambat</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -158,6 +171,7 @@ $data_absen = getRegistran($link);
                                             $no = 1;
                                             foreach ($data_absen->data as $array_item) :
                                             ?>
+
                                                 <tr>
                                                     <td><?php echo $no++; ?></td>
                                                     <td><?php echo $array_item->nomor_induk; ?></td>
@@ -165,6 +179,7 @@ $data_absen = getRegistran($link);
                                                     <td class="text-center"><?php echo $array_item->date; ?></td>
                                                     <td><?php echo $array_item->jam_masuk; ?></td>
                                                     <td><?php echo $array_item->jam_keluar; ?></td>
+                                                    <td><?php echo $array_item->terlambat; ?></td>
                                                     <td class="text-center">
                                                         <form method="post">
                                                             <input type="hidden" name="id_absen" value="<?php echo $array_item->id_absen; ?>">
@@ -172,10 +187,12 @@ $data_absen = getRegistran($link);
                                                                 Hapus
                                                             </button>
                                                         </form>
-                                                        <a href="payroll.php?nomor_induk=<?php echo $array_item->nomor_induk; ?>" class="btn btn-sm  btn-info">Payroll</a>
+                                                        <a href="payroll.php?nomor_induk=<?php echo $array_item->nomor_induk; ?>" class="btn btn-sm btn-info">Payroll</a>
                                                     </td>
                                                 </tr>
+
                                             <?php endforeach; ?>
+
                                         </tbody>
                                     </table>
                                 </div>
