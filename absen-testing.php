@@ -3,7 +3,9 @@ include "controller/koneksi.php";
 require_once 'header.php';
 $link = "getAbsenb";
 $data_absen1 = getRegistran($link);
-// var_dump($data_absen);
+
+
+// var_dump($data_absen1);
 if (isset($_POST['delete'])) {
     $id_absen = $_POST['id_absen'];
     $link = "getDeleteDivisiId&id_absen=" . urlencode($id_absen);
@@ -69,14 +71,14 @@ if (isset($_POST['delete'])) {
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Karyawan</th>
-                                                <th>Tanggal</th>
-                                                <th>Jam Masuk</th>
-                                                <th>Jam Keluar</th>
-                                                <th>Terlambat</th>
+                                                <th>Nomor Induk Karyawan</th>
+                                                <th>Nama Divisi</th>
+                                                <th>Jabatan</th>
                                                 <th>Sakit</th>
                                                 <th>Izin</th>
                                                 <th>Keterangan</th>
                                                 <th>Barcode</th>
+                                                <th>Status Karyawan</th>
                                                 <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
@@ -87,14 +89,14 @@ if (isset($_POST['delete'])) {
                                                 <tr>
                                                     <td><?php echo $no++; ?></td>
                                                     <td><?php echo $array_item->nama_lengkap; ?></td>
-                                                    <td><?php echo $array_item->tanggal; ?></td>
-                                                    <td><?php echo $array_item->waktu_masuk; ?></td>
-                                                    <td><?php echo $array_item->waktu_keluar; ?></td>
-                                                    <td><?php echo $array_item->terlambat; ?></td>
-                                                    <td><?php echo $array_item->sakit; ?></td>
-                                                    <td><?php echo $array_item->izin; ?></td>
-                                                    <td><?php echo $array_item->keterangan; ?></td>
-                                                    <td><?php echo $array_item->barcode; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->nomor_induk; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->nama_divisi; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->level_user; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->sakit; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->izin; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->keterangan; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->barcode; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->status_karyawan; ?></td>
                                                     <td class="text-center">
                                                         <form method="post">
                                                             <input type="hidden" name="id_absen" value="<?php echo $array_item->id_absen; ?>">
@@ -103,7 +105,6 @@ if (isset($_POST['delete'])) {
                                                             </button>
                                                             <a href="payroll-testing.php?id_karyawan=<?php echo $array_item->id_karyawan; ?>" class="btn btn-sm  btn-info">Payroll</a>
                                                         </form>
-                                                        <!-- <a href="controller/absen.php?aksi=deleteAbsen&id=<?php echo $array_item->id_absen; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a> -->
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

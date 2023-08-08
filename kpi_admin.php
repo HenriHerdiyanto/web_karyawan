@@ -53,9 +53,9 @@ $dataAdmin = getRegistran($link);
                         <h1 class="m-3">key performance indicator (KPI)</h1>
                     </div>
                     <div align="end" class="col mt-3 mr-3">
-                        <a href="karyawan-kor-tambah.php" class="btn btn-success" type="button">
+                        <!-- <a href="karyawan-kor-tambah.php" class="btn btn-success" type="button">
                             <i class="fas fa-plus"></i> Add Staff Kamu
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>

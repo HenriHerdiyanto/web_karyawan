@@ -170,7 +170,7 @@ $data_sop = getRegistran($link2);
                     <div class="small-box bg-success">
                         <div class="inner">
                             <?php
-                            $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM pinjam_karyawan WHERE id_user= $id_user");
+                            $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM pinjam_karyawan WHERE id_karyawan= $id_karyawan");
                             $row = mysqli_fetch_assoc($query);
                             $jumlah_data = $row['jumlah_data'];
                             ?>

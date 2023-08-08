@@ -39,7 +39,7 @@ if (isset($_POST['update'])) {
     $link = "getAddCuti&id_cuti=" . urlencode($id_cuti) . "&alasan_cuti=" . urlencode($alasan_cuti) . "&status=" . urlencode($status);
     $update = getRegistran($link);
     // var_dump($update);
-    if (!$update) {
+    if ($update) {
         echo "<script>alert('Data berhasil diupdate');window.location='cuti_admin.php'</script>";
     } else {
         echo "<script>alert('Data gagal diupdate');window.location='cuti_admin.php'</script>";

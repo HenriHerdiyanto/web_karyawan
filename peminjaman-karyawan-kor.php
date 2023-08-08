@@ -6,7 +6,8 @@ $output = getRegistran($link);
 
 $link = "gePinjamKaryawan&id_karyawan=" . urlencode($id_kar1);
 $output = getRegistran($link);
-var_dump($output);
+$no_ktp = $output->data[0]->nik;
+// var_dump($output);
 
 if (isset($_POST['submit'])) {
     $id_karyawan = $_POST['id_karyawan'];
@@ -43,7 +44,7 @@ if (isset($_POST['submit'])) {
         width: 200px;
         margin-right: 100%;
         text-align: justify;
-
+        font-size: medium;
     }
 </style>
 <!-- Content Wrapper. Contains page content -->
@@ -91,41 +92,41 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="mb-2">
                                     <label for="jumlah_pinjam">Jumlah Pinjam</label>
-                                    <input type="text" class="form-control" id="jumlah_pinjam" name="jumlah_pinjam">
+                                    <input type="text" class="form-control" id="jumlah_pinjam" name="jumlah_pinjam" placeholder="jangan gunakan titik Contoh: 1000000">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="pelunasan">Jangka Pelunasan ( / Bulan)</label>
+                                    <input type="number" class="form-control" id="pelunasan" name="pelunasan" placeholder="berapa bulan">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="jumlah_cicilan">Jumlah Cicilan</label>
+                                    <input type="text" class="form-control" id="jumlah_cicilan" name="jumlah_cicilan" readonly>
                                 </div>
                                 <div class="mb-2">
                                     <label for="tanggal_pinjam">Tanggal Pinjam</label>
                                     <input type="date" class="form-control" id="tanggal_pinjam" name="tanggal_pinjam">
                                 </div>
+                            </div>
+                            <div class="col-lg-6">
                                 <div class="mb-2">
                                     <label for="pelunasan_terakhir">Tanggal Pelunasan Terakhir</label>
                                     <input type="date" class="form-control" id="pelunasan_terakhir" name="pelunasan_terakhir">
                                 </div>
                                 <div class="mb-2">
                                     <label for="nik">NIK</label>
-                                    <input type="text" class="form-control" id="nik" name="nik" value="<?= $output->data[0]->no_ktp ?>" placeholder="NIK">
+                                    <input type="text" class="form-control" id="nik" name="nik" value="<?= $no_ktp ?>" placeholder="NIK">
                                 </div>
                                 <div class="mb-2">
                                     <label for="level_user">Jabatan</label>
-                                    <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $output->data[0]->level_user ?>">
+                                    <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $output->data[0]->jabatan ?>">
                                 </div>
-                            </div>
-                            <div class="col-lg-6">
                                 <div class="mb-2">
                                     <label for="gaji">Gaji Terakhir</label>
                                     <input type="text" class="form-control" id="gaji" name="gaji" value="<?= $output->data[0]->gaji ?>">
                                 </div>
                                 <div class="mb-2">
-                                    <label for="jumlah_cicilan">Jumlah Cicilan</label>
-                                    <input type="text" class="form-control" id="jumlah_cicilan" name="jumlah_cicilan">
-                                </div>
-                                <div class="mb-2">
                                     <label for="keperluan">Keperluan</label>
                                     <input type="text" class="form-control" id="keperluan" name="keperluan" placeholder="Keperluan">
-                                </div>
-                                <div class="mb-2">
-                                    <label for="pelunasan">Pelunasan perbulan selama berapa lama</label>
-                                    <input type="text" class="form-control" id="pelunasan" name="pelunasan" placeholder="pelunasan">
                                 </div>
                                 <div class="mb-2">
                                     <label for="pemohon">Pemohon</label>
@@ -266,7 +267,26 @@ if (isset($_POST['submit'])) {
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<!-- script mendapatkan hasil jumlah cicilan id jumlah_pinjam : id pelunasan dan ditampilkan pada id jumlah_cicilan -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const jumlahPinjamInput = document.getElementById('jumlah_pinjam');
+        const pelunasanInput = document.getElementById('pelunasan');
+        const jumlahCicilanInput = document.getElementById('jumlah_cicilan');
 
+        jumlahPinjamInput.addEventListener('input', calculateCicilan);
+        pelunasanInput.addEventListener('input', calculateCicilan);
+
+        function calculateCicilan() {
+            const jumlahPinjam = parseFloat(jumlahPinjamInput.value) || 0;
+            const pelunasan = parseFloat(pelunasanInput.value) || 0;
+
+            const jumlahCicilan = pelunasan === 0 ? 0 : jumlahPinjam / pelunasan;
+
+            jumlahCicilanInput.value = jumlahCicilan.toFixed();
+        }
+    });
+</script>
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

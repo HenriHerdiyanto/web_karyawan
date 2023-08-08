@@ -26,13 +26,13 @@ if (isset($_POST['upload'])) {
 
         $jumlahData = count($sheetData) - 1;
         for ($i = 1; $i < count($sheetData); $i++) {
-            $nama_lengkap = $sheetData[$i][1];
+            $nama_karyawan = $sheetData[$i][1];
             $date = $sheetData[$i][2];
             $jam_masuk = $sheetData[$i][3];
             $jam_keluar = $sheetData[$i][4];
             $nomor_induk = $sheetData[$i][5];
 
-            $link = "setAbsen&nama_lengkap=" . urlencode($nama_lengkap) . "&date=" . urlencode($jam_keluar) . "&jam_masuk=" . urlencode($date) . "&jam_keluar=" . urlencode($jam_masuk) . "&nomor_induk=" . urlencode($nomor_induk);
+            $link = "setAbsen&nama_karyawan=" . urlencode($nama_karyawan) . "&date=" . urlencode($date) . "&jam_masuk=" . urlencode($jam_masuk) . "&jam_keluar=" . urlencode($jam_keluar) . "&nomor_induk=" . urlencode($nomor_induk);
             $insert_absen = getRegistran($link);
             var_dump($insert_absen);
             // echo "<script>alert('Data Berhasil diupload')</script>";
@@ -42,20 +42,17 @@ if (isset($_POST['upload'])) {
             $success .= "Data berhasil diupload";
         }
     }
-    if ($err) {
-?>
+    if ($err) { ?>
         <div class="alert alert-danger">
             <?php echo $err; ?>
         </div>
     <?php
     }
 
-    if ($success) {
-    ?>
+    if ($success) { ?>
         <div class="alert alert-primary">
             <?php echo $success; ?>
         </div>
-<?php
-    }
+<?php }
 }
 ?>

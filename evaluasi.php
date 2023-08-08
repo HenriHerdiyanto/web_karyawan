@@ -58,14 +58,14 @@ if (isset($_POST['submit'])) {
                                         <th scope="col">Jabatan</th>
                                         <th scope="col">Tanggal Mulai kerja</th>
                                         <th scope="col">Status Kerja</th>
-                                        <th scope="col">Status Evaluasi</th>
+                                        <th scope="col" class="text-center">Status Evaluasi</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    $link = "getEvaluasi";
+                                    $link = "getEvaluasiAdmin";
                                     $output = getRegistran($link);
                                     ?>
                                     <?php if ($output == NULL) { ?>
@@ -84,7 +84,7 @@ if (isset($_POST['submit'])) {
                                                 <td><?php echo $array_item->level_user ?></td>
                                                 <td><?php echo $array_item->tanggal_kerja ?></td>
                                                 <td><?php echo $array_item->status ?></td>
-                                                <td>
+                                                <td class="text-center">
                                                     <?php
                                                     $status = $array_item->status_evaluasi;
                                                     if ($status == "diproses") {

@@ -125,7 +125,14 @@ $gaji = $row2['gaji'];
 // panggil pendidikan pada tabel pendidikan
 $link = "getProfilePendidikan&id_karyawan=" . urlencode($id_karyawan);
 $data_pendidikan = getRegistran($link);
-var_dump($data_pendidikan);
+// var_dump($data_pendidikan);
+
+$link = "gePinjamKaryawan&id_karyawan=" . urlencode($id_karyawan);
+$data_pinjaman = getRegistran($link);
+$jumlah_pinjam = $data_pinjaman->data[0]->jumlah_pinjam;
+$jumlah_bayar_sekarang = $data_pinjaman->data[0]->jumlah_bayar_sekarang;
+$jumlah_cicilan = $data_pinjaman->data[0]->jumlah_cicilan;
+var_dump($jumlah_cicilan);
 
 ?>
 <div class="content-wrapper">
@@ -395,7 +402,13 @@ var_dump($data_pendidikan);
                                         </div>
                                         <div class="mb-2">
                                             <label for="">Pinjaman</label>
-                                            <input type="number" class="form-control nilai-input4" id="pinjaman" name="pinjaman" required>
+                                            <?php
+                                            if ($jumlah_bayar_sekarang < $jumlah_pinjam) { ?>
+                                                <input type="number" class="form-control nilai-input4" id="pinjaman" value="<?= $jumlah_cicilan ?>" name="pinjaman" required>
+                                            <?php } else { ?>
+                                                <input type="number" class="form-control nilai-input4" id="pinjaman" value="0" name="pinjaman" required>
+                                            <?php }
+                                            ?>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">BPJS KESEHATAN Ditanggung Karyawan 1%</label>

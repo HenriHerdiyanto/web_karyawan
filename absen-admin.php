@@ -1,12 +1,24 @@
 <?php
 include "controller/koneksi.php";
 require_once 'header.php';
+
+
 $link = "getAbsen";
 $data_absen = getRegistran($link);
 // var_dump($data_absen);
 
-?>
 
+?>
+<style>
+    /* buatkan css agar posisi label berada rata dikiri */
+    label {
+        display: inline-block;
+        width: 200px;
+        margin-right: 100%;
+        text-align: justify;
+        font-size: medium;
+    }
+</style>
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container-fluid">
@@ -16,38 +28,6 @@ $data_absen = getRegistran($link);
                         <h1 class="m-3">Absen Karyawan</h1>
                     </div>
                     <div align="end" class="col mt-2 mr-3">
-                        <!-- Button trigger modal -->
-                        <!-- <a type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#updateProfileModal">
-                            <i class="fa fa-user-plus"></i> Upload Data
-                        </a>
-                        <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h2>Upload data absen karyawan</h2>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <?php include("aksi.php") ?>
-                                            <form action="" method="POST" enctype="multipart/form-data">
-                                                <div class="form-group">
-                                                    <label for="">Keterangan</label>
-                                                    <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan" required>
-                                                    <label for="file">Pilih file Excel:</label>
-                                                    <input type="file" class="form-control" name="file_absen" id="file_absen" accept=".xls, .xlsx" required>
-                                                    <label for="">Tanggal Upload</label>
-                                                    <input type="date" class="form-control" name="tanggal_upload" id="tanggal_upload" placeholder="Tanggal Upload" required>
-                                                </div>
-                                                <button type="submit" name="upload" class="btn btn-primary">Upload</button>
-                                            </form> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -56,101 +36,44 @@ $data_absen = getRegistran($link);
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <section class="col-lg-12 col-sm-12 connectedSortable">
+                <section class="col-lg-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><i class="fas fa-chart-pie mr"></i> Data Absen
+                            <div class="row">
+                                <div class="col">
+                                    <h3 class="card-title"><i class="fas fa-chart-pie mr"></i> Data Absen</h3>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <a href="controller/testing222.xls" target="_blank" class="btn btn-success">
+                                        <i class="fas fa-eye"></i> Template Absen
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
-                            <div class="tab-content p-0 table-responsive">
-
-                                <?php include("aksi.php") ?>
-                                <form action="" method="POST" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <!-- <label for="">Keterangan</label>
-                                        <input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan" required> -->
-                                        <label for="file">Pilih file Excel:</label>
-                                        <input type="file" class="form-control" name="file_absen" id="file_absen">
-                                        <!-- <label for="">Tanggal Upload</label>
-                                        <input type="date" class="form-control" name="tanggal_upload" id="tanggal_upload" placeholder="Tanggal Upload" required> -->
-                                    </div>
-                                    <input type="submit" name="upload" class="btn btn-primary" value="upload">
-                                </form>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <?php include("aksi.php") ?>
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="file">Pilih file Excel:</label>
+                                            <input type="file" class="form-control" name="file_absen" id="file_absen">
+                                        </div>
+                                        <input type="submit" name="upload" class="btn btn-outline-primary w-100" value="upload">
+                                    </form>
+                                </div>
+                                <div class="col-lg-4">
+                                    <span class="text-red">*Catatan</span>
+                                    <ul>
+                                        <li>Upload File dilakukan sebulan sekali</li>
+                                        <li>File yang diupload harus berformat .xls atau .xlsx</li>
+                                        <li>File yang diupload harus sesuai dengan template</li>
+                                        <li>File yang diupload tidak boleh kosong</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="card">
-                        <div class="card-header">
-                            <h3>input manual</h3>
-                        </div>
-                        <div class="card-body">
-                            <form action="" method="post">
-                                <div class="mb-2">
-                                    <label for="id_karyawan" class="form-label">ID Karyawan</label>
-                                    <input type="text" class="form-control" name="id_karyawan" id="id_karyawan" placeholder="ID Karyawan" required>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="nama_karyawan" class="form-label">Nama Karyawan</label>
-                                    <input type="text" class="form-control" name="nama_karyawan" id="nama_karyawan" placeholder="Nama Karyawan" required>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="date" class="form-label">Tanggal</label>
-                                    <input type="date" class="form-control" name="date" id="date" placeholder="Tanggal" required>
-                                </div>
-                                <div id='jamMasuk'>
-                                    <label for="">Jam Masuk :</label>
-                                    <div class="row">
-                                        <div class="col">
-                                            <select class="form-control" name="hourIn" required>
-                                                <option value="">Hour</option>
-                                                <?php
-                                                for ($i = 0; $i <= 23; $i++) {
-                                                    echo "<option value='$i'>$i</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="col">
-                                            <select class="form-control" name="minuteIn" required>
-                                                <option value="">Minute</option>
-                                                <?php
-                                                for ($i = 0; $i <= 59; $i++) {
-                                                    echo "<option value='$i'>$i</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id='jamKeluar'>
-                                    <label for="">Jam Keluar :</label>
-                                    <div class="row">
-                                        <div class="col">
-                                            <select class="form-control" name="hourOut" required>
-                                                <option value="">Hour</option>
-                                                <?php
-                                                for ($i = 0; $i <= 23; $i++) {
-                                                    echo "<option value='$i'>$i</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="col">
-                                            <select class="form-control" name="minuteOut" required>
-                                                <option value="">Minute</option>
-                                                <?php
-                                                for ($i = 0; $i <= 59; $i++) {
-                                                    echo "<option value='$i'>$i</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div> -->
                 </section>
                 <section class="col-lg-12 col-sm-12 connectedSortable">
                     <div class="card">
@@ -162,11 +85,12 @@ $data_absen = getRegistran($link);
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>ID Karyawan</th>
+                                                <th>Nomor Karyawan</th>
                                                 <th>Nama Karyawan</th>
                                                 <th>Tanggal</th>
                                                 <th>Jam Masuk</th>
                                                 <th>Jam Keluar</th>
+                                                <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -179,7 +103,29 @@ $data_absen = getRegistran($link);
                             </div>
                         <?php } else { ?>
                             <div class="card-header">
-                                <h2>Data Absen Karyawan</h2>
+                                <div class="row">
+                                    <div class="col">
+                                        <h2>Data Absen Karyawan</h2>
+                                    </div>
+                                    <div class="col d-flex justify-content-end">
+                                        <?php
+                                        if (isset($_POST['reset'])) {
+                                            $link = "getDeleteDivisiId";
+                                            $reset = getRegistran($link);
+                                            if (!$reset) {
+                                                echo "<script>alert('Data berhasil direset')</script>";
+                                                echo "<script>location='absen-admin.php'</script>";
+                                            } else {
+                                                echo "<script>alert('Data gagal direset')</script>";
+                                                echo "<script>location='absen-admin.php'</script>";
+                                            }
+                                        }
+                                        ?>
+                                        <form action="" method="post">
+                                            <button type="submit" name="reset" class="btn btn-danger">Reset Data</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="tab-content p-0 table-responsive">
@@ -201,7 +147,7 @@ $data_absen = getRegistran($link);
                                                 $id_absen = $_POST['id_absen'];
                                                 $link = "getDeleteDivisiId&id_absen=" . urlencode($id_absen);
                                                 $delete = getRegistran($link);
-                                                if ($delete) {
+                                                if (!$delete) {
                                                     echo "<script>alert('Data berhasil dihapus')</script>";
                                                     echo "<script>location='absen-admin.php'</script>";
                                                 } else {
@@ -226,7 +172,6 @@ $data_absen = getRegistran($link);
                                                                 Hapus
                                                             </button>
                                                         </form>
-                                                        <!-- <a href="controller/absen.php?aksi=deleteAbsen&id=<?php echo $array_item->id_absen; ?>" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a> -->
                                                         <a href="payroll.php?nomor_induk=<?php echo $array_item->nomor_induk; ?>" class="btn btn-sm  btn-info">Payroll</a>
                                                     </td>
                                                 </tr>

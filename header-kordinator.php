@@ -145,6 +145,14 @@ $nama_divisi = $data_lengkap->data[0]->nama_divisi;
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="absen-kordinator.php" class="nav-link" style="color: #FFCF09;">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Absen Anda
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="evaluasi-karyawan-kor.php" class="nav-link" style="color: #FFCF09;">
                                 <i class="nav-icon fas fa-chart-bar"></i>
                                 <p>

@@ -123,6 +123,31 @@ function getReqAdmin()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+function getEvaluasiAdmin()
+{
+    global $connect;
+
+    $query = "SELECT * FROM evaluasi";
+    $result = $connect->query($query);
+    while ($row = mysqli_fetch_object($result)) {
+        $data[] = $row;
+    }
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => $data
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 
 function getUserStaff()
 {
@@ -894,8 +919,8 @@ function setTodolist()
 function setAbsen()
 {
     global $connect;
-    if (!empty($_GET['id_karyawan']))
-        $id_karyawan = $_GET['id_karyawan'];
+    if (!empty($_GET['nomor_induk']))
+        $nomor_induk = $_GET['nomor_induk'];
     if (!empty($_GET['nama_karyawan']))
         $nama_karyawan = $_GET['nama_karyawan'];
     if (!empty($_GET['date']))
@@ -906,7 +931,7 @@ function setAbsen()
         $jam_keluar = $_GET['jam_keluar'];
 
 
-    $query = "INSERT INTO absen_karyawan SET nama_karyawan = '$nama_karyawan', date = '$date', jam_masuk = '$jam_masuk', jam_keluar = '$jam_keluar',id_karyawan = '$id_karyawan'";
+    $query = "INSERT INTO absen_karyawan SET nama_karyawan = '$nama_karyawan', date = '$date', jam_masuk = '$jam_masuk', jam_keluar = '$jam_keluar',nomor_induk = '$nomor_induk'";
     echo $query;
     $result = $connect->query($query);
 
@@ -1250,6 +1275,52 @@ function setUpdateIdKaryawan()
         $id_user = $_GET['id_user'];
 
     $query = "UPDATE karyawan SET id_user = '$id_user' WHERE id_divisi = '$id_divisi'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+function getUpdateLembur()
+{
+    global $connect;
+    if (!empty($_GET['id_lembur']))
+        $id_lembur = $_GET['id_lembur'];
+    if (!empty($_GET['nama_divisi']))
+        $nama_divisi = $_GET['nama_divisi'];
+    if (!empty($_GET['nama_lengkap']))
+        $nama_lengkap = $_GET['nama_lengkap'];
+    if (!empty($_GET['level_user']))
+        $level_user = $_GET['level_user'];
+    if (!empty($_GET['project']))
+        $project = $_GET['project'];
+    if (!empty($_GET['tanggal']))
+        $tanggal = $_GET['tanggal'];
+    if (!empty($_GET['mulai_lembur']))
+        $mulai_lembur = $_GET['mulai_lembur'];
+    if (!empty($_GET['akhir_lembur']))
+        $akhir_lembur = $_GET['akhir_lembur'];
+    if (!empty($_GET['total_lembur']))
+        $total_lembur = $_GET['total_lembur'];
+    if (!empty($_GET['keterangan']))
+        $keterangan = $_GET['keterangan'];
+    if (!empty($_GET['mengetahui']))
+        $mengetahui = $_GET['mengetahui'];
+    if (!empty($_GET['status']))
+        $status = $_GET['status'];
+
+    $query = "UPDATE lembur SET nama_divisi = '$nama_divisi',nama_lengkap = '$nama_lengkap',level_user = '$level_user',project = '$project',tanggal = '$tanggal',mulai_lembur = '$mulai_lembur',akhir_lembur = '$akhir_lembur',total_lembur = '$total_lembur',keterangan = '$keterangan',mengetahui = '$mengetahui', status = '$status' WHERE id_lembur = '$id_lembur'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -1640,7 +1711,7 @@ function getAbsen()
 {
 
     global $connect;
-    $query = "SELECT * FROM absen_karyawan";
+    $query = "SELECT * FROM absen_karyawan WHERE nomor_induk <> 0";
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -1666,7 +1737,10 @@ function getAbsenb()
 {
 
     global $connect;
-    $query = "SELECT * FROM absen";
+    $query = "SELECT DISTINCT karyawan.id_karyawan, karyawan.nama_lengkap, divisi.nama_divisi,karyawan.nomor_induk,karyawan.level_user,absen.sakit,absen.izin,absen.keterangan,absen.barcode,karyawan.status_karyawan FROM absen LEFT JOIN karyawan ON absen.id_karyawan = karyawan.id_karyawan LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi;
+    ";
+    // $query = "SELECT * FROM karyawan";
+
     $result = $connect->query($query);
 
     while ($row = mysqli_fetch_object($result)) {
@@ -2410,7 +2484,13 @@ function getDeleteDivisiId()
     $id_divisi = $_GET["id_divisi"];
     $id_absen = $_GET["id_absen"];
 
-    if ($id_absen == null) {
+    if ($id_absen == null && $id_divisi == null) {
+        $query = "DELETE FROM absen_karyawan";
+        $result = $connect->query($query);
+        while ($row = mysqli_fetch_object($result)) {
+            $data[] = $row;
+        }
+    } elseif ($id_absen == null) {
         $query = "DELETE FROM divisi WHERE id_divisi = $id_divisi";
         $result = $connect->query($query);
         while ($row = mysqli_fetch_object($result)) {
@@ -3878,13 +3958,21 @@ function getDeleteService()
 {
     global $connect;
     $id_service = $_GET["id_service"];
+    $id_evaluasi = $_GET["id_evaluasi"];
 
-    $query = "DELETE FROM service WHERE id_service = $id_service";
-    $result = $connect->query($query);
-    while ($row = mysqli_fetch_object($result)) {
-        $data[] = $row;
+    if ($id_evaluasi == null) {
+        $query = "DELETE FROM service WHERE id_service = $id_service";
+        $result = $connect->query($query);
+        while ($row = mysqli_fetch_object($result)) {
+            $data[] = $row;
+        }
+    } else {
+        $query = "DELETE FROM evaluasi WHERE id_evaluasi = $id_evaluasi";
+        $result = $connect->query($query);
+        while ($row = mysqli_fetch_object($result)) {
+            $data[] = $row;
+        }
     }
-
     if ($result) {
         $response = array(
             'status' => 1,
