@@ -1303,6 +1303,31 @@ function setUpdateIdKaryawan()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+function updateAbsen()
+{
+    global $connect;
+    if (!empty($_GET['id_absen']))
+        $id_absen = $_GET['id_absen'];
+    $waktu_keluar = '5:00:00';
+
+    $query = "UPDATE absen SET waktu_keluar = '$waktu_keluar' WHERE id_absen = '$id_absen'";
+    $result = $connect->query($query);
+
+    if ($result) {
+        $response = array(
+            'status' => 1,
+            'data' => 'Sukses'
+        );
+    } else {
+        $response = array(
+            'status' => 0,
+            'data' => 'Gagal'
+        );
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
 function getUpdateLembur()
 {
     global $connect;

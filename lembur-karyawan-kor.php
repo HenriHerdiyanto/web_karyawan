@@ -193,7 +193,7 @@ if (isset($_POST['delete'])) {
                                                         <?php
                                                         if ($array_item->status == "diproses") {
                                                             echo "<span class='badge bg-warning text-dark'>$array_item->status</span>";
-                                                        } elseif ($array_item->status == "disetujui") {
+                                                        } elseif ($array_item->status == "diterima") {
                                                             echo "<span class='badge bg-success'>$array_item->status</span>";
                                                         } elseif ($array_item->status == "ditolak") {
                                                             echo "<span class='badge bg-danger'>$array_item->status</span>";

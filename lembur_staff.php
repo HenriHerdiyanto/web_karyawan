@@ -10,7 +10,7 @@ $nama_divisi = $datas->data[0]->nama_divisi;
 $link = "getLemburByNama&id_karyawan=" . urlencode($id_karyawan);
 $data_lembur = getRegistran($link);
 // $status_lembur = $data_lembur->data[0]->status;
-// var_dump($data_lembur);
+// var_dump($data_lembur);  
 
 ?>
 
@@ -196,7 +196,7 @@ if (isset($_POST['save'])) {
                                                         <?php
                                                         if ($array_item->status == "diproses") {
                                                             echo "<span class='badge bg-warning text-dark'>$array_item->status</span>";
-                                                        } elseif ($array_item->status == "disetujui") {
+                                                        } elseif ($array_item->status == "diterima") {
                                                             echo "<span class='badge bg-success'>$array_item->status</span>";
                                                         } elseif ($array_item->status == "ditolak") {
                                                             echo "<span class='badge bg-danger'>$array_item->status</span>";

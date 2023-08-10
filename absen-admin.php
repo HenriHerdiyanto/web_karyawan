@@ -6,7 +6,7 @@ require_once 'header.php';
 $link = "getAbsen";
 $data_absen = getRegistran($link);
 
-var_dump($data_absen);
+// var_dump($data_absen);
 
 if (isset($_POST['reset'])) {
     $link = "getDeleteDivisiId";
@@ -186,8 +186,8 @@ if (isset($_POST['reset'])) {
                                                             <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
                                                                 Hapus
                                                             </button>
+                                                            <a href="payroll.php?nomor_induk=<?php echo $array_item->nomor_induk; ?>" class="btn btn-sm btn-info">Payroll</a>
                                                         </form>
-                                                        <a href="payroll.php?nomor_induk=<?php echo $array_item->nomor_induk; ?>" class="btn btn-sm btn-info">Payroll</a>
                                                     </td>
                                                 </tr>
 

@@ -11,14 +11,46 @@ if (isset($_GET['nomor_induk'])) {
 } else {
     echo "Error: 'nomor_induk' parameter is missing in the URL.";
 }
+// mendapatkan data lembur
 $id_karyawan = $payroll->data[0]->id_karyawan;
 $query = mysqli_query($connect, "SELECT id_karyawan, SUM(total_lembur) AS jumlah_lembur FROM lembur WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan");
 $row = mysqli_fetch_assoc($query);
 $jumlah_data = $row['jumlah_lembur'];
 $final_value = $jumlah_data * 50000;
+
 $query2 = mysqli_query($connect, "SELECT gaji FROM karyawan WHERE id_karyawan = $id_karyawan");
 $row2 = mysqli_fetch_assoc($query2);
 $gaji = $row2['gaji'];
+
+// mendapatkan cuti
+$link = "getCuti&id_karyawan=" . urlencode($id_karyawan);
+$data_cuti = getRegistran($link);
+if ($data_cuti && isset($data_cuti->data[0])) {
+    $ambil_cuti = $data_cuti->data[0]->ambil_cuti;
+    $potongan_cuti = $ambil_cuti * 50000;
+}
+// var_dump($ambil_cuti);
+
+// mencari jumlah terlambat pada absen
+$query3 = mysqli_query($connect, "SELECT id_karyawan, SUM(terlambat) AS jumlah_terlambat FROM absen WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;");
+$row1 = mysqli_fetch_assoc($query3);
+$jumlah_terlambat = $row1['jumlah_terlambat'];
+$final_terlambat = $jumlah_terlambat * 50000;
+
+$link = "gePinjamKaryawan&id_karyawan=" . urlencode($id_karyawan);
+$data_pinjaman = getRegistran($link);
+
+// mendapatkan pinjaman karyawan
+if ($data_pinjaman && isset($data_pinjaman->data[0])) {
+    $jumlah_pinjam = $data_pinjaman->data[0]->jumlah_pinjam;
+    $jumlah_bayar_sekarang = $data_pinjaman->data[0]->jumlah_bayar_sekarang;
+    $jumlah_cicilan = $data_pinjaman->data[0]->jumlah_cicilan;
+} else {
+    // Atur nilai default atau tindakan lain sesuai kebutuhan Anda
+    $jumlah_pinjam = 0;
+    $jumlah_bayar_sekarang = 0;
+    $jumlah_cicilan = 0;
+}
 
 $link = "getProfilePendidikan&id_karyawan=" . urlencode($id_karyawan);
 $data_pendidikan = getRegistran($link);
@@ -314,7 +346,7 @@ var_dump($data_pendidikan);
                                     <div class="col-lg-6">
                                         <div class="mb-2">
                                             <label for="">Terlambat</label>
-                                            <input type="number" class="form-control nilai-input4" id="terlambat" name="terlambat" required>
+                                            <input type="number" class="form-control nilai-input4" value="<?= $final_terlambat ?>" id="terlambat" name="terlambat" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">Cuti Bersama</label>
@@ -322,7 +354,7 @@ var_dump($data_pendidikan);
                                         </div>
                                         <div class="mb-2">
                                             <label for="">CUTI</label>
-                                            <input type="number" class="form-control nilai-input4" id="cuti" name="cuti" required>
+                                            <input type="number" class="form-control nilai-input4" value="<?= $potongan_cuti ?>" id="cuti" name="cuti" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">Sakit</label>
@@ -338,7 +370,15 @@ var_dump($data_pendidikan);
                                         </div>
                                         <div class="mb-2">
                                             <label for="">Pinjaman</label>
-                                            <input type="number" class="form-control nilai-input4" id="pinjaman" name="pinjaman" required>
+                                            <?php
+                                            if ($data_pinjaman == null) { ?>
+                                                <input type="number" class="form-control nilai-input4" id="pinjaman" value="0" name="pinjaman" required>
+                                                <?php } else {
+                                                if ($jumlah_bayar_sekarang < $jumlah_pinjam) { ?>
+                                                    <input type="number" class="form-control nilai-input4" id="pinjaman" value="<?= $jumlah_cicilan ?>" name="pinjaman" required>
+                                            <?php }
+                                            }
+                                            ?>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">BPJS KESEHATAN Ditanggung Karyawan 1%</label>

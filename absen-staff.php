@@ -26,6 +26,16 @@ if (isset($_POST['update'])) {
     // echo "<script>alert('Absen Keluar Berhasil')</script>";
     // echo "<script>window.location.href='absen-staff.php'</script>";
 }
+// UPDATE KETIKA LUPA ABSEN KELUAR
+if (isset($_POST['lupa'])) {
+    $id_absen = $_POST['id_absen'];
+    $waktu_keluar = '5:00:00';
+    $link = "updateAbsen&id_absen=" . urlencode($id_absen) .  "&waktu_keluar=" . urlencode($waktu_keluar);
+    $update = getRegistran($link);
+    var_dump($update);
+    // echo "<script>alert('Absen Keluar Berhasil')</script>";
+    // echo "<script>window.location.href='absen-staff.php'</script>";
+}
 
 if (isset($_POST['submit'])) {
     $id_karyawan = $_POST['id_karyawan'];
@@ -192,6 +202,10 @@ if (isset($_POST['sakit'])) {
                                             <div class="mb-2">
                                                 <input type="button" id="generateBtn1" class="btn btn-success w-100" value="Generate Barcode" onclick="generateBarcode1()">
                                             </div>
+                                            <!-- tombol lupa absen keluar -->
+                                            <div class="mb-2">
+                                                <button type="submit" name="lupa" value="" class="btn btn-danger w-100">Lupa Absen Keluar</button>
+                                            </div>
                                         </div>
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="mb-2">
@@ -328,8 +342,17 @@ if (isset($_POST['sakit'])) {
                             <!-- Custom tabs (Charts with tabs)-->
                             <div class="card">
                                 <div class="card-header">
-                                    <h1>Daftar Absen Saya</h1>
-                                </div><!-- /.card-header -->
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <h1>Daftar Absen Saya</h1>
+                                            <small>*Catatan</small>
+                                            <small class="text-red">Sakit</small>
+                                            <small class="text-warning">Izin</small>
+                                            <small class="text-secondary">Terlambat</small>
+                                            <small class="text-info">Waktu Masuk Aman</small>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="card-body text-center">
                                     <div class="tab-content p-0">
                                         <?php
@@ -374,8 +397,12 @@ if (isset($_POST['sakit'])) {
                                                         <?php
                                                         $no = 1;
                                                         foreach ($data->data as $row) {
+                                                            $terlambatClass = $row->terlambat == 1 ? "bg-secondary" : "";
+                                                            $sakitClass = $row->sakit == 1 ? "bg-danger" : "";
+                                                            $izinClass = $row->izin == 1 ? "bg-warning" : "";
+                                                            $waktu_masuk_aman = $row->waktu_masuk == '08:00:00' ? "bg-info" : "";
                                                         ?>
-                                                            <tr>
+                                                            <tr class="<?= $terlambatClass ?> <?= $sakitClass ?> <?= $izinClass ?> <?= $waktu_masuk_aman ?>">
                                                                 <td><?= $no++ ?></td>
                                                                 <td><?= $row->nama_lengkap ?></td>
                                                                 <td><?= $row->tanggal ?></td>
@@ -391,6 +418,7 @@ if (isset($_POST['sakit'])) {
                                                         ?>
                                                     </tbody>
                                                 </table>
+
                                             </div>
                                         <?php }
                                         ?>
