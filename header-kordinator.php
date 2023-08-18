@@ -1,12 +1,12 @@
 <?php
 session_start();
+require_once 'controller/utility.php';
 if (!isset($_SESSION['user'])) {
     echo ("<script>location.href = 'login.php';</script>");
 }
 $user = $_SESSION["login"];
 $level = $_SESSION["user"];
 
-require_once 'controller/utility.php';
 
 
 $link = "getStafId&id_user=" . urlencode($user);

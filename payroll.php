@@ -12,11 +12,23 @@ if (isset($_GET['nomor_induk'])) {
     echo "Error: 'nomor_induk' parameter is missing in the URL.";
 }
 // mendapatkan data lembur
-$id_karyawan = $payroll->data[0]->id_karyawan;
-$query = mysqli_query($connect, "SELECT id_karyawan, SUM(total_lembur) AS jumlah_lembur FROM lembur WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan");
-$row = mysqli_fetch_assoc($query);
-$jumlah_data = $row['jumlah_lembur'];
-$final_value = $jumlah_data * 50000;
+if (!empty($payroll->data) && isset($payroll->data[0]->id_karyawan)) {
+    $id_karyawan = $payroll->data[0]->id_karyawan;
+
+    $query = mysqli_query($connect, "SELECT id_karyawan, SUM(total_lembur) AS jumlah_lembur FROM lembur WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan");
+
+    // Memastikan bahwa data hasil query tidak null sebelum mengaksesnya
+    if ($query && mysqli_num_rows($query) > 0) {
+        $row = mysqli_fetch_assoc($query);
+        $jumlah_data = $row['jumlah_lembur'];
+        $final_value = $jumlah_data * 50000;
+    } else {
+        $final_value = 0; // Atau beri nilai default yang sesuai
+    }
+} else {
+    $final_value = 0; // Atau beri nilai default yang sesuai
+}
+
 
 $query2 = mysqli_query($connect, "SELECT gaji FROM karyawan WHERE id_karyawan = $id_karyawan");
 $row2 = mysqli_fetch_assoc($query2);
@@ -32,10 +44,23 @@ if ($data_cuti && isset($data_cuti->data[0])) {
 // var_dump($ambil_cuti);
 
 // mencari jumlah terlambat pada absen
-$query3 = mysqli_query($connect, "SELECT id_karyawan, SUM(terlambat) AS jumlah_terlambat FROM absen WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;");
-$row1 = mysqli_fetch_assoc($query3);
-$jumlah_terlambat = $row1['jumlah_terlambat'];
-$final_terlambat = $jumlah_terlambat * 50000;
+if (!empty($payroll->data) && isset($payroll->data[0]->id_karyawan)) {
+    $id_karyawan = $payroll->data[0]->id_karyawan;
+
+    $query3 = mysqli_query($connect, "SELECT id_karyawan, SUM(terlambat) AS jumlah_terlambat FROM absen WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;");
+
+    // Memastikan bahwa data hasil query tidak null sebelum mengaksesnya
+    if ($query3 && mysqli_num_rows($query3) > 0) {
+        $row1 = mysqli_fetch_assoc($query3);
+        $jumlah_terlambat = $row1['jumlah_terlambat'];
+        $final_terlambat = $jumlah_terlambat * 50000;
+    } else {
+        $final_terlambat = 0; // Atau beri nilai default yang sesuai
+    }
+} else {
+    $final_terlambat = 0; // Atau beri nilai default yang sesuai
+}
+
 
 $link = "gePinjamKaryawan&id_karyawan=" . urlencode($id_karyawan);
 $data_pinjaman = getRegistran($link);

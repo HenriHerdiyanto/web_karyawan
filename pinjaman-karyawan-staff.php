@@ -61,6 +61,7 @@ if (isset($_POST['submit'])) {
         margin: 0;
         padding: 0;
     }
+    
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

@@ -114,7 +114,7 @@ if (isset($_POST['sakit'])) {
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="mb-2">
                                                 <label for="namaInput">Nama:</label>
-                                                <input class="form-control" type="text" name="id_karyawan" value="<?= $id_kar1 ?>">
+                                                <input class="form-control" type="hidden" name="id_karyawan" value="<?= $id_kar1 ?>">
                                                 <input class="form-control" type="text" value="<?= $nama_lengkap ?>" name="nama_lengkap" id="namaInput" required readonly>
                                             </div>
                                             <div class="mb-2">
@@ -126,7 +126,7 @@ if (isset($_POST['sakit'])) {
                                                 <input class="form-control" type="time" id="waktuInput" name="waktu_masuk" required readonly>
                                             </div>
                                             <div class="mb-2">
-                                                <input type="text" name="terlambat">
+                                                <input type="hidden" name="terlambat">
                                             </div>
                                             <div class="mb-2">
                                                 <input type="button" id="generateBtn" class="btn btn-success w-100" value="Generate Barcode" onclick="generateBarcode()">

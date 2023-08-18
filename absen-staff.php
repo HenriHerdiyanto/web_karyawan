@@ -92,7 +92,7 @@ if (isset($_POST['sakit'])) {
     }
 </style>
 <div class="content-wrapper">
-    <section class="content">
+    <section class="content mt-4">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-6">

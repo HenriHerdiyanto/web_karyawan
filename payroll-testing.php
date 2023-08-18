@@ -2,22 +2,6 @@
 include "controller/koneksi.php";
 require_once 'header.php';
 
-// panggil data karyawan dari URL
-if (isset($_GET['id_karyawan'])) {
-    $id_karyawan = $_GET['id_karyawan'];
-    $link = "getPayroll2&id_karyawan=" . $id_karyawan;
-    $payroll = getRegistran($link);
-
-    if (!empty($payroll->data)) {
-        $id_karyawan = $payroll->data[0]->id_karyawan;
-        // var_dump($payroll);
-    } else {
-        echo "Error: No data found for the specified 'id_karyawan'.";
-    }
-} else {
-    echo "Error: 'id_karyawan' parameter is missing in the URL.";
-}
-
 if (isset($_POST['submit'])) {
     $id_karyawan = $_POST['id_karyawan'];
     $id_divisi = $_POST['id_divisi'];
@@ -81,7 +65,29 @@ if (isset($_POST['submit'])) {
 
 
 
+
+// panggil data karyawan dari URL
+if (isset($_GET['id_karyawan'])) {
+    $id_karyawan = $_GET['id_karyawan'];
+    $link = "getPayroll2&id_karyawan=" . $id_karyawan;
+    $payroll = getRegistran($link);
+    $uang_makan = $payroll->data[0]->uang_makan;
+    $uang_transport = $payroll->data[0]->uang_transport;
+
+    if (!empty($payroll->data)) {
+        $id_karyawan = $payroll->data[0]->id_karyawan;
+        // var_dump($payroll);
+    } else {
+        echo "Error: No data found for the specified 'id_karyawan'.";
+    }
+} else {
+    echo "Error: 'id_karyawan' parameter is missing in the URL.";
+}
+
 $id_karyawan = $payroll->data[0]->id_karyawan;
+// mencari jumlah potongan cuti bersama
+// $potongan_cuti_bersama = (int)(($uang_makan / 22) + ($uang_transport / 22));
+
 // mencari jumlah lembur pada tabel lembur
 $query = mysqli_query($connect, "SELECT id_karyawan, SUM(total_lembur) AS jumlah_lembur FROM lembur WHERE status = 'diterima' AND id_karyawan = $id_karyawan GROUP BY id_karyawan");
 
@@ -98,21 +104,34 @@ if ($query) {
     echo "Query error: " . mysqli_error($connect);
 }
 
-
+// variabel global
+$bulan = $_GET['bulan'];
 // mencari jumlah sakit pada absen
-$query1 = mysqli_query($connect, "SELECT id_karyawan, SUM(sakit) AS jumlah_sakit FROM absen WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;");
+$query1 = mysqli_query($connect, "SELECT id_karyawan, SUM(sakit) AS jumlah_sakit FROM absen WHERE id_karyawan = $id_karyawan AND MONTH(tanggal) = $bulan 
+GROUP BY id_karyawan");
 $row1 = mysqli_fetch_assoc($query1);
-$jumlah_sakit = $row1['jumlah_sakit'];
-$final_sakit = $jumlah_sakit * 50000;
+$jumlah_sakit = (int) $row1['jumlah_sakit'];
+
+$final_sakit = (int) (($uang_makan / 2 + $uang_transport) / 22) * $jumlah_sakit;
+
 
 // mencari jumlah IZIN pada absen
-$query2 = mysqli_query($connect, "SELECT id_karyawan, SUM(izin) AS jumlah_izin FROM absen WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;");
+$query2 = mysqli_query($connect, "SELECT id_karyawan, SUM(izin) AS jumlah_izin FROM absen WHERE id_karyawan = $id_karyawan AND MONTH(tanggal) = $bulan 
+GROUP BY id_karyawan");
 $row1 = mysqli_fetch_assoc($query2);
 $jumlah_izin = $row1['jumlah_izin'];
 $final_izin = $jumlah_izin * 50000;
 
+// mencari jumlah alpha pada absen
+$query2 = mysqli_query($connect, "SELECT id_karyawan, COUNT(*) AS jumlah_data FROM absen WHERE id_karyawan = $id_karyawan AND MONTH(tanggal) = $bulan  AND sakit = 0 AND izin = 0 GROUP BY id_karyawan;");
+$row1 = mysqli_fetch_assoc($query2);
+$jumlah_hadir = $row1['jumlah_data'];
+$final_alpha = 22 - $jumlah_hadir;
+var_dump($final_alpha);
+
 // mencari jumlah terlambat pada absen
-$query3 = mysqli_query($connect, "SELECT id_karyawan, SUM(terlambat) AS jumlah_terlambat FROM absen WHERE id_karyawan = $id_karyawan GROUP BY id_karyawan;");
+$query3 = mysqli_query($connect, "SELECT id_karyawan, SUM(terlambat) AS jumlah_terlambat FROM absen WHERE id_karyawan = $id_karyawan AND MONTH(tanggal) = $bulan 
+GROUP BY id_karyawan");
 $row1 = mysqli_fetch_assoc($query3);
 $jumlah_terlambat = $row1['jumlah_terlambat'];
 $final_terlambat = $jumlah_terlambat * 50000;
@@ -127,12 +146,18 @@ $link = "getProfilePendidikan&id_karyawan=" . urlencode($id_karyawan);
 $data_pendidikan = getRegistran($link);
 // var_dump($data_pendidikan);
 
+
+// mencari jumlah potongan cuti
 $link = "getCuti&id_karyawan=" . urlencode($id_karyawan);
 $data_cuti = getRegistran($link);
+
 if ($data_cuti && isset($data_cuti->data[0])) {
-    $ambil_cuti = $data_cuti->data[0]->ambil_cuti;
-    $potongan_cuti = $ambil_cuti * 50000;
+    $ambil_cuti = (int) $data_cuti->data[0]->ambil_cuti;
+
+    // Assuming $uang_makan is also an integer
+    $potongan_cuti = (int) (($uang_makan / 22) * $ambil_cuti);
 }
+
 // var_dump($ambil_cuti);
 
 
@@ -253,11 +278,11 @@ if ($data_pinjaman && isset($data_pinjaman->data[0])) {
                                         </div>
                                         <div class="mb-2">
                                             <label for="uang_makan" class="form-label">Uang Makan</label>
-                                            <input type="number" class="form-control nilai-input" id="uang_makan" name="uang_makan" required>
+                                            <input type="number" class="form-control nilai-input" id="uang_makan" value="<?= $uang_makan ?>" name="uang_makan" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="uang_transport" class="form-label">Uang Transport</label>
-                                            <input type="number" class="form-control nilai-input" id="uang_transport" name="uang_transport" required>
+                                            <input type="number" class="form-control nilai-input" id="uang_transport" value="<?= $uang_transport ?>" name="uang_transport" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="total_gaji" class="form-label">TOTAL GAJI BULANAN</label>
@@ -377,7 +402,7 @@ if ($data_pinjaman && isset($data_pinjaman->data[0])) {
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-2">
-                                            <label for="">Terlambat</label>
+                                            <label for="">Terlambat (<?= $jumlah_terlambat ?>)</label>
                                             <?php
                                             if ($final_terlambat == null) { ?>
                                                 <input type="number" class="form-control nilai-input4" id="terlambat" name="terlambat" required>
@@ -389,13 +414,14 @@ if ($data_pinjaman && isset($data_pinjaman->data[0])) {
                                         <div class="mb-2">
                                             <label for="">Cuti Bersama</label>
                                             <input type="number" class="form-control nilai-input4" id="cuti_bersama" name="cuti_bersama" required>
+                                            <!-- <input type="number" class="form-control nilai-input4" id="cuti_bersama" value="<?= $potongan_cuti_bersama ?>" name="cuti_bersama" required> -->
                                         </div>
                                         <div class="mb-2">
-                                            <label for="">CUTI</label>
+                                            <label for="">CUTI (<?= $ambil_cuti ?>)</label>
                                             <input type="number" class="form-control nilai-input4" value="<?= $potongan_cuti ?>" id="cuti" name="cuti" required>
                                         </div>
                                         <div class="mb-2">
-                                            <label for="">Sakit</label>
+                                            <label for="">Sakit (<?= $jumlah_sakit ?>)</label>
                                             <?php
                                             if ($final_sakit == null) { ?>
                                                 <input type="number" class="form-control nilai-input4" id="sakit" name="sakit" required>
@@ -405,7 +431,7 @@ if ($data_pinjaman && isset($data_pinjaman->data[0])) {
                                             ?>
                                         </div>
                                         <div class="mb-2">
-                                            <label for="">IZIN</label>
+                                            <label for="">IZIN (<?= $jumlah_izin ?>)</label>
                                             <?php
                                             if ($final_izin == null) { ?>
                                                 <input type="number" class="form-control nilai-input4" id="izin" name="izin" required>
@@ -415,8 +441,12 @@ if ($data_pinjaman && isset($data_pinjaman->data[0])) {
                                             ?>
                                         </div>
                                         <div class="mb-2">
-                                            <label for="">Alpha</label>
-                                            <input type="number" class="form-control nilai-input4" id="alpa" name="alpha" required>
+                                            <label for="">Jumlah Alpha</label>
+                                            <input type="number" class="form-control nilai-input4" id="alpha" value="<?= $final_alpha ?>" name="alpha" required>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="">Potongan Alpha</label>
+                                            <input type="number" class="form-control nilai-input4" id="potongan_alpha" name="alpha" required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="">Pinjaman</label>
@@ -497,6 +527,25 @@ if ($data_pinjaman && isset($data_pinjaman->data[0])) {
     <aside class="control-sidebar control-sidebar-dark">
     </aside>
 </div>
+
+<!-- mencari potongan besaran alpha -->
+<script>
+    const totalGajiInput = document.getElementById("total_gaji");
+    const alphaInput = document.getElementById("alpha");
+    const potonganAlphaInput = document.getElementById("potongan_alpha");
+
+    function updatePotonganAlpha() {
+        const totalGaji = parseFloat(totalGajiInput.value);
+        const alpha = parseFloat(alphaInput.value);
+
+        const potonganAlpha = (totalGaji / 22) * alpha;
+
+        potonganAlphaInput.value = potonganAlpha.toFixed();
+    }
+
+    totalGajiInput.addEventListener("input", updatePotonganAlpha);
+    alphaInput.addEventListener("input", updatePotonganAlpha);
+</script>
 <!-- untuk mencari total gaji bersih -->
 <script>
     // JavaScript code

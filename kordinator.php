@@ -17,111 +17,111 @@ $profile = getRegistran($link);
 $link2 = "getSOPid&id_divisi=" . urlencode($id_divisi);
 $data_sop = getRegistran($link2);
 // var_dump($data_sop);
+
+
+if (isset($_POST['update'])) {
+    $id_karyawan = $_POST['id_karyawan'];
+    $jenjang_pendidikan = $_POST['jenjang_pendidikan'];
+    $instansi_pendidikan = $_POST['instansi_pendidikan'];
+    $jurusan = $_POST['jurusan'];
+    $tahun_masuk = $_POST['tahun_masuk'];
+    $tahun_lulus = $_POST['tahun_lulus'];
+    $index_nilai = $_POST['index_nilai'];
+
+    $link = "setProfile&id_karyawan=" . urlencode($id_karyawan) . "&jenjang_pendidikan=" . urlencode($jenjang_pendidikan) . "&instansi_pendidikan=" . urlencode($instansi_pendidikan) . "&jurusan=" . urlencode($jurusan) . "&tahun_masuk=" . urlencode($tahun_masuk) . "&tahun_lulus=" . urlencode($tahun_lulus) . "&index_nilai=" . urlencode($index_nilai);
+    $hasil = getRegistran($link);
+    echo "<script>alert('Login Berhasil')</script>";
+    echo ("<script>location.href = 'kordinator.php';</script>");
+    var_dump($hasil);
+}
 ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">DIVISI <?= $nama_divisi ?></h1>
-                </div><!-- /.col -->
-                <div align="end" class="col-sm-6">
-                    <!-- Button trigger modal -->
-                    <?php
-                    if ($profile == null) { ?>
-                        <a type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#updateProfileModal">
-                            <i class="nav-icon fas fa-user"></i> Update Profile
-                        </a>
+        <div class="card p-3">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">DIVISI <?= $nama_divisi ?></h1>
+                    </div><!-- /.col -->
+                    <div align="end" class="col-sm-6">
+                        <!-- Button trigger modal -->
+                        <?php
+                        if ($profile == null) { ?>
+                            <a type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#updateProfileModal">
+                                <i class="nav-icon fas fa-user"></i> Update Profile
+                            </a>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="updateProfileModalLabel">Update Profile</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="updateProfileModalLabel">Update Profile</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form method="POST" action="">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label style="margin-left: 0; display:flex;" for="fullName">Full Name</label>
+                                                    <input type="text" class="form-control" name="id_karyawan" value="<?= $datas->data[0]->id_karyawan ?>">
+                                                    <input type="text" class="form-control" value="<?= $nama ?>" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label style="margin-left: 0; display:flex;">Pendidikan Terakhir</label>
+                                                    <select class="form-control" name="jenjang_pendidikan">
+                                                        <option value="">--- PILIH ---</option>
+                                                        <option value="doktor">DOKTOR</option>
+                                                        <option value="magister">MAGISTER</option>
+                                                        <option value="sarjana">SARJANA</option>
+                                                        <option value="sma">SMA</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label style="margin-left: 0; display:flex;">Instansi Penddikan</label>
+                                                    <input type="text" name="instansi_pendidikan" class="form-control" placeholder="Nama Instansi">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label style="margin-left: 0; display:flex;">Jurusan / Spesialis</label>
+                                                    <input type="text" name="jurusan" class="form-control" placeholder="Nama Jurusan / Spesialis">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label style="margin-left: 0; display:flex;">Tahun Masuk</label>
+                                                    <input type="date" name="tahun_masuk" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label style="margin-left: 0; display:flex;">Tahun Lulus</label>
+                                                    <input type="date" name="tahun_lulus" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label style="margin-left: 0; display:flex;">INDEX NILAI</label>
+                                                    <input type="text" name="index_nilai" class="form-control" placeholder="IPK">
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <?php
-                                    if (isset($_POST['update'])) {
-                                        $id_karyawan = $_POST['id_karyawan'];
-                                        $jenjang_pendidikan = $_POST['jenjang_pendidikan'];
-                                        $instansi_pendidikan = $_POST['instansi_pendidikan'];
-                                        $jurusan = $_POST['jurusan'];
-                                        $tahun_masuk = $_POST['tahun_masuk'];
-                                        $tahun_lulus = $_POST['tahun_lulus'];
-                                        $index_nilai = $_POST['index_nilai'];
-
-                                        $link = "setProfile&id_karyawan=" . urlencode($id_karyawan) . "&jenjang_pendidikan=" . urlencode($jenjang_pendidikan) . "&instansi_pendidikan=" . urlencode($instansi_pendidikan) . "&jurusan=" . urlencode($jurusan) . "&tahun_masuk=" . urlencode($tahun_masuk) . "&tahun_lulus=" . urlencode($tahun_lulus) . "&index_nilai=" . urlencode($index_nilai);
-                                        $hasil = getRegistran($link);
-                                        echo "<script>alert('Login Berhasil')</script>";
-                                        echo ("<script>location.href = 'kordinator.php';</script>");
-                                        var_dump($hasil);
-                                    }
-                                    ?>
-                                    <form method="POST" action="">
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label style="margin-left: 0; display:flex;" for="fullName">Full Name</label>
-                                                <input type="text" class="form-control" name="id_karyawan" value="<?= $datas->data[0]->id_karyawan ?>">
-                                                <input type="text" class="form-control" value="<?= $nama ?>" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label style="margin-left: 0; display:flex;">Pendidikan Terakhir</label>
-                                                <select class="form-control" name="jenjang_pendidikan">
-                                                    <option value="">--- PILIH ---</option>
-                                                    <option value="doktor">DOKTOR</option>
-                                                    <option value="magister">MAGISTER</option>
-                                                    <option value="sarjana">SARJANA</option>
-                                                    <option value="sma">SMA</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label style="margin-left: 0; display:flex;">Instansi Penddikan</label>
-                                                <input type="text" name="instansi_pendidikan" class="form-control" placeholder="Nama Instansi">
-                                            </div>
-                                            <div class="form-group">
-                                                <label style="margin-left: 0; display:flex;">Jurusan / Spesialis</label>
-                                                <input type="text" name="jurusan" class="form-control" placeholder="Nama Jurusan / Spesialis">
-                                            </div>
-                                            <div class="form-group">
-                                                <label style="margin-left: 0; display:flex;">Tahun Masuk</label>
-                                                <input type="date" name="tahun_masuk" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label style="margin-left: 0; display:flex;">Tahun Lulus</label>
-                                                <input type="date" name="tahun_lulus" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label style="margin-left: 0; display:flex;">INDEX NILAI</label>
-                                                <input type="text" name="index_nilai" class="form-control" placeholder="IPK">
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" name="update" class="btn btn-primary">UPDATE</button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    <?php } else { ?>
-                        <a href="profile-kor.php?id=<?php echo $id_karyawan ?>" class="btn btn-lg btn-info">
-                            <i class="nav-icon fas fa-user"></i> Lihat Profile
-                        </a>
-                    <?php }
-                    ?>
+                        <?php } else { ?>
+                            <a href="profile-kor.php?id=<?php echo $id_karyawan ?>" class="btn btn-lg btn-info">
+                                <i class="nav-icon fas fa-user"></i> Lihat Profile
+                            </a>
+                        <?php }
+                        ?>
 
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                    </div><!-- /.col -->
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
-
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">

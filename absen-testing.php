@@ -1,11 +1,11 @@
 <?php
 include "controller/koneksi.php";
 require_once 'header.php';
-$link = "getAbsenb";
-$data_absen1 = getRegistran($link);
-
-
+// $link = "getAbsenb";
+// $data_absen1 = getRegistran($link);
 // var_dump($data_absen1);
+
+
 if (isset($_POST['delete'])) {
     $id_absen = $_POST['id_absen'];
     $link = "getDeleteDivisiId&id_absen=" . urlencode($id_absen);
@@ -18,19 +18,50 @@ if (isset($_POST['delete'])) {
         echo "<script>location='absen-admin.php'</script>";
     }
 }
+if (isset($_GET['filter'])) {
+    $bulan = $_GET['bulan'];
+    $tahun = $_GET['tahun'];
+    $link = "getAbsenb&bulan=" . urlencode($bulan) . "&tahun=" . urlencode($tahun);
+    $data_absen2 = getRegistran($link);
+    // var_dump($data_absen2);
+}
 ?>
 
 <div class="content-wrapper">
     <div class="content-header">
-        <div class="container-fluid">
-            <div class="card">
-                <div class="row">
-                    <div class="col">
-                        <h1 class="m-3">Absen Karyawan</h1>
+        <form method="get">
+            <div class="card p-3">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <label for="bulan" class="form-label">Pilih Bulan:</label>
+                            <select class="form-control" name="bulan" id="bulan">
+                                <option value="">--- Pilih Bulan ---</option>
+                                <option value="01">Januari</option>
+                                <option value="02">Februari</option>
+                                <option value="03">Maret</option>
+                                <option value="04">April</option>
+                                <option value="05">Mei</option>
+                                <option value="06">Juni</option>
+                                <option value="07">Juli</option>
+                                <option value="08">Agustus</option>
+                                <option value="09">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                        </div>
+                        <div align="end" class="col-sm-6">
+                            <label for="tahun" class="form-label">Pilih Tahun:</label>
+                            <input type="number" name="tahun" class="form-control" id="tahun" min="2000" max="2099" step="1" value="<?php echo date('Y'); ?>">
+                        </div><br>
+                        <div class="col-12 mt-3">
+                            <button type="submit" name="filter" class="btn btn-primary w-100">Cari</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <section class="content">
         <div class="container-fluid">
@@ -38,7 +69,61 @@ if (isset($_POST['delete'])) {
                 <section class="col-lg-12 col-sm-12 connectedSortable">
                     <div class="card">
                         <?php
-                        if ($data_absen1 == null) { ?>
+                        if (isset($_GET['bulan']) && isset($_GET['tahun'])) { ?>
+                            <div class="card-header">
+                                <h2>Data Absen Karyawan</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content p-0 table-responsive">
+                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Karyawan</th>
+                                                <th>Nomor Induk Karyawan</th>
+                                                <th>Nama Divisi</th>
+                                                <th>Jabatan</th>
+                                                <th>Tanggal</th>
+                                                <th>Sakit</th>
+                                                <th>Izin</th>
+                                                <th>Terlmbat</th>
+                                                <th>Keterangan</th>
+                                                <th>Barcode</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $no = 1;
+                                            foreach ($data_absen2->data as $array_item) : ?>
+                                                <tr>
+                                                    <td><?php echo $no++; ?></td>
+                                                    <td><?php echo $array_item->nama_lengkap; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->nomor_induk; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->nama_divisi; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->level_user; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->tanggal; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->sakit; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->izin; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->terlambat; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->keterangan; ?></td>
+                                                    <td class="text-center"><?php echo $array_item->barcode; ?></td>
+                                                    <td class="text-center">
+                                                        <form method="post">
+                                                            <input type="hidden" name="id_absen" value="<?php echo $array_item->id_absen; ?>">
+                                                            <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
+                                                                Hapus
+                                                            </button>
+                                                            <a href="payroll-testing.php?id_karyawan=<?php echo $array_item->id_karyawan; ?>&bulan=<?php echo $bulan; ?>" class="btn btn-sm btn-info">Payroll</a>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        <?php } else { ?>
                             <div class="card-body">
                                 <div class="tab-content p-0 table-responsive">
                                     <table id="example" class="table table-striped table-bordered" style="width:100%">
@@ -56,58 +141,6 @@ if (isset($_POST['delete'])) {
                                             <tr>
                                                 <td colspan="9" align="center">Data Kosong</td>
                                             </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        <?php } else { ?>
-                            <div class="card-header">
-                                <h2>Data Absen Karyawan</h2>
-                            </div>
-                            <div class="card-body">
-                                <div class="tab-content p-0 table-responsive">
-                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Karyawan</th>
-                                                <th>Nomor Induk Karyawan</th>
-                                                <th>Nama Divisi</th>
-                                                <th>Jabatan</th>
-                                                <th>Sakit</th>
-                                                <th>Izin</th>
-                                                <th>Keterangan</th>
-                                                <th>Barcode</th>
-                                                <th>Status Karyawan</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $no = 1;
-                                            foreach ($data_absen1->data as $array_item) : ?>
-                                                <tr>
-                                                    <td><?php echo $no++; ?></td>
-                                                    <td><?php echo $array_item->nama_lengkap; ?></td>
-                                                    <td class="text-center"><?php echo $array_item->nomor_induk; ?></td>
-                                                    <td class="text-center"><?php echo $array_item->nama_divisi; ?></td>
-                                                    <td class="text-center"><?php echo $array_item->level_user; ?></td>
-                                                    <td class="text-center"><?php echo $array_item->sakit; ?></td>
-                                                    <td class="text-center"><?php echo $array_item->izin; ?></td>
-                                                    <td class="text-center"><?php echo $array_item->keterangan; ?></td>
-                                                    <td class="text-center"><?php echo $array_item->barcode; ?></td>
-                                                    <td class="text-center"><?php echo $array_item->status_karyawan; ?></td>
-                                                    <td class="text-center">
-                                                        <form method="post">
-                                                            <input type="hidden" name="id_absen" value="<?php echo $array_item->id_absen; ?>">
-                                                            <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
-                                                                Hapus
-                                                            </button>
-                                                            <a href="payroll-testing.php?id_karyawan=<?php echo $array_item->id_karyawan; ?>" class="btn btn-sm  btn-info">Payroll</a>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>

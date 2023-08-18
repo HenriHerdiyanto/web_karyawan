@@ -56,6 +56,19 @@ $data_payroll = getRegistran($link);
                                 <h2>Data Payroll</h2>
                             </div>
                             <div class="card-body">
+                                <?php
+                                if (isset($_POST['delete'])) {
+                                    $id_payroll = $_POST['id_payroll'];
+                                    $link = "getDeleteInventaris&id_payroll=" . urlencode($id_payroll);
+                                    $result = getRegistran($link);
+                                    // var_dump($result);
+                                    if ($result) {
+                                        echo "<script>alert('Data berhasil dihapus!');window.location.href='admin-payroll.php';</script>";
+                                    } else {
+                                        echo "<script>alert('Data gagal dihapus!');window.location.href='admin-payroll.php';</script>";
+                                    }
+                                }
+                                ?>
                                 <div class="table-responsive">
                                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
@@ -381,6 +394,7 @@ $data_payroll = getRegistran($link);
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                         <form method="post">
                                                             <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?php echo $array_item->id_karyawan ?>">
                                                                 <i class="fas fa-eye"></i>
@@ -388,7 +402,7 @@ $data_payroll = getRegistran($link);
                                                             <!-- <a href="karyawan_detail.php?id=<?php echo $array_item->id_karyawan ?>" class="btn-sm btn btn-warning" data-bs-toggle="tooltip" title="Detail">
                                                                     <i class="fas fa-eye"></i>
                                                                 </a> -->
-                                                            <input type="hidden" name="id_karyawan" value="<?php echo $array_item->id_karyawan; ?>">
+                                                            <input type="hidden" name="id_payroll" value="<?php echo $array_item->id_payroll; ?>">
                                                             <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </button>

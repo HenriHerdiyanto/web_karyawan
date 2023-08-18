@@ -1771,33 +1771,50 @@ function getAbsen()
 }
 function getAbsenb()
 {
-
     global $connect;
-    $query = "SELECT DISTINCT karyawan.id_karyawan, karyawan.nama_lengkap, divisi.nama_divisi,karyawan.nomor_induk,karyawan.level_user,absen.sakit,absen.izin,absen.keterangan,absen.barcode,karyawan.status_karyawan FROM absen LEFT JOIN karyawan ON absen.id_karyawan = karyawan.id_karyawan LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi;
-    ";
-    // $query = "SELECT * FROM karyawan";
+
+    $response = array(); // Initialize the response array
+
+    if (isset($_GET['bulan']) && isset($_GET['tahun'])) {
+        $bulan = $_GET['bulan'];
+        $tahun = $_GET['tahun'];
+
+        // Construct the query with proper conditions
+        $query = "SELECT DISTINCT karyawan.id_karyawan, karyawan.nama_lengkap, divisi.nama_divisi, karyawan.nomor_induk, karyawan.level_user, absen.sakit, absen.tanggal, absen.terlambat, absen.izin, absen.keterangan, absen.barcode, karyawan.status_karyawan 
+        FROM absen 
+        LEFT JOIN karyawan ON absen.id_karyawan = karyawan.id_karyawan 
+        LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi 
+        WHERE MONTH(absen.tanggal) = '$bulan' AND YEAR(absen.tanggal) = '$tahun'
+        ORDER BY karyawan.nama_lengkap ASC, absen.tanggal desc";
+    }
+    // else {
+    //     $query = "SELECT DISTINCT karyawan.id_karyawan, karyawan.nama_lengkap, divisi.nama_divisi, karyawan.nomor_induk, karyawan.level_user, absen.sakit, absen.tanggal, absen.terlambat, absen.izin, absen.keterangan, absen.barcode, karyawan.status_karyawan 
+    //     FROM absen 
+    //     LEFT JOIN karyawan ON absen.id_karyawan = karyawan.id_karyawan 
+    //     LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi 
+    //     ORDER BY absen.tanggal ASC";
+    // }
 
     $result = $connect->query($query);
 
-    while ($row = mysqli_fetch_object($result)) {
-        $data[] = $row;
-    }
-
     if ($result) {
-        $response = array(
-            'status' => 1,
-            'data' => $data
-        );
+        $data = array(); // Initialize the data array
+
+        while ($row = mysqli_fetch_object($result)) {
+            $data[] = $row;
+        }
+
+        $response['status'] = 1;
+        $response['data'] = $data;
     } else {
-        $response = array(
-            'status' => 0,
-            'data' => 'Gagal'
-        );
+        $response['status'] = 0;
+        $response['data'] = 'Gagal';
     }
 
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+
 
 function getPayrollAdmin()
 {
@@ -3966,28 +3983,54 @@ function getDeletePinjamKaryawan()
 function getDeleteInventaris()
 {
     global $connect;
-    $id_inventaris = $_GET["id_inventaris"];
+    if (!empty($_GET['id_inventaris']))
+        $id_inventaris = $_GET['id_inventaris'];
+    if (!empty($_GET['id_payroll']))
+        $id_payroll = $_GET['id_payroll'];
 
-    $query = "DELETE FROM inventaris WHERE id_inventaris = $id_inventaris";
-    $result = $connect->query($query);
-    while ($row = mysqli_fetch_object($result)) {
-        $data[] = $row;
-    }
+    if ($id_payroll == null) {
+        $query = "DELETE FROM inventaris WHERE id_inventaris = $id_inventaris";
+        $result = $connect->query($query);
+        while ($row = mysqli_fetch_object($result)) {
+            $data[] = $row;
+        }
 
-    if ($result) {
-        $response = array(
-            'status' => 1,
-            'data' => $data
-        );
+        if ($result) {
+            $response = array(
+                'status' => 1,
+                'data' => $data
+            );
+        } else {
+            $response = array(
+                'status' => 0,
+                'data' => 'Gagal'
+            );
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
     } else {
-        $response = array(
-            'status' => 0,
-            'data' => 'Gagal'
-        );
-    }
+        $query = "DELETE FROM payroll WHERE id_payroll = $id_payroll";
+        $result = $connect->query($query);
+        while ($row = mysqli_fetch_object($result)) {
+            $data[] = $row;
+        }
 
-    header('Content-Type: application/json');
-    echo json_encode($response);
+        if ($result) {
+            $response = array(
+                'status' => 1,
+                'data' => $data
+            );
+        } else {
+            $response = array(
+                'status' => 0,
+                'data' => 'Gagal'
+            );
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+    }
 }
 
 function getDeleteService()
@@ -4071,13 +4114,15 @@ function setUpdateKaryawan()
         $foto_karyawan = $_GET['foto_karyawan'];
     if (!empty($_GET['gaji']))
         $gaji = $_GET['gaji'];
+    if (!empty($_GET['uang_makan']))
+        $uang_makan = $_GET['uang_makan'];
     if (!empty($_GET['mulai_kerja']))
         $mulai_kerja = $_GET['mulai_kerja'];
     if (!empty($_GET['akhir_kerja']))
         $akhir_kerja = $_GET['akhir_kerja'];
 
 
-    $query = "UPDATE karyawan SET id_divisi = '$id_divisi', nomor_induk = '$nomor_induk', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', password = '$password', level_user = '$level_user', foto_karyawan = '$foto_karyawan', gaji = '$gaji', mulai_kerja = '$mulai_kerja', akhir_kerja = '$akhir_kerja' WHERE id_karyawan = '$id_karyawan'";
+    $query = "UPDATE karyawan SET id_divisi = '$id_divisi', nomor_induk = '$nomor_induk', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', password = '$password', level_user = '$level_user', foto_karyawan = '$foto_karyawan', gaji = '$gaji', uang_makan = '$uang_makan', mulai_kerja = '$mulai_kerja', akhir_kerja = '$akhir_kerja' WHERE id_karyawan = '$id_karyawan'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -4141,13 +4186,15 @@ function setUpdateKaryawanNoFtPw()
         $foto_karyawan = $_GET['foto_karyawan'];
     if (!empty($_GET['gaji']))
         $gaji = $_GET['gaji'];
+    if (!empty($_GET['uang_makan']))
+        $uang_makan = $_GET['uang_makan'];
     if (!empty($_GET['mulai_kerja']))
         $mulai_kerja = $_GET['mulai_kerja'];
     if (!empty($_GET['akhir_kerja']))
         $akhir_kerja = $_GET['akhir_kerja'];
 
 
-    $query = "UPDATE karyawan SET id_divisi = '$id_divisi', nomor_induk = '$nomor_induk', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', level_user = '$level_user', gaji = '$gaji', mulai_kerja = '$mulai_kerja', akhir_kerja = '$akhir_kerja' WHERE id_karyawan = '$id_karyawan'";
+    $query = "UPDATE karyawan SET id_divisi = '$id_divisi', nomor_induk = '$nomor_induk', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', level_user = '$level_user', gaji = '$gaji', uang_makan = '$uang_makan', mulai_kerja = '$mulai_kerja', akhir_kerja = '$akhir_kerja' WHERE id_karyawan = '$id_karyawan'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -4211,13 +4258,15 @@ function setUpdateKaryawanNoFoto()
         $foto_karyawan = $_GET['foto_karyawan'];
     if (!empty($_GET['gaji']))
         $gaji = $_GET['gaji'];
+    if (!empty($_GET['uang_makan']))
+        $uang_makan = $_GET['uang_makan'];
     if (!empty($_GET['mulai_kerja']))
         $mulai_kerja = $_GET['mulai_kerja'];
     if (!empty($_GET['akhir_kerja']))
         $akhir_kerja = $_GET['akhir_kerja'];
 
 
-    $query = "UPDATE karyawan SET id_divisi = '$id_divisi', nomor_induk = '$nomor_induk', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', password = '$password', level_user = '$level_user', gaji = '$gaji', mulai_kerja = '$mulai_kerja', akhir_kerja = '$akhir_kerja' WHERE id_karyawan = '$id_karyawan'";
+    $query = "UPDATE karyawan SET id_divisi = '$id_divisi', nomor_induk = '$nomor_induk', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', password = '$password', level_user = '$level_user', gaji = '$gaji', uang_makan = '$uang_makan', mulai_kerja = '$mulai_kerja', akhir_kerja = '$akhir_kerja' WHERE id_karyawan = '$id_karyawan'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -4281,13 +4330,15 @@ function setUpdateKaryawanNoPassword()
         $foto_karyawan = $_GET['foto_karyawan'];
     if (!empty($_GET['gaji']))
         $gaji = $_GET['gaji'];
+    if (!empty($_GET['uang_makan']))
+        $uang_makan = $_GET['uang_makan'];
     if (!empty($_GET['mulai_kerja']))
         $mulai_kerja = $_GET['mulai_kerja'];
     if (!empty($_GET['akhir_kerja']))
         $akhir_kerja = $_GET['akhir_kerja'];
 
 
-    $query = "UPDATE karyawan SET id_divisi = '$id_divisi', nomor_induk = '$nomor_induk', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', level_user = '$level_user', foto_karyawan = '$foto_karyawan', gaji = '$gaji', mulai_kerja = '$mulai_kerja', akhir_kerja = '$akhir_kerja' WHERE id_karyawan = '$id_karyawan'";
+    $query = "UPDATE karyawan SET id_divisi = '$id_divisi', nomor_induk = '$nomor_induk', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', level_user = '$level_user', foto_karyawan = '$foto_karyawan', gaji = '$gaji', uang_makan = '$uang_makan', mulai_kerja = '$mulai_kerja', akhir_kerja = '$akhir_kerja' WHERE id_karyawan = '$id_karyawan'";
     $result = $connect->query($query);
 
     if ($result) {

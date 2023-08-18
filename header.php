@@ -165,7 +165,8 @@ if ($level_user > 0) {
         <a class="d-block" type="button" data-toggle="modal" data-target="#projectedit<?php echo $nama; ?>">
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
+              <i class="fas fa-user-circle fa-2x" style="color: #FFCF09;"></i>
             </div>
             <div class="info" style="color: #FFCF09;">
               <b><?php echo $nama; ?></b>
@@ -195,7 +196,7 @@ if ($level_user > 0) {
               <a href="absen-testing.php" class="nav-link" style="color: #FFCF09;">
                 <i class="nav-icon fas fa-calendar-alt"></i>
                 <p>
-                  Absen testing
+                  Absen Manual
                 </p>
               </a>
             </li>
