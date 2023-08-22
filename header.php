@@ -27,6 +27,9 @@ if ($level_user > 0) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Monitoring Project</title>
 
+  <!-- buatkan favicon -->
+  <link rel="icon" href="assets/img/logomt.png" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/img/logomt.png" type="image/x-icon">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->

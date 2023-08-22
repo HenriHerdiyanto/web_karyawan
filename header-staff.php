@@ -40,6 +40,8 @@ if ($level_user != 'staff') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Monitoring Project</title>
 
+    <!-- favicon -->
+    <link rel="shortcut icon" href="assets/img/logomt.png" type="image/x-icon">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->

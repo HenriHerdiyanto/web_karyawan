@@ -39,6 +39,7 @@ if (isset($_POST['submit'])) {
   $mulai_kerja = $_POST['mulai_kerja'];
   $akhir_kerja = $_POST['akhir_kerja'];
 
+  // ganti foto karyawan
   $extensi_izin = array("jpg", "jpeg", "png", "pdf", "gif");
   $size_izin = (20971520000000 / 2);
 
@@ -70,8 +71,46 @@ if (isset($_POST['submit'])) {
       }
     }
   }
+  // ganti kontrak kerja
+  $extensi_izin = array("jpg", "jpeg", "png", "pdf", "gif");
+  $size_izin = (20971520000000 / 2);
+  $allow_file = true;
+  $sumber_file1 = $_FILES['kontrak_kerja']['tmp_name'];
+  $target_file = "kontrak_kerja/";
+  $nama_file_kontrak = $_FILES['kontrak_kerja']['name'];
+  $size_file = $_FILES['kontrak_kerja']['size'];
+  if ($nama_file_kontrak != '') {
+    if ($size_file > $size_izin) {
+      $error .= "- Ukuran File file tidak Boleh Melebihi 1 MB";
+      $allow_file = false;
+    } else {
+      $getExtensi = explode(".", $nama_file_kontrak);
+      $extensi_file = strtolower(end($getExtensi));
+      $nama_file_kontrak = "Update-" . $nama_lengkap . "-" . $no_ktp . "." . $extensi_file;
+      if (!in_array($extensi_file, $extensi_izin) == true) {
+        $error .= " File hanya diperbolehkan dalam bentuk (jpg, jpeg, png, gif)";
+        $allow_ktp = false;
+      }
+    }
 
-  if (empty($sumber_file)) {
+    if ($allow_file) {
+      if (!move_uploaded_file($sumber_file1, $target_file . $nama_file_kontrak)) {
+        $error .= " Gagal Uplaod File file ke server";
+        $error .= $sumber_file1 . " " . $target_file . $nama_file_kontrak;
+        $allow_file = false;
+      }
+    }
+  }
+
+  // jika hanya update kontrak kerja, foto karyawan akan tetap 
+  if ($nama_file == '') {
+    $nama_file = $data_karyawan->data[0]->foto_karyawan;
+  }
+  // jika hanya update foto karyawan, kontrak kerja akan tetap
+  if ($nama_file_kontrak == '') {
+    $nama_file_kontrak = $data_karyawan->data[0]->kontrak_kerja;
+  }
+  if (empty($sumber_file) && empty($sumber_file1)) {
 
     if (empty($password)) {
       $link = "setUpdateKaryawanNoFtPw&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&gaji=' . urlencode($gaji) . '&uang_makan=' . urlencode($uang_makan) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
@@ -81,9 +120,9 @@ if (isset($_POST['submit'])) {
   } else {
 
     if (empty($password)) {
-      $link = "setUpdateKaryawanNoPassword&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&uang_makan=' . urlencode($uang_makan) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
+      $link = "setUpdateKaryawanNoPassword&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&uang_makan=' . urlencode($uang_makan) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja) . '&kontrak_kerja=' . urlencode($nama_file_kontrak);
     } else {
-      $link = "setUpdateKaryawan&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&uang_makan=' . urlencode($uang_makan) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja);
+      $link = "setUpdateKaryawan&id_karyawan=" . urlencode($id_krywn) . '&id_divisi=' . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&uang_makan=' . urlencode($uang_makan) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja) . '&kontrak_kerja=' . urlencode($nama_file_kontrak);
     }
   }
 
@@ -112,7 +151,7 @@ if (isset($_POST['submit'])) {
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-      <div class="card card-primary">
+      <div class="card card-primary mb-5">
         <div class="card-header">
           <h3 class="card-title">Input Karyawan</h3>
         </div>
@@ -173,7 +212,7 @@ if (isset($_POST['submit'])) {
                   <input type="text" class="form-control" name="no_hp" value="<?php echo $data_karyawan->data[0]->no_hp; ?>">
                 </div>
                 <div class="form-group">
-                  <label>Besaran Gaji Karyawan</label>
+                  <label>Gaji Pokok Karyawan</label>
                   <input type="text" class="form-control" name="gaji" id="gajiInput" oninput="formatGaji()" value="<?php echo $formatted_gaji; ?>">
                 </div>
                 <div class="form-group">
@@ -290,6 +329,7 @@ if (isset($_POST['submit'])) {
                   <label for="">Password</label>
                   <input type="Password" class="form-control" name="password" placeholder="* Kosongkan jika password tidak diubah">
                 </div>
+                <!-- foto karyawan -->
                 <label for="exampleInputFile">Foto</label>
                 <div class="form-group">
                   <img class="pb-3" src="foto_karyawan/<?php echo $data_karyawan->data[0]->foto_karyawan ?>" width="100">
@@ -299,6 +339,29 @@ if (isset($_POST['submit'])) {
                       <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                   </div>
+                </div>
+                <!-- kontrak kerja -->
+                <label for="exampleInputFile">Kontrak Kerja</label>
+                <div class="form-group">
+                  <?php
+                  if ($data_karyawan->data[0]->kontrak_kerja == null) { ?>
+                    <a href="" class="btn btn-sm btn-warning">Belum ada Kontrak</a>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="kontrak_kerja">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                    </div>
+                  <?php } else { ?>
+                    <a href="kontrak_kerja/<?php echo $data_karyawan->data[0]->kontrak_kerja ?>" class="btn btn-sm btn-success" target="_blank">Lihat Kontrak</a>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="kontrak_kerja">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                    </div>
+                  <?php }
+                  ?>
                 </div>
               </div>
               <!-- /.col -->

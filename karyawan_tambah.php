@@ -29,9 +29,12 @@ if (isset($_POST['submit'])) {
   $password = $_POST['password'];
   $level_user = $_POST['level_user'];
   $gaji = $_POST['gaji'];
+  $uang_makan = $_POST['uang_makan'];
+  $uang_transport = $_POST['uang_transport'];
   $mulai_kerja = $_POST['mulai_kerja'];
   $akhir_kerja = $_POST['akhir_kerja'];
 
+  // upload foto karyawan
   $extensi_izin = array("jpg", "jpeg", "png", "pdf", "gif");
   $size_izin = (20971520000000 / 2);
 
@@ -64,16 +67,48 @@ if (isset($_POST['submit'])) {
     }
   }
 
+  // upload kontrak kerja
+  $extensi_izin = array("pdf");
+  $size_izin = (20971520000000 / 2);
+  $allow_file = true;
+  $sumber_file = $_FILES['kontrak_kerja']['tmp_name'];
+  $target_file = "kontrak_kerja/";
+  $nama_file_kontrak = $_FILES['kontrak_kerja']['name'];
+  $size_file = $_FILES['kontrak_kerja']['size'];
+  if ($nama_file_kontrak != '') {
+    if ($size_file > $size_izin) {
+      $error .= "- Ukuran File file tidak Boleh Melebihi 1 MB";
+      $allow_file = false;
+    } else {
+      $getExtensi = explode(".", $nama_file_kontrak);
+      $extensi_file = strtolower(end($getExtensi));
+      $nama_file_kontrak = $nama_lengkap . "-" . $nomor_induk . "." . $extensi_file;
+      if (!in_array($extensi_file, $extensi_izin) == true) {
+        $error .= " File hanya diperbolehkan dalam bentuk (pdf)";
+        $allow_ktp = false;
+      }
+    }
+
+    if ($allow_file) {
+      if (!move_uploaded_file($sumber_file, $target_file . $nama_file_kontrak)) {
+        $error .= " Gagal Uplaod File file ke server";
+        $error .= $sumber_file . " " . $target_file . $nama_file_kontrak;
+        $allow_file = false;
+      }
+    }
+  }
+
+
 
   if ($level_user == 'staff') {
-    $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja) . '&type=insert';
+    $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja) . '&kontrak_kerja=' . urlencode($nama_file_kontrak) . '&type=insert';
     $data = getRegistran($link);
 
     $link2 = "setUserByAdmin&nama_user=" . urlencode($nama_lengkap) . "&username=" . urlencode($email) . "&password=" . urlencode($password) . "&level_user=2";
     $data2 = getRegistran($link2);
     var_dump($data2);
   } elseif ($level_user == 'manager') {
-    $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja) . '&type=insert';
+    $link = "setKaryawanByAdmin&id_divisi=" . urlencode($id_divisi) . '&nomor_induk=' . urlencode($nomor_induk) . '&nama_lengkap=' . urlencode($nama_lengkap) . '&jenis_kelamin=' . urlencode($jenis_kelamin) . '&tempat_lahir=' . urlencode($tempat_lahir) . '&tanggal_lahir=' . urlencode($tanggal_lahir) . '&alamat_ktp=' . urlencode($alamat_ktp) . '&alamat_domisili=' . urlencode($alamat_domisili) . '&no_hp=' . urlencode($no_hp) . '&no_ktp=' . urlencode($no_ktp) . '&no_npwp=' . urlencode($no_npwp) . '&agama=' . urlencode($agama) . '&gol_darah=' . urlencode($gol_darah) . '&status_pernikahan=' . urlencode($status_pernikahan) . '&status_karyawan=' . urlencode($status_karyawan) . '&email=' . urlencode($email) . '&username=' . urlencode($email) . '&password=' . urlencode($password) . '&level_user=' . urlencode($level_user) . '&foto_karyawan=' . urlencode($nama_file) . '&gaji=' . urlencode($gaji) . '&mulai_kerja=' . urlencode($mulai_kerja) . '&akhir_kerja=' . urlencode($akhir_kerja) . '&kontrak_kerja=' . urlencode($nama_file_kontrak) . '&type=insert';
     $data = getRegistran($link);
     var_dump($data);
 
@@ -137,14 +172,14 @@ if (isset($_POST['submit'])) {
                   </div>
                   <div class="form-group">
                     <label>Nama Lengkap</label>
-                    <input type="text" class="form-control" name="nama_lengkap">
+                    <input type="text" class="form-control" name="nama_lengkap" required>
                   </div>
                   <div class="form-group">
                     <input class="form-control" name="nomor_induk" type="hidden" id="nomor-induk" readonly>
                   </div>
                   <div class="form-group">
                     <label for="">Jenis Kelamin</label>
-                    <select class="form-control" name="jenis_kelamin">
+                    <select class="form-control" name="jenis_kelamin" required>
                       <option selected>--Pilih Gender--</option>
                       <option value="laki-laki">Laki-laki</option>
                       <option value="perempuan">Perempuan</option>
@@ -152,54 +187,62 @@ if (isset($_POST['submit'])) {
                   </div>
                   <div class="form-group">
                     <label>Tempat Lahir</label>
-                    <input type="text" class="form-control" name="tempat_lahir">
+                    <input type="text" class="form-control" name="tempat_lahir" required>
                   </div>
                   <div class="form-group">
                     <label>Tanggal Lahir</label>
-                    <input type="date" class="form-control" name="tanggal_lahir">
+                    <input type="date" class="form-control" name="tanggal_lahir" required>
                   </div>
                   <div class="form-group">
                     <label>Alamat Lengkap (Sesuai KTP)</label>
-                    <textarea type="text" name="alamat_ktp" class="form-control" rows="2" id="alamat_ktp"></textarea>
+                    <textarea type="text" name="alamat_ktp" class="form-control" rows="2" id="alamat_ktp" required></textarea>
                   </div>
                   <div class="form-group">
                     <label for="alamatDomisili">Alamat Domisili</label>
                     <div class="form-check pt-2 pb-2">
-                      <input type="checkbox" class="form-check-input" id="sama_dengan_ktp" name="sama_dengan_ktp" onchange="handleCheckboxChange(this)">
+                      <input type="checkbox" class="form-check-input" id="sama_dengan_ktp" name="sama_dengan_ktp" onchange="handleCheckboxChange(this)" required>
                       <label class="form-check-label" for="cekAlamat">Alamat Domisili sama dengan Alamat KTP</label>
                     </div>
                     <textarea type="text" rows="2" name="alamat_domisili" class="form-control" id="alamat_domisili"></textarea>
                   </div>
                   <div class="form-group">
                     <label>Nomor Telepon</label>
-                    <input type="text" class="form-control" name="no_hp">
+                    <input type="text" class="form-control" name="no_hp" required>
                   </div>
                   <div class="form-group">
-                    <label>Gaji Pokok</label>
-                    <input type="text" class="form-control" name="gaji">
+                    <label>Gaji Pokok Karyawan</label>
+                    <input type="text" class="form-control" name="gaji" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Uang Makan</label>
+                    <input type="text" class="form-control" name="uang_makan" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Uang Transport</label>
+                    <input type="text" class="form-control" name="uang_trasport" required>
                   </div>
                   <div class="form-group">
                     <label>Mulai Kerja</label>
-                    <input type="date" class="form-control" name="mulai_kerja">
+                    <input type="date" class="form-control" name="mulai_kerja" required>
                   </div>
                 </div>
 
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Batas Akhir Kerja</label>
-                    <input type="date" class="form-control" name="akhir_kerja">
+                    <input type="date" class="form-control" name="akhir_kerja" required>
                   </div>
                   <div class="form-group">
                     <label>Nomor KTP</label>
-                    <input type="text" class="form-control" name="no_ktp">
+                    <input type="text" class="form-control" name="no_ktp" required>
                   </div>
                   <div class="form-group">
                     <label>Nomor NPWP</label>
-                    <input type="text" class="form-control" name="no_npwp">
+                    <input type="text" class="form-control" name="no_npwp" required>
                   </div>
                   <div class="form-group">
                     <label>Agama</label>
-                    <select class="form-control" name="agama">
+                    <select class="form-control" name="agama" required>
                       <option selected>--Pilih Agama--</option>
                       <option value="Islam">Islam</option>
                       <option value="Protestan">Protestan</option>
@@ -211,7 +254,7 @@ if (isset($_POST['submit'])) {
                   </div>
                   <div class="form-group">
                     <label>Golongan Drah</label>
-                    <select class="form-control" name="gol_darah">
+                    <select class="form-control" name="gol_darah" required>
                       <option selected>--Pilih Golongan Darah--</option>
                       <option value="A">A</option>
                       <option value="B">B</option>
@@ -221,7 +264,7 @@ if (isset($_POST['submit'])) {
                   </div>
                   <div class="form-group">
                     <label>Status Pernikahan</label>
-                    <select class="form-control" name="status_pernikahan">
+                    <select class="form-control" name="status_pernikahan" required>
                       <option selected>--Pilih Status Pernikahan--</option>
                       <option value="Kawin">Kawin</option>
                       <option value="Belum Kawin">Belum Kawin</option>
@@ -231,7 +274,7 @@ if (isset($_POST['submit'])) {
                   </div>
                   <div class="form-group">
                     <label>Status Karyawan</label>
-                    <select class="form-control" name="status_karyawan">
+                    <select class="form-control" name="status_karyawan" required>
                       <option selected>--Pilih Status Karyawan--</option>
                       <option value="aktif">aktif</option>
                       <option value="nonaktif">nonaktif</option>
@@ -240,7 +283,7 @@ if (isset($_POST['submit'])) {
                   <div class="form-group">
                     <label>Level User</label>
                     <!-- <input class="form-control" type="text" name="level_user" value="manager" readonly> -->
-                    <select class="form-control" name="level_user">
+                    <select class="form-control" name="level_user" required>
                       <option selected>--Pilih Level User--</option>
                       <option value="manager">Manager</option>
                       <option value="staff">Staff</option>
@@ -248,17 +291,26 @@ if (isset($_POST['submit'])) {
                   </div>
                   <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control" name="email">
+                    <input type="email" class="form-control" name="email" required>
                   </div>
                   <div class="form-group">
                     <label>Password</label>
-                    <input type="text" class="form-control" name="password">
+                    <input type="text" class="form-control" name="password" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">Kontrak Kerja</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="kontrak_kerja" required>
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Foto</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile" name="foto_karyawan">
+                        <input type="file" class="custom-file-input" id="exampleInputFile" name="foto_karyawan" required>
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
                     </div>
