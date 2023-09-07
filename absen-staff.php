@@ -338,18 +338,18 @@ if (isset($_POST['sakit'])) {
             <section class="content-wraper">
                 <div class="container-fluid">
                     <div class="row">
-                        <section class="col-lg-12 col-sm-12 connectedSortable">
+                        <section class="col-lg-12 col-sm-12">
                             <!-- Custom tabs (Charts with tabs)-->
-                            <div class="card">
+                            <div class="card" style="width:100%">
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <h1>Daftar Absen Saya</h1>
                                             <small>*Catatan</small>
-                                            <small class="text-red">Sakit</small>
-                                            <small class="text-warning">Izin</small>
-                                            <small class="text-secondary">Terlambat</small>
-                                            <small class="text-info">Waktu Masuk Aman</small>
+                                            <small class="text-red btn">Sakit</small>
+                                            <small class="text-warning btn">Izin</small>
+                                            <small class="text-secondary btn">Terlambat</small>
+                                            <small class="text-info btn">Waktu Masuk Aman</small>
                                         </div>
                                     </div>
                                 </div>
@@ -359,7 +359,7 @@ if (isset($_POST['sakit'])) {
                                         if (empty($data->data)) { ?>
                                             <div class="card-body">
                                                 <div class="tab-content p-0 table-responsive">
-                                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                                    <table id="example" class="table table-striped table-bordered">
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>

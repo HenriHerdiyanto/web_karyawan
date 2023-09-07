@@ -2242,13 +2242,13 @@ function setHistoryPinjam()
         $tanggal_pinjam = $_GET['tanggal_pinjam'];
     if (!empty($_GET['tanggal_bayar']))
         $tanggal_bayar = $_GET['tanggal_bayar'];
-    if (!empty($_GET['jumlah_bayar']))
-        $jumlah_bayar = $_GET['jumlah_bayar'];
+    if (!empty($_GET['jumlah_bayar_history']))
+        $jumlah_bayar_history = $_GET['jumlah_bayar_history'];
     if (!empty($_GET['foto_cicilan']))
         $foto_cicilan = $_GET['foto_cicilan'];
 
     //insert ke tabel history_pinjam
-    $query = "INSERT INTO history_pinjam SET id_pinjam = '$id_pinjam', id_karyawan = '$id_karyawan', tanggal_pinjam = '$tanggal_pinjam', tanggal_bayar = '$tanggal_bayar', jumlah_bayar = '$jumlah_bayar', foto_cicilan = '$foto_cicilan'";
+    $query = "INSERT INTO history_pinjam SET id_pinjam = '$id_pinjam', id_karyawan = '$id_karyawan', tanggal_pinjam = '$tanggal_pinjam', tanggal_bayar = '$tanggal_bayar', jumlah_bayar_history = '$jumlah_bayar_history', foto_cicilan = '$foto_cicilan'";
     $result = $connect->query($query);
 
     if ($result) {
@@ -3465,18 +3465,36 @@ function getDinas()
     echo json_encode($response);
 }
 
-
 function gePinjamKaryawan()
 {
-
     global $connect;
-    if (!empty($_GET['id_karyawan']))
+
+    // Initialize $id_karyawan to null
+    $id_karyawan = null;
+
+    if (!empty($_GET['id_karyawan'])) {
         $id_karyawan = $_GET['id_karyawan'];
-    $query = "SELECT * FROM history_pinjam 
-    LEFT JOIN pinjam_karyawan ON history_pinjam.id_karyawan = pinjam_karyawan.id_karyawan 
-    WHERE pinjam_karyawan.id_karyawan = $id_karyawan;
-    ";
-    $result = $connect->query($query);
+
+        // Use prepared statements to prevent SQL injection
+        $query = "SELECT * FROM history_pinjam 
+            LEFT JOIN pinjam_karyawan ON history_pinjam.id_karyawan = pinjam_karyawan.id_karyawan 
+            WHERE pinjam_karyawan.id_karyawan = ?";
+
+        // Prepare the statement
+        $stmt = $connect->prepare($query);
+
+        // Bind the parameter
+        $stmt->bind_param("s", $id_karyawan);
+
+        // Execute the statement
+        $stmt->execute();
+
+        // Get the result
+        $result = $stmt->get_result();
+    } else {
+        $query = "SELECT * FROM  pinjam_karyawan LEFT JOIN history_pinjam ON pinjam_karyawan.id_karyawan = history_pinjam.id_karyawan where jumlah_bayar_history > 0 ORDER BY nama_lengkap ASC";
+        $result = $connect->query($query);
+    }
 
     while ($row = mysqli_fetch_object($result)) {
         $data[] = $row;
@@ -3497,37 +3515,56 @@ function gePinjamKaryawan()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+
 
 
 function getPinjamKaryawanEdit()
 {
-
     global $connect;
-    if (!empty($_GET['id_pinjam']))
-        $id_pinjam = $_GET['id_pinjam'];
-    $query = "SELECT * FROM pinjam_karyawan WHERE id_pinjam = $id_pinjam;
-    ";
-    $result = $connect->query($query);
 
-    while ($row = mysqli_fetch_object($result)) {
-        $data[] = $row;
+    // Ensure that either 'id_pinjam' or 'id_karyawan' is provided in the query parameters
+    if (isset($_GET['id_pinjam'])) {
+        $id_pinjam = mysqli_real_escape_string($connect, $_GET['id_pinjam']);
+        $query = "SELECT * FROM pinjam_karyawan WHERE id_pinjam = '$id_pinjam'";
+    } elseif (isset($_GET['id_karyawan'])) {
+        $id_karyawan = mysqli_real_escape_string($connect, $_GET['id_karyawan']);
+        $query = "SELECT * FROM pinjam_karyawan WHERE id_karyawan = '$id_karyawan'";
+    } else {
+        // Handle the case where neither 'id_pinjam' nor 'id_karyawan' is provided
+        $response = array(
+            'status' => 0,
+            'data' => 'Missing parameters'
+        );
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        return;
     }
 
-    if ($result) {
+    $result = $connect->query($query);
+
+    if (!$result) {
+        // Handle the case where the query fails
+        $response = array(
+            'status' => 0,
+            'data' => 'Query error: ' . mysqli_error($connect)
+        );
+    } else {
+        $data = array();
+
+        while ($row = mysqli_fetch_object($result)) {
+            $data[] = $row;
+        }
+
         $response = array(
             'status' => 1,
             'data' => $data
-        );
-    } else {
-        $response = array(
-            'status' => 0,
-            'data' => 'Gagal'
         );
     }
 
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+
 
 function getProfilePendidikan()
 {
@@ -3932,24 +3969,32 @@ function getDeleteDinasId()
 {
     global $connect;
     $id_dinas = $_GET["id_dinas"];
+    $id_pinjam = $_GET["id_pinjam"];
 
-    $query = "DELETE FROM perjalanan_dinas WHERE id_dinas = $id_dinas";
-    $result = $connect->query($query);
-    while ($row = mysqli_fetch_object($result)) {
-        $data[] = $row;
+    if ($id_pinjam == null) {
+        $query = "DELETE FROM perjalanan_dinas WHERE id_dinas = ?";
+        $stmt = $connect->prepare($query);
+        $stmt->bind_param("i", $id_dinas);
+    } else {
+        $query = "DELETE FROM pinjam_karyawan WHERE id_pinjam = ?";
+        $query = "DELETE FROM history_pinjam WHERE id_pinjam = ?";
+        $stmt = $connect->prepare($query);
+        $stmt->bind_param("i", $id_pinjam);
     }
 
-    if ($result) {
+    if ($stmt->execute()) {
         $response = array(
             'status' => 1,
-            'data' => $data
+            'data' => 'Berhasil menghapus data'
         );
     } else {
         $response = array(
             'status' => 0,
-            'data' => 'Gagal'
+            'data' => 'Gagal menghapus data'
         );
     }
+
+    $stmt->close();
 
     header('Content-Type: application/json');
     echo json_encode($response);

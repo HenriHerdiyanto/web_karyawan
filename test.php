@@ -1,69 +1,44 @@
 <?php
-// Array keluarga
-$data = array();
+// Alamat IP yang diizinkan
+$allowedIP = '103.152.238.148';
 
-$kakek = array(
-  "nama" => "Irfan",
-  "nama" => "irhan"
-);
+// Mendapatkan alamat IP pengunjung
+$clientIP = $_SERVER['REMOTE_ADDR'];
 
-$ayah = array(
-  "nama" => "Rizal",
-  "umur" => 50,
-  "jenis_kelamin" => "Laki-laki",
-  "hobi" => "Membaca"
-);
+// Variabel status pengecekan
+$connectionStatus = ($clientIP === $allowedIP) ? "Terhubung" : "Tidak Terhubung";
 
-$ibu = array(
-  "nama" => "Rina",
-  "umur" => 45,
-  "jenis_kelamin" => "Perempuan",
-  "hobi" => "Membaca"
-);
+// Cek apakah form telah disubmit
+if (isset($_POST['cek_koneksi'])) {
+  $cekKoneksiStatus = ($clientIP === $allowedIP) ? "Anda sudah terhubung dengan alamat IP yang diizinkan." : "Anda belum terhubung dengan alamat IP yang diizinkan.";
+}
+?>
 
-$anak = array(
-  "nama" => "Rizky",
-  "umur" => 19,
-  "jenis_kelamin" => "Laki-laki",
-  "hobi" => "Membaca"
-);
+<!DOCTYPE html>
+<html>
 
-// $data['data'] = array(
-//   "kakek" => $kakek,
-//   "ayah" => $ayah,
-//   "ibu" => $ibu,
-//   "anak" => $anak
-// );
-// $data['data']['kakek'] = array(
-//   "nama-kakek" => $kakek
-// );
-// $data['data']['kakek']['ayah']['anak'] = array(
-//   $anak
-// );
+<head>
+  <title>Sistem Absensi</title>
+</head>
 
-$kakek = array(
-  "nama-kakek" => "Irfan",
-  "orangtua" => array(
-    "ayah" => array(
-      "nama" => "Rizal",
-      "umur" => 50,
-      "jenis_kelamin" => "Laki-laki",
-      "hobi" => "Membaca"
-    ),
-    "ibu" => array(
-      "anak" => array(
-        "nama" => "Rizky",
-        "umur" => 19,
-        "jenis_kelamin" => "Laki-laki",
-        "hobi" => "Membaca"
-      )
-    )
-  )
-);
+<body>
+  <h1>Selamat datang di sistem absensi</h1>
+  <p>Status Koneksi: <?php echo $connectionStatus; ?></p>
 
-$data['data'] = array(
-  "kakek" => $kakek
-);
+  <?php if ($clientIP === $allowedIP) : ?>
+    <p>Silakan lakukan absensi.</p>
+  <?php else : ?>
+    <p>Anda tidak diizinkan untuk mengakses halaman ini.</p>
+  <?php endif; ?>
 
-header('Content-Type: application/json');
-echo json_encode($data, JSON_PRETTY_PRINT);
+  <form action="" method="post">
+    <input type="submit" name="cek_koneksi" value="Cek Koneksi">
+  </form>
+
+  <?php if (isset($cekKoneksiStatus)) : ?>
+    <h2>Hasil Pengecekan Koneksi</h2>
+    <p><?php echo $cekKoneksiStatus; ?></p>
+  <?php endif; ?>
+</body>
+
+</html>

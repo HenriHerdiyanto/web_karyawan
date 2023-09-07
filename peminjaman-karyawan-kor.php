@@ -2,11 +2,16 @@
 include "header-kordinator.php";
 
 $link = "getKaryawanstaff&id_karyawan=" . urlencode($id_kar1);
-$output = getRegistran($link);
+$output1 = getRegistran($link);
+
+
+$link = "getPinjamKaryawanEdit&id_karyawan=" . urlencode($id_kar1);
+$output2 = getRegistran($link);
+// var_dump($output2);
 
 $link = "gePinjamKaryawan&id_karyawan=" . urlencode($id_kar1);
 $output = getRegistran($link);
-$no_ktp = $output->data[0]->nik;
+// $no_ktp = $output->data[0]->nik;
 // var_dump($output);
 
 if (isset($_POST['submit'])) {
@@ -88,7 +93,7 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="mb-2">
                                     <label for="mulai_kerja">Mulai Kerja</label>
-                                    <input type="date" class="form-control" id="mulai_kerja" name="mulai_kerja" value="<?= $output->data[0]->mulai_kerja ?>" placeholder="mulai_kerja">
+                                    <input type="date" class="form-control" id="mulai_kerja" name="mulai_kerja" value="<?= $output1->data[0]->mulai_kerja ?>" placeholder="mulai_kerja">
                                 </div>
                                 <div class="mb-2">
                                     <label for="jumlah_pinjam">Jumlah Pinjam</label>
@@ -114,15 +119,15 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="mb-2">
                                     <label for="nik">NIK</label>
-                                    <input type="text" class="form-control" id="nik" name="nik" value="<?= $no_ktp ?>" placeholder="NIK">
+                                    <input type="text" class="form-control" id="nik" name="nik" value="<?= $output1->data[0]->no_ktp ?>" placeholder="NIK">
                                 </div>
                                 <div class="mb-2">
                                     <label for="level_user">Jabatan</label>
-                                    <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $output->data[0]->jabatan ?>">
+                                    <input type="text" class="form-control" id="level_user" name="level_user" value="<?= $output1->data[0]->level_user ?>">
                                 </div>
                                 <div class="mb-2">
                                     <label for="gaji">Gaji Terakhir</label>
-                                    <input type="text" class="form-control" id="gaji" name="gaji" value="<?= $output->data[0]->gaji ?>">
+                                    <input type="text" class="form-control" id="gaji" name="gaji" value="<?= $output1->data[0]->gaji ?>">
                                 </div>
                                 <div class="mb-2">
                                     <label for="keperluan">Keperluan</label>
@@ -155,13 +160,82 @@ if (isset($_POST['submit'])) {
 
                     <div class="card">
                         <div class="card-header bg-primary">
+                            <h3 class="card-title"><b>Data Pinjaman Karyawan</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No. </th>
+                                            <th>Nama Karyawan</th>
+                                            <th>NIK</th>
+                                            <th>Jabatan</th>
+                                            <th>Keperluan</th>
+                                            <th>Tanggal Pinjam</th>
+                                            <th>Jumlah Pinjam</th>
+                                            <th>Jumlah Cicilan</th>
+                                            <th>Tanggal Pelunasan Terakhir</th>
+                                            <th>Status</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- panggil data $output2 -->
+                                        <?php foreach ($output2->data as $key => $array_item) :
+                                            $no = 1;
+                                        ?>
+                                            <tr>
+                                                <td><?= $no++ ?></td>
+                                                <td><?= $array_item->nama_lengkap ?></td>
+                                                <td><?= $array_item->nik ?></td>
+                                                <td><?= $array_item->jabatan ?></td>
+                                                <td><?= $array_item->keperluan ?></td>
+                                                <td><?= $array_item->tanggal_pinjam ?></td>
+                                                <td><?= $array_item->jumlah_pinjam ?></td>
+                                                <td><?= $array_item->jumlah_cicilan ?></td>
+                                                <td><?= $array_item->pelunasan_terakhir ?></td>
+                                                <td><?= $array_item->status ?></td>
+                                                <td class="text-center">
+                                                    <?php
+                                                    if ($array_item->status == 'diproses') { ?>
+                                                    <?php } else { ?>
+                                                        <a href="peminjaman-karyawan-kor-edit.php?id=<?= $array_item->id_pinjam ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="bayar">
+                                                            <i class="fas fa-edit"></i> Bayar
+                                                        </a>
+                                                    <?php }
+                                                    ?>
+                                                    <!-- <a href="peminjaman-karyawan-kor-hapus.php?id=<?= $array_item->id_pinjam ?>" class="btn-sm btn btn-danger" data-bs-toggle="tooltip" title="hapus">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a> -->
+                                                </td>
+                                            </tr>
+                                        <?php endforeach ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12">
+
+                    <div class="card" style="width:100%">
+                        <div class="card-header bg-primary">
                             <h3 class="card-title"><b>History Pembayaran</h3>
                         </div>
 
                         <div class="card-body">
                             <?php if ($output == NULL) { ?>
                                 <div class="table-responsive">
-                                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                    <table id="example" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>No. </th>
@@ -173,11 +247,11 @@ if (isset($_POST['submit'])) {
                                                 <th>Jumlah Bayar</th>
                                                 <th>Bukti Bayar</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                <!-- <th>Action</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td colspan="8" align="center">Tidak ada data</td>
+                                            <td colspan="10" align="center">Tidak ada data</td>
                                         </tbody>
                                     </table>
                                 </div>
@@ -186,30 +260,40 @@ if (isset($_POST['submit'])) {
                                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th style="width: 5%; text-align: left;">No.</th>
-                                                <th style="width: 15%; text-align: left;">Nama Karyawan</th>
-                                                <th style="width: 10%; text-align: left;">Jabatan</th>
-                                                <th style="width: 15%; text-align: left;">Keperluan</th>
-                                                <th style="width: 10%; text-align: left;">Tanggal Bayar</th>
-                                                <th style="width: 10%; text-align: right;">Jumlah Pinjaman</th>
-                                                <th style="width: 10%; text-align: right;">Jumlah cicilan</th>
-                                                <th style="width: 10%; text-align: left;">Bukti Bayar</th>
-                                                <th style="width: 5%; text-align: left;">Status</th>
-                                                <th style="width: 10%; text-align: left;">Action</th>
+                                                <th style="width: 5%;">No.</th>
+                                                <th style="width: 15%;">Nama Karyawan</th>
+                                                <th style="width: 10%;">Jabatan</th>
+                                                <th style="width: 15%;">Keperluan</th>
+                                                <th style="width: 10%;">Tanggal Bayar</th>
+                                                <th style="width: 10%;">Jumlah Pinjaman</th>
+                                                <th style="width: 10%;">Jumlah Cicilan</th>
+                                                <th style="width: 10%;">Jumlah Sudah Bayar</th>
+                                                <th style="width: 10%;">Bukti Bayar</th>
+                                                <!-- <th style="width: 5%;">Status</th> -->
+                                                <th style="width: 5%;">Status Bayar</th>
+                                                <!-- <th style="width: 10%; text-align: left;">Action</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($output->data as $key => $array_item) : ?>
+                                            <?php
+                                            $totalJumlahBayar = 0;
+                                            foreach ($output->data as $key => $array_item) :
+                                                $jumlah_bayar = $array_item->jumlah_bayar_history;
+
+                                                // Add the current value to the total
+                                                $totalJumlahBayar += $jumlah_bayar;
+                                            ?>
                                                 <tr>
-                                                    <td style="text-align: left;"><?php echo $key + 1 ?></td>
-                                                    <td style="text-align: left;"><?php echo $array_item->nama_lengkap; ?></td>
-                                                    <td style="text-align: left;"><?php echo $array_item->jabatan; ?></td>
-                                                    <td style="text-align: left;"><?php echo $array_item->keperluan; ?></td>
-                                                    <td style="text-align: left;"><?php echo $array_item->tanggal_bayar; ?></td>
-                                                    <td style="text-align: right;"><?php echo number_format($array_item->jumlah_pinjam) ?></td>
-                                                    <td style="text-align: right;"><?php echo number_format($array_item->jumlah_bayar) ?></td>
-                                                    <td style="text-align: left;"><img class="img-fluid" src="foto_cicilan/<?php echo $array_item->foto_cicilan; ?>" alt=""></td>
-                                                    <td style="text-align: left;">
+                                                    <td><?php echo $key + 1 ?></td>
+                                                    <td><?php echo $array_item->nama_lengkap; ?></td>
+                                                    <td><?php echo $array_item->jabatan; ?></td>
+                                                    <td><?php echo $array_item->keperluan; ?></td>
+                                                    <td><?php echo $array_item->tanggal_bayar; ?></td>
+                                                    <td><?php echo number_format($array_item->jumlah_pinjam) ?></td>
+                                                    <td><?php echo number_format($array_item->jumlah_bayar_history) ?></td>
+                                                    <td><?php echo number_format($totalJumlahBayar) ?></td>
+                                                    <td><img class="img-fluid" src="foto_cicilan/<?php echo $array_item->foto_cicilan; ?>" alt=""></td>
+                                                    <!-- <td>
                                                         <?php
                                                         $status = $array_item->status;
                                                         if ($status == "diproses") {
@@ -220,8 +304,17 @@ if (isset($_POST['submit'])) {
                                                             echo '<a class="btn bg-danger text-white">' . $status . '</a>';
                                                         }
                                                         ?>
+                                                    </td> -->
+                                                    <td>
+                                                        <?php
+                                                        if ($array_item->jumlah_pinjam == $totalJumlahBayar) { ?>
+                                                            <a class="btn bg-success text-white">Lunas</a>
+                                                        <?php } else { ?>
+                                                            <a class="btn bg-danger text-white">Belum Lunas</a>
+                                                        <?php }
+                                                        ?>
                                                     </td>
-                                                    <td style="text-align: left;">
+                                                    <!-- <td style="text-align: left;">
                                                         <?php
                                                         if (isset($_POST['delete'])) {
                                                             $id_pinjam = $_POST['id_pinjam'];
@@ -244,7 +337,7 @@ if (isset($_POST['submit'])) {
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </button>
                                                         </form>
-                                                    </td>
+                                                    </td> -->
                                                 </tr>
                                             <?php endforeach ?>
                                         </tbody>

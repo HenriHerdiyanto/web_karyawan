@@ -31,14 +31,9 @@ if (isset($_POST['submit'])) {
 
     $link = "setUpdatePinjamAdmin&id_pinjam=" . urlencode($id_pinjam) . "&id_karyawan=" . urlencode($id_karyawan) . "&nama_lengkap=" . urlencode($nama_lengkap) . "&mulai_kerja=" . urlencode($mulai_kerja) . '&jumlah_pinjam=' . urlencode($jumlah_pinjam) . '&tanggal_pinjam=' . urlencode($tanggal_pinjam) . '&pelunasan_terakhir=' . urlencode($pelunasan_terakhir) . '&nik=' . urlencode($nik) . '&jabatan=' . urlencode($jabatan) . '&gaji=' . urlencode($gaji) . '&jumlah_bayar=' . urlencode($jumlah_bayar)  . '&keperluan=' . urlencode($keperluan) . '&pelunasan=' . urlencode($pelunasan) . '&pemohon=' . urlencode($pemohon) . '&disetujui_oleh=' . urlencode($disetujui_oleh) . "&status=" . urlencode($status) . '&type=insert';
     $data = getRegistran($link);
-    var_dump($data);
-    // if ($data) {
-    //     echo "<script>alert('Data berhasil diUPDATE')</script>";
-    //     echo ("<script>location.href = 'peminjaman-karyawan.php';</script>");
-    // } else {
-    //     echo "<script>alert('Data gagal diUPDATE')</script>";
-    //     echo ("<script>location.href = 'peminjaman-karyawan-edit.php';</script>");
-    // }
+    // var_dump($data);
+    echo "<script>alert('Data berhasil diUPDATE')</script>";
+    echo ("<script>location.href = 'peminjaman_karyawan.php';</script>");
 }
 
 ?>
@@ -69,8 +64,8 @@ if (isset($_POST['submit'])) {
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nama Karyawan</label>
-                                    <input type="text" name="id_pinjam" value="<?= $data_dinas->data[0]->id_pinjam; ?>">
-                                    <input type="text" name="id_karyawan" value="<?= $data_dinas->data[0]->id_karyawan; ?>">
+                                    <input type="hidden" name="id_pinjam" value="<?= $data_dinas->data[0]->id_pinjam; ?>">
+                                    <input type="hidden" name="id_karyawan" value="<?= $data_dinas->data[0]->id_karyawan; ?>">
                                     <input type="text" class="form-control" name="nama_lengkap" value="<?php echo $data_dinas->data[0]->nama_lengkap; ?>">
                                 </div>
                                 <div class="form-group">
@@ -115,7 +110,7 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="form-group">
                                     <label>Pelunasan</label>
-                                    <input type="text" class="form-control" name="pelunasan" value="<?php echo $data_dinas->data[0]->pelunasan ?>">
+                                    <input type="text" class="form-control" name="pelunasan" value="<?php echo $data_dinas->data[0]->pelunasan ?> bulan">
                                 </div>
                                 <div class="form-group">
                                     <label>Pemohon</label>
@@ -142,7 +137,7 @@ if (isset($_POST['submit'])) {
                         <!-- /.card-body -->
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-lg btn-primary float-sm-right" name="submit">Submit</button>
+                        <button type="submit" class="btn btn-lg btn-outline-primary float-sm-right w-100" name="submit">Submit</button>
                     </div>
                 </form>
             </div>

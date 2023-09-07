@@ -15,7 +15,7 @@ $id_user = $data->data[0]->id_user;
 $nama = $data->data[0]->nama_user;
 $level_user = $data->data[0]->level_user;
 
-var_dump($level_user);
+// var_dump($level_user);
 if ($level_user < 1 && $level_user > 1) {
     echo ("<script>location.href = 'index.php';</script>");
 }
@@ -118,7 +118,7 @@ $nama_divisi = $data_lengkap->data[0]->nama_divisi;
                 <a href="profile-kor.php?id=<?= $id_kar1 ?>">
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                            <img src="foto_karyawan/<?= $data_lengkap->data[0]->foto_karyawan ?>" style="width: cover;" class="img-fluid img-circle elevation-2" alt="User Image">
                         </div>
                         <div class="info" style="color: #FFCF09;">
                             <b><?php echo $nama; ?></b>

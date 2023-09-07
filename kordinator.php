@@ -170,11 +170,11 @@ if (isset($_POST['update'])) {
                     <div class="small-box bg-success">
                         <div class="inner">
                             <?php
-                            $query = mysqli_query($connect, "SELECT status, COUNT(*) as jumlah_data FROM pinjam_karyawan WHERE id_karyawan= $id_karyawan");
+                            $query = mysqli_query($connect, "SELECT id_pinjam, COUNT(*) as jumlah_data FROM history_pinjam WHERE id_karyawan= $id_karyawan");
                             $row = mysqli_fetch_assoc($query);
                             $jumlah_data = $row['jumlah_data'];
                             ?>
-                            <h3><?php echo $jumlah_data; ?> Notifikasi</h3>
+                            <h3><?php echo $jumlah_data; ?> Transaksi</h3>
                             <p>Peminjaman Karyawan</p>
                         </div>
                         <div class="icon">
@@ -191,9 +191,8 @@ if (isset($_POST['update'])) {
                             <?php
 
                             $query = mysqli_query($connect, "SELECT COUNT(*) AS jumlah_data
-                            FROM karyawan
-                            LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi
-                            WHERE karyawan.id_user = $id_user;
+                            FROM lembur
+                            WHERE nama_divisi = '$nama_divisi';
                             ");
                             $row = mysqli_fetch_assoc($query);
                             $jumlah_data = $row['jumlah_data'];

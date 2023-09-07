@@ -151,12 +151,13 @@ $data_pendidikan = getRegistran($link);
 $link = "getCuti&id_karyawan=" . urlencode($id_karyawan);
 $data_cuti = getRegistran($link);
 
+$ambil_cuti = 0; // Initialize with a default value
+
 if ($data_cuti && isset($data_cuti->data[0])) {
     $ambil_cuti = (int) $data_cuti->data[0]->ambil_cuti;
-
-    // Assuming $uang_makan is also an integer
-    $potongan_cuti = (int) (($uang_makan / 22) * $ambil_cuti);
 }
+
+$potongan_cuti = (int) (($uang_makan / 22) * $ambil_cuti);
 
 // var_dump($ambil_cuti);
 
@@ -451,14 +452,15 @@ if ($data_pinjaman && isset($data_pinjaman->data[0])) {
                                         <div class="mb-2">
                                             <label for="">Pinjaman</label>
                                             <?php
-                                            if ($data_pinjaman == null) { ?>
-                                                <input type="number" class="form-control nilai-input4" id="pinjaman" value="0" name="pinjaman" required>
-                                                <?php } else {
-                                                if ($jumlah_bayar_sekarang < $jumlah_pinjam) { ?>
-                                                    <input type="number" class="form-control nilai-input4" id="pinjaman" value="<?= $jumlah_cicilan ?>" name="pinjaman" required>
-                                            <?php }
+                                            if ($data_pinjaman == null || $jumlah_bayar_sekarang >= $jumlah_pinjam) {
+                                                $pinjamanValue = 0;
+                                            } else {
+                                                $pinjamanValue = $jumlah_cicilan;
                                             }
                                             ?>
+
+                                            <input type="number" class="form-control nilai-input4" id="pinjaman" value="<?= $pinjamanValue ?>" name="pinjaman" required>
+
                                         </div>
                                         <div class="mb-2">
                                             <label for="">BPJS KESEHATAN Ditanggung Karyawan 1%</label>

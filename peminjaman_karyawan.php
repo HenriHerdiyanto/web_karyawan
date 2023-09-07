@@ -1,6 +1,11 @@
 <?php
-include "header.php"
+include "header.php";
+$link = "getPinjsmKaryawanAll";
+$output2 = getRegistran($link);
 
+
+$link = "gePinjamKaryawan";
+$output = getRegistran($link);
 ?>
 
 
@@ -11,7 +16,7 @@ include "header.php"
             <div class="card">
                 <div class="row">
                     <div class="col">
-                        <h1 class="m-3">Permohonan Perjalanan Dinas</h1>
+                        <h1 class="m-3">History Peminjaman Karyawan</h1>
                     </div>
                     <!-- <div align="end" class="col mt-3 mr-3">
                         <a href="karyawan_tambah.php" class="btn btn-success" type="button">
@@ -27,9 +32,81 @@ include "header.php"
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-info">
+                            <h3>Daftar Karyawan Pinjam</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Karyawan</th>
+                                            <th>Permintaan Pinjam</th>
+                                            <th>Tanggal Pelunasan</th>
+                                            <th>Cicilan Perbulan</th>
+                                            <th>Keperluan</th>
+                                            <th>Status</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        foreach ($output2->data as $key => $array_item) : ?>
+                                            <tr>
+                                                <td><?php echo $key + 1 ?></td>
+                                                <td><?php echo $array_item->nama_lengkap; ?></td>
+                                                <td><?php echo number_format($array_item->jumlah_pinjam)  ?></td>
+                                                <td><?php echo $array_item->pelunasan_terakhir; ?></td>
+                                                <td><?php echo number_format($array_item->jumlah_cicilan) ?></td>
+                                                <td><?php echo $array_item->keperluan; ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($array_item->status == 'diproses') { ?>
+                                                        <a href="" class="btn btn-sm btn-warning"><?php echo $array_item->status; ?></a>
+                                                    <?php } elseif ($array_item->status == 'diterima') { ?>
+                                                        <a href="" class="btn btn-sm btn-success"><?php echo $array_item->status; ?></a>
+                                                    <?php } elseif ($array_item->status == 'ditolak') { ?>
+                                                        <a href="" class="btn btn-sm btn-danger"><?php echo $array_item->status; ?></a>
+                                                    <?php } elseif ($array_item->status == 'lunas') { ?>
+                                                        <a href="" class="btn btn-sm btn-info"><?php echo $array_item->status; ?></a>
+                                                    <?php } else {
+                                                        echo "tidak ada";
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <form method="post">
+                                                        <a href="peminjaman_karyawan_edit.php?id=<?php echo $array_item->id_pinjam ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <input type="hidden" name="id_pinjam" value="<?php echo $array_item->id_pinjam; ?>">
+                                                        <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
 
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header bg-gradient-secondary">
+                            <h3>Daftar Cicilan Karyawan</h3>
                             <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end pb-3">
                                 <a href="perjalanan-dinas-kor-tambah.php" class="btn btn-success " type="button">
                                     <i class="fas fa-plus"></i> Add Permohonan
@@ -84,10 +161,6 @@ include "header.php"
                             </div> -->
                         </div>
                         <!-- /.card-header -->
-                        <?php
-                        $link = "getPinjsmKaryawanAll";
-                        $output = getRegistran($link);
-                        ?>
 
                         <div class="card-body table-responsive">
                             <?php if ($output == NULL) { ?>
@@ -112,9 +185,10 @@ include "header.php"
                                             <th>No. </th>
                                             <th>Nama Karyawan</th>
                                             <th>Jabatan</th>
-                                            <th>NIK</th>
+                                            <th>Jumlah Pinjam</th>
                                             <th>Cicilan / Bulan</th>
                                             <th>Jumlah Sudah Bayar</th>
+                                            <th>Total Bayar</th>
                                             <th>Keperluan</th>
                                             <th>Pemohon</th>
                                             <th>Status</th>
@@ -122,26 +196,39 @@ include "header.php"
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($output->data as $key => $array_item) : ?>
+                                        <?php
+                                        $totalJumlahBayar = 0;
+                                        foreach ($output->data as $key => $array_item) :
+                                            $jumlah_bayar = $array_item->jumlah_bayar_history;
+
+                                            // Add the current value to the total
+                                            $totalJumlahBayar += $jumlah_bayar;
+                                        ?>
                                             <tr>
                                                 <td><?php echo $key + 1 ?></td>
                                                 <td><?php echo $array_item->nama_lengkap; ?></td>
                                                 <td><?php echo $array_item->jabatan; ?></td>
-                                                <td><?php echo $array_item->nik; ?></td>
-                                                <td><?php echo $array_item->jumlah_cicilan; ?></td>
-                                                <td><?php echo $array_item->jumlah_bayar; ?></td>
-                                                <td><?php echo $array_item->keperluan; ?></td>
-                                                <td><?php echo $array_item->pemohon; ?></td>
+                                                <td><?php echo number_format($array_item->jumlah_pinjam) ?></td>
+                                                <td><?php echo number_format($array_item->jumlah_cicilan) ?></td>
                                                 <td>
                                                     <?php
-                                                    $status = $array_item->status;
-                                                    if ($status == "diproses") {
-                                                        echo '<a class="btn bg-warning text-white">' . $status . '</a>';
-                                                    } elseif ($status == "diterima") {
-                                                        echo '<a class="btn bg-success text-white">' . $status . '</a>';
+                                                    if ($array_item->jumlah_bayar_history == null) {
+                                                        echo "belum ada cicilan";
                                                     } else {
-                                                        echo '<a class="btn bg-danger text-white">' . $status . '</a>';
+                                                        echo number_format($array_item->jumlah_bayar_history, '0', ',', '.');
                                                     }
+                                                    ?>
+                                                </td>
+                                                <td><?php echo number_format($totalJumlahBayar) ?></td>
+                                                <td><?php echo $array_item->keperluan; ?></td>
+                                                <td><img class="img-fluid" src="foto_cicilan/<?php echo $array_item->foto_cicilan; ?>" alt=""></td>
+                                                <td>
+                                                    <?php
+                                                    if ($array_item->jumlah_pinjam == $totalJumlahBayar) { ?>
+                                                        <a class="btn bg-success text-white">Lunas</a>
+                                                    <?php } else { ?>
+                                                        <a class="btn bg-danger text-white">Belum Lunas</a>
+                                                    <?php }
                                                     ?>
                                                 </td>
                                                 <td>
@@ -151,9 +238,9 @@ include "header.php"
                                                         $link = "getDeleteDinasId&id_pinjam=" . urlencode($id_pinjam);
                                                         $delete = getRegistran($link);
                                                         if (!$delete) {
-                                                            echo "<script>alert('Data berhasil dihapus');window.location='karyawan.php'</script>";
+                                                            echo "<script>alert('Data berhasil dihapus');window.location='peminjaman_karyawan.php'</script>";
                                                         } else {
-                                                            echo "<script>alert('Data gagal dihapus');window.location='karyawan.php'</script>";
+                                                            echo "<script>alert('Data gagal dihapus');window.location='peminjaman_karyawan.php'</script>";
                                                         }
                                                     }
                                                     ?>

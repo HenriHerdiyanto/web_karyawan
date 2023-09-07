@@ -1,7 +1,7 @@
 <?php
 session_start();
 $user = $_SESSION["login"]; //berisi id_karyawan
-var_dump($user);
+// var_dump($user);
 $level = $_SESSION["user"];
 
 require_once 'controller/utility.php';

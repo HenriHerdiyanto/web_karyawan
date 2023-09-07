@@ -13,7 +13,7 @@ $data = getRegistran($link);
 $nama = $data->data[0]->nama_user;
 $level_user = $data->data[0]->level_user;
 $id_user = $data->data[0]->id_user;
-var_dump($data);
+// var_dump($data);
 if ($level_user > 0) {
   echo ("<script>location.href = 'logout.php';</script>");
 }

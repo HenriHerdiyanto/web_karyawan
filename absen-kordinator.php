@@ -11,7 +11,7 @@ $data_sop = getRegistran($link2);
 // var_dump($data_sop);
 $link = "getAbsenBaru&id_karyawan=" . urlencode($id_kar1);
 $data = getRegistran($link);
-// var_dump($data);
+var_dump($data);
 
 $link = "getAbsenBarukeluar&id_karyawan=" . urlencode($id_kar1);
 $data_absen_keluar = getRegistran($link);
@@ -70,6 +70,21 @@ if (isset($_POST['sakit'])) {
     echo "<script>alert('Sakit Berhasil diajukan')</script>";
     echo "<script>window.location.href='absen-kordinator.php'</script>";
 }
+
+
+// Alamat IP yang diizinkan
+$allowedIP = '103.152.238.148';
+
+// Mendapatkan alamat IP pengunjung
+$clientIP = $_SERVER['REMOTE_ADDR'];
+
+// Variabel status pengecekan
+$connectionStatus = ($clientIP === $allowedIP) ? "Terhubung" : "Tidak Terhubung";
+
+// Cek apakah form telah disubmit
+if (isset($_POST['cek_koneksi'])) {
+    $cekKoneksiStatus = ($clientIP === $allowedIP) ? "Anda sudah terhubung dengan alamat IP yang diizinkan." : "Anda belum terhubung dengan alamat IP yang diizinkan.";
+}
 ?>
 <style>
     /* buatkan css agar posisi label berada rata dikiri */
@@ -81,24 +96,72 @@ if (isset($_POST['sakit'])) {
 
     }
 </style>
-<div class="content-wrapper">
+<div class="content-wrapper mt-4">
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>Absen Masuk</h3>
-                            <p>Absen saya</p>
+                <?php
+                if ($connectionStatus == "Terhubung") { ?>
+                    <div class="col-lg-3 col-6">
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>Absen Masuk</h3>
+                                <p>Absen saya</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-ios-albums"></i>
+                            </div>
+                            <!-- Button trigger modal -->
+                            <!-- <a type="button" class="small-box-footer" data-bs-target="#modal1">
+            Check In
+        </a> -->
+                            <a type="button" class="small-box-footer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                Check In
+                            </a>
+                            <!-- <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-ios-albums"></i>
+                    </div>
+                <?php } else { ?>
+                    <div class="col-lg-3 col-6">
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>TIDAK BOLEH ABSEN</h3>
+                                <p>Absen saya</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-ios-albums"></i>
+                            </div>
+                            <!-- Button trigger modal -->
+                            <!-- <a type="button" class="small-box-footer" data-bs-target="#modal1">
+            Check In
+        </a> -->
+                            <a type="button" class="small-box-footer" data-bs-toggle="modal" data-bs-target="#tidak">
+                                Check In
+                            </a>
+                            <!-- <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                         </div>
-                        <!-- Button trigger modal -->
-                        <a type="button" class="small-box-footer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            Check In
-                        </a>
-                        <!-- <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+                    </div>
+                <?php }
+                ?>
+
+                <div class="modal fade" id="tidak" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">X</button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST">
+                                    <div class="row">
+                                        <div class="card">
+                                            <center>
+                                                <h1 class="text-center">ANDA TIDAK BOLEH ABSEN JAUH-JAUH</h1>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -405,7 +468,6 @@ if (isset($_POST['sakit'])) {
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
 </div>
-
 <!-- script absen masuk -->
 <script>
     function getCurrentDateTime() {

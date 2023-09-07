@@ -87,19 +87,26 @@ var_dump($data_dinas);
                 }
 
                 //insert tabel history_pinjam
-                $link = "setHistoryPinjam&id_pinjam=" . urlencode($id_pinjam) . "&id_karyawan=" . urlencode($id_karyawan) . "&tanggal_pinjam=" . urlencode($tanggal_pinjam) . "&tanggal_bayar=" . urlencode($tanggal_bayar) . "&jumlah_bayar=" . urlencode($jumlah_bayar) . "&foto_cicilan=" . urlencode($nama_file);
+                $link = "setHistoryPinjam&id_pinjam=" . urlencode($id_pinjam) . "&id_karyawan=" . urlencode($id_karyawan) . "&tanggal_pinjam=" . urlencode($tanggal_pinjam) . "&tanggal_bayar=" . urlencode($tanggal_bayar) . "&jumlah_bayar_history=" . urlencode($jumlah_bayar) . "&foto_cicilan=" . urlencode($nama_file);
                 $data = getRegistran($link);
                 var_dump($data);
                 //update tabel pinjam_karyawan
                 $link = "UpdatePinjamKaryawan&id_pinjam=" . urlencode($id_pinjam) . "&jumlah_bayar=" . urlencode($jumlah_bayar) . "&jumlah_bayar_sekarang=" . urlencode($jumlah_bayar_sekarang);
                 $data1 = getRegistran($link);
                 var_dump($data1);
+                if ($data) {
+                    echo "<script>alert('Data berhasil diUPDATE')</script>";
+                    echo ("<script>location.href = 'peminjaman-karyawan-kor.php';</script>");
+                } else {
+                    echo "<script>alert('Data gagal diUPDATE')</script>";
+                    echo ("<script>location.href = 'peminjaman-karyawan-kor.php';</script>");
+                }
             }
             ?>
             <form action="" method="post" enctype="multipart/form-data">
-                <div class="card card-primary">
+                <div class="card card-success">
                     <div class="card-header">
-                        <h3 class="card-title">Ubah Peminjaman</h3>
+                        <h3 class="card-title">Data Karyawan</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -108,7 +115,7 @@ var_dump($data_dinas);
                                 <div class="form-group">
                                     <label>Nama Karyawan</label>
                                     <input type="hidden" name="id_pinjam" value="<?= $id_pinjam ?>">
-                                    <input type="text" name="id_karyawan" value="<?= $data_dinas->data[0]->id_karyawan ?>">
+                                    <input type="hidden" name="id_karyawan" value="<?= $data_dinas->data[0]->id_karyawan ?>">
                                     <input type="text" class="form-control" name="nama_lengkap" value="<?php echo $data_dinas->data[0]->nama_lengkap; ?>" readonly>
                                 </div>
                                 <div class="form-group">
@@ -162,7 +169,7 @@ var_dump($data_dinas);
                     </div>
                 </div>
                 <div class="col-lg-12">
-                    <div class="card card-primary">
+                    <div class="card card-success">
                         <h5 class="card-header">Pembayaran</h5>
                         <div class="card-body">
                             <div class="row">
