@@ -53,42 +53,48 @@ $output = getRegistran($link);
                                     </thead>
                                     <tbody>
                                         <?php
-                                        foreach ($output2->data as $key => $array_item) : ?>
-                                            <tr>
-                                                <td><?php echo $key + 1 ?></td>
-                                                <td><?php echo $array_item->nama_lengkap; ?></td>
-                                                <td><?php echo number_format($array_item->jumlah_pinjam)  ?></td>
-                                                <td><?php echo $array_item->pelunasan_terakhir; ?></td>
-                                                <td><?php echo number_format($array_item->jumlah_cicilan) ?></td>
-                                                <td><?php echo $array_item->keperluan; ?></td>
-                                                <td>
-                                                    <?php
-                                                    if ($array_item->status == 'diproses') { ?>
-                                                        <a href="" class="btn btn-sm btn-warning"><?php echo $array_item->status; ?></a>
-                                                    <?php } elseif ($array_item->status == 'diterima') { ?>
-                                                        <a href="" class="btn btn-sm btn-success"><?php echo $array_item->status; ?></a>
-                                                    <?php } elseif ($array_item->status == 'ditolak') { ?>
-                                                        <a href="" class="btn btn-sm btn-danger"><?php echo $array_item->status; ?></a>
-                                                    <?php } elseif ($array_item->status == 'lunas') { ?>
-                                                        <a href="" class="btn btn-sm btn-info"><?php echo $array_item->status; ?></a>
-                                                    <?php } else {
-                                                        echo "tidak ada";
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td class="text-center">
-                                                    <form method="post">
-                                                        <a href="peminjaman_karyawan_edit.php?id=<?php echo $array_item->id_pinjam ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        <input type="hidden" name="id_pinjam" value="<?php echo $array_item->id_pinjam; ?>">
-                                                        <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach ?>
+                                        if ($output2 !== null && isset($output2->data) && (is_array($output2->data) || is_object($output2->data))) {
+                                            foreach ($output2->data as $key => $array_item) {
+                                        ?>
+                                                <tr>
+                                                    <td><?php echo $key + 1 ?></td>
+                                                    <td><?php echo $array_item->nama_lengkap; ?></td>
+                                                    <td><?php echo number_format($array_item->jumlah_pinjam) ?></td>
+                                                    <td><?php echo $array_item->pelunasan_terakhir; ?></td>
+                                                    <td><?php echo number_format($array_item->jumlah_cicilan) ?></td>
+                                                    <td><?php echo $array_item->keperluan; ?></td>
+                                                    <td>
+                                                        <?php
+                                                        if ($array_item->status == 'diproses') { ?>
+                                                            <a href="" class="btn btn-sm btn-warning"><?php echo $array_item->status; ?></a>
+                                                        <?php } elseif ($array_item->status == 'diterima') { ?>
+                                                            <a href="" class="btn btn-sm btn-success"><?php echo $array_item->status; ?></a>
+                                                        <?php } elseif ($array_item->status == 'ditolak') { ?>
+                                                            <a href="" class="btn btn-sm btn-danger"><?php echo $array_item->status; ?></a>
+                                                        <?php } elseif ($array_item->status == 'lunas') { ?>
+                                                            <a href="" class="btn btn-sm btn-info"><?php echo $array_item->status; ?></a>
+                                                        <?php } else {
+                                                            echo "tidak ada";
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <form method="post">
+                                                            <a href="peminjaman_karyawan_edit.php?id=<?php echo $array_item->id_pinjam ?>" class="btn-sm btn btn-primary" data-bs-toggle="tooltip" title="Ubah">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <input type="hidden" name="id_pinjam" value="<?php echo $array_item->id_pinjam; ?>">
+                                                            <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+
                                     </tbody>
                                 </table>
                             </div>

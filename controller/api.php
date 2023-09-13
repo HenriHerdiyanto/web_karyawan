@@ -1780,7 +1780,7 @@ function getAbsenb()
         $tahun = $_GET['tahun'];
 
         // Construct the query with proper conditions
-        $query = "SELECT DISTINCT karyawan.id_karyawan, karyawan.nama_lengkap, divisi.nama_divisi, karyawan.nomor_induk, karyawan.level_user, absen.sakit, absen.tanggal, absen.terlambat, absen.izin, absen.keterangan, absen.barcode, karyawan.status_karyawan 
+        $query = "SELECT DISTINCT karyawan.id_karyawan, karyawan.nama_lengkap, divisi.nama_divisi, karyawan.nomor_induk, karyawan.level_user, absen.id_absen, absen.sakit, absen.tanggal, absen.terlambat, absen.izin, absen.keterangan, absen.barcode, karyawan.status_karyawan 
         FROM absen 
         LEFT JOIN karyawan ON absen.id_karyawan = karyawan.id_karyawan 
         LEFT JOIN divisi ON karyawan.id_divisi = divisi.id_divisi 
@@ -2530,37 +2530,39 @@ function setUpdateKonfirmasi()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
-
 function getDeleteDivisiId()
 {
     global $connect;
-    $id_divisi = $_GET["id_divisi"];
-    $id_absen = $_GET["id_absen"];
+    $data = array(); // Initialize the $data array
+
+    // Check if the 'id_divisi' and 'id_absen' keys exist in the $_GET array
+    if (isset($_GET["id_divisi"])) {
+        $id_divisi = $_GET["id_divisi"];
+    } else {
+        $id_divisi = null;
+    }
+
+    if (isset($_GET["id_absen"])) {
+        $id_absen = $_GET["id_absen"];
+    } else {
+        $id_absen = null;
+    }
 
     if ($id_absen == null && $id_divisi == null) {
-        $query = "DELETE FROM absen_karyawan";
+        $query = "DELETE FROM absen";
         $result = $connect->query($query);
-        while ($row = mysqli_fetch_object($result)) {
-            $data[] = $row;
-        }
     } elseif ($id_absen == null) {
         $query = "DELETE FROM divisi WHERE id_divisi = $id_divisi";
         $result = $connect->query($query);
-        while ($row = mysqli_fetch_object($result)) {
-            $data[] = $row;
-        }
     } else {
-        $query = "DELETE FROM absen_karyawan WHERE id_absen = $id_absen";
+        $query = "DELETE FROM absen WHERE id_absen = $id_absen";
         $result = $connect->query($query);
-        while ($row = mysqli_fetch_object($result)) {
-            $data[] = $row;
-        }
     }
 
     if ($result) {
         $response = array(
             'status' => 1,
-            'data' => $data
+            'data' => $data // This is an empty array in this case
         );
     } else {
         $response = array(
@@ -2572,6 +2574,7 @@ function getDeleteDivisiId()
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+
 function getDeleteSOP()
 {
     global $connect;
@@ -2740,6 +2743,10 @@ function setKaryawanByAdmin()
         $foto_karyawan = $_GET['foto_karyawan'];
     if (!empty($_GET['gaji']))
         $gaji = $_GET['gaji'];
+    if (!empty($_GET['uang_makan']))
+        $uang_makan = $_GET['uang_makan'];
+    if (!empty($_GET['uang_transport']))
+        $uang_transport = $_GET['uang_transport'];
     if (!empty($_GET['mulai_kerja']))
         $mulai_kerja = $_GET['mulai_kerja'];
     if (!empty($_GET['akhir_kerja']))
@@ -2748,7 +2755,7 @@ function setKaryawanByAdmin()
         $kontrak_kerja = $_GET['kontrak_kerja'];
 
 
-    $query = "INSERT INTO karyawan SET id_user = '$id_user',id_divisi = '$id_divisi',nomor_induk = '$nomor_induk', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', username = '$email', password = '$password', level_user = '$level_user', foto_karyawan = '$foto_karyawan', gaji = '$gaji', mulai_kerja = '$mulai_kerja', akhir_kerja = '$akhir_kerja', kontrak_kerja = '$kontrak_kerja'";
+    $query = "INSERT INTO karyawan SET id_user = '$id_user',id_divisi = '$id_divisi',nomor_induk = '$nomor_induk', nama_lengkap = '$nama_lengkap', jenis_kelamin = '$jenis_kelamin', tempat_lahir = '$tempat_lahir', tanggal_lahir = '$tanggal_lahir', alamat_ktp = '$alamat_ktp', alamat_domisili = '$alamat_domisili', no_hp = '$no_hp', no_ktp = '$no_ktp', no_npwp = '$no_npwp', agama = '$agama', gol_darah = '$gol_darah', status_pernikahan = '$status_pernikahan', status_karyawan = '$status_karyawan', email = '$email', username = '$email', password = '$password', level_user = '$level_user', foto_karyawan = '$foto_karyawan', gaji = '$gaji', uang_makan = '$uang_makan', uang_transport = '$uang_transport', mulai_kerja = '$mulai_kerja', akhir_kerja = '$akhir_kerja', kontrak_kerja = '$kontrak_kerja'";
     $result = $connect->query($query);
 
     if ($result) {

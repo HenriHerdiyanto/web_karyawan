@@ -11,7 +11,7 @@ $data_sop = getRegistran($link2);
 // var_dump($data_sop);
 $link = "getAbsenBaru&id_karyawan=" . urlencode($id_kar1);
 $data = getRegistran($link);
-var_dump($data);
+// var_dump($data);
 
 $link = "getAbsenBarukeluar&id_karyawan=" . urlencode($id_kar1);
 $data_absen_keluar = getRegistran($link);
@@ -111,14 +111,9 @@ if (isset($_POST['cek_koneksi'])) {
                             <div class="icon">
                                 <i class="ion ion-ios-albums"></i>
                             </div>
-                            <!-- Button trigger modal -->
-                            <!-- <a type="button" class="small-box-footer" data-bs-target="#modal1">
-            Check In
-        </a> -->
                             <a type="button" class="small-box-footer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 Check In
                             </a>
-                            <!-- <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                         </div>
                     </div>
                 <?php } else { ?>
@@ -131,14 +126,9 @@ if (isset($_POST['cek_koneksi'])) {
                             <div class="icon">
                                 <i class="ion ion-ios-albums"></i>
                             </div>
-                            <!-- Button trigger modal -->
-                            <!-- <a type="button" class="small-box-footer" data-bs-target="#modal1">
-            Check In
-        </a> -->
                             <a type="button" class="small-box-footer" data-bs-toggle="modal" data-bs-target="#tidak">
                                 Check In
                             </a>
-                            <!-- <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                         </div>
                     </div>
                 <?php }

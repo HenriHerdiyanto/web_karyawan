@@ -65,20 +65,29 @@ $dataAdmin = getRegistran($link);
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <?php foreach ($output->data as $key => $array_item) : ?>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="small-box <?php echo getRandomColor(); ?>">
-                            <div class="inner">
-                                <h3><?php echo $array_item->nama_divisi ?></h3>
-                                <p>Divisi</p>
+                <?php
+                if ($output !== null && isset($output->data) && is_array($output->data)) {
+                    foreach ($output->data as $key => $array_item) {
+                ?>
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box <?php echo getRandomColor(); ?>">
+                                <div class="inner">
+                                    <h3><?php echo $array_item->nama_divisi ?></h3>
+                                    <p>Divisi</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-ios-albums"></i>
+                                </div>
+                                <a href="anggota.php?id=<?php echo $array_item->id_divisi ?>" class="small-box-footer"><?php echo $array_item->id_divisi ?> <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
-                            <div class="icon">
-                                <i class="ion ion-ios-albums"></i>
-                            </div>
-                            <a href="anggota.php?id=<?php echo $array_item->id_divisi ?>" class="small-box-footer"><?php echo $array_item->id_divisi ?> <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                    </div>
-                <?php endforeach ?>
+                <?php
+                    }
+                } else {
+                    // Handle the case where $output is null or doesn't contain valid data.
+                    // You can set default values or show an error message.
+                }
+                ?>
             </div>
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">

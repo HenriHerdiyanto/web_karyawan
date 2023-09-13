@@ -9,14 +9,10 @@ require_once 'header.php';
 if (isset($_POST['delete'])) {
     $id_absen = $_POST['id_absen'];
     $link = "getDeleteDivisiId&id_absen=" . urlencode($id_absen);
-    $delete = getRegistran($link);
-    if ($delete) {
-        echo "<script>alert('Data berhasil dihapus')</script>";
-        echo "<script>location='absen-admin.php'</script>";
-    } else {
-        echo "<script>alert('Data gagal dihapus')</script>";
-        echo "<script>location='absen-admin.php'</script>";
-    }
+    $delete = getRegistran($link); // Memanggil fungsi dengan parameter yang sesuai
+    // var_dump($delete);
+    echo "<script>alert('Data berhasil dihapus')</script>";
+    echo "<script>location='absen-testing.php'</script>";
 }
 if (isset($_GET['filter'])) {
     $bulan = $_GET['bulan'];
@@ -110,7 +106,7 @@ if (isset($_GET['filter'])) {
                                                     <td class="text-center"><?php echo $array_item->barcode; ?></td>
                                                     <td class="text-center">
                                                         <form method="post">
-                                                            <input type="hidden" name="id_absen" value="<?php echo $array_item->id_absen; ?>">
+                                                            <input type="text" name="id_absen" value="<?php echo $array_item->id_absen; ?>">
                                                             <button class="btn btn-danger btn-sm m-1" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" type="submit" data-bs-toggle="tooltip" title="Hapus" name="delete">
                                                                 Hapus
                                                             </button>

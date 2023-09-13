@@ -16,12 +16,32 @@ if (isset($_POST['delete'])) {
 
 $link = "getKaryawanPinjam";
 $output = getRegistran($link);
-$id_karyawan = $output->data[0]->id_karyawan;
 
+if ($output !== null) {
+    if (isset($output->data[0]->id_karyawan)) {
+        $id_karyawan = $output->data[0]->id_karyawan;
+    } else {
+        // Handle the case where 'id_karyawan' is not set in the response data.
+        // You can set a default value or show an error message.
+    }
+} else {
+    // Handle the case where $output is null, e.g., show an error message.
+}
 $link2 = "getDivisi";
 $data_divisi = getRegistran($link2);
-$id_divisi = $data_divisi->data[0]->id_divisi;
-$nama_divisi = $data_divisi->data[0]->nama_divisi;
+
+if ($data_divisi !== null) {
+    if (isset($data_divisi->data[0]->id_divisi) && isset($data_divisi->data[0]->nama_divisi)) {
+        $id_divisi = $data_divisi->data[0]->id_divisi;
+        $nama_divisi = $data_divisi->data[0]->nama_divisi;
+    } else {
+        // Handle the case where 'id_divisi' or 'nama_divisi' is not set in the response data.
+        // You can set default values or show an error message.
+    }
+} else {
+    // Handle the case where $data_divisi is null, e.g., show an error message.
+}
+
 // var_dump($nama_divisi);
 ?>
 

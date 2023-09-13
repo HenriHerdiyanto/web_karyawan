@@ -5,11 +5,18 @@ $data_divisi = getRegistran($link);
 
 $link = "getSOP";
 $output = getRegistran($link);
-var_dump($output);
+// var_dump($output);
 $link2 = "getDivisi";
 $data_divisi = getRegistran($link2);
-$id_divisi = $data_divisi->data[0]->id_divisi;
-$nama_divisi = $data_divisi->data[0]->nama_divisi;
+
+if ($data_divisi !== null && isset($data_divisi->data[0])) {
+    $id_divisi = $data_divisi->data[0]->id_divisi;
+    $nama_divisi = $data_divisi->data[0]->nama_divisi;
+} else {
+    // Handle the case where $data_divisi is null or doesn't contain any data.
+    // You can set default values or show an error message.
+}
+
 // var_dump($nama_divisi);
 
 if (isset($_POST['update'])) {

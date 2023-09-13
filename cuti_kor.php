@@ -4,7 +4,7 @@ $link = "getKaryawanstaff&id_karyawan=" . urlencode($id_kar1);
 $output = getRegistran($link);
 // var_dump($output);
 $link = "getCuti&id_karyawan=" . urlencode($id_kar1);
-$cuti = getRegistran($link);
+$cutiObj = getRegistran($link);
 // var_dump($cuti);
 
 
@@ -58,12 +58,10 @@ if (isset($_POST['cuti'])) {
                     </div>
                     <div align="end" class="col mt-3 mr-3">
                         <?php
-                        if ($sisa_cuti->data[0]->sisa_cuti == 0) { ?>
-                            <!-- Button trigger modal -->
+                        if ($sisa_cuti == '0') { ?>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#habis">
                                 <i class="fas fa-plus"></i> Sisa Cuti
                             </button>
-                            <!-- Modal -->
                             <div class="modal fade" id="habis" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -84,7 +82,7 @@ if (isset($_POST['cuti'])) {
                                     </div>
                                 </div>
                             </div>
-                        <?php } elseif ($cuti == null) { ?>
+                        <?php } elseif (isset($cutiObj->data) && is_array($cutiObj->data) && empty($cutiObj->data)) { ?>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 <i class="fas fa-plus"></i> Add CUTI
                             </button>
@@ -153,11 +151,9 @@ if (isset($_POST['cuti'])) {
                                 </div>
                             </div>
                         <?php } else { ?>
-                            <!-- Button trigger modal -->
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cuti">
                                 <i class="fas fa-plus"></i> Add CUTI
                             </button>
-                            <!-- Modal -->
                             <div class="modal fade" id="cuti" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
@@ -214,16 +210,22 @@ if (isset($_POST['cuti'])) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" name="cuti" class="btn btn-primary">Submit</button>
-                                            </div>
+                                            <?php
+                                            if ($sisa_cuti->data[0]->sisa_cuti == 0) {
+                                            } else { ?>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" name="cuti" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            <?php }
+                                            ?>
                                         </form>
                                     </div>
                                 </div>
                             </div>
+                        <?php }
+                        ?>
 
-                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -242,7 +244,7 @@ if (isset($_POST['cuti'])) {
                         <!-- /.card-header -->
 
                         <div class="card-body">
-                            <?php if ($cuti == NULL) { ?>
+                            <?php if ($cutiObj == NULL) { ?>
                                 <div class="table-responsive">
                                     <table id="example" class="table table-striped table-bordered table-hover" style="width:100%">
                                         <thead>
@@ -285,7 +287,7 @@ if (isset($_POST['cuti'])) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($cuti->data as $key => $array_item) : ?>
+                                            <?php foreach ($cutiObj->data as $key => $array_item) : ?>
                                                 <tr>
                                                     <td><?php echo $key + 1 ?></td>
                                                     <td><?php echo $array_item->nama_lengkap; ?></td>

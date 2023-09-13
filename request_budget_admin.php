@@ -14,8 +14,19 @@ if (isset($_POST['delete'])) {
 }
 $link = "getReqAdmin";
 $output = getRegistran($link);
+
+if ($output !== null) {
+    if (isset($output->data[0]->status)) {
+        $status = $output->data[0]->status;
+    } else {
+        // Handle the case where 'status' is not set in the response data.
+        // You can set a default value or show an error message.
+    }
+} else {
+    // Handle the case where $output is null, e.g., show an error message.
+}
+
 // var_dump($output);
-$status = $output->data[0]->status;
 ?>
 
 

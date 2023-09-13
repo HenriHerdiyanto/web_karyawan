@@ -3,8 +3,19 @@ require_once 'header.php';
 $id = $_GET['id'];
 $link = "getKaryawanByIddivisi&id_divisi=" . urlencode($id);
 $output = getRegistran($link);
-$nama_divisi_kor = $output->data[0]->nama_divisi;
-var_dump($nama_divisi_kor);
+
+if ($output !== null) {
+    if (isset($output->data[0]->nama_divisi)) {
+        $nama_divisi_kor = $output->data[0]->nama_divisi;
+    } else {
+        // Handle the case where 'nama_divisi' is not set in the response data.
+        // You can set a default value or show an error message.
+    }
+} else {
+    // Handle the case where $output is null, e.g., show an error message.
+}
+
+// var_dump($nama_divisi_kor);
 ?>
 
 
